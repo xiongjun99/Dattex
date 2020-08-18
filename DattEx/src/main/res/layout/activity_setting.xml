@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="settingViewModel"
+            type="com.temp.dattex.setting.SettingViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_282C42"
+        android:orientation="vertical">
+
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:leftClick="@{settingViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@string/text_setting"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_4D000000" />
+
+        <com.temp.dattex.widget.SettingItemView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:leftText="切换语言"
+            app:rightText="中文" />
+
+        <com.temp.dattex.widget.SettingItemView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:leftText="清理缓存"
+            app:rightText="0M" />
+
+        <com.temp.dattex.widget.SettingItemView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:leftText="版本更新"
+            app:rightText="更新 V1.03" />
+
+    </LinearLayout>
+</layout>

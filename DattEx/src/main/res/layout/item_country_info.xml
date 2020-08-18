@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="countryName"
+            type="String" />
+
+        <variable
+            name="countryCode"
+            type="String" />
+
+        <variable
+            name="countryViewModel"
+            type="com.temp.dattex.country.CountryViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_country_list_item_line"
+        android:onClick="@{()->countryViewModel.chooseCountryItem(countryName,countryCode)}"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="15dp"
+            android:paddingBottom="17dp"
+            android:text="@{countryName}"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingTop="15dp"
+            android:paddingBottom="17dp"
+            android:text="@{countryCode}"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="16dp" />
+    </RelativeLayout>
+</layout>

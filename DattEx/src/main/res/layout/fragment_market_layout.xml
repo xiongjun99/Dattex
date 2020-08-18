@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="marketViewModel"
+            type="com.temp.dattex.fragments.market.MarketViewModel" />
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_282C42"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:titleText="@string/home_title_price"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/shape_market_line" />
+
+
+        <com.temp.dattex.widget.sort.MarketSortView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:onSortChangeListener="@{marketViewModel}" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:rcvAdapter="@{marketViewModel.adapter}" />
+    </LinearLayout>
+</layout>

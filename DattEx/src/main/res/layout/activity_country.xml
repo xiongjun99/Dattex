@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="countryViewModel"
+            type="com.temp.dattex.country.CountryViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF1A1C29"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <requestFocus />
+
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:leftClick="@{countryViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@string/text_register"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_input_under_line"
+            android:drawableRight="@mipmap/icon_search"
+            android:paddingTop="15dp"
+            android:paddingBottom="17dp"
+            android:textColorHint="@color/color_FF4D5273" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCountryList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+    </LinearLayout>
+</layout>

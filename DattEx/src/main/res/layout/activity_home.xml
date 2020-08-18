@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <variable
+            name="homeViewModel"
+            type="com.temp.dattex.home.HomeViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.ScrollViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/group_button"
+            app:pagerAdapter="@{homeViewModel.pagerAdapter}"
+            app:pagerCurrentItem="@{homeViewModel.currentIndex}"
+            app:pagerTouch="@{homeViewModel.touch}" />
+
+
+        <LinearLayout
+            android:id="@+id/group_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_242738"
+            android:orientation="horizontal"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+
+            <TextView
+                style="@style/Home_Page_Style"
+                android:drawableTop="@drawable/home_page_selector"
+                android:onClick="@{()->homeViewModel.checkBottom(0)}"
+                android:text="@string/home_title_first"
+                app:textSelected="@{homeViewModel.homeState}" />
+
+
+            <TextView
+                style="@style/Home_Page_Style"
+                android:drawableTop="@drawable/home_market_selector"
+                android:onClick="@{()->homeViewModel.checkBottom(1)}"
+                android:text="@string/home_title_price"
+                app:textSelected="@{homeViewModel.marketState}" />
+
+
+            <TextView
+                style="@style/Home_Page_Style"
+                android:drawableTop="@drawable/home_trade_selector"
+                android:onClick="@{()->homeViewModel.checkBottom(2)}"
+                android:text="@string/home_title_trade"
+                app:textSelected="@{homeViewModel.tradeState}" />
+
+
+            <TextView
+                style="@style/Home_Page_Style"
+                android:drawableTop="@drawable/home_my_selector"
+                android:onClick="@{()->homeViewModel.checkBottom(3)}"
+                android:text="@string/home_title_my"
+                app:textSelected="@{homeViewModel.myState}" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

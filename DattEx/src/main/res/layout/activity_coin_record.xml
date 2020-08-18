@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="coinRecordViewModel"
+            type="com.temp.dattex.record.CoinRecordViewModel" />
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF282C42"
+        android:orientation="vertical">
+
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:leftClick="@{coinRecordViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:rightClick="@{coinRecordViewModel}"
+            app:rightIcon="@mipmap/icon_filter"
+            app:titleText="@string/text_order_record"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:listener="@{coinRecordViewModel}"
+            app:srlEnableRefresh="false">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_coin_record"
+                rcvAdapter="@{coinRecordViewModel.adapter}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
+</layout>

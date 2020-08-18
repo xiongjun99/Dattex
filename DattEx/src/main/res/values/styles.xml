@@ -1,0 +1,211 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="BaseAppTheme">
+        <item name="android:windowBackground">@color/color_282C42</item>
+
+    </style>
+
+
+    <style name="SplashTheme" parent="BaseAppTheme">
+        <item name="android:background">@drawable/shape_splash</item>
+    </style>
+
+
+    <style name="klineIndexWidget">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textColor">@drawable/selector_text_color_checked_47b9fd_normal_edeef2
+        </item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="klineTopInfoText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:textColor">@color/color_FFEDEEF2</item>
+        <item name="android:textSize">14dp</item>
+
+    </style>
+
+    <style name="klineTopInfoLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFA3A6BF</item>
+        <item name="android:textSize">14dp</item>
+
+    </style>
+
+    <style name="klineBottomNav">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingTop">22dp</item>
+        <item name="android:paddingBottom">22dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center</item>
+        <item name="background">@drawable/selector_check_box_background_under_line</item>
+        <item name="android:textColor">@drawable/selector_text_color_check_ffffff_normal_767b99
+        </item>
+        <item name="android:textSize">14dp</item>
+
+    </style>
+
+
+    <!-- <EditText
+                   android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/auth_title_name"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp"/>
+                    !-->
+
+    <style name="Auth_EditText_Style">
+        <item name="android:textColor">@color/color_767B99</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/shape_input_buttom_line</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:textColorHint">@color/color_FF4D5273</item>
+    </style>
+
+    <style name="Auth_TextView_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFA3A6BF</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="Copy_TextView_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_4B8BEB</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="White_TextView_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFFFFFFF</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="Red_TextView14_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFDC4D4D</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+    <style name="Red_TextView12_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFDC4D4D</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="Green_TextView12_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FF20BC68</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="Orange_TextView_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFEC891B</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="klineDepthTitleText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/color_FFA3A6BF</item>
+
+    </style>
+
+    <!--     android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/home_market_selector"
+                android:drawablePadding="5dp"
+                android:gravity="center_horizontal"
+                android:text="@string/home_title_price"
+                android:textColor="@color/color_767B99"
+                android:textSize="12dp"-->
+
+    <style name="Home_Page_Style">
+        <item name="android:textColor">@drawable/color_selector</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="DialogFullScreen" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <!-- android:gravity="center_horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rechage_coin"
+                        android:text="充币"
+                        android:textColor="@color/color_FFFFFFFF"
+                       -->
+
+    <style name="MyLoginText_Style">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <!--        <item name="textAllCaps">true</item>-->
+        <!--        <item name="android:textAllCaps">true</item>-->
+        <item name="android:textSize">14dp</item>
+    </style>
+    <!--android:="wrap_content"
+                        android:=""
+                        android:=""
+                        android:=""
+                        android:=""
+                        android:=""
+                        android:=""
+                        android:=""-->
+    <style name="checkBoxHomeRankType">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingTop">22dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingBottom">22dp</item>
+        <item name="android:textColor">@drawable/selector_text_color_check_ffffff_normal_767b99
+        </item>
+        <item name="android:textSize">16dp</item>
+
+    </style>
+
+</resources>

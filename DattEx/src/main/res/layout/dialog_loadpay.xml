@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="WalletPayDialogViewModel"
+            type="com.temp.dattex.util.WalletPayDialogViewModel" />
+    </data>
+
+    <LinearLayout
+        android:background="#282C42"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/encode_view"
+            android:textSize="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="请等待"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:clipChildren="false"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+            </ProgressBar>
+    </LinearLayout>
+</layout>

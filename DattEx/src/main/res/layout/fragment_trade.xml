@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="tradeViewModel"
+            type="com.temp.dattex.fragments.trade.TradeViewModel"/>
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_282C42"
+        android:orientation="vertical">
+
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:titleText="@string/text_trade"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:onClick="@{()->tradeViewModel.switchSymbol()}"
+                android:src="@color/color_FFFFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                android:onClick="@{()->tradeViewModel.switchSymbol()}"
+                android:text="@{tradeViewModel.leftCoin}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:onClick="@{()->tradeViewModel.switchSymbol()}"
+                android:text="/"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:onClick="@{()->tradeViewModel.switchSymbol()}"
+                android:text="@{tradeViewModel.rightCoin}"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="7dp"
+                android:src="@mipmap/icon_arrow_bottom" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{()->tradeViewModel.showKline()}"
+                android:padding="16dp"
+                android:src="@drawable/shape_trade_kline_icon" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/color_1A1C29" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="374dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:orientation="vertical"
+                        android:paddingRight="8dp">
+
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/selector_trade_buy_background"
+                                android:button="@null"
+                                android:checked="@={tradeViewModel.tradeBuy}"
+                                android:gravity="center"
+                                android:text="@string/text_buy"
+                                android:textColor="@color/color_FFFFFFFF"
+                                android:textSize="16dp" />
+
+                            <RadioButton
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="16dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/selector_trade_sell_background"
+                                android:button="@null"
+                                android:checked="@{!tradeViewModel.tradeBuy}"
+                                android:gravity="center"
+                                android:text="@string/text_sell"
+                                android:textColor="@color/color_FFFFFFFF"
+                                android:textSize="16dp" />
+                        </RadioGroup>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_trade_input_border"
+                            android:gravity="center_vertical"
+                            android:onClick="@{()->tradeViewModel.resetLeveraged()}"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="16dp"
+                                android:text="@string/text_leveraged"
+                                android:textColor="@color/color_FF767B99"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|right"
+                                android:text="@{tradeViewModel.leveraged}"
+                                android:textColor="@color/color_FFFFFFFF"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="X"
+                                android:textColor="@color/color_FF767B99"
+                                android:textSize="14dp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:paddingLeft="24dp"
+                                android:paddingRight="11dp"
+                                android:src="@mipmap/icon_arrow_bottom_solid" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_trade_input_border"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="16dp"
+                                android:text="@string/text_total_amount"
+                                android:textColor="@color/color_FF767B99"
+                                android:textSize="14dp" />
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:digits="1234567890."
+                                android:gravity="center_vertical|right"
+                                android:inputType="numberDecimal"
+                                android:lines="1"
+                                android:longClickable="false"
+                                android:maxLength="13"
+                                android:text="@={tradeViewModel.tradeAmount}"
+                                android:textColor="@color/color_FFFFFFFF"
+                                android:textIsSelectable="false"
+                                android:textSize="14dp"
+                                app:afterTextChanged="@{tradeViewModel}" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="8dp"
+                                android:gravity="center"
+                                android:paddingRight="16dp"
+                                android:text="USDT"
+                                android:textColor="@color/color_FF767B99"
+                                android:textSize="14dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="24dp"
+                            android:paddingBottom="11dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="可用："
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{tradeViewModel.availableBalance}"
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{tradeViewModel.rightCoin}"
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_weight="1">
+                            <com.temp.dattex.widget.ProgressBar
+                                android:id="@+id/progressbar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:clipChildren="false"
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                app:onProgressChangeListener="@{tradeViewModel}"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentBottom="true"
+                                android:text='@{String.valueOf(tradeViewModel.positionPercent)}'
+                                android:textColor="@color/color_FF767B99"
+                                android:textSize="10dp" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="35dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_trade_login_background"
+                            android:gravity="center"
+                            android:onClick="@{()->tradeViewModel.placeAnOrder()}"
+                            android:text="@{tradeViewModel.placeAnOrder}"
+                            android:textColor="@color/color_FFFFFFFF"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/text_service_charge"
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{tradeViewModel.serviceCharge}"
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" USDT"
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="vertical"
+                        android:paddingLeft="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/text_price"
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/text_amount"
+                                android:textColor="@color/color_FFA3A6BF"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip">
+                            <TextView
+                                android:text="@{tradeViewModel.aska1}"
+                                android:layout_alignParentLeft="true"
+                                style="@style/Red_TextView12_Style"></TextView>
+
+                            <TextView
+                                android:text="@{tradeViewModel.aska2}"
+                                android:layout_alignParentRight="true"
+                                style="@style/White_TextView_Style"></TextView>
+                        </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.aska3}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Red_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.aska4}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.aska5}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Red_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.aska6}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.aska7}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Red_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.aska8}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.aska9}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Red_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.aska10}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.bids1}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Green_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.bids2}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.bids3}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Green_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.bids4}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.bids5}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Green_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.bids6}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.bids7}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Green_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.bids8}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.bids9}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Green_TextView12_Style"></TextView>
+
+                                <TextView
+                                    android:text="@{tradeViewModel.bids10}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
+                        </LinearLayout>
+<!--                        <com.temp.dattex.widget.TradeDepthView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent" />-->
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/color_1A1C29" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_FF1A1C29"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="16dp"
+                        android:text="@string/text_holder"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->tradeViewModel.showAllOrders()}"
+                        android:padding="16dp"
+                        android:text="@string/text_all"
+                        android:textColor="#ff4b8beb"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_trade_user_hold"
+                    rcvAdapter="@{tradeViewModel.adapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_FF1A1C29"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

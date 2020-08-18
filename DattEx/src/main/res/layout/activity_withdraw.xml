@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="withdrawViewModel"
+            type="com.temp.dattex.withdraw.WithdrawViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_1A1C29"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.temp.dattex.widget.TitleBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                app:leftClick="@{withdrawViewModel}"
+                app:leftIcon="@mipmap/icon_common_back"
+                app:titleTextColor="@color/color_FFFFFFFF" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_usdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_wallet_title_left"
+                    android:button="@null"
+                    android:checked="true"
+                    android:paddingLeft="13dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="13dp"
+                    android:paddingBottom="5dp"
+                    android:text="出售USDT"
+                    android:textColor="@drawable/selector_wallet_title_text" />
+
+                <RadioButton
+                    android:id="@+id/rb_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_wallet_title_right"
+                    android:checked="false"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingLeft="13dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="13dp"
+                    android:paddingBottom="5dp"
+                    android:text="钱包提币"
+                    android:textColor="@drawable/selector_wallet_title_text" />
+            </RadioGroup>
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/color_282C42"
+                    android:id="@+id/ll_address"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_country_back_ground"
+                    android:onClick="@{()->withdrawViewModel.switchCoin()}"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/text_withdraw_coin"
+                        android:textColor="@color/color_FFEDEEF2"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="16dp"
+                        android:text="@{withdrawViewModel.withdrawCoin}"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:paddingLeft="16dp"
+                    android:text="@string/text_withdraw_address"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="12dp" />
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:onClick="@{()->withdrawViewModel.AddwithdrawAddress()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:focusable="false"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/text_withdraw_address_hint"
+                        android:maxLength="100"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:singleLine="true"
+                        android:text="@={withdrawViewModel.withdrawAddress}"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textColorHint="@color/color_4B8BEB" />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:onClick="@{()->withdrawViewModel.scanQrCode()}"
+                        android:paddingTop="5dp"
+                        android:paddingRight="24dp"
+                        android:paddingBottom="5dp"
+                        android:src="@mipmap/icon_scan" />
+                </LinearLayout>
+
+                <View
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_input_buttom_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_select_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:id="@+id/et_address"
+                        android:onClick="@{()->withdrawViewModel.SelectwithdrawAddress()}"
+                        android:layout_marginLeft="12dp"
+                        android:focusable="false"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/select_withdraw_address_hint"
+                        android:maxLength="100"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:text="@={withdrawViewModel.withdrawAddress}"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textColorHint="@color/color_4B8BEB"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_input_buttom_line" />
+                <RelativeLayout
+                    android:layout_marginTop="32dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:text="@string/MayWithdraw"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/balance"
+                        android:text="可提币"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/balance"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(withdrawViewModel.balance)}"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="21dp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:digits="1234567890."
+                        android:inputType="numberDecimal"
+                        android:longClickable="false"
+                        android:maxLength="13"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:singleLine="true"
+                        android:text="@={withdrawViewModel.withdrawAmount}"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textColorHint="@color/color_FF767B99"
+                        android:textIsSelectable="false"
+                        app:afterTextChanged="@{withdrawViewModel}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->withdrawViewModel.withdrawAll()}"
+                        android:text="USDT"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_input_buttom_line" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="@{withdrawViewModel.withdrawCoin}"
+                        android:textColor="@color/color_FF767B99"
+                        android:textSize="12dp" />
+                </LinearLayout>
+        <RelativeLayout
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_service_charge"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{withdrawViewModel.buyRatio}"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_amount"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:text="USDT"
+                        android:layout_alignParentRight="true"
+                        style="@style/Orange_TextView_Style"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="30dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/verification_code"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_weight="8"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_checked_4b8beb"
+                        android:hint="@string/text_input_verification_code"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textColorHint="@color/color_FF767B99"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:gravity="center"
+                        android:text="@string/obtain_code"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/drawable_button_ensure"
+                        style="@style/White_TextView_Style"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:id="@+id/ll_sell_usdt"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:background="@color/color_282C42"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_country_back_ground"
+                    android:onClick="@{()->withdrawViewModel.switchCoin()}"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/text_withdraw_coin"
+                        android:textColor="@color/color_FFEDEEF2"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="16dp"
+                        android:text="@{withdrawViewModel.withdrawCoin}"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:padding="15dp"
+                    android:background="@color/color_FF282C42"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_alignParentLeft="true"
+                        style="@style/Auth_TextView_Style"
+                        android:text="@string/sell_amount" />
+                    <TextView
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/tv_bankaccount"
+                        style="@style/White_TextView_Style"
+                        android:text="加载中..." />
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:background="@drawable/shape_input_buttom_line" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="21dp"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:hint="最低可卖出数量200个"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:digits="1234567890."
+                        android:inputType="numberDecimal"
+                        android:longClickable="false"
+                        android:maxLength="13"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:singleLine="true"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textColorHint="@color/color_FF767B99"
+                        android:textIsSelectable="false"
+                        app:afterTextChanged="@{withdrawViewModel}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->withdrawViewModel.withdrawAll()}"
+                        android:text="USDT"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:background="@drawable/shape_input_buttom_line" />
+                <RelativeLayout
+                    android:padding="15dp"
+                    android:background="@color/color_FF282C42"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_alignParentLeft="true"
+                        style="@style/Auth_TextView_Style"
+                        android:text="@string/current_price" />
+                    <TextView
+                        android:layout_alignParentRight="true"
+                        style="@style/White_TextView_Style"
+                        android:text="@string/Arrival_rate" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:background="@drawable/shape_input_buttom_line" />
+
+                <RelativeLayout
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_amount"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:text="USDT"
+                        android:layout_alignParentRight="true"
+                        style="@style/Orange_TextView_Style"/>
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:background="@drawable/shape_input_buttom_line" />
+            </LinearLayout>
+                <LinearLayout
+                    android:background="@color/color_282C42"
+                    android:layout_margin="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_centerVertical="true"
+                            android:text="@string/Collection_Card"
+                            style="@style/Auth_TextView_Style" />
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:drawableRight="@mipmap/arrow_right"
+                            android:text="加载中"
+                            android:layout_alignParentRight="true"
+                            style="@style/White_TextView_Style"/>
+                    </RelativeLayout>
+                    <View
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:background="@drawable/shape_input_buttom_line" />
+
+                    <RelativeLayout
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/verification_code"
+                            android:textColor="@color/color_FFA3A6BF"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_weight="8"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selector_checked_4b8beb"
+                            android:hint="@string/text_input_verification_code"
+                            android:inputType="phone"
+                            android:maxLength="11"
+                            android:textColor="@color/color_FFFFFFFF"
+                            android:textColorHint="@color/color_FF767B99"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:text="@string/obtain_code"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_weight="2"
+                            android:background="@drawable/drawable_button_ensure"
+                            style="@style/White_TextView_Style"></TextView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

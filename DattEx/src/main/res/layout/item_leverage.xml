@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="tradeViewModel"
+            type="com.temp.dattex.fragments.trade.TradeViewModel" />
+
+        <variable
+            name="laverageBean"
+            type="com.temp.dattex.bean.LeverageBean" />
+    </data>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->tradeViewModel.changeLeverage(laverageBean)}"
+        android:padding="16dp"
+        android:text="@{laverageBean.name}"
+        android:textColor="@color/color_FFFFFFFF">
+
+
+    </TextView>
+</layout>

@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        applicationId rootProject.ext.dattex["applicationId"]
+        versionCode 1
+        versionName "1.0"
+
+        // Enabling multidex support.
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file("../jks/dattex.jks")
+            storePassword "123456"
+            keyAlias "dattex"
+            keyPassword "123456"
+            v2SigningEnabled true
+        }
+        release {
+            storeFile file("../jks/dattex.jks")
+            storePassword "123456"
+            keyAlias "dattex"
+            keyPassword "123456"
+            v2SigningEnabled true
+
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources false
+            debuggable false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [APK_IS_DEBUG_VALUE: false]
+//            ndk {
+//                abiFilters rootProject.ext.abiFilters
+//            }
+        }
+        debug {
+            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources false
+            debuggable true
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [APK_IS_DEBUG_VALUE: true]
+//            ndk {
+//                abiFilters "arm64-v8a"
+//            }
+        }
+        release {
+            initWith debug
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'  // 声明添加libs文件夹为库
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-v4:27.1.0'
+    }}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["adapter_helper"]
+    implementation rootProject.ext.dependencies["smartRefreshLayout"]
+    implementation project(path: ':framework')
+    implementation project(path: ':netframework')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.icechao.klinelib:klinelib:1.1.8'
+    implementation 'com.android.support:design:28.1.0'
+    implementation 'com.github.dongjunkun:BannerLayout:1.0.6'
+    implementation 'com.github.yuzhiqiang1993:zxing:2.0.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    api 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation 'me.relex:circleindicator:2.1.4'
+
+}

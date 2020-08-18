@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="contractModel"
+            type="com.temp.dattex.util.PlaceAnOrderDialogModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialig_switch_symbol_background"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="24dp"
+                android:text="确定要创建合约吗？"
+                android:textColor="#ffedeef2"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:onClick="@{()->contractModel.closeDialog()}"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:src="@mipmap/icon_cross" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:text="可设置止盈止损"
+            android:textColor="#ffa3a6bf"
+            android:textSize="14dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_trade_input_border">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_vertical"
+                android:text="止盈("
+                android:textColor="@color/color_FF20BC68"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@={contractModel.upStopPrice}"
+                android:textColor="@color/color_FF20BC68"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text=")"
+                android:textColor="@color/color_FF20BC68"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/shape_trade_create_sign"
+                android:onClick="@{()->contractModel.upStopPercentSub()}"
+                android:padding="18dp"
+                android:src="@mipmap/icon_down" />
+
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:text="@={contractModel.upStopPercent}"
+                android:textColor="@color/color_FF20BC68"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="4dp"
+                android:text="%"
+                android:textColor="@color/color_767B99"
+                android:textSize="10dp" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/shape_trade_create_sign"
+                android:onClick="@{()->contractModel.upStopPercentPlus()}"
+                android:padding="18dp"
+                android:src="@mipmap/icon_up" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_trade_input_border">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_vertical"
+                android:text="止损("
+                android:textColor="@color/color_FFDC4D4D"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@={contractModel.downStopPrice}"
+                android:textColor="@color/color_FFDC4D4D"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text=")"
+                android:textColor="@color/color_FFDC4D4D"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/shape_trade_create_sign"
+                android:onClick="@{()->contractModel.downStopPercentSub()}"
+                android:padding="18dp"
+                android:src="@mipmap/icon_down" />
+
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:text="@={contractModel.downStopPercent}"
+                android:textColor="@color/color_FFDC4D4D"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="4dp"
+                android:text="%"
+                android:textColor="@color/color_767B99"
+                android:textSize="10dp" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/shape_trade_create_sign"
+                android:onClick="@{()->contractModel.downStopPercentPlus()}"
+                android:padding="18dp"
+                android:src="@mipmap/icon_up" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->contractModel.closeDialog()}"
+                android:padding="16dp"
+                android:text="取消"
+                android:textColor="@color/color_FF4D5273"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->contractModel.ensureOrder()}"
+                android:padding="16dp"
+                android:text="确定"
+                android:textColor="@color/color_FF4B8BEB"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

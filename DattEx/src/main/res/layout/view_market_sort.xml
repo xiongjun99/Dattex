@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="marketSortViewModel"
+            type="com.temp.dattex.widget.sort.MarketSortViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/market_assets"
+            android:textColor="@color/color_FFA3A6BF"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="124dp"
+            android:drawablePadding="4dp"
+            android:onClick="@{()->marketSortViewModel.priceSort()}"
+            android:text="@string/market_latest_price"
+            android:textColor="@color/color_FFA3A6BF"
+            android:textSize="12dp"
+            app:imgResource="@{marketSortViewModel.sortPriceImageResource}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:drawablePadding="4dp"
+            android:gravity="right|center_vertical"
+            android:onClick="@{()->marketSortViewModel.changeSort()}"
+            android:text="@string/market_up_down"
+            android:textColor="@color/color_FFA3A6BF"
+            android:textSize="12dp"
+            app:imgResource="@{marketSortViewModel.sortChangeImageResource}" />
+    </RelativeLayout>
+</layout>

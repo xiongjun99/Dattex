@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="authViewModle"
+            type="com.temp.dattex.auth.AuthViewModel" />
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF1A1C29"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:leftIcon="@mipmap/icon_common_back"
+
+            app:titleText="@string/text_title_auth"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+        <RelativeLayout
+            android:onClick="@{()->authViewModle.countrySelected()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_country_back_ground"
+            android:orientation="horizontal">
+
+            <TextView
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:text="@string/auth_text_countries_regions"
+                android:textColor="@color/color_FFEDEEF2"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@+id/iv_right"
+                android:gravity="end|center_vertical"
+                android:text="@{authViewModle.country}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:src="@mipmap/icon_white_arrow_right" />
+
+        </RelativeLayout>
+
+        <!-- 中国-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:visibility="@{authViewModle.countyType?View.VISIBLE:View.GONE}">
+
+            <TextView
+                style="@style/Auth_TextView_Style"
+                android:text="@string/auth_title_name" />
+
+            <EditText
+                style="@style/Auth_EditText_Style"
+                android:layout_marginTop="12dp"
+                android:hint="@string/auth_input_name"
+                android:text="@={authViewModle.name}"
+                />
+
+            <TextView
+                style="@style/Auth_TextView_Style"
+                android:layout_marginTop="24dp"
+                android:text="@string/auth_title_id_num" />
+
+            <EditText
+                style="@style/Auth_EditText_Style"
+                android:layout_marginTop="12dp"
+                android:hint="@string/auth_input_id_num"
+                android:text="@={authViewModle.id}"
+                 />
+        </LinearLayout>
+
+
+        <!-- 其他国家-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:visibility="@{authViewModle.countyType?View.GONE:View.VISIBLE}">
+
+            <TextView
+                style="@style/Auth_TextView_Style"
+                android:text="@string/auth_result_id_type" />
+
+            <RelativeLayout
+                android:onClick="@{()->authViewModle.popDown()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="13dp"
+                    android:text="@string/auth_other_type"
+                    android:textColor="@color/color_FF4D5273"
+                    android:textSize="16sp" />
+
+
+                <Button
+
+                    android:padding="10dp"
+                    app:selected="@{authViewModle.btState}"
+                    android:layout_width="8dp"
+                    android:layout_height="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/selector_triangle" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="@drawable/shape_input_buttom_line" />
+
+
+            <TextView
+                style="@style/Auth_TextView_Style"
+                android:layout_marginTop="24dp"
+                android:text="@string/auth_result_num" />
+
+            <EditText
+                style="@style/Auth_EditText_Style"
+                android:layout_marginTop="12dp"
+                android:hint="@string/auth_input_id_num"
+                android:text="@={authViewModle.orderCountyId}"
+                 />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/Auth_TextView_Style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/auth_country_name"
+
+                    />
+
+                <TextView
+                    style="@style/Auth_TextView_Style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/auth_country_surnam" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    style="@style/Auth_EditText_Style"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/auth_input_country_name"
+                    android:text="@={authViewModle.orderCountyName}"
+                     />
+
+                <EditText
+                    style="@style/Auth_EditText_Style"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/auth_input_name"
+                    android:text="@={authViewModle.orderCountrySurname}"
+                   />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+
+                android:onClick="@{()->authViewModle.commit()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="44dp"
+                android:background="@drawable/selector_button_width"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="@string/auth_commit"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

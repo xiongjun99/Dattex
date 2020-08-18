@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="authViewModel"
+            type="com.temp.dattex.auth.AuthViewModel" />
+
+    </data>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:text="身份证"
+        android:textColor="@color/color_FFFFFFFF"
+        android:textSize="14dp">
+
+    </TextView>
+</layout>

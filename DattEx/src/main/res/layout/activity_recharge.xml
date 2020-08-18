@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="rechargeViewModel"
+            type="com.temp.dattex.recharge.RechargeViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF282C42"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:leftClick="@{rechargeViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:rightClick="@{rechargeViewModel}"
+            app:rightIcon="@mipmap/icon_coin_history"
+            app:titleText="@string/text_recharge"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_country_back_ground"
+                    android:onClick="@{()->rechargeViewModel.switchCoin()}"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/text_recharge_coin"
+                        android:textColor="@color/color_FFEDEEF2"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="16dp"
+                        android:text="@{rechargeViewModel.rechargeCoin}"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/layer_list_recharge_qr_background"
+                    android:padding="14dp"
+                    app:src="@{rechargeViewModel.qrBitmap}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/layer_list_recharge_qr_save_background"
+                    android:onClick="@{()->rechargeViewModel.saveImage()}"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="11dp"
+                    android:paddingRight="25dp"
+                    android:paddingBottom="11dp"
+                    android:text="@string/text_save_qr_code"
+                    android:textColor="@color/color_4B8BEB"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="@{rechargeViewModel.address}"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="14dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/layer_list_recharge_qr_copy_background"
+                    android:gravity="center"
+                    android:onClick="@{()->rechargeViewModel.copyAddress()}"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/text_copy_address"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/layer_list_withdraw_tips_background"
+                    android:gravity="left|center_vertical"
+                    android:lineSpacingExtra="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="8dp"
+                    android:text="@{rechargeViewModel.tips}"
+                    android:textColor="@color/color_FF767B99"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

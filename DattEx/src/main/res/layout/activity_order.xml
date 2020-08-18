@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="orderViewModel"
+            type="com.temp.dattex.order.OrderViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF282C42"
+        android:orientation="vertical">
+
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:leftClick="@{orderViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@string/title_order"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/color_4B8BEB"
+            app:tabIndicatorFullWidth="false"
+            app:tabPaddingBottom="13dp"
+            app:tabPaddingTop="13dp"
+            app:tabSelectedTextColor="@color/color_FFFFFFFF"
+            app:tabTextAppearance="@style/MyCustomTextAppearance"
+            app:tabTextColor="@color/color_767B99" />
+
+        <com.temp.dattex.widget.ScrollViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_1A1C29"
+            app:pagerAdapter="@{orderViewModel.pagerAdapter}"
+            app:pagerTouch="@{orderViewModel.touch}" />
+
+    </LinearLayout>
+</layout>

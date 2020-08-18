@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/color_1A1C29"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.temp.dattex.widget.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_wallet_title_left"
+                android:button="@null"
+                android:checked="false"
+                android:onClick="@{()->withdrawViewModel.SellUSDT()}"
+                android:paddingLeft="13dp"
+                android:paddingTop="5dp"
+                android:paddingRight="13dp"
+                android:paddingBottom="5dp"
+                android:text="暂未开通"
+                android:textColor="@drawable/selector_wallet_title_text" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_wallet_title_right"
+                android:checked="true"
+                android:button="@null"
+                android:gravity="center"
+                android:onClick="@{()->withdrawViewModel.AddressTakeOut()}"
+                android:paddingLeft="13dp"
+                android:paddingTop="5dp"
+                android:paddingRight="13dp"
+                android:paddingBottom="5dp"
+                android:text="BTC地址"
+                android:textColor="@drawable/selector_wallet_title_text" />
+        </RadioGroup>
+
+    </RelativeLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_above="@+id/tv_bottom"
+           android:id="@+id/recycler_view"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+       </androidx.recyclerview.widget.RecyclerView>
+       
+       <TextView
+           android:gravity="center"
+           android:textSize="18dp"
+           android:textColor="@color/encode_view"
+           android:text="@string/add"
+           android:background="@drawable/selector_checked_4b8beb"
+           android:id="@+id/tv_bottom"
+           android:layout_alignParentBottom="true"
+           android:paddingTop="17dp"
+           android:paddingBottom="17dp"
+           android:layout_margin="16dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"></TextView>
+   </RelativeLayout>
+</LinearLayout>

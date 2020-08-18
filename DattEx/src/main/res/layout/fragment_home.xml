@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.temp.dattex.net.ApiAddress" />
+
+        <variable
+            name="homeViewModel"
+            type="com.temp.dattex.fragments.home.HomePageViewModel" />
+    </data>
+
+    <com.icechao.klinelib.view.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_282C42"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.yyydjk.library.BannerLayout
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:autoPlayDuration="5000"
+                    app:indicatorMargin="10dp"
+                    app:indicatorPosition="centerBottom"
+                    app:indicatorShape="rect"
+                    app:indicatorSpace="3dp"
+                    app:layout_constraintDimensionRatio="1:0.64"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:scrollDuration="1100"
+                    app:selectedIndicatorColor="@color/color_FFFFFFFF"
+                    app:selectedIndicatorHeight="2dp"
+                    app:selectedIndicatorWidth="6dp"
+                    app:unSelectedIndicatorColor="#99ffffff"
+                    app:unSelectedIndicatorHeight="2dp"
+                    app:unSelectedIndicatorWidth="6dp" />
+
+                <ImageView
+                    android:id="@+id/iv_ip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:src="@mipmap/icon_home_right"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:src="@mipmap/icon_notice" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:onClick="@{()->homeViewModel.openWebView(ApiAddress.NOTICE_DETAIL_URL)}"
+                    android:text="这里是公告内是公告内告内容…"
+                    android:textColor="@color/color_FFEDEEF2"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05-15"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="14dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/color_FF1B1E2E" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->homeViewModel.openWebView(ApiAddress.NOTICE_LIST_URL)}"
+                    android:paddingTop="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="16dp"
+                    android:src="@mipmap/icon_notice_more" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/color_4D000000" />
+
+
+            <RelativeLayout
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+                <androidx.viewpager.widget.ViewPager
+                    android:layout_above="@+id/indicator"
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                </androidx.viewpager.widget.ViewPager>
+                <me.relex.circleindicator.CircleIndicator
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/indicator"
+                    app:ci_drawable="@drawable/white_radius"
+                    app:ci_drawable_unselected="@drawable/white_radius"
+                    app:ci_animator="@animator/scale_with_alpha"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/color_1A1C29" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_weight="1"
+                    android:onClick="@{()->homeViewModel.openWebView(ApiAddress.HELP_CENTER_URL)}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_help_center"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/text_help_desc"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/icon_help_center" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:background="@color/color_4D000000" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_weight="1"
+                    android:onClick="@{()->homeViewModel.openWebView(ApiAddress.NEWS_NOTICE_URL)}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_news"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/text_news_desc"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/icon_news" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/color_1A1C29" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    style="@style/checkBoxHomeRankType"
+                    android:onClick="@{homeViewModel::checkUpRank}"
+                    android:text="@string/text_up_rank" />
+
+                <RadioButton
+                    style="@style/checkBoxHomeRankType"
+                    android:onClick="@{homeViewModel::checkDownRank}"
+                    android:text="@string/text_down_rank" />
+
+                <RadioButton
+                    style="@style/checkBoxHomeRankType"
+                    android:onClick="@{homeViewModel::checkDealRank}"
+                    android:text="@string/text_deal_rank" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="@color/color_99000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:rcvAdapter="@{homeViewModel.adapter}" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.icechao.klinelib.view.ScrollView>
+</layout>

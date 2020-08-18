@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="orderBean"
+            type="com.temp.dattex.bean.OrdersBean.OrderItemBean" />
+
+        <variable
+            name="orderItemViewModel"
+            type="com.temp.dattex.order.OrderItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_item_trade_user_hold_background"
+        android:orientation="vertical"
+        android:paddingBottom="15dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@{orderBean.coinSymbol}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" / "
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{orderBean.baseSymbol}"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <TextView
+                selected="@{orderBean.direction == 0}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/selector_trade_item_trade_type"
+                android:paddingLeft="8dp"
+                android:paddingTop="3dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="3dp"
+                android:text="@{orderBean.direction == 0? @string/text_buy : @string/text_sell }"
+                android:textColor="#ffffffff"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@{orderBean.quitTime}"
+                android:textColor="@color/color_767B99"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="@color/color_994D5273" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="11dp"
+            android:paddingBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/text_benjin"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{String.valueOf(orderBean.price)}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="11dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="手续费："
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{String.valueOf(orderBean.fee)}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="11dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="杠杆："
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{String.valueOf(orderBean.lever)}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="11dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_open_price"
+                android:textColor="#ffa3a6bf"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_yingkui"
+                android:textColor="#ffa3a6bf"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text_current_price"
+                android:textColor="#ffa3a6bf"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{String.valueOf(orderBean.buyMarketPrice)}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{String.valueOf(orderBean.profit)}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{String.valueOf(orderBean.currentPrice)}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginTop="13dp"
+            android:background="@color/color_994D5273" />
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="14dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="止盈止损："
+                android:textColor="#ffa3a6bf"
+                android:textSize="11dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text='@{(orderBean.stopProfitRates*100) + "%" + (orderBean.stopProfitRates*100) + "%"}'
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="11dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_trade_item_setting"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:text="设置"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="11dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_trade_item_close"
+                android:onClick="@{()->orderItemViewModel.cover(orderBean.id)}"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:text="@string/text_place_postion"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="11dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

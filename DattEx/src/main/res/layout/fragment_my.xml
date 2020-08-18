@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="myViewModel"
+            type="com.temp.dattex.fragments.my.MyViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_1A1C29"
+        android:orientation="vertical">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:background="@mipmap/icon_my_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_my_heard"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp">
+
+                    <ImageView
+                        android:id="@+id/head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_unlogin_head" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:layout_toEndOf="@+id/head"
+                        android:text="@{myViewModel.account}"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textSize="20dp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/shape_name_auth"
+                        android:drawableEnd="@mipmap/icon_arrow_right"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->myViewModel.nameAuth()}"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/text_name_auth"
+                        android:textColor="@color/color_FFFFFFFF"
+                        android:textSize="12dp"
+                        android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
+                        tools:ignore="RelativeOverlap" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="19dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/my_login_pay"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp"
+                        android:visibility="@{myViewModel.isLogin?View.GONE:View.VISIBLE}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="15dp"
+                        android:drawableStart="@mipmap/icon_bill"
+                        android:drawablePadding="3dp"
+                        android:text="@string/text_bill"
+                        android:textColor="@color/color_4B8BEB"
+                        android:textSize="12dp"
+                        android:onClick="@{()->myViewModel.coinRecord()}"
+                        android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="0.000000"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="24dp" />
+
+                <!-- 未登录按钮 -->
+                <TextView
+                    style="@style/MyLoginText_Style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/shape_my_login"
+                    android:onClick="@{()->myViewModel.login()}"
+                    android:text="@string/immediately_login"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:visibility="@{myViewModel.isLogin?View.GONE:View.VISIBLE}" />
+
+                <!-- 登录状态-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="horizontal"
+                    android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}">
+
+
+                    <com.temp.dattex.widget.LeftDrawableView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:onClick="@{()->myViewModel.recharge()}"
+                        app:leftBackground="@drawable/shape_rechage_coin"
+                        app:leftContent="@string/text_recharge"
+                        app:leftContentColor="@color/color_FFFFFFFF"
+                        app:leftContentICon="@mipmap/icon_white_down" />
+
+
+                    <com.temp.dattex.widget.LeftDrawableView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:onClick="@{()->myViewModel.withdraw()}"
+                        app:leftBackground="@drawable/shape_bring_coin"
+                        app:leftContent="@string/text_withdraw"
+                        app:leftContentColor="@color/color_4B8BEB"
+                        app:leftContentICon="@mipmap/icon_blue_top" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/shape_my_heard"
+            android:orientation="vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+
+
+            <com.temp.dattex.widget.RightView
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:onClick="@{()->myViewModel.order()}"
+                app:arrowIcon="@mipmap/icon_arrow_right"
+                app:contentColor="@color/color_FFFFFFFF"
+                app:contentIcon="@mipmap/icon_order"
+                app:lineVisible="true"
+                app:titleContent="@string/text_my_order" />
+
+            <com.temp.dattex.widget.RightView
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:onClick="@{()->myViewModel.invited()}"
+                app:arrowIcon="@mipmap/icon_arrow_right"
+                app:contentColor="@color/color_FFFFFFFF"
+                app:contentIcon="@mipmap/icon_invitation"
+                app:lineVisible="true"
+                app:titleContent="@string/title_my_invitation" />
+
+            <com.temp.dattex.widget.RightView
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:onClick="@{()->myViewModel.safeCenter()}"
+                app:arrowIcon="@mipmap/icon_arrow_right"
+                app:contentColor="@color/color_FFFFFFFF"
+                app:contentIcon="@mipmap/icon_save"
+                app:lineVisible="true"
+                app:titleContent="@string/title_set_save" />
+
+            <com.temp.dattex.widget.RightView
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:onClick="@{()->myViewModel.helpCenter()}"
+                app:arrowIcon="@mipmap/icon_arrow_right"
+                app:contentColor="@color/color_FFFFFFFF"
+                app:contentIcon="@mipmap/icon_help"
+                app:lineVisible="true"
+                app:titleContent="@string/title_help_center" />
+
+            <com.temp.dattex.widget.RightView
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:onClick="@{()->myViewModel.customerService()}"
+                app:arrowIcon="@mipmap/icon_arrow_right"
+                app:contentColor="@color/color_FFFFFFFF"
+                app:contentIcon="@mipmap/icon_customer"
+                app:lineVisible="true"
+                app:titleContent="@string/title_online_customer" />
+
+            <com.temp.dattex.widget.RightView
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:onClick="@{()->myViewModel.setting()}"
+                app:arrowIcon="@mipmap/icon_arrow_right"
+                app:contentColor="@color/color_FFFFFFFF"
+                app:contentIcon="@mipmap/icon_setting"
+                app:lineVisible="false"
+                app:titleContent="@string/title_system_setting" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/shape_my_heard"
+        android:orientation="vertical"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+        <TextView
+            android:id="@+id/tv_exit"
+            android:textSize="14dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_gravity="center"
+            android:text="@string/exit_login"
+            style="@style/White_TextView_Style"></TextView>
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+    </LinearLayout>
+
+
+</layout>

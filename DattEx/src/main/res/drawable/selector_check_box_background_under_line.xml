@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="true">
+        <layer-list>
+            <item android:height="2dp" android:gravity="bottom" android:left="20dp" android:right="20dp">
+                <shape android:shape="rectangle">
+                    <gradient android:angle="90" android:endColor="#ff5b70fc" android:startColor="#ff47bafc" android:type="linear" android:useLevel="true" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    
+
+</selector>

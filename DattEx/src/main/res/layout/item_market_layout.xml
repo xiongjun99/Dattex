@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="symbol"
+            type="com.temp.dattex.bean.SymbolConfigBean" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="140dp"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:singleLine="true"
+                android:text='@{String.format("%.0"+ symbol.baseCoinScale+"f",symbol.close)}'
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:minWidth="120dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="2dp"
+                    android:text="¥"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="2dp"
+                    android:singleLine="true"
+                    android:text='@{symbol.cnyPrice}'
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="14dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_default_bt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@{symbol.coinSymbol.toUpperCase()}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="/ "
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@{symbol.baseSymbol.toUpperCase()}"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:background="@{(symbol.changes==0)?@drawable/shape_market_item_normal:symbol.changes>0?@drawable/shape_market_item_green : @drawable/shape_market_item_red}"
+            android:paddingLeft="12dp"
+            android:paddingTop="8dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="8dp"
+            android:text='@{String.format("%.02f",symbol.changes) + "%"}'
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="12dp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_market_item_line" />
+    </RelativeLayout>
+
+</layout>

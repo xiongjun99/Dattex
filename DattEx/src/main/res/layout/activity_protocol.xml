@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="protocolViewModel"
+            type="com.temp.dattex.protocol.ProtocolViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF1A1C29"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_protocol_title_background"
+            android:focusableInTouchMode="true"
+            app:leftClick="@{protocolViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@string/text_protocol"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:text="用户服务协议"
+            android:textColor="#ffffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:text="这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。
+
+这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。
+
+这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。
+
+这里是用户服务协议的内容这里是用户服务协议的，内容这里是用户，服务协议的内容这里是用户服务协议的内容。这里是用户服务协议的内容这里是用户服务协议的。"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="14sp" />
+    </LinearLayout>
+</layout>

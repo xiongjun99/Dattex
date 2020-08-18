@@ -1,0 +1,5 @@
+rootProject.name='exchane-project'
+include ':DattEx'
+include ':framework'
+include ':netframework'
+include ':utilslib'

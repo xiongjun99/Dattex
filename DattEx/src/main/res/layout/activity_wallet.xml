@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+        <variable
+            name="walletModel"
+            type="com.temp.dattex.wallet.WalletModel" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/color_1A1C29"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.temp.dattex.widget.TitleBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                app:leftClick="@{walletModel}"
+                app:leftIcon="@mipmap/icon_common_back"
+                app:titleTextColor="@color/color_FFFFFFFF" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:checked="true"
+                    android:id="@+id/rb_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_wallet_title_left"
+                    android:onClick="@{()->walletModel.buy()}"
+                    android:button="@null"
+                    android:paddingLeft="13dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="13dp"
+                    android:paddingBottom="5dp"
+                    android:text="购买USDT"
+                    android:textColor="@drawable/selector_wallet_title_text" />
+
+                <RadioButton
+                    android:checked="false"
+                    android:id="@+id/rb_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_wallet_title_right"
+                    android:onClick="@{()->walletModel.recharge()}"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingLeft="13dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="13dp"
+                    android:paddingBottom="5dp"
+                    android:text="钱包充币"
+                    android:textColor="@drawable/selector_wallet_title_text" />
+            </RadioGroup>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:onClick="@{()->walletModel.rightClick()}"
+                android:text="购买记录"
+                android:textColor="@color/color_FFEDEEF2"
+                android:textSize="12dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_99000000" />
+
+        <LinearLayout
+            android:background="@color/color_282C42"
+            android:visibility="@{walletModel.showOtc? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/line"
+                android:onClick="@{()->walletModel.popDown()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_country_back_ground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:includeFontPadding="false"
+                    android:padding="8dp"
+                    android:text="@{walletModel.exchangeType}"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:paddingTop="13dp"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="16dp"
+                    android:onClick="@{()->walletModel.popDown()}"
+                    android:src="@mipmap/arrow_bottom" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:text="买入金额"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp">
+
+                <EditText
+                    app:addTextChangedListener="@{walletModel.textWatcher}"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="支付宝单笔最低100元，最高50000"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    android:text="@={walletModel.balance}"
+                    android:textColor="@color/color_FF767B99"
+                    android:textColorHint="@color/color_FF767B99"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    android:text="元"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="12dp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/color_FF4D5273" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前USDT买入价："
+                    android:textColor="@color/color_FF767B99"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{walletModel.price}"
+                    android:textColor="@color/color_FFEDEEF2"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到账率："
+                    android:textColor="@color/color_FF767B99"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textColor="@color/color_FF767B99"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_otc_quick"
+                    android:gravity="center"
+                    android:onClick="@{()->walletModel.changeBalance(1000f)}"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="1000"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_otc_quick"
+                    android:gravity="center"
+                    android:onClick="@{()->walletModel.changeBalance(5000f)}"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="5000"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_otc_quick"
+                    android:gravity="center"
+                    android:onClick="@{()->walletModel.changeBalance(10000f)}"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="10000"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_otc_quick"
+                    android:gravity="center"
+                    android:onClick="@{()->walletModel.changeBalance(200000f)}"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="20000"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_otc_quick"
+                    android:gravity="center"
+                    android:onClick="@{()->walletModel.changeBalance(500000f)}"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="50000"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="到账数量"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{walletModel.amount}"
+                    android:textColor="@color/color_FFEC891B"
+                    android:textSize="14dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="USDT"
+                    android:textColor="@color/color_FFEC891B"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/color_FF4D5273" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:text="付款方式"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+
+            <LinearLayout
+                android:id="@+id/pay"
+                android:onClick="@{()->walletModel.PayPopDown()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_trade_input_border"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:includeFontPadding="false"
+                    android:padding="8dp"
+                    android:text="@{walletModel.payForType}"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:paddingTop="13dp"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="16dp"
+                    android:onClick="@{()->walletModel.changePayForType()}"
+                    android:src="@mipmap/arrow_bottom" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:text="推荐使用 银行股卡转账，更快、更稳定、更大额！"
+                android:textColor="@color/color_FFEDEEF2"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="行情火爆，勾币人数过多，商家应接不暇"
+                android:textColor="@color/color_FFEC891B"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="支付宝转账如无法支付，请用银行卡转账"
+                android:textColor="@color/color_FFEC891B"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="20dp"
+                android:text="请提前做好勾币准备，以免影响您的交易"
+                android:textColor="@color/color_FFEC891B"
+                android:textSize="10sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/color_1A1C29"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@{walletModel.buyDrawable}"
+                    android:gravity="center"
+                    android:onClick="@{()->walletModel.ensureOrder()}"
+                    android:padding="12dp"
+                    android:text="确定买入"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{walletModel.showOtc? View.GONE : View.VISIBLE}">
+          <LinearLayout
+           android:background="@color/color_282C42"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_country_back_ground"
+                android:onClick="@{()->walletModel.switchCoin()}"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:text="@string/text_recharge_coin"
+                    android:textColor="@color/color_FFEDEEF2"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="16dp"
+                    android:text="@{walletModel.rechargeCoin}"
+                    android:textColor="@color/color_FFFFFFFF"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/layer_list_recharge_qr_background"
+                android:padding="14dp"
+                app:src="@{walletModel.qrBitmap}" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/layer_list_recharge_qr_save_background"
+                android:onClick="@{()->walletModel.saveImage()}"
+                android:paddingLeft="25dp"
+                android:paddingTop="11dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="11dp"
+                android:text="@string/text_save_qr_code"
+                android:textColor="@color/color_4B8BEB"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:lines="1"
+                android:text="@{walletModel.address}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="14dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/drawable_button_ensure"
+                android:gravity="center"
+                android:onClick="@{()->walletModel.copyAddress()}"
+                android:paddingLeft="12dp"
+                android:paddingTop="6dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="6dp"
+                android:text="@string/text_copy_address"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                style="@style/Orange_TextView_Style"
+                android:text="上述地址只支持USDT-XXXX充币\n最小充币100USDT（小于无法到账）">
+
+            </TextView>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/layer_list_withdraw_tips_background"
+                android:gravity="left|center_vertical"
+                android:lineSpacingExtra="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:text="@{walletModel.tips}"
+                android:textColor="@color/color_FF767B99"
+                android:textSize="12dp" />
+</LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:paddingBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/color_282C42"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/Current_Activities"
+                        style="@style/Auth_TextView_Style"></TextView>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_gravity="center_horizontal"
+                            android:text="首次充币 10 USDT"
+                            style="@style/Auth_TextView_Style" ></TextView>
+                        <TextView
+                            android:layout_gravity="center_horizontal"
+                            android:text="送 1 USDT"
+                            style="@style/White_TextView_Style" ></TextView>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_FFA3A6BF" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_gravity="center_horizontal"
+                            android:text="首次充币 100 USDT"
+                            style="@style/Auth_TextView_Style" ></TextView>
+                        <TextView
+                            android:layout_gravity="center_horizontal"
+                            android:text="送 58 USDT"
+                            style="@style/White_TextView_Style" ></TextView>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:padding="16dp"
+                android:text="@string/wallet_Tips"
+                style="@style/Auth_TextView_Style"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

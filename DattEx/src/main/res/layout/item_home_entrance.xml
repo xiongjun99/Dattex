@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/color_282C42"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_currencytype"
+                android:layout_gravity="center_horizontal"
+                android:text="-"
+                style="@style/White_TextView_Style">
+            </TextView>
+            <TextView
+                android:textSize="18dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/tv_currentindex"
+                android:layout_gravity="center_horizontal"
+                android:text="-"
+                style="@style/White_TextView_Style">
+            </TextView>
+            <TextView
+                android:layout_marginTop="3dp"
+                android:id="@+id/tv_percentage"
+                android:layout_gravity="center_horizontal"
+                android:text="-"
+                style="@style/White_TextView_Style">
+            </TextView>
+            <TextView
+                android:layout_marginTop="3dp"
+                android:id="@+id/tv_cny"
+                android:layout_gravity="center_horizontal"
+                android:text="-"
+                style="@style/Auth_TextView_Style">
+            </TextView>
+
+</LinearLayout>

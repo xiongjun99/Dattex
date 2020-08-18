@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="registerStepTwoModel"
+            type="com.temp.dattex.register.RegisterStepTwoViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF1A1C29"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:leftClick="@{registerStepTwoModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@string/text_register"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_login_input_area"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:src="@mipmap/icon_login_pwd" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/text_password_limit"
+                android:inputType="textWebPassword"
+                android:lines="1"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@={registerStepTwoModel.passWord}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textColorHint="@color/color_FF767B99"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_login_input_area"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:src="@mipmap/icon_login_pwd" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/text_input_pass_word_repeat"
+                android:inputType="textWebPassword"
+                android:lines="1"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@={registerStepTwoModel.passWordRepeat}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textColorHint="@color/color_FF767B99"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/selector_button_width"
+            android:gravity="center"
+            android:onClick="@{()->registerStepTwoModel.nextStep()}"
+            android:padding="15dp"
+            android:text="@string/text_next_step"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+</layout>

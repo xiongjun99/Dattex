@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="safeViewModel"
+            type="com.temp.dattex.safe.SafeViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_282C42"
+        android:orientation="vertical">
+
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:leftClick="@{safeViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@string/text_safe"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_4D000000" />
+
+        <com.temp.dattex.widget.SettingItemView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="@{()->safeViewModel.resetPassword()}"
+            app:leftText="修改密码"
+            app:rightText="" />
+
+        <!--        <com.temp.dattex.widget.SettingItemView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            app:leftText="资金密码"-->
+        <!--            app:rightText="未设置" />-->
+
+    </LinearLayout>
+</layout>

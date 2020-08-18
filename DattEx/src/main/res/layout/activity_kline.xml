@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.temp.dattex.kline.KlineViewModel.BottomNav" />
+
+        <import type="android.view.View" />
+
+        <variable
+
+            name="klineViewModel"
+            type="com.temp.dattex.kline.KlineViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF282C42"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            app:leftClick="@{klineViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@{klineViewModel.titleText}"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/text_view_kline_real_time_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{klineViewModel.realTimePrice}"
+                    android:textColor="@{klineViewModel.change == 0? @color/color_FFA3A6BF : (klineViewModel.change  > 0? @color/color_FF20BC68 :  @color/color_FFDC4D4D)}"
+                    android:textSize="24dp" />
+
+
+                <TextView
+                    android:id="@+id/text_view_kline_real_time_price_cny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_view_kline_real_time_price"
+                    android:layout_marginTop="8dp"
+                    android:text="@{klineViewModel.realPriceCny}"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/text_view_kline_real_time_price_cny"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/text_view_kline_real_time_price_cny"
+                    android:text='@{String.format("%.02f",klineViewModel.change) + "%"}'
+                    android:textColor="@{klineViewModel.change == 0? @color/color_FFA3A6BF : (klineViewModel.change  > 0? @color/color_FF20BC68 :  @color/color_FFDC4D4D)}"
+                    android:textSize="14dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_view_kline_real_time_price"
+                    android:layout_marginTop="8dp"
+                    android:text="@{klineViewModel.realPriceCny}"
+                    android:textColor="@color/color_FFA3A6BF"
+                    android:textSize="14dp" />
+
+            </RelativeLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <TableRow android:paddingBottom="2dp">
+
+                    <TextView
+                        style="@style/klineTopInfoLabel"
+                        android:text="@string/text_kline_high" />
+
+                    <TextView
+                        style="@style/klineTopInfoText"
+                        android:text="@{klineViewModel.high}" />
+
+                </TableRow>
+
+                <TableRow
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        style="@style/klineTopInfoLabel"
+                        android:text="@string/text_kline_low" />
+
+                    <TextView
+                        style="@style/klineTopInfoText"
+                        android:text="@{klineViewModel.low}" />
+
+                </TableRow>
+
+                <TableRow android:paddingTop="2dp">
+
+                    <TextView
+                        style="@style/klineTopInfoLabel"
+                        android:text="@string/text_24h" />
+
+                    <TextView
+                        style="@style/klineTopInfoText"
+                        android:text="@{klineViewModel.vol}" />
+
+                </TableRow>
+            </TableLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/color_1A1C29" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            style="@style/klineIndexWidget"
+                            android:checked="true"
+                            android:onClick="@{()->klineViewModel.oneMinKline()}"
+                            android:text="@string/text_one_minutes" />
+
+                        <RadioButton
+                            style="@style/klineIndexWidget"
+                            android:onClick="@{()->klineViewModel.fiveMinKline()}"
+                            android:text="@string/text_five_minutes" />
+
+                        <RadioButton
+                            style="@style/klineIndexWidget"
+                            android:onClick="@{()->klineViewModel.oneHourKline()}"
+                            android:text="@string/text_one_hour" />
+
+                        <RadioButton
+                            style="@style/klineIndexWidget"
+                            android:onClick="@{()->klineViewModel.oneDayKline()}"
+                            android:text="@string/text_one_day" />
+                    </RadioGroup>
+
+                    <CheckBox
+                        style="@style/klineIndexWidget"
+                        android:onClick="@{()->klineViewModel.showMoreSetting()}"
+                        android:text="@string/text_more" />
+                </LinearLayout>
+        <com.icechao.klinelib.view.ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="27dp">
+                <com.icechao.klinelib.view.KLineChartView
+                    android:id="@+id/kline_chart_view"
+                    dateFormatter="@{klineViewModel.dateTimeFormatter}"
+                    valueFormatter="@{klineViewModel.valueFormatter}"
+                    volValueFormatter="@{klineViewModel.volValueFormatter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="415dp"
+                    app:adapter="@{klineViewModel.adapter}"
+                    app:decreaseColor="@color/color_FFDC4D4D"
+                    app:increaseColor="@color/color_03C087"
+                    app:ma1Color="@color/color_FFF3D991"
+                    app:ma2Color="@color/color_FF5FCEBD"
+                    app:ma3Color="@color/color_FFC08AF1"
+                    app:paddingTop="20dp"
+                    app:textColor="@color/color_FF767B99"
+                    app:volLengendColor="@color/color_FF6D87A8" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@color/color_1A1C29" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_kline_bottom_nav_background"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        style="@style/klineBottomNav"
+                        android:onClick="@{()->klineViewModel.bottomNavSet(BottomNav.DEPTH)}"
+                        android:text="@string/text_depth" />
+
+                    <RadioButton
+                        style="@style/klineBottomNav"
+                        android:onClick="@{()->klineViewModel.bottomNavSet(BottomNav.DEAL)}"
+                        android:text="@string/text_deal" />
+
+                    <RadioButton
+                        style="@style/klineBottomNav"
+                        android:onClick="@{()->klineViewModel.bottomNavSet(BottomNav.INTRO)}"
+                        android:text="@string/text_intro" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="@{klineViewModel.bottomNav == BottomNav.DEPTH? View.VISIBLE : View.GONE}">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp">
+
+                        <View
+                            android:layout_width="6dp"
+                            android:layout_height="6dp"
+                            android:background="@color/color_03C087" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
+                            android:text="@string/text_bid"
+                            android:textColor="@color/color_FF767B99"
+                            android:textSize="10dp" />
+
+                        <View
+                            android:layout_width="6dp"
+                            android:layout_height="6dp"
+                            android:layout_marginLeft="16dp"
+                            android:background="@color/color_FFDC4D4D" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
+                            android:text="@string/text_offer"
+                            android:textColor="@color/color_FF767B99"
+                            android:textSize="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="16dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="@string/text_amount" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="(" />
+
+                            <TextView
+
+                                style="@style/klineDepthTitleText"
+                                android:text="@{klineViewModel.leftCoin}" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text=")" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.2"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="@string/text_price" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="(" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="@{klineViewModel.rightCoin}" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text=")" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="@string/text_total" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="(" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text="@{klineViewModel.leftCoin}" />
+
+                            <TextView
+                                style="@style/klineDepthTitleText"
+                                android:text=")" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="@{klineViewModel.bottomNav == BottomNav.DEAL? View.VISIBLE : View.GONE}">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="@string/text_time"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/text_direction"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/text_price"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="("
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{klineViewModel.rightCoin}"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=")"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/text_amount"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="("
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{klineViewModel.leftCoin}"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=")"
+                        android:textColor="@color/color_FFA3A6BF"
+                        android:textSize="12dp" />
+
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_kline_bottom_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:visibility="@{klineViewModel.bottomNav == BottomNav.INTRO? View.GONE : View.VISIBLE}" />
+
+                <include
+                    layout="@layout/view_kline_coin_intro"
+                    android:visibility="@{klineViewModel.bottomNav == BottomNav.INTRO? View.VISIBLE : View.GONE}" />
+            </LinearLayout>
+        </com.icechao.klinelib.view.ScrollView>
+    </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="registerStepOneViewModel"
+            type="com.temp.dattex.register.RegisterStepOneViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_FF1A1C29"
+        android:orientation="vertical">
+
+        <com.temp.dattex.widget.TitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:leftClick="@{registerStepOneViewModel}"
+            app:leftIcon="@mipmap/icon_common_back"
+            app:titleText="@string/text_register"
+            app:titleTextColor="@color/color_FFFFFFFF" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_country_back_ground"
+            android:onClick="@{()->registerStepOneViewModel.chooseCountry()}"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/text_area"
+                android:textColor="#ffa3a6bf"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:text="@{registerStepOneViewModel.countryName}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/icon_white_arrow_right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_login_input_area"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:src="@mipmap/icon_login_phone" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:hint="@string/text_input_phone_number"
+                android:inputType="phone"
+                android:lines="1"
+                android:maxLength="11"
+                android:text="@={registerStepOneViewModel.userName}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textColorHint="@color/color_FF767B99"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_login_input_area"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:src="@mipmap/icon_phone_code" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="0123456789"
+                android:hint="@string/text_input_phone_code"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="6"
+                android:singleLine="true"
+                android:text="@={registerStepOneViewModel.phoneCode}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textColorHint="@color/color_FF767B99"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:onClick="@{()->registerStepOneViewModel.sendPhoneCode()}"
+                android:text="@{registerStepOneViewModel.sendCodeText}"
+                android:textColor="@color/color_FF47B9FD"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_login_input_area"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:src="@mipmap/icon_invited_code" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:hint="@string/text_input_invited_code"
+                android:lines="1"
+                android:maxLength="8"
+                android:text="@={registerStepOneViewModel.inviteCode}"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textColorHint="@color/color_FF767B99"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/selector_button_width"
+            android:gravity="center"
+            android:onClick="@{()->registerStepOneViewModel.nextStep()}"
+            android:padding="15dp"
+            android:text="@string/text_next_step"
+            android:textColor="@color/color_FFFFFFFF"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->registerStepOneViewModel.changeProtocolCheck()}"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:button="@drawable/selector_register_protocol"
+                android:checked="@={registerStepOneViewModel.protocolChecked}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_has_read"
+                android:textColor="@color/color_FFA3A6BF"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->registerStepOneViewModel.openProtocol()}"
+                android:text="@string/text_protocol"
+                android:textColor="@color/color_FF4B8BEB"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>
