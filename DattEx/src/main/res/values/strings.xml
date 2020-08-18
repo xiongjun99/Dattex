@@ -98,6 +98,7 @@
 
     <string name="exit_login">退出登录</string>
     <string name="text_pay_mode">请使用“网银”“手机银行”给以下用户转账</string>
+
     <string name="RealName">真实姓名</string>
     <string name="copy">复制</string>
     <string name="openbank">开户银行</string>

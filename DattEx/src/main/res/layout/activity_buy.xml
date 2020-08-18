@@ -96,11 +96,12 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_title_info"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal"
         style="@style/Auth_TextView_Style"
-        android:text="@string/text_pay_mode" />
+         />
     <LinearLayout
         android:id="@+id/ll_bank_info"
         android:orientation="vertical"

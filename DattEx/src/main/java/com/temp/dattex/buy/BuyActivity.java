@@ -40,6 +40,8 @@ public class BuyActivity extends Activity {
     private int dialogType = 0;
     private int payType = 0;
     private TextView tvBankaccountCopy,tvOpenbankCopy,tvAccountCopy,tvPayeeCopy,tvSafetyCopy;
+    private TextView tvTitleInfo;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class BuyActivity extends Activity {
         tvAccountCopy = (TextView) findViewById(R.id.tv_account_copy);
         tvPayeeCopy = (TextView) findViewById(R.id.tv_payeecopy);
         tvSafetyCopy = (TextView) findViewById(R.id.tv_safety_copy);
+        tvTitleInfo = (TextView) findViewById(R.id.tv_title_info);
         rlTransferAccounts.setOnClickListener(view -> {
             dialogType = 0;
             showBuyDialog();
@@ -87,9 +90,11 @@ public class BuyActivity extends Activity {
             showBuyDialog();
         });
         if (payType==0){
+            tvTitleInfo.setText(this.getResources().getString(R.string.text_pay_mode));
             llBankInfo.setVisibility(View.VISIBLE);
             llOther.setVisibility(View.GONE);
         }else {
+            tvTitleInfo.setText("");
             llBankInfo.setVisibility(View.GONE);
             llOther.setVisibility(View.VISIBLE);
         }
