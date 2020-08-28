@@ -39,7 +39,6 @@ import java.io.Serializable;
  *************************************************************************/
 public class SymbolConfigBean extends BaseObservable implements Serializable {
 
-
     /**
      * symbol : BTC/USDT
      * baseCoinScale : 8

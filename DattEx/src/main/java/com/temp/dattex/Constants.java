@@ -49,6 +49,7 @@ public class Constants {
     public static final String REQUEST_KEY_AREACODE = "areaCode";
     public static final String REQUEST_KEY_CODE = "code";
 
+    public static final String SENDTYPE = "sendType";
 
     public static final int INDEX_ZEO = 0;
 
@@ -72,6 +73,8 @@ public class Constants {
 
     public static final String REQUEST_KEY_SYMBOL = "symbol";
     public static final String BTCUSDT = "btcusdt";
+    public static final String REQUEST_KEY_ID = "id";
+
 
     public static final String REQUEST_KEY_STOP_PROFIT_RATES = "stopProfitRates";
     public static final String REQUEST_KEY_STOP_LOSS_RATES = "stopLossRates";
@@ -81,6 +84,8 @@ public class Constants {
     public static final String REQUEST_KEY_DIR = "dir";
     public static final String REQUEST_KEY_PAGE = "page";
     public static final String REQUEST_KEY_SIZE = "size";
+    public static final String REQUEST_KEY_STATE = "state";
+
     public static final String REQUEST_KEY_SORT = "sort";
     public static final String REQUEST_KEY_ID_ENTITY_CARD = "identityCard";
     public static final String REQUEST_KEY_REAL_NAME = "realName";
@@ -91,5 +96,10 @@ public class Constants {
     public static final String REQUEST_KEY_CURRENCY = "currency";
     public static final String REQUEST_KEY_MONEY = "money";
     public static final String REQUEST_KEY_PAYTYPE = "payType";
+
+
+    public static final String REQUEST_APPLYID = "applyId";
+    public static final String REQUEST_SUBSCRIBEQTY = "subscribeQty";
+    public static final String REQUEST_VALIDCODE = "validCode";
 
 }

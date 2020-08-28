@@ -1,5 +1,6 @@
 package com.temp.dattex.fragments.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +11,33 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.common.framework.basic.BaseApplication;
+import com.exchange.utilslib.ToastUtil;
+import com.independ.framework.response.ResponseTransformer;
+import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.EntranceAdapter;
 import com.temp.dattex.bean.HomeViewPagerBean;
+import com.temp.dattex.bean.MarketListBean;
+import com.temp.dattex.kline.KlineActivity;
+import com.temp.dattex.net.DataService;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeViewPagerFragment extends Fragment {
-    private String processStatus;
-    ArrayList<HomeViewPagerBean> homeEntrances = new ArrayList<>();;
+    private int processStatus;
+    List<MarketListBean> list = new ArrayList<>();;
     EntranceAdapter entranceAdapter;
     RecyclerView recyclerView;
-    public HomeViewPagerFragment(String processStatus) {
+    private Timer timer;
+
+    public HomeViewPagerFragment(int processStatus) {
         this.processStatus = processStatus;
     }
     @Override
@@ -36,24 +53,63 @@ public class HomeViewPagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LinearLayout.LayoutParams layoutParams12 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-         recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutParams(layoutParams12);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
-        entranceAdapter = new EntranceAdapter(homeEntrances);
+        entranceAdapter = new EntranceAdapter(list);
         recyclerView.setAdapter(entranceAdapter);
         initData(processStatus);
+        entranceAdapter.setOnItemClickListener((adapter, view1, position) -> {
+            Intent it = new Intent(getActivity(),KlineActivity.class);
+            it.putExtra(Constants.REQUEST_KEY_COIN_ID,  entranceAdapter.getData().get(position).getCoinId());
+            startActivity(it);
+        });
     }
-    private void initData(String processStatus) {
-        if (processStatus.equals("0")){
-            homeEntrances.add(new HomeViewPagerBean("BTC/USDT", "100.00","+5.32%","600.01"));
-            homeEntrances.add(new HomeViewPagerBean("ETH/USDT", "286.00","-1.32%","1300.01"));
-            homeEntrances.add(new HomeViewPagerBean("HT/USDT", "398.00","-0.32%","120.00"));
-            entranceAdapter.notifyDataSetChanged();
-        } else {
-            homeEntrances.add(new HomeViewPagerBean("CNY/USDT", "323.00","+2.32%","510.00"));
-            homeEntrances.add(new HomeViewPagerBean("UPC/USDT", "112.00","+1.32%","888.00"));
-            homeEntrances.add(new HomeViewPagerBean("WWE/USDT", "31.00","-0.42%","1999.00"));
-            entranceAdapter.notifyDataSetChanged();
+    private void initData(int processStatus) {
+        getMarketList();
+//        if (processStatus==0){
+//            homeEntrances.add(new HomeViewPagerBean("BTC/USDT", "100.00","+5.32%","600.01"));
+//            homeEntrances.add(new HomeViewPagerBean("ETH/USDT", "286.00","-1.32%","1300.01"));
+//            homeEntrances.add(new HomeViewPagerBean("HT/USDT", "398.00","-0.32%","120.00"));
+//            entranceAdapter.notifyDataSetChanged();
+//        } else {
+//            homeEntrances.add(new HomeViewPagerBean("CNY/USDT", "323.00","+2.32%","510.00"));
+//            homeEntrances.add(new HomeViewPagerBean("UPC/USDT", "112.00","+1.32%","888.00"));
+//            homeEntrances.add(new HomeViewPagerBean("WWE/USDT", "31.00","-0.42%","1999.00"));
+//            entranceAdapter.notifyDataSetChanged();
+//        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getMarketList();
+            }
+        }, 30000, 30000);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (null != timer) {
+            timer.cancel();
+            timer = null;
         }
+    }
+    private void getMarketList() {
+        DataService.getInstance().getMarketList().compose(ResponseTransformer.<List<MarketListBean>>handleResult()).subscribe(
+                l -> {
+                    list = l;
+                    if (entranceAdapter.getData()==null||entranceAdapter.getData().size()==0){
+                        entranceAdapter.addData(l);
+                    }else {
+                        entranceAdapter.setNewData(l);
+                    }
+
+                }, t -> {
+                    ToastUtil.show(BaseApplication.getInstance(), t.getMessage());}
+        );
     }
 }

@@ -2,6 +2,7 @@ package com.temp.dattex.order;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.common.framework.basic.BaseActivity;
 import com.temp.dattex.BR;
@@ -44,6 +45,10 @@ public class OrderActivity extends BaseActivity<ActivityOrderBinding, OrderViewM
         binding.tb.setupWithViewPager(binding.pager);
     }
 
+    @Override
+    public void initView() {
+        super.initView();
+    }
 
     @Override
     public boolean needLogin() {

@@ -9,6 +9,7 @@
     <string name="text_register_now">立即注册</string>
     <string name="text_input_phone_number">请输入手机号</string>
     <string name="text_input_verification_code">请输入验证码</string>
+    <string name="text_input_number">请输入数量</string>
     <string name="text_area">地区</string>
     <string name="text_has_read">我已经阅读并确认</string>
     <string name="text_protocol">《 DattEx 用户服务协议》</string>
@@ -22,8 +23,12 @@
     <string name="text_title_auth">身份验证</string>
     <string name="Recharge_Info">充值详情</string>
     <string name="Add_Address">添加提币地址</string>
+    <string name="PayType">支付方式</string>
+    <string name="AddPayType">添加收款方</string>
+    <string name="About_Symbol">≈</string>
+    <string name="CNY">CNY</string>
 
-
+    <string name="newApply">新币申购、增发申购</string>
     <string name="text_null"></string>
     <string name="text_input_new_password">请输入新的密码</string>
     <string name="text_done">完成</string>
@@ -32,6 +37,10 @@
     <string name="text_regist_fail">注册失败</string>
     <string name="auth_input_name">请输入您的姓名</string>
     <string name="auth_input_id_num">请输入您的身份证号</string>
+    <string name="auth_input_bankcard">请输入您的银行卡号</string>
+    <string name="auth_input_bankname">请输入开户行名称</string>
+    <string name="auth_input_pay_account">请输入支付接收账号</string>
+
     <string name="auth_title_id_num">身份证</string>
     <string name="auth_title_name">姓名</string>
     <string name="auth_commit">提交</string>
@@ -63,15 +72,19 @@
     <string name="text_trade">交易</string>
     <string name="text_buy">买入</string>
     <string name="text_sell">卖出</string>
+    <string name="text_short">做空</string>
+    <string name="text_buy_more">做多</string>
     <string name="home_title_my">我的</string>
     <string name="home_title_trade">交易</string>
     <string name="home_title_price">行情</string>
     <string name="home_title_first">首页</string>
-
+    <string name="xxx">&#160;&#160;</string>
     <string name="sell_amount">卖出数量</string>
-    <string name="current_price">当前USDT卖出价</string>
-    <string name="Arrival_rate">到账率</string>
+    <string name="current_price">当前USDT卖出价:</string>
+    <string name="Arrival_rate">到账率：100%</string>
     <string name="Current_Activities">限时活动</string>
+    <string name="Confirm_Sell">确定卖出</string>
+
 
     <string name="my_login_pay">登录查看我的资产</string>
     <string name="immediately_login">立即登录</string>
@@ -81,6 +94,7 @@
     <string name="title_help_center">帮助中心</string>
     <string name="title_online_customer">在线客服</string>
     <string name="title_system_setting">系统设置</string>
+    <string name="text_cover_time">平仓时间: &#160;</string>
 
     <string name="usdt_price">USDT单价</string>
     <string name="buy_num">购买数量</string>
@@ -93,6 +107,8 @@
     <string name="TransferAccountsPrice">转账金额:</string>
     <string name="MayWithdraw">提币数量</string>
     <string name="add">+ 添加</string>
+    <string name="addPayType">+ 添加支付方式</string>
+
     <string name="Yes">是</string>
     <string name="No">否</string>
 
@@ -118,7 +134,7 @@
     <string name="input_usdt_withdraw_address">请输入USDT提币地址</string>
     <string name="address_name">请输入地址名称</string>
 
-    <string name="Collection_Card">收款卡</string>
+    <string name="Collection_Card">收款方式</string>
 
     <string name="wallet_Tips">温馨提示: \n 1.请勿向上述地址充值任何非USDT资产，否则无法找回。 \n 2.您充值至上述地址后，需2个网络确认后方可到账。 \n 3.每次充值前请务必到本页面复制地址，以防地址更新导致充币失败。</string>
 
@@ -161,6 +177,7 @@
     <string name="text_withdraw_address_hint">+ 添加提币地址</string>
     <string name="select_withdraw_address_hint">选择提币地址</string>
     <string name="remarks">备注名称</string>
+    <string name="select">请选择</string>
 
     <string name="text_recharge_coin">充币币种</string>
     <string name="text_save_qr_code">保存二维码</string>
@@ -189,4 +206,13 @@
     <string name="text_order_record">账单明细</string>
     <string name="text_safe">安全设置</string>
     <string name="text_setting">系统设置</string>
+
+
+    <string name="apply_unitPrice">申购单价</string>
+    <string name="apply_number">申购数量</string>
+    <string name="apply_TotalPrice">申购总价</string>
+
+    <string name="apply_coinId">币种</string>
+    <string name="USDT">USDT</string>
+
 </resources>

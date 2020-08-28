@@ -91,9 +91,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            >
-
-            <LinearLayout
+        >
+       <LinearLayout
                 android:id="@+id/line"
                 android:onClick="@{()->walletModel.popDown()}"
                 android:layout_width="match_parent"
@@ -323,6 +322,7 @@
                     android:textColor="@color/color_FFEC891B"
                     android:textSize="14dp" />
                 <TextView
+                    android:layout_marginLeft="@dimen/dp_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="USDT"
@@ -551,7 +551,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 style="@style/Orange_TextView_Style"
-                android:text="上述地址只支持USDT-XXXX充币\n最小充币100USDT（小于无法到账）">
+                android:text="上述地址只支持USDT-ERC20充币\n最小充币100USDT（小于无法到账）">
 
             </TextView>
 

@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.databinding.BindingAdapter;
+
 import com.exchange.utilslib.DisplayUtil;
 import com.temp.dattex.R;
 
@@ -24,7 +26,7 @@ import java.util.List;
 public class ProgressBar extends LinearLayout {
 
     private float progressLineHeight = 20f;
-    private int pointCount = 0;
+    private int pointCount = 4;
     private float viewHeight;
     private float viewWidth;
     private float progressCircleRadius = 30;
@@ -32,6 +34,7 @@ public class ProgressBar extends LinearLayout {
     private float progressEndRadius = 25;
     private int progress = 0;
     private List<Integer> list = new ArrayList<>();
+
 
     public List<Integer> getList() {
         return list;
@@ -108,7 +111,6 @@ public class ProgressBar extends LinearLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         float canvasHalfHeight = viewHeight / 2;
         float halfHeight = (progressLineHeight / 2);
         int sc = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), null, Canvas.ALL_SAVE_FLAG);
@@ -127,7 +129,8 @@ public class ProgressBar extends LinearLayout {
 
         sc = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), null, Canvas.ALL_SAVE_FLAG);
 
-        float progressRight = getPaddingLeft() + progressCircleRadius + viewWidth / list.get(getPointCount()) * progress;
+        float progressRight = getPaddingLeft() + progressCircleRadius + viewWidth / 100f * progress;
+
         canvas.drawRoundRect(new RectF(getPaddingLeft() + progressCircleRadius, canvasHalfHeight - halfHeight, progressRight, canvasHalfHeight + halfHeight), halfHeight, halfHeight, progressPaint);
 
         for (int i = 0; i <= getPointCount(); i++) {
@@ -157,7 +160,7 @@ public class ProgressBar extends LinearLayout {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                int progress = (int) (event.getX() * list.get(getPointCount()) / viewWidth);
+                int progress = (int) (event.getX() * 100 / viewWidth);
                 int diffNum = Math.abs(list.get(0) - progress);
                 int result = list.get(0);
                 for (Integer integer : list)
@@ -182,9 +185,9 @@ public class ProgressBar extends LinearLayout {
         if (progress != this.progress) {
             if (progress < 0) {
                 this.progress = 0;
-            } else this.progress = Math.min(progress, list.get(getPointCount()));
+            } else this.progress = Math.min(progress, 100);
             if (null != onProgressChangeListener) {
-                onProgressChangeListener.onProgressChanged(this.progress);
+                onProgressChangeListener.onProgressChanged(progress);
             }
         }
     }

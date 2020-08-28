@@ -14,6 +14,7 @@ import com.common.framework.basic.AppManager;
 import com.common.framework.basic.BaseActivity;
 import com.common.framework.basic.BaseApplication;
 import com.exchange.utilslib.SPUtil;
+import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.client.RetrofitClient;
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.config.SymbolConfigs;
@@ -73,8 +74,8 @@ public class Application extends BaseApplication implements SPUtil.SpClearListen
 
                 }
         );
-        WebSocket.getInstance().init(ApiAddress.WEB_SOCKET_URL);
-//      CrashReport.initCrashReport(this, "177e35b69c", true);
+      WebSocket.getInstance().init(ApiAddress.WEB_SOCKET_URL);
+//    CrashReport.initCrashReport(this, "177e35b69c", true);
     }
 
     public HashMap<String, Object> createRequestParams() {

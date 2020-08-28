@@ -81,6 +81,7 @@ public class OrdersBean implements Serializable {
     }
 
     public static class OrderItemBean {
+
         /**
          * baseSymbol : string
          * buyMarketPrice : 0
@@ -104,7 +105,7 @@ public class OrdersBean implements Serializable {
          * symbol : string
          * upordownType : 0
          */
-
+        private String contractType;
         private String baseSymbol;
         private float buyMarketPrice;
         private String buyTime;
@@ -117,6 +118,7 @@ public class OrdersBean implements Serializable {
         private float lever;
         private int memberId;
         private float price;
+        private float marketPrice;
         private int profitType;
         private String quitTime;
         private int state;
@@ -126,7 +128,31 @@ public class OrdersBean implements Serializable {
         private float stopProfitRates;
         private String symbol;
         private int upordownType;
+        private float finalAmount;
 
+        public float getFinalAmount() {
+            return finalAmount;
+        }
+
+        public void setFinalAmount(float finalAmount) {
+            this.finalAmount = finalAmount;
+        }
+
+
+        public float getMarketPrice() {
+            return marketPrice;
+        }
+
+        public void setMarketPrice(float marketPrice) {
+            this.marketPrice = marketPrice;
+        }
+        public String getContractType() {
+            return contractType;
+        }
+
+        public void setContractType(String contractType) {
+            this.contractType = contractType;
+        }
         public String getCurrentPrice() {
             SymbolConfigBean symbol = SymbolConfigs.getInstance().getSymbol(coinSymbol.toUpperCase() + "/" + baseSymbol);
             return String.format("%.0" + symbol.getCoinScale() + "f", symbol.getClose());

@@ -20,13 +20,18 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.bean.AssetsBean;
+import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.WithdrawLimitBean;
 import com.temp.dattex.binding.adapter.EditTextBinding;
 import com.temp.dattex.binding.adapter.TitleBarClickBindingAdapter;
 import com.temp.dattex.config.AssetsConfigs;
+import com.temp.dattex.config.SymbolConfigs;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.record.CoinRecordActivity;
+import com.temp.dattex.util.Utils;
 import com.yzq.zxinglibrary.common.Constant;
+
+import java.util.List;
 
 /*************************************************************************
  * Description   :
@@ -68,17 +73,75 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     public MutableLiveData scanLiveData = new MutableLiveData();
     private ObservableField<Float> balance = new ObservableField<>(0f);
     private ObservableField<String> withdrawAmount = new ObservableField<>("");
-    private ObservableField<String> withdrawCoin = new ObservableField<>("USDT");
+    private ObservableField<String> withdrawCoin = new ObservableField<>("");
     private ObservableField<String> realGetAmount = new ObservableField<>("");
     private ObservableField<String> serviceCharge = new ObservableField<>("");
     private ObservableField<String> withdrawAddress = new ObservableField<>("");
     private ObservableField<String> minWithdraw = new ObservableField<>("0.01");
 
     private ObservableField<String> buyRatio = new ObservableField<>("");
+    private ObservableField<String> exchangeType = new ObservableField<>("");
+
+    private ObservableField<String> sellnumber = new ObservableField<>("");
 
     private ObservableField<String> tips = new ObservableField<>("• 请勿向上述地址充值任何非USDT资产，否则资产将不可找回。\n" +
             "• 您充值至上述地址后，需要整个网络节点的确认，2次网络确认后到账，6次网络确认后可提币。\n" +
             "• 最小充值金额： " + minWithdraw.get() + " " + withdrawCoin + "，小于最小金额的充值将不会上账。");
+    private ObservableField<String> price = new ObservableField<>("");
+    private ObservableField<String> accountPrice = new ObservableField<>("");
+    public ObservableField<List<OTCcfgBean>> otc = new ObservableField<>();
+    private ObservableField<String> payType = new ObservableField<>("请选择");
+
+    public ObservableField<String> getNumber() {
+        return number;
+    }
+
+    public void setNumber(ObservableField<String> number) {
+        this.number = number;
+    }
+
+    private ObservableField<String> number = new ObservableField<>("");
+
+    public ObservableField<String> getPayType() {
+        return payType;
+    }
+
+    public void setPayType(ObservableField<String> payType) {
+        this.payType = payType;
+    }
+
+    public ObservableField<List<OTCcfgBean>> getOtc() {
+        return otc;
+    }
+
+    public void setOtc(ObservableField<List<OTCcfgBean>> otc) {
+        this.otc = otc;
+    }
+    public ObservableField<String> getSellnumber() {
+        return sellnumber;
+    }
+
+    public void setSellnumber(ObservableField<String> sellnumber) {
+        this.sellnumber = sellnumber;
+    }
+
+
+    public ObservableField<String> getAccountPrice() {
+        return accountPrice;
+    }
+
+    public void setAccountPrice(ObservableField<String> accountPrice) {
+        this.accountPrice = accountPrice;
+    }
+
+
+    public ObservableField<String> getPrice() {
+        return price;
+    }
+
+    public void setPrice(ObservableField<String> price) {
+        this.price = price;
+    }
 
     public ObservableField<String> getBuyRatio() {
         return buyRatio;
@@ -103,7 +166,13 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     public void setWithdrawAmount(ObservableField<String> withdrawAmount) {
         this.withdrawAmount = withdrawAmount;
     }
+    public ObservableField<String> getExchangeType() {
+        return exchangeType;
+    }
 
+    public void setExchangeType(ObservableField<String> exchangeType) {
+        this.exchangeType = exchangeType;
+    }
     public ObservableField<String> getWithdrawCoin() {
         return withdrawCoin;
     }
@@ -201,12 +270,13 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
             serviceCharge.set(String.valueOf(v));
         }
     }
-
     @SingleClick
-    public void switchCoin() {
-
+    public void Confirm_Sell() {
+        if (Integer.valueOf(number.get())<200){
+            number.set("");
+            return;
+        }
     }
-
     @SingleClick
     public void scanQrCode() {
         scanLiveData.postValue(null);
@@ -247,6 +317,10 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     @Override
     public void afterTextChanged(EditText view, String s) {
         view.setSelection(s.length());
+        number.set(s);
+        if (!TextUtils.isEmpty(s.toString())){
+            accountPrice.set(String.valueOf(Utils.keepTwo(Float.valueOf(s.toString())*Float.valueOf(price.get()))));
+        }
     }
 
 
@@ -266,6 +340,8 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     @Override
     public void onCreate() {
         super.onCreate();
+        sellnumber.set("可卖："+AssetsConfigs.getInstance().getCoinInfo("USDT").getBalance()+" USDT");
+        getOtcData();
 //        DataService.getInstance().withdrawLimit(withdrawCoin.get()).compose(ResponseTransformer.<WithdrawLimitBean>handleResult()).subscribe(
 //                bean -> {
 //                    if (bean.getAllowOut()) {
@@ -282,5 +358,20 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
 //        if (null != coinInfo && !TextUtils.isEmpty(coinInfo.getBalance())) {
 //            balance.set(Float.parseFloat(coinInfo.getBalance()));
 //        }
+    }
+    @SuppressLint("CheckResult")
+    private void getOtcData() {
+        DataService.getInstance().getOtcCfg().compose(ResponseTransformer.handleResult()).subscribe(
+                b -> {
+                    if(b!=null && b.size() != 0){
+                        exchangeType.set(b.get(0).getCurrency());
+                        price.set(""+b.get(0).getSellRatio());
+                        otc.set(b);
+                    }else {
+                        ToastUtil.show(getApplication(),"获取OTC配置失败");
+                        finish();
+                    }
+                }, t -> {
+                });
     }
 }

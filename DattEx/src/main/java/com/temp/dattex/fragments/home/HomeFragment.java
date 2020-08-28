@@ -1,5 +1,6 @@
 package com.temp.dattex.fragments.home;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,23 +10,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.common.framework.basic.BaseFragment;
 import com.independ.framework.client.RetrofitClient;
-import com.temp.dattex.Application;
 import com.temp.dattex.BR;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.PagerAdapter;
-import com.temp.dattex.config.SymbolConfigs;
+import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.databinding.FragmentHomeBinding;
-import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.util.Utils;
+import com.temp.dattex.widget.imageloader.GlideImageLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 import me.relex.circleindicator.CircleIndicator;
 
 /*************************************************************************
@@ -59,8 +59,9 @@ import me.relex.circleindicator.CircleIndicator;
  *************************************************************************/
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageViewModel> {
 
-    private ViewPager view_pager;
-    private PagerAdapter mAdapter;
+    private ViewPager view_pager,functionViewPager;
+    private PagerAdapter mAdapter,functionAdapter;
+    private List<FuncListBean.AndroidBean> listBeans = new ArrayList<>();
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return R.layout.fragment_home;
@@ -83,64 +84,112 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 
     @Override
     public void initView() {
+        initData();
         initViews();
     }
+
+    @SuppressLint("CheckResult")
+    private void initData() {
+//        functionViewPager = getActivity().findViewById(R.id.function_view_pager);
+//        ArrayList<Fragment> functionList = new ArrayList<>();
+//        functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
+//        functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
+//        CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
+//        indicator2.setViewPager(functionViewPager);
+//        int j =0;
+//        for (int i = 0; i < 3; i++) {
+//            if(i%2==0){
+//                j++;
+//                functionList.add(new HomeFunctionFragment(j-1));
+//                functionViewPager.setAdapter(functionAdapter);
+//                functionAdapter.notifyDataSetChanged();
+//            }
+//        }
+
+
+//        showLoading(getActivity(),false);
+//        DataService.getInstance().getFuncList().compose(ResponseTransformer.<FuncListBean>handleResult()).subscribe(
+//                b -> {
+//                    dismissLoading();
+//                    listBeans = b.getAndroid();
+//                    for (int i = 0; i < listBeans.size(); i++) {
+//                        if(4%2==0){
+//                            if (i >0 ){
+//                                System.out.println("-----yesaa"+(i-1));
+//                            }else {
+//                                System.out.println("-----yesbb"+i);
+//                            }
+//                        }else {
+//                            System.out.println("-----ccccc"+i);
+//                        }
+//                    }
+//                }, t -> {
+//                    dismissLoading();
+//                    ToastUtil.show(getActivity(),t.getMessage());
+//                });
+    }
+
     private void initViews() {
-        //初始化ViewPager
         ArrayList<Fragment> list = new ArrayList<>();
-        list.add(new HomeViewPagerFragment("0"));
-        list.add(new HomeViewPagerFragment("1"));
+        list.add(new HomeViewPagerFragment(0));
+//        list.add(new HomeViewPagerFragment(1));
         view_pager = getActivity().findViewById(R.id.view_pager);
         mAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), list);
         view_pager.setAdapter(mAdapter);
         view_pager.setCurrentItem(0);  //初始化显示第一个页面
         CircleIndicator indicator = (CircleIndicator)getActivity(). findViewById(R.id.indicator);
         indicator.setViewPager(view_pager);
-
-       ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
-       iv_ip.setOnClickListener(view -> {
-           showDialog();
+        //初始化ViewPager
+        ArrayList<Fragment> functionList = new ArrayList<>();
+        functionList.add(new HomeFunctionFragment(0));
+        functionList.add(new HomeFunctionFragment(1));
+        functionViewPager = getActivity().findViewById(R.id.function_view_pager);
+        functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
+        functionViewPager.setAdapter(functionAdapter);
+        functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
+        CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
+        indicator2.setViewPager(functionViewPager);
+        ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
+        iv_ip.setOnClickListener(view -> {
        });
-    }
-
-    public  void showDialog() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_ipadress,null,false);
-        final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
-        EditText etIpadress = view.findViewById(R.id.et_ipadress);
-        TextView tvCancel = view.findViewById(R.id.tv_cancel);
-        TextView tvConfirm = view.findViewById(R.id.tv_confirm);
-        tvCancel.setText("取消");
-        tvConfirm.setText("确定");
-
-        tvCancel.setOnClickListener(v -> {
-            //... To-do
-            dialog.dismiss();
-        });
-
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                RetrofitClient.getInstance().initRetrofit(ApiAddress.BASE_URL);
-                RetrofitClient.getInstance().initRetrofit("http://"+etIpadress.getText().toString());
-                //... To-do
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-        //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
-        dialog.getWindow().setLayout((Utils.getScreenWidth(getActivity())/4*3), LinearLayout.LayoutParams.WRAP_CONTENT);
     }
     @Override
     public void initViewObservable() {
+        binding.banner.setImageLoader(new GlideImageLoader());
         viewModel.urls.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (viewModel.urls.get()!=null&&viewModel.urls.get().size()>0){
                     binding.banner.setViewUrls(viewModel.urls.get());
-                }else {
-                    binding.banner.setBackground(getActivity().getResources().getDrawable(R.mipmap.banner));
+                } else {
+                    List<String> urls = new ArrayList<>();
+                    urls.add("http://a1.qpic.cn/psc?/V14aPuF23Yir43/bqQfVz5yrrGYSXMvKr.cqQGQ6g8Mm*ZRB6HskI7bacRjCnxjmogVHkn4ZfjYbDrLxhmyVM4ZhjRjT.drVXke9SJ4DzShvzYC8qEm*eDwsj4!/b&ek=1&kp=1&pt=0&bo=ZQTQAgAAAAADN6E!&tl=1&vuin=258325667&tm=1598256000&sce=60-2-2&rf=viewer_4");
+                    binding.banner.setViewUrls(urls);
                 }
+            }
+        });
+
+        viewModel.list.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+//                if (viewModel.list.get()!=null&&viewModel.list.get().size()>0){
+//                    ArrayList<Fragment> list = new ArrayList<>();
+//                    view_pager = getActivity().findViewById(R.id.view_pager);
+//                    mAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), list);
+//                    view_pager.setCurrentItem(0);  //初始化显示第一个页面
+//                    CircleIndicator indicator = (CircleIndicator)getActivity(). findViewById(R.id.indicator);
+//                    indicator.setViewPager(view_pager);
+//
+//                    int j =0;
+//                    for (int i = 0; i < viewModel.list.get().size(); i++) {
+//                        if(i%3==0){
+//                          j++;
+//                        list.add(new HomeViewPagerFragment(j-1));
+//                        view_pager.setAdapter(mAdapter);
+//                        functionAdapter.notifyDataSetChanged();
+//               }
+//            }
+//         }
             }
         });
     }

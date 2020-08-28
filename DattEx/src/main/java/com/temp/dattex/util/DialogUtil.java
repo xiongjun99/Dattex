@@ -18,6 +18,7 @@ import com.temp.dattex.R;
 import com.temp.dattex.bean.SymbolConfigBean;
 import com.temp.dattex.databinding.DialogChangeLeverageBinding;
 import com.temp.dattex.databinding.DialogCoinRecordFilterBinding;
+import com.temp.dattex.databinding.DialogCreateContract2Binding;
 import com.temp.dattex.databinding.DialogCreateContractBinding;
 import com.temp.dattex.databinding.DialogLoadpayBinding;
 import com.temp.dattex.databinding.DialogOrderCoverBinding;
@@ -25,10 +26,12 @@ import com.temp.dattex.databinding.DialogSwitchCoinBinding;
 import com.temp.dattex.databinding.DialogUpdateBinding;
 import com.temp.dattex.databinding.ItemTradeSwitchCoinBinding;
 import com.temp.dattex.fragments.trade.TradeViewModel;
+import com.temp.dattex.order.OrderItemViewModel;
 
 public class DialogUtil {
 
     public static void showSwitchCoinDialog(Context context, SwitchSymbolDialogViewModel viewModel) {
+
         Dialog dialog = new Dialog(context, R.style.DialogFullScreen);
         DialogSwitchCoinBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_switch_coin, null, false);
         binding.setSwitchSymbolViewModel(viewModel);
@@ -60,7 +63,6 @@ public class DialogUtil {
                 return viewModel.getSymbolSize();
             }
         });
-
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
         attributes.width = DisplayUtil.getScreenContentWidth(context) - DisplayUtil.dp2px(context, 32);
         dialog.getWindow().setAttributes(attributes);
@@ -92,14 +94,28 @@ public class DialogUtil {
         dialog.getWindow().setAttributes(attributes);
         dialog.show();
     }
-
+    public static void createContractDialog2(Context context, OrderItemViewModel orderItemViewModel) {
+        Dialog dialog = new Dialog(context, R.style.DialogFullScreen);
+        DialogCreateContract2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_create_contract2, null, false);
+        binding.setContractModel(orderItemViewModel);
+        orderItemViewModel.setDialog(dialog);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.CENTER;
+        dialog.setContentView(binding.getRoot(), layoutParams);
+        WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
+        attributes.width = DisplayUtil.getScreenContentWidth(context) - DisplayUtil.dp2px(context, 32);
+        dialog.getWindow().setAttributes(attributes);
+        dialog.show();
+    }
     public static void showUpdateDialog(Context context, UpdateDialogViewModel viewModel) {
         Dialog dialog = new Dialog(context, R.style.DialogFullScreen);
         DialogUpdateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_update, null, false);
         binding.setViewModel(viewModel);
         viewModel.setDialog(dialog);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.leftMargin = 40;
+        layoutParams.rightMargin = 40;
         layoutParams.gravity = Gravity.CENTER;
         dialog.setContentView(binding.getRoot(), layoutParams);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
@@ -116,12 +132,11 @@ public class DialogUtil {
         viewModel.dialog.set(dialog);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.height = DisplayUtil.dp2px(context, 184);
+        layoutParams.height = DisplayUtil.dp2px(context, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
         dialog.setContentView(binding.getRoot(), layoutParams);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
         attributes.width = DisplayUtil.getScreenContentWidth(context) - DisplayUtil.dp2px(context, 32);
-        ;
         dialog.getWindow().setAttributes(attributes);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();

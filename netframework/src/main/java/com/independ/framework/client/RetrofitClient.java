@@ -1,7 +1,6 @@
 package com.independ.framework.client;
 
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -63,8 +62,6 @@ public class RetrofitClient {
         if (null == okHttpClient) {
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-
             //根据需求添加不同的拦截器
             okHttpClient = new OkHttpClient
                     .Builder()
@@ -84,6 +81,7 @@ public class RetrofitClient {
      * Retrofit Client create
      */
     public <T> T create(Class<T> interfaceServer) {
+        //首页客服编辑框专属修改
         if (null == retrofit) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(url)

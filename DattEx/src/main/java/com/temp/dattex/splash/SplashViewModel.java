@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.common.framework.basic.BaseViewModel;
 import com.exchange.utilslib.LooperUtil;
+import com.temp.dattex.config.AssetsConfigs;
 import com.temp.dattex.home.HomeActivity;
 
 /*************************************************************************

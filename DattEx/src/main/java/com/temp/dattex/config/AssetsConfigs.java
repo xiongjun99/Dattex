@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.bean.AssetsBean;
+import com.temp.dattex.bean.CoinBean;
+import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.net.DataService;
+import com.temp.dattex.net.WebSocket;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +45,8 @@ import java.util.Map;
 public class AssetsConfigs {
 
     private Map<String, AssetsBean.AssetsItemBean> assetsItemBeanMap = new HashMap<>();
+    private Map<String, NewAssetsBean> newAssetsItemBeanMap = new HashMap<>();
+    private Map<String, CoinBean> coinBeanHashMap = new HashMap<>();
 
     private static volatile AssetsConfigs assetsConfigs;
 
@@ -58,6 +63,37 @@ public class AssetsConfigs {
             }
         }
         return assetsConfigs;
+    }
+
+    @SuppressLint("CheckResult")
+    public void freshCoin() {
+        DataService.getInstance().userCoin().compose(ResponseTransformer.<List<CoinBean>>handleResult()).subscribe(
+                coinbean -> {
+                    if(null != coinbean){
+                        for (int i = 0; i < coinbean.size(); i++) {
+                            CoinBean coinBean = coinbean.get(i);
+                            if(null !=coinBean){
+                                coinBeanHashMap.put(coinBean.getId(), coinBean);
+                                freshAssetsByCoinId(coinBean.getId());
+                            }
+                        }
+                    }
+                }, t -> {
+                    System.out.println("-------no----coin-list-币种配置列表");
+                }
+        );
+    }
+    @SuppressLint("CheckResult")
+    public void freshAssetsByCoinId(String CoinId) {
+        DataService.getInstance().getAssetsByCoinId(CoinId).compose(ResponseTransformer.<NewAssetsBean>handleResult()).subscribe(
+                assetsBean -> {
+                    if(null != assetsBean){
+                        newAssetsItemBeanMap.put(assetsBean.getCoinId(), assetsBean);
+                    }
+                }, t -> {
+                    System.out.println("-------no----根据币种ID获取对应币种的会员资产钱包信息");
+                }
+        );
     }
 
     @SuppressLint("CheckResult")
@@ -81,7 +117,7 @@ public class AssetsConfigs {
                        }
                    }
                 }, t -> {
-
+                    System.out.println("-----------配置列表");
                 }
         );
     }
@@ -93,7 +129,31 @@ public class AssetsConfigs {
         return cnyTotal;
     }
 
-    public AssetsBean.AssetsItemBean getCoinInfo(String s) {
-        return assetsItemBeanMap.get(s);
+//    public AssetsBean.AssetsItemBean getCoinInfo(String s) {
+//        return assetsItemBeanMap.get(s);
+//    }
+
+    public NewAssetsBean getCoinInfo(String s) {
+        return newAssetsItemBeanMap.get(s);
+    }
+    public CoinBean getCoinBeanHashMap(String s) {
+        return coinBeanHashMap.get(s);
+    }
+
+
+    public Map<String, NewAssetsBean> getNewAssetsItemBeanMap() {
+        return newAssetsItemBeanMap;
+    }
+
+    public void setNewAssetsItemBeanMap(Map<String, NewAssetsBean> newAssetsItemBeanMap) {
+        this.newAssetsItemBeanMap = newAssetsItemBeanMap;
+    }
+
+    public Map<String, CoinBean> getCoinBeanHashMap() {
+        return coinBeanHashMap;
+    }
+
+    public void setCoinBeanHashMap(Map<String, CoinBean> coinBeanHashMap) {
+        this.coinBeanHashMap = coinBeanHashMap;
     }
 }

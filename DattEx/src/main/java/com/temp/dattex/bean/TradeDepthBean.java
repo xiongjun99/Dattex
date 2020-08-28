@@ -16,7 +16,7 @@ public class TradeDepthBean {
 
     private String symbol;
     private List<Map<String,String>> asks;
-    private List<BidsBean> bids;
+    private List<Map<String,String>> bids;
 
     public String getSymbol() {
         return symbol;
@@ -34,11 +34,11 @@ public class TradeDepthBean {
         this.asks = asks;
     }
 
-    public List<BidsBean> getBids() {
+    public List<Map<String,String>> getBids() {
         return bids;
     }
 
-    public void setBids(List<BidsBean> bids) {
+    public void setBids(List<Map<String,String>> bids) {
         this.bids = bids;
     }
 

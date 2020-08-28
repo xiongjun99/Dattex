@@ -43,13 +43,13 @@ BuyDetailActivity extends Activity {
     private void initData() {
         id = getIntent().getIntExtra("id", 0);
         if (getIntent().getStringExtra("price") != null) {
-            tvPrice.setText(getIntent().getStringExtra("price") + "元");
+            tvPrice.setText(getIntent().getStringExtra("price"));
         }
         if (getIntent().getStringExtra("num") != null) {
             tvBuyBum.setText(getIntent().getStringExtra("num"));
         }
         if (getIntent().getStringExtra("amount") != null) {
-            tvAmount.setText(getIntent().getStringExtra("amount") + "元");
+            tvAmount.setText(getIntent().getStringExtra("amount"));
         }
     }
 
@@ -63,6 +63,7 @@ BuyDetailActivity extends Activity {
         titleBar = (TitleBar) findViewById(R.id.title_bar);
         titleBar.setLeftTwoClick(this);
     }
+
     private Handler mHanler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

@@ -127,11 +127,11 @@ public class SymbolConfigs implements WebSocket.SocketListener {
 
     @Override
     public void open() {
-
     }
 
     @Override
     public void onMessage(String message) {
+
         if (!TextUtils.isEmpty(message)) {
             SocketDataBean socketDataBean = gson.fromJson(message, SocketDataBean.class);
             if (null != socketDataBean) {

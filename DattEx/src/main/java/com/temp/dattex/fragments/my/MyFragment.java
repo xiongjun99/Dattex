@@ -16,6 +16,9 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.BR;
 import com.temp.dattex.R;
 import com.temp.dattex.bean.AssetsBean;
+import com.temp.dattex.bean.SymbolConfigBean;
+import com.temp.dattex.config.AssetsConfigs;
+import com.temp.dattex.config.SymbolConfigs;
 import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.databinding.FragmentMyBinding;
 import com.temp.dattex.login.LoginActivity;
@@ -56,7 +59,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding, MyViewModel> {
     @Override
     public void onResume() {
         super.onResume();
-    initView();
+      initView();
     }
 
     @Override
@@ -83,6 +86,7 @@ public class MyFragment extends BaseFragment<FragmentMyBinding, MyViewModel> {
     }
 
     public  void showIsExitDialog() {
+
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_isexit,null,false);
         final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         TextView tvCancel = view.findViewById(R.id.tv_cancel);

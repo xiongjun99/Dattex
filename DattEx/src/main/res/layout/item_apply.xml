@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_282C42"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:padding="12dp">
+
+    <RelativeLayout
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="-"
+            android:id="@+id/tv_apply_status"
+            style="@style/White_TextView_Style"
+            android:layout_alignParentLeft="true"></TextView>
+        
+        <TextView
+            android:padding="5dp"
+            android:text="-"
+            android:background="@drawable/drawable_button_ensure"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_apply_type"
+            style="@style/White_TextView_Style"></TextView>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@drawable/shape_input_buttom_line" />
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+     <LinearLayout
+         android:orientation="vertical"
+         android:layout_weight="2"
+         android:layout_width="0dip"
+         android:layout_height="wrap_content" >
+
+         <TextView
+             android:layout_gravity="center_horizontal"
+             android:text="币种"
+             style="@style/Auth_TextView_Style"
+             android:layout_alignParentLeft="true"></TextView>
+         <TextView
+             android:layout_marginTop="3dp"
+             android:layout_gravity="center_horizontal"
+             android:text="-"
+             android:id="@+id/tv_amount_type"
+             style="@style/White_TextView_Style"
+             android:layout_alignParentLeft="true"></TextView>
+     </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:text="单价(USDT)"
+                style="@style/Auth_TextView_Style"
+                android:layout_alignParentLeft="true"></TextView>
+            <TextView
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:text="-"
+                android:id="@+id/tv_unit_price"
+                style="@style/White_TextView_Style"
+                android:layout_alignParentLeft="true"></TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:text="最大申购(BTRT)"
+                style="@style/Auth_TextView_Style"
+                android:layout_alignParentLeft="true"></TextView>
+            <TextView
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:text="-"
+                android:id="@+id/tv_apply_max"
+                style="@style/White_TextView_Style"
+                android:layout_alignParentLeft="true"></TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:text="成交总额(USDT)"
+                style="@style/Auth_TextView_Style"
+                android:layout_alignParentLeft="true"></TextView>
+            <TextView
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
+                android:text="-"
+                android:id="@+id/tv_transaction_price"
+                style="@style/White_TextView_Style"
+                android:layout_alignParentLeft="true"></TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@drawable/shape_input_buttom_line" />
+
+    <RelativeLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/time"
+            android:text="起止时间:"
+            style="@style/Auth_TextView_Style"
+            android:layout_alignParentLeft="true"></TextView>
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/time"
+            android:id="@+id/tv_time"
+            android:text="-"
+            style="@style/Auth_TextView_Style"
+            >
+        </TextView>
+    </RelativeLayout>
+</LinearLayout>

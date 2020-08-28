@@ -1,5 +1,6 @@
 package com.temp.dattex.fragments.my;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,18 +12,22 @@ import com.common.framework.basic.AppManager;
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.click.SingleClick;
 import com.exchange.utilslib.LogUtil;
+import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.auth.AuthActivity;
+import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.config.AssetsConfigs;
 import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.login.LoginActivity;
 import com.temp.dattex.net.ApiAddress;
+import com.temp.dattex.net.DataService;
 import com.temp.dattex.order.OrderActivity;
 import com.temp.dattex.record.CoinRecordActivity;
 import com.temp.dattex.safe.SafeActivity;
 import com.temp.dattex.setting.SettingActivity;
 import com.temp.dattex.util.DialogUtil;
+import com.temp.dattex.util.Utils;
 import com.temp.dattex.wallet.WalletActivity;
 import com.temp.dattex.web.WebViewActivity;
 import com.temp.dattex.withdraw.WithdrawActivity;
@@ -43,7 +48,34 @@ public class MyViewModel extends BaseViewModel {
     public ObservableField<Boolean> isLogin = new ObservableField<>(false);
     public ObservableField<String> assets = new ObservableField<>("");
     public ObservableField<String> account = new ObservableField<>("");
+    public ObservableField<String> balance = new ObservableField<>("0.0");
+    public ObservableField<String> frozen = new ObservableField<>("0.0");
+    public ObservableField<String> cnyprice = new ObservableField<>("0.0");
 
+    public ObservableField<String> getCnyprice() {
+        return cnyprice;
+    }
+
+    public void setCnyprice(ObservableField<String> cnyprice) {
+        this.cnyprice = cnyprice;
+    }
+
+    public ObservableField<String> getFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(ObservableField<String> frozen) {
+        this.frozen = frozen;
+    }
+
+
+    public ObservableField<String> getBalance() {
+        return balance;
+    }
+
+    public void setBalance(ObservableField<String> balance) {
+        this.balance = balance;
+    }
     public MyViewModel(@NonNull Application application) {
         super(application);
         initUserInfo();
@@ -145,5 +177,21 @@ public class MyViewModel extends BaseViewModel {
     public void onResume() {
         super.onResume();
         initUserInfo();
+        freshAssetsByCoinId("USDT");
+    }
+    @SuppressLint("CheckResult")
+    public void freshAssetsByCoinId(String CoinId) {
+        DataService.getInstance().getAssetsByCoinId(CoinId).compose(ResponseTransformer.<NewAssetsBean>handleResult()).subscribe(
+                assetsBean -> {
+                    if(null != assetsBean) {
+                        System.out.println("-------最新余额----"+assetsBean.getBalance());
+                        balance.set(assetsBean.getBalance());
+                        frozen.set("冻结: "+assetsBean.getFrozen());
+                        cnyprice.set("≈"+" "+ Utils.keepTwo(Double.valueOf(assetsBean.getCnyprice())*Double.valueOf(assetsBean.getBalance()))+" CNY");
+                    }
+                }, t -> {
+                    System.out.println("-------no----根据币种ID获取对应币种的会员资产钱包信息");
+                }
+        );
     }
 }

@@ -47,6 +47,11 @@
             android:layout_height="50dp"
             app:leftText="版本更新"
             app:rightText="更新 V1.03" />
-
+        <com.temp.dattex.widget.SettingItemView
+            android:id="@+id/tv_revise"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:leftText="修改服务器地址"
+            app:rightText="" />
     </LinearLayout>
 </layout>

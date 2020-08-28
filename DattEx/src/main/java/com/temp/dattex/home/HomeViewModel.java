@@ -8,6 +8,7 @@ import androidx.databinding.ObservableField;
 
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.click.SingleClick;
+import com.exchange.utilslib.LooperUtil;
 import com.exchange.utilslib.SPUtil;
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
@@ -47,7 +48,6 @@ import com.temp.dattex.net.DataService;
  *************************************************************************/
 public class HomeViewModel extends BaseViewModel {
 
-
     public ObservableField<Boolean> homeState = new ObservableField<>(true);
     public ObservableField<Boolean> tradeState = new ObservableField<>(false);
     public ObservableField<Boolean> marketState = new ObservableField<>(false);
@@ -84,6 +84,11 @@ public class HomeViewModel extends BaseViewModel {
     @Override
     public void onResume() {
         super.onResume();
-        AssetsConfigs.getInstance().freshAssets();
+//        AssetsConfigs.getInstance().freshCoin();
+//        AssetsConfigs.getInstance().freshAssets();
+        if (AssetsConfigs.getInstance().getCoinBeanHashMap().size()==0 &&AssetsConfigs.getInstance().getNewAssetsItemBeanMap().size()==0){
+         AssetsConfigs.getInstance().freshCoin();
+        }
     }
+
 }

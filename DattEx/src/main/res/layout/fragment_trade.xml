@@ -23,70 +23,78 @@
             android:focusableInTouchMode="true"
             app:titleText="@string/text_trade"
             app:titleTextColor="@color/color_FFFFFFFF" />
-
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_1A1C29" />
         <LinearLayout
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:id="@+id/ll_switchsymbol"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <ImageView
+                android:visibility="gone"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:onClick="@{()->tradeViewModel.switchSymbol()}"
+                android:layout_gravity="center_vertical"
                 android:src="@color/color_FFFFFFFF" />
 
             <TextView
+                android:text="@{tradeViewModel.leftCoin}"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:gravity="center_vertical"
-                android:onClick="@{()->tradeViewModel.switchSymbol()}"
-                android:text="@{tradeViewModel.leftCoin}"
                 android:textColor="@color/color_FFFFFFFF"
                 android:textSize="16dp" />
 
             <TextView
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:onClick="@{()->tradeViewModel.switchSymbol()}"
-                android:text="/"
+                android:text=" / "
                 android:textColor="@color/color_FFA3A6BF"
                 android:textSize="12dp" />
 
             <TextView
+                android:text="@{tradeViewModel.rightCoin}"
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:onClick="@{()->tradeViewModel.switchSymbol()}"
-                android:text="@{tradeViewModel.rightCoin}"
                 android:textColor="@color/color_FFA3A6BF"
                 android:textSize="12dp" />
 
             <ImageView
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="7dp"
                 android:src="@mipmap/icon_arrow_bottom" />
-
+            </LinearLayout>
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
                 android:layout_gravity="center"
                 android:onClick="@{()->tradeViewModel.showKline()}"
-                android:padding="16dp"
-                android:src="@drawable/shape_trade_kline_icon" />
-
+                android:src="@mipmap/trade_title" />
         </LinearLayout>
 
         <View
@@ -134,7 +142,7 @@
                                 android:button="@null"
                                 android:checked="@={tradeViewModel.tradeBuy}"
                                 android:gravity="center"
-                                android:text="@string/text_buy"
+                                android:text="@string/text_buy_more"
                                 android:textColor="@color/color_FFFFFFFF"
                                 android:textSize="16dp" />
 
@@ -147,7 +155,7 @@
                                 android:button="@null"
                                 android:checked="@{!tradeViewModel.tradeBuy}"
                                 android:gravity="center"
-                                android:text="@string/text_sell"
+                                android:text="@string/text_short"
                                 android:textColor="@color/color_FFFFFFFF"
                                 android:textSize="16dp" />
                         </RadioGroup>
@@ -229,7 +237,6 @@
                                 android:textIsSelectable="false"
                                 android:textSize="14dp"
                                 app:afterTextChanged="@{tradeViewModel}" />
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -239,7 +246,6 @@
                                 android:text="USDT"
                                 android:textColor="@color/color_FF767B99"
                                 android:textSize="14dp" />
-
 
                         </LinearLayout>
 
@@ -276,14 +282,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="6dp"
                             android:layout_weight="1">
-                            <com.temp.dattex.widget.ProgressBar
-                                android:id="@+id/progressbar"
+                            <com.temp.dattex.widget.SeekbarWithIntervals
+                                android:id="@+id/seekbarWithIntervals"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:clipChildren="false"
-                                android:paddingLeft="2dp"
-                                android:paddingRight="2dp"
-                                app:onProgressChangeListener="@{tradeViewModel}"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
                                 />
 
                             <TextView
@@ -368,20 +371,20 @@
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
-                        <RelativeLayout
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dip">
-                            <TextView
-                                android:text="@{tradeViewModel.aska1}"
-                                android:layout_alignParentLeft="true"
-                                style="@style/Red_TextView12_Style"></TextView>
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:text="@{tradeViewModel.aska1}"
+                                    android:layout_alignParentLeft="true"
+                                    style="@style/Red_TextView12_Style"></TextView>
 
-                            <TextView
-                                android:text="@{tradeViewModel.aska2}"
-                                android:layout_alignParentRight="true"
-                                style="@style/White_TextView_Style"></TextView>
-                        </RelativeLayout>
+                                <TextView
+                                    android:text="@{tradeViewModel.aska2}"
+                                    android:layout_alignParentRight="true"
+                                    style="@style/White_TextView_Style"></TextView>
+                            </RelativeLayout>
                             <RelativeLayout
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
@@ -509,9 +512,9 @@
                                     style="@style/White_TextView_Style"></TextView>
                             </RelativeLayout>
                         </LinearLayout>
-<!--                        <com.temp.dattex.widget.TradeDepthView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent" />-->
+                        <!--                        <com.temp.dattex.widget.TradeDepthView-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="match_parent" />-->
                     </LinearLayout>
 
                 </LinearLayout>
@@ -549,13 +552,14 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_trade_user_hold"
-                    rcvAdapter="@{tradeViewModel.adapter}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_FF1A1C29"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    rcvAdapter="@{tradeViewModel.adapter}"
+                    />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

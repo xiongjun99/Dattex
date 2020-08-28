@@ -8,6 +8,7 @@ import androidx.databinding.ObservableField;
 import com.common.framework.basic.BaseViewModel;
 import com.exchange.utilslib.LogUtil;
 import com.temp.dattex.adapter.MarketRecyclerAdapter;
+import com.temp.dattex.adapter.NewMarketRecyclerAdapter;
 import com.temp.dattex.widget.sort.MarketSortView;
 
 /**
@@ -21,7 +22,8 @@ import com.temp.dattex.widget.sort.MarketSortView;
 
 public class MarketViewModel extends BaseViewModel implements MarketSortView.OnSortChangeListener {
 
-    public ObservableField<MarketRecyclerAdapter> adapter = new ObservableField<>();
+//    public ObservableField<MarketRecyclerAdapter> adapter = new ObservableField<>();
+//    public ObservableField<NewMarketRecyclerAdapter> adapter = new ObservableField<>();
 
     public MarketViewModel(@NonNull Application application) {
         super(application);

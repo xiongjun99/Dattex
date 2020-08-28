@@ -3,6 +3,7 @@ package com.temp.dattex.fragments.home;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
@@ -19,7 +20,9 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.MarketRecyclerAdapter;
+import com.temp.dattex.adapter.NewMarketRecyclerAdapter;
 import com.temp.dattex.bean.BannerItemBean;
+import com.temp.dattex.bean.MarketListBean;
 import com.temp.dattex.bean.SymbolConfigBean;
 import com.temp.dattex.config.SymbolConfigs;
 import com.temp.dattex.kline.KlineActivity;
@@ -29,7 +32,11 @@ import com.temp.dattex.web.WebViewActivity;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /*************************************************************************
  * Description   :
@@ -61,19 +68,40 @@ import java.util.List;
  *                    '.:::::'                    ':'````..
  *************************************************************************/
 public class HomePageViewModel extends BaseViewModel {
+    private Timer timer;
+    private int checkRank = 0;
 
-    private ObservableField<MarketRecyclerAdapter> adapter = new ObservableField<>(new MarketRecyclerAdapter(R.layout.item_market_layout, null));
+//    private ObservableField<MarketRecyclerAdapter> adapter = new ObservableField<>(new MarketRecyclerAdapter(R.layout.item_market_layout, null));
+//
+//    public ObservableField<MarketRecyclerAdapter> getAdapter() {
+//        return adapter;
+//    }
+//
+//    public void setAdapter(ObservableField<MarketRecyclerAdapter> adapter) {
+//        this.adapter = adapter;
+//    }
+    private ObservableField<NewMarketRecyclerAdapter> adapter = new ObservableField<>(new NewMarketRecyclerAdapter(R.layout.item_newmarket_layout,getApplication(), null));
 
-    public ObservableField<MarketRecyclerAdapter> getAdapter() {
+    public ObservableField<NewMarketRecyclerAdapter> getAdapter() {
         return adapter;
+    }
+
+    public void setAdapter(ObservableField<NewMarketRecyclerAdapter> adapter) {
+        this.adapter = adapter;
+    }
+
+    public ObservableField<List<MarketListBean>> list = new ObservableField<>(new ArrayList<MarketListBean>());
+
+    public ObservableField<List<MarketListBean>> getList() {
+        return list;
+    }
+
+    public void setList(ObservableField<List<MarketListBean>> list) {
+        this.list = list;
     }
 
     public ObservableField<List<String>> urls = new ObservableField<>(new ArrayList<String>());
 
-
-    public void setAdapter(ObservableField<MarketRecyclerAdapter> adapter) {
-        this.adapter = adapter;
-    }
 
     public HomePageViewModel(@NonNull Application application) {
         super(application);
@@ -82,14 +110,20 @@ public class HomePageViewModel extends BaseViewModel {
 
     @SingleClick
     public void checkUpRank(View view) {
+        checkRank = 1;
+//        getMarketList(1);
     }
 
     @SingleClick
     public void checkDownRank(View view) {
+        checkRank = 2 ;
+//        getMarketList(2);
     }
 
     @SingleClick
     public void checkDealRank(View view) {
+        checkRank = 3;
+//        getMarketList(3);
     }
 
 
@@ -104,24 +138,78 @@ public class HomePageViewModel extends BaseViewModel {
     public void onCreate() {
         super.onCreate();
         adapter.get().setOnItemClickListener((adapter, view, position) -> {
-            if(adapter instanceof MarketRecyclerAdapter){
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.KEY_LEFT_COIN, ((SymbolConfigBean)adapter.getData().get(position)).getCoinSymbol());
-                bundle.putString(Constants.KEY_RIGHT_COIN, ((SymbolConfigBean)adapter.getData().get(position)).getBaseSymbol());
+                bundle.putString(Constants.REQUEST_KEY_COIN_ID,  getAdapter().get().getData().get(position).getCoinId());
                 startActivity(KlineActivity.class, bundle);
-            }
         });
+    }
+
+    @SuppressLint("CheckResult")
+    private void getMarketList(int pos) {
+        DataService.getInstance().getMarketList().compose(ResponseTransformer.<List<MarketListBean>>handleResult()).subscribe(
+                l -> {
+                    list.set(l);
+                    if (pos ==1) {
+                    Collections.sort(list.get(), new Comparator<MarketListBean>() {
+                        public int compare(MarketListBean arg0, MarketListBean arg1) {
+                            if (Float.valueOf(arg0.getChanges())>Float.valueOf(arg1.getChanges())){
+                                return -1;
+                            }else if(Float.valueOf(arg0.getChanges())<Float.valueOf(arg1.getChanges())){
+                                return 1;
+                            }else{
+                                return 0;
+                            }
+                        }
+                    });
+                    for (MarketListBean p : list.get()) {
+                        System.out.println("----------111"+p.getChanges());
+                    }
+            } else if (pos == 2) {
+                        //直接在这里添加我们的排序规则
+                        Collections.sort(list.get(), new Comparator<MarketListBean>() {
+                            public int compare(MarketListBean arg0, MarketListBean arg1) {
+                                return arg0.getChanges().compareTo(arg1.getChanges());
+                            }
+                 });
+            for (MarketListBean p : list.get()) {
+                System.out.println("-----222"+p.getChanges());
+             }
+            } else if (pos ==3){
+                        Collections.sort(list.get(), new Comparator<MarketListBean>() {
+                            public int compare(MarketListBean arg0, MarketListBean arg1) {
+                                if (Float.valueOf(arg0.getDealCount())>Float.valueOf(arg1.getDealCount())){
+                                    return -1;
+                                }else if(Float.valueOf(arg0.getDealCount())<Float.valueOf(arg1.getDealCount())){
+                                    return 1;
+                                }else{
+                                    return 0;
+                                }
+                            }
+                        });
+                        for (MarketListBean p : list.get()) {
+                            System.out.println("----------333"+p.getDealCount());
+                        }
+            }
+            if (adapter.get().getData()==null||adapter.get().getData().size()==0){
+            adapter.get().addData(list.get());
+            }else {
+            adapter.get().setNewData(list.get());
+            }
+           }, t -> {
+                    ToastUtil.show(BaseApplication.getInstance(), t.getMessage());}
+        );
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void onStart() {
         super.onStart();
-        List<SymbolConfigBean> symbols = SymbolConfigs.getInstance().getSymbols();
-        List<SymbolConfigBean> data = getAdapter().get().getData();
-        if (null == data || data.size() == 0) {
-            getAdapter().get().addData(symbols);
-        }
+//        List<SymbolConfigBean> symbols = SymbolConfigs.getInstance().getSymbols();
+//        List<SymbolConfigBean> data = getAdapter().get().getData();
+//        if (null == data || data.size() == 0) {
+//            getAdapter().get().addData(symbols);
+//        }
+        getMarketList(checkRank);
         DataService.getInstance().appBanner().compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if(null != b && b.size() != 0){
@@ -134,6 +222,26 @@ public class HomePageViewModel extends BaseViewModel {
                     }
                     urls.notifyChange();
                 }, t -> {
+                    ToastUtil.show(getApplication(),t.getMessage());
                 });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getMarketList(checkRank);
+            }
+        }, 1000, 1000);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (null != timer) {
+            timer.cancel();
+            timer = null;
+        }
     }
 }

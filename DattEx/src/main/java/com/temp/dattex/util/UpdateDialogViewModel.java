@@ -1,7 +1,9 @@
 package com.temp.dattex.util;
 
+import android.app.Activity;
 import android.app.Dialog;
 
+import com.common.framework.basic.AppManager;
 import com.common.framework.click.SingleClick;
 
 public class UpdateDialogViewModel {
@@ -39,7 +41,8 @@ public class UpdateDialogViewModel {
 
     @SingleClick
     public void updateApp() {
-
+        Activity peek = AppManager.getActivityStack().peek();
+//        Utils.DownLoadAPK(peek,"https://study.163.com/pub/study-android-official.apk");
     }
 
     @SingleClick

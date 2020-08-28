@@ -21,6 +21,8 @@ import com.temp.dattex.widget.ProgressBar;
 import com.temp.dattex.widget.SettingItemView;
 import com.temp.dattex.widget.sort.MarketSortView;
 
+import java.util.List;
+
 /**
  * @Package: com.temp.dattex.binding.adapter
  * @ClassName: CommonViewBinding

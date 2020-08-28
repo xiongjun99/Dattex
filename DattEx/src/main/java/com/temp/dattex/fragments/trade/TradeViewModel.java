@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.DiffUtil;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.common.framework.basic.AppManager;
@@ -25,7 +23,7 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.CurrentRecyclerAdapter;
-import com.temp.dattex.bean.LeverageBean;
+import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.bean.OrdersBean;
 import com.temp.dattex.bean.SymbolConfigBean;
 import com.temp.dattex.bean.TradeDepthBean;
@@ -44,17 +42,16 @@ import com.temp.dattex.util.SwitchSymbolDialogViewModel;
 import com.temp.dattex.util.Utils;
 import com.temp.dattex.widget.ProgressBar;
 import com.temp.dattex.widget.TradeDepthView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgressChangeListener, EditTextBinding.EditListener, PlaceAnOrderDialogModel.OnEnsureListener, SwitchSymbolDialogViewModel.OnSymbolSet {
-    public CurrentRecyclerAdapter adapter = new CurrentRecyclerAdapter(R.layout.item_order, new ArrayList<>());
-    public BaseQuickAdapter leverageAdapter = new BaseQuickAdapter<LeverageBean, BaseViewHolder>(R.layout.item_leverage, new ArrayList<LeverageBean>()) {
+    public CurrentRecyclerAdapter adapter = new CurrentRecyclerAdapter(R.layout.item_order, new ArrayList<>(),0,0);
+    public BaseQuickAdapter leverageAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_leverage, new ArrayList<String>()) {
         @Override
-        protected void convert(BaseViewHolder baseViewHolder, LeverageBean leverageBean) {
+        protected void convert(BaseViewHolder baseViewHolder, String leverageBean) {
             ItemLeverageBinding binding = baseViewHolder.getBinding();
             binding.setLaverageBean(leverageBean);
             binding.setTradeViewModel(TradeViewModel.this);
@@ -76,13 +73,14 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
 
     private ObservableField<String> leftCoin = new ObservableField<>("BTC");
     private ObservableField<String> rightCoin = new ObservableField<>("USDT");
-    private ObservableField<Boolean> tradeBuy = new ObservableField<>(true);
-    private ObservableField<String> placeAnOrder = new ObservableField<>("买入");
-
+    public ObservableField<Boolean> tradeBuy = new ObservableField<>(true);
+    private ObservableField<String> placeAnOrder = new ObservableField<>("创建合约");
+    private ObservableField<List<SymbolConfigBean>> symbolConfigList = new ObservableField<>();
     //可用余额
     private ObservableField<String> availableBalance = new ObservableField<>("0.0");
     //杠杆倍数
     private ObservableField<String> leveraged = new ObservableField<>("25");
+
     //交易总额
     private ObservableField<String> tradeAmount = new ObservableField<>("");
     //进度条仓位百分比
@@ -116,6 +114,35 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     private ObservableField<String> bids8 = new ObservableField<>("0.00");
     private ObservableField<String> bids9 = new ObservableField<>("0.00");
     private ObservableField<String> bids10 = new ObservableField<>("0.00");
+    private ObservableField<List<Integer>> progressList = new ObservableField<>();
+    private ObservableField<Integer> PointCount = new ObservableField<>(0);
+    private ObservableField<Integer> progress = new ObservableField<>(0);
+    public ObservableField<Integer> getProgress() {
+        return progress;
+    }
+
+    public void setProgress(ObservableField<Integer> progress) {
+        this.progress = progress;
+    }
+
+
+    public ObservableField<Integer> getPointCount() {
+        return PointCount;
+    }
+
+    public void setPointCount(ObservableField<Integer> pointCount) {
+        PointCount = pointCount;
+    }
+
+    public ObservableField<List<Integer>> getProgressList() {
+        return progressList;
+    }
+
+    public void setProgressList(ObservableField<List<Integer>> progressList) {
+        this.progressList = progressList;
+    }
+
+
 
     public ObservableField<String> getBids1() {
         return bids1;
@@ -389,8 +416,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     @SingleClick
     public void showKline() {
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_LEFT_COIN, getLeftCoin().get());
-        bundle.putString(Constants.KEY_RIGHT_COIN, getRightCoin().get());
+        bundle.putString(Constants.REQUEST_KEY_COIN_ID, leftCoin.get().toUpperCase() + "/" + rightCoin.get().toUpperCase());
         startActivity(KlineActivity.class, bundle);
     }
 
@@ -400,8 +426,9 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     }
 
     @SingleClick
-    public void changeLeverage(LeverageBean bean) {
-        leveraged.set(String.valueOf(bean.getValue()));
+    public void changeLeverage(String bean) {
+        String newbean = bean.substring(bean.lastIndexOf("~")+1);
+        leveraged.set(bean.substring(0, bean.indexOf("X")));
         leverageDialog.dismiss();
         leverageDialog = null;
     }
@@ -409,10 +436,8 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
 
     @SingleClick
     public void switchSymbol() {
-
         SwitchSymbolDialogViewModel switchSymbolDialogViewModel = new SwitchSymbolDialogViewModel();
         switchSymbolDialogViewModel.setOnSymbolSet(this);
-
         DialogUtil.showSwitchCoinDialog(AppManager.getActivityStack().peek(), switchSymbolDialogViewModel);
     }
 
@@ -423,7 +448,6 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
 
     @SingleClick
     public void placeAnOrder() {
-
         if (!TextUtils.isEmpty(tradeAmount.get())) {
             if (LoginInfo.isSign()) {
                 PlaceAnOrderDialogModel placeAnOrderDialogModel = new PlaceAnOrderDialogModel();
@@ -451,8 +475,8 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     public void onResume() {
         super.onResume();
         if (LoginInfo.isSign()) {
-            getPlaceAnOrder().set(getApplication().getResources().getString(getTradeBuy().get() ? R.string.text_buy : R.string.text_sell));
-            if (AssetsConfigs.getInstance().getCoinInfo(rightCoin.get().toUpperCase()).getBalance() != null) {
+//            getPlaceAnOrder().set(getApplication().getResources().getString(getTradeBuy().get() ? R.string.text_buy : R.string.text_sell));
+            if (AssetsConfigs.getInstance().getCoinInfo(rightCoin.get().toUpperCase()) != null) {
                 availableBalance.set(AssetsConfigs.getInstance().getCoinInfo(rightCoin.get().toUpperCase()).getBalance());
             }
             freshOrderList();
@@ -482,8 +506,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
                     aska8.set(String.valueOf(list.get(0).getAsks().get(3).values()).replaceAll("\\[|\\]", ""));
                     aska9.set(String.valueOf(list.get(0).getAsks().get(4).keySet()).replaceAll("\\[|\\]", ""));
                     aska10.set(String.valueOf(list.get(0).getAsks().get(4).values()).replaceAll("\\[|\\]", ""));
-
-                    bids1.set(String.valueOf(list.get(0).getAsks().get(0).keySet()).replaceAll("\\[|\\]", ""));
+                    bids1.set(String.valueOf(list.get(0).getBids().get(0).keySet()).replaceAll("\\[|\\]", ""));
                     bids2.set(String.valueOf(list.get(0).getAsks().get(0).values()).replaceAll("\\[|\\]", ""));
                     bids3.set(String.valueOf(list.get(0).getAsks().get(1).keySet()).replaceAll("\\[|\\]", ""));
                     bids4.set(String.valueOf(list.get(0).getAsks().get(1).values()).replaceAll("\\[|\\]", ""));
@@ -494,7 +517,8 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
                     bids9.set(String.valueOf(list.get(0).getAsks().get(4).keySet()).replaceAll("\\[|\\]", ""));
                     bids10.set(String.valueOf(list.get(0).getAsks().get(4).values()).replaceAll("\\[|\\]", ""));
 
-                }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
+                }, t -> {
+                    ToastUtil.show(BaseApplication.getInstance(), t.getMessage());}
         );
     }
 
@@ -532,11 +556,31 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     @Override
     public void onCreate() {
         super.onCreate();
-        DataService.getInstance().getLeverage(leftCoin.get() + "/" + rightCoin.get()).compose(ResponseTransformer.<List<LeverageBean>>handleResult()).subscribe(
-                list -> {
-                    leverageAdapter.addData(list);
-                }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
-        );
+//        DataService.getInstance().getLeverage(leftCoin.get() + "/" + rightCoin.get()).compose(ResponseTransformer.<List<LeverageBean>>handleResult()).subscribe(
+//                list -> {
+//                    leverageAdapter.addData(list);
+//                }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
+//        );
+        symbolConfigList.set(SymbolConfigs.getInstance().getSymbols());
+        leftCoin.set(symbolConfigList.get().get(0).getCoinSymbol());
+        rightCoin.set(symbolConfigList.get().get(0).getBaseSymbol());
+//      DataService.getInstance().getInfoBySymbol(leftCoin.get() + "/" + rightCoin.get()).compose(ResponseTransformer.<InfoBySymbolBean>handleResult()).subscribe(
+//                o -> {
+//                    List<String> list = Arrays.asList(o.getExchangePrincipalPrice().replaceAll(" ","").split(","));
+//                    for (int i = 0; i < list.size(); i++) {
+//                    progressList.get().add(Integer.valueOf(list.get(i)));
+//                    }
+//                    PointCount.set(progressList.get().size()-1);
+//                    progress.set(1000);
+//                }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
+//        );
+//        if(progressList.get()==null){
+//            List<Integer> list = new ArrayList<>();
+//            list.add(0);
+//            list.add(0);
+//            progressList.set(list);
+//            PointCount.set(1);
+//        }
     }
 
     @Override
@@ -547,19 +591,33 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     @SuppressLint("CheckResult")
     @Override
     public void onEnsure(float stopProfitRate, float stopLossRate) {
-        DataService.getInstance().placeOrder(leftCoin.get() + "/" + rightCoin.get(), tradeBuy.get() ? 0 : 1, leveraged.get(), tradeAmount.get(), stopLossRate, stopProfitRate).compose(ResponseTransformer.handleResult()).subscribe(
+        DataService.getInstance().placeOrder(leftCoin.get() + "/" + rightCoin.get(), tradeBuy.get() ? 1 : 0, leveraged.get(), tradeAmount.get(), stopLossRate, stopProfitRate).compose(ResponseTransformer.handleResult()).subscribe(
                 o -> {
+                    freshAssetsByCoinId(rightCoin.get());
                     freshOrderList();
                 }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
         );
     }
 
     @SuppressLint("CheckResult")
+    public void freshAssetsByCoinId(String CoinId) {
+        DataService.getInstance().getAssetsByCoinId(CoinId).compose(ResponseTransformer.<NewAssetsBean>handleResult()).subscribe(
+                assetsBean -> {
+                    if(null != assetsBean) {
+                        System.out.println("-------最新余额----"+assetsBean.getBalance());
+                        availableBalance.set(assetsBean.getBalance());
+                    }
+                }, t -> {
+                    System.out.println("-------no----根据币种ID获取对应币种的会员资产钱包信息");
+                }
+        );
+    }
+
+    @SuppressLint("CheckResult")
     private void freshOrderList() {
-        DataService.getInstance().getAllOrders(1, leftCoin.get() + "/" + rightCoin.get()).compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
+        DataService.getInstance().getAllOrders(1,1, leftCoin.get() + "/" + rightCoin.get()).compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
                 bean -> {
                     List<OrdersBean.OrderItemBean> rows = bean.getRows();
-
                     DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                         @Override
                         public int getOldListSize() {
@@ -587,16 +645,14 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
         );
     }
 
-    private SymbolConfigBean tradeSymbolConfig = SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" + rightCoin.get());
+    public SymbolConfigBean tradeSymbolConfig = SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" + rightCoin.get());
 
     @Override
     public void onSymbolSet(String coinSymbol, String baseSymbol) {
-        this.leftCoin.set(coinSymbol);
-        this.rightCoin.set(baseSymbol);
+//        this.leftCoin.set(coinSymbol);
+//        this.rightCoin.set(baseSymbol);
         tradeSymbolConfig = SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" + rightCoin.get());
     }
-
-
     private Dialog leverageDialog;
 
     public void setLeverageDialog(Dialog leverageDialog) {

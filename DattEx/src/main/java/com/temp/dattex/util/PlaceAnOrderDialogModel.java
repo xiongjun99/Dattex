@@ -10,10 +10,9 @@ public class PlaceAnOrderDialogModel {
 
     private ObservableField<String> upStopPrice = new ObservableField("");
     private ObservableField<String> downStopPrice = new ObservableField("");
-    private ObservableField<String> upStopPercent = new ObservableField("0");
-    private ObservableField<String> downStopPercent = new ObservableField("0");
+    private ObservableField<String> upStopPercent = new ObservableField("100");
+    private ObservableField<String> downStopPercent = new ObservableField("100");
     private Dialog dialog;
-
     public Dialog getDialog() {
         return dialog;
     }
@@ -81,8 +80,8 @@ public class PlaceAnOrderDialogModel {
     public void downStopPercentPlus() {
         String text = downStopPercent.get();
         int i = Integer.parseInt(text) + 10;
-        if (i < 0) {
-            i = 0;
+        if (i < 10) {
+            i = 10;
         } else if (i > 100) {
             i = 100;
         }
@@ -94,8 +93,8 @@ public class PlaceAnOrderDialogModel {
     public void downStopPercentSub() {
         String text = downStopPercent.get();
         int i = Integer.parseInt(text) - 10;
-        if (i < 0) {
-            i = 0;
+        if (i < 10) {
+            i = 10;
         } else if (i > 100) {
             i = 100;
         }
@@ -107,8 +106,8 @@ public class PlaceAnOrderDialogModel {
     public void upStopPercentPlus() {
         String text = upStopPercent.get();
         int i = Integer.parseInt(text) + 10;
-        if (i < 0) {
-            i = 0;
+        if (i < 10) {
+            i = 10;
         } else if (i > 100) {
             i = 100;
         }
@@ -120,8 +119,8 @@ public class PlaceAnOrderDialogModel {
     public void upStopPercentSub() {
         String text = upStopPercent.get();
         int i = Integer.parseInt(text) - 10;
-        if (i < 0) {
-            i = 0;
+        if (i < 10) {
+            i = 10;
         } else if (i > 100) {
             i = 100;
         }

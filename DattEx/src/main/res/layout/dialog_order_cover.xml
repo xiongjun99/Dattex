@@ -10,26 +10,30 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="184dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/shape_order_dialog">
 
 
         <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:paddingBottom="8dp"
             android:text="@string/dialog_is_cover"
             android:textColor="@color/color_EDEEF2"
             android:textSize="20dp" />
 
         <LinearLayout
+            android:layout_below="@+id/tv_dialog_title"
+           android:layout_margin="@dimen/dp_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <TextView
+                android:background="@drawable/shape_cancel"
                 android:onClick="@{()->coverDialogViewModel.closeDialog()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -38,10 +42,12 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:text="@string/title_cancel"
-                android:textColor="@color/color_FF4D5273"
+                android:textColor="@color/encode_view"
                 android:textSize="16dp" />
 
             <TextView
+                android:layout_marginLeft="@dimen/dp_20"
+                android:background="@drawable/shape_trade_login_background"
                 android:onClick="@{()->coverDialogViewModel.coverConfirm()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -50,7 +56,7 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:text="@string/title_confirm"
-                android:textColor="@color/color_4B8BEB"
+                android:textColor="@color/encode_view"
                 android:textSize="16dp" />
 
         </LinearLayout>

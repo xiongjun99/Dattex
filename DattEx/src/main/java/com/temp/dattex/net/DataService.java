@@ -7,10 +7,16 @@ import com.temp.dattex.Constants;
 import com.temp.dattex.bean.AssetsBean;
 import com.temp.dattex.bean.AssetsRecordBean;
 import com.temp.dattex.bean.BannerItemBean;
+import com.temp.dattex.bean.CoinBean;
 import com.temp.dattex.bean.DealItemBean;
+import com.temp.dattex.bean.FuncListBean;
+import com.temp.dattex.bean.InfoBySymbolBean;
 import com.temp.dattex.bean.KlineDataBean;
 import com.temp.dattex.bean.LeverageBean;
 import com.temp.dattex.bean.LoginBean;
+import com.temp.dattex.bean.MarketListBean;
+import com.temp.dattex.bean.NewApplyBean;
+import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.OrdersBean;
 import com.temp.dattex.bean.OtcDetailBean;
@@ -19,6 +25,7 @@ import com.temp.dattex.bean.RechargeBean;
 import com.temp.dattex.bean.SymbolConfigBean;
 import com.temp.dattex.bean.TradeDepthBean;
 import com.temp.dattex.bean.TransferredBean;
+import com.temp.dattex.bean.UpdateBean;
 import com.temp.dattex.bean.WithdrawLimitBean;
 import com.temp.dattex.database.LoginInfo;
 
@@ -109,15 +116,41 @@ public class DataService {
 
     }
 
+    public Observable<BaseResponse<Object>> sendCodeMessage(String sendType) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.SENDTYPE, sendType);
+        return RetrofitClient.getInstance().create(ApiService.class).sendCode(LoginInfo.getUserToken(),params);
+
+    }
+
+
     public Observable<BaseResponse<AssetsBean>> userAssets() {
         return RetrofitClient.getInstance().create(ApiService.class).userAssets(LoginInfo.getUserToken());
     }
 
+    public Observable<BaseResponse<List<CoinBean>>> userCoin() {
+        return RetrofitClient.getInstance().create(ApiService.class).userCoin(LoginInfo.getUserToken());
+    }
 
+    public Observable<BaseResponse<NewAssetsBean>> getAssetsByCoinId(String coinId) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
+        return RetrofitClient.getInstance().create(ApiService.class).getAssetsByCoinId(LoginInfo.getUserToken(),params);
+    }
+    public Observable<BaseResponse<Object>> getProfitLossRate(String direction,String id,String lever,String price,String stopLossRates,String stopProfitRates,String symbol) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_DIRECTION, direction);
+        params.put(Constants.REQUEST_KEY_ID, id);
+        params.put(Constants.REQUEST_KEY_LEVER, lever);
+        params.put(Constants.REQUEST_KEY_PRICE, price);
+        params.put(Constants.REQUEST_KEY_STOP_LOSS_RATES, stopLossRates);
+        params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, stopProfitRates);
+        params.put(Constants.REQUEST_KEY_SYMBOL, symbol);
+        return RetrofitClient.getInstance().create(ApiService.class).getProfitLossRate(LoginInfo.getUserToken(),params);
+    }
     public Observable<BaseResponse<List<SymbolConfigBean>>> symbolConfig() {
         return RetrofitClient.getInstance().create(ApiService.class).symbolConfig(LoginInfo.getUserToken());
     }
-
     public Observable<BaseResponse<Boolean>> checkWithdraw() {
         return RetrofitClient.getInstance().create(ApiService.class).checkWithdraw(LoginInfo.getUserToken());
     }
@@ -147,13 +180,22 @@ public class DataService {
         params.put(Constants.BTCUSDT, btcusdt);
         return RetrofitClient.getInstance().create(ApiService.class).getDepth(LoginInfo.getUserToken(), params);
     }
+    public Observable<BaseResponse<List<MarketListBean>>> getMarketList() {
+        return RetrofitClient.getInstance().create(ApiService.class).getMarketList(LoginInfo.getUserToken());
+    }
 
-    public Observable<BaseResponse<OrdersBean>> getAllOrders(int page, String filter) {
+    public Observable<BaseResponse<OrdersBean>> getAllOrders(int state,int page, String filter) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_DIR, "asc");
         params.put(Constants.REQUEST_KEY_PAGE, page);
         params.put(Constants.REQUEST_KEY_SIZE, 100);
+        params.put(Constants.REQUEST_KEY_STATE, state);
         return RetrofitClient.getInstance().create(ApiService.class).getAllOrders(LoginInfo.getUserToken(), params);
+    }
+
+    public Observable<BaseResponse<Object>> getMemberReciveItem(String coinId) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        return RetrofitClient.getInstance().create(ApiService.class).getMemberReciveItem(LoginInfo.getUserToken(), params);
     }
 
     /**
@@ -213,11 +255,15 @@ public class DataService {
     public Observable<BaseResponse<Object>> placePosition(long orderId) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_ORDER_ID, orderId);
-        return RetrofitClient.getInstance().create(ApiService.class).placePosition(LoginInfo.getUserToken(), params);
+        return RetrofitClient.getInstance().create(ApiService.class).placePosition(LoginInfo.getUserToken(), orderId);
     }
 
     public Observable<BaseResponse<List<BannerItemBean>>> appBanner() {
         return RetrofitClient.getInstance().create(ApiService.class).appBanner(LoginInfo.getUserToken());
+    }
+
+    public Observable<BaseResponse<FuncListBean>> getFuncList() {
+        return RetrofitClient.getInstance().create(ApiService.class).getFuncList(LoginInfo.getUserToken());
     }
 
     public Observable<BaseResponse<List<DealItemBean>>> getDealList(String symbol) {
@@ -249,5 +295,29 @@ public class DataService {
     }
     public Observable<BaseResponse<OtcDetailBean>> getOtcDetail(int id) {
         return RetrofitClient.getInstance().create(ApiService.class).getOtcDetail(LoginInfo.getUserToken(),id);
+    }
+
+    public Observable<BaseResponse<NewApplyBean>> getFindByPageApplyCoin(int page) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_PAGE, page);
+        params.put(Constants.REQUEST_KEY_SIZE, 100);
+        return RetrofitClient.getInstance().create(ApiService.class).getFindByPageApplyCoin(LoginInfo.getUserToken(),params);
+    }
+    public Observable<BaseResponse<UpdateBean>> UpDate() {
+        return RetrofitClient.getInstance().create(ApiService.class).UpDate(LoginInfo.getUserToken());
+    }
+
+    public Observable<BaseResponse<Object>> getApplyCoin(int applyId ,int subscribeQty,String validCode) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_APPLYID, applyId);
+        params.put(Constants.REQUEST_SUBSCRIBEQTY, subscribeQty);
+        params.put(Constants.REQUEST_VALIDCODE, validCode);
+
+        return RetrofitClient.getInstance().create(ApiService.class).getApplyCoin(LoginInfo.getUserToken(),params);
+    }
+    public Observable<BaseResponse<InfoBySymbolBean>> getInfoBySymbol(String symbol) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_SYMBOL, symbol);
+        return RetrofitClient.getInstance().create(ApiService.class).getInfoBySymbol(LoginInfo.getUserToken(),params);
     }
 }

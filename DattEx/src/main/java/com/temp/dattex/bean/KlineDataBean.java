@@ -2,6 +2,7 @@ package com.temp.dattex.bean;
 
 import com.icechao.klinelib.model.KLineEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /*************************************************************************
@@ -33,7 +34,7 @@ import java.util.List;
  * ```` ':.          ':::::::::'                  ::::..
  *                    '.:::::'                    ':'````..
  *************************************************************************/
-public class KlineDataBean {
+public class KlineDataBean implements Serializable {
     private List<DataBean> data;
 
     public List<DataBean> getData() {

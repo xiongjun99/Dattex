@@ -45,8 +45,10 @@ public class CoverDialogViewModel extends BaseViewModel {
     @SingleClick
     public void coverConfirm() {
         DataService.getInstance().placePosition(orderId).compose(ResponseTransformer.handleResult()).subscribe(
-                b -> closeDialog(), t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
-
+                b -> {
+                    ToastUtil.show(BaseApplication.getInstance(), "平仓成功...");
+                    closeDialog();
+                }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
 
         );
     }

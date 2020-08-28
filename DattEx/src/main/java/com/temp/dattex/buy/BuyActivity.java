@@ -166,6 +166,7 @@ public class BuyActivity extends Activity {
                         bundle.putInt("id",id);
                         it.putExtras(bundle);//将bundle传入intent中。
                         startActivity(it);
+                        finish();
                     }
                 }, t -> {
                     ToastUtil.show(getApplicationContext(),t.getMessage());

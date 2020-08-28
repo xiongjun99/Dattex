@@ -19,6 +19,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.temp.dattex.Constants;
 import com.temp.dattex.bean.AssetsBean;
+import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.binding.adapter.TitleBarClickBindingAdapter;
 import com.temp.dattex.config.AssetsConfigs;
 import com.temp.dattex.record.CoinRecordActivity;
@@ -138,7 +139,7 @@ public class RechargeViewModel extends BaseViewModel implements TitleBarClickBin
     @Override
     public void onResume() {
         super.onResume();
-        AssetsBean.AssetsItemBean coinInfo = AssetsConfigs.getInstance().getCoinInfo(rechargeCoin.get());
+        NewAssetsBean coinInfo = AssetsConfigs.getInstance().getCoinInfo(rechargeCoin.get());
         if (null != coinInfo) {
             qrBitmap.set(createQRcodeImage(coinInfo.getAddr()));
         }

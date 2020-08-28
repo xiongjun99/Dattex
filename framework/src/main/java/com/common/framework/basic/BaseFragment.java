@@ -1,6 +1,7 @@
 package com.common.framework.basic;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,16 +32,22 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     protected VM viewModel;
     private int viewModelId;
 
+    public static ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initParam();
+        progressDialog = new ProgressDialog(getActivity());
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     @Nullable
@@ -266,5 +273,28 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     public void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         viewModel.onActivityResult(requestCode, resultCode, data);
+    }
+    public static void showLoading(Activity activity, boolean cancelable) {
+        if (activity.isFinishing()) return;
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.setCancelable(cancelable);
+            progressDialog.show();
+        }
+
+    }
+    public void showLoading(String message, boolean cancelable) {
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(cancelable);
+            progressDialog.show();
+        }
+    }
+    /**
+     *
+     */
+    public void dismissLoading() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }

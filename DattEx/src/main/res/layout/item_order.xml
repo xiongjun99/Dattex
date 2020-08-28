@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="orderBean"
@@ -62,7 +63,7 @@
                 android:paddingTop="3dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="3dp"
-                android:text="@{orderBean.direction == 0? @string/text_buy : @string/text_sell }"
+                android:text="@{orderBean.direction == 0? @string/text_short : @string/text_buy_more }"
                 android:textColor="#ffffffff"
                 android:textSize="10dp" />
 
@@ -192,13 +193,15 @@
                 android:textColor="@color/color_FFFFFFFF"
                 android:textSize="13dp" />
 
+
+
             <TextView
+                android:id="@+id/tv_profit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@{String.valueOf(orderBean.profit)}"
-                android:textColor="@color/color_FFFFFFFF"
+                android:textColor="@drawable/selector_text_color_profit_loss"
                 android:textSize="13dp" />
 
             <TextView
@@ -206,10 +209,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@{String.valueOf(orderBean.currentPrice)}"
+                android:text="@{String.valueOf(orderBean.marketPrice)}"
                 android:textColor="@color/color_FFFFFFFF"
                 android:textSize="13dp" />
-
         </LinearLayout>
 
         <View
@@ -220,7 +222,6 @@
 
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
@@ -228,6 +229,28 @@
             android:orientation="horizontal">
 
             <TextView
+                selected="@{orderBean.direction == 0}"
+                android:visibility="@{orderItemViewModel.show ? View.VISIBLE : View.GONE}"
+                android:background="@drawable/selector_trade_item_trade_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="@{orderItemViewModel.contractType}"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11dp" />
+            <TextView
+                android:visibility="@{orderItemViewModel.show ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="11dp" />
+            <TextView
+                android:visibility="@{orderItemViewModel.show ? View.GONE : View.VISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -236,14 +259,18 @@
                 android:textSize="11dp" />
 
             <TextView
+                android:visibility="@{orderItemViewModel.show ? View.GONE : View.VISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text='@{(orderBean.stopProfitRates*100) + "%" + (orderBean.stopProfitRates*100) + "%"}'
+                android:text='@{(orderBean.stopProfitRates*100) + "%" +" - "+ (orderBean.stopLossRates*100) + "%"}'
                 android:textColor="@color/color_FFFFFFFF"
                 android:textSize="11dp" />
+<!--            android:onClick="@{()->orderItemViewModel.set()}"-->
 
             <TextView
+                android:visibility="@{orderItemViewModel.orderShow ? View.GONE : View.VISIBLE}"
+                android:id="@+id/tv_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
@@ -253,9 +280,10 @@
                 android:text="设置"
                 android:textColor="@color/color_FFFFFFFF"
                 android:textSize="11dp"
-                android:visibility="gone" />
+                />
 
             <TextView
+                android:visibility="@{orderItemViewModel.orderShow ? View.GONE : View.VISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
@@ -266,7 +294,15 @@
                 android:text="@string/text_place_postion"
                 android:textColor="@color/color_FFFFFFFF"
                 android:textSize="11dp" />
-
+            <TextView
+                android:layout_marginRight="16dp"
+                android:visibility="@{orderItemViewModel.orderShow ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="@{@string/text_cover_time+orderBean.quitTime}"
+                android:textColor="#ffa3a6bf"
+                android:textSize="11dp" />
         </LinearLayout>
     </LinearLayout>
 </layout>

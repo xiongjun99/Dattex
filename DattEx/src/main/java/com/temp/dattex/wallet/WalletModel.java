@@ -36,6 +36,7 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.bean.AssetsBean;
+import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.PayTypeBean;
 import com.temp.dattex.binding.adapter.TitleBarClickBindingAdapter;
@@ -343,7 +344,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     @Override
     public void onResume() {
         super.onResume();
-        AssetsBean.AssetsItemBean coinInfo = AssetsConfigs.getInstance().getCoinInfo(rechargeCoin.get());
+        NewAssetsBean coinInfo = AssetsConfigs.getInstance().getCoinInfo(rechargeCoin.get());
         if (null != coinInfo) {
             qrBitmap.set(createQRcodeImage(coinInfo.getAddr()));
             address.set(coinInfo.getAddr());

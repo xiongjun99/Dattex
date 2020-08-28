@@ -35,8 +35,7 @@ public class HistoryOrderViewModel extends BaseViewModel {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        DataService.getInstance().getAllOrders(page, "").compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
+        DataService.getInstance().getAllOrders(2,page, "").compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
                 o -> {
                     List<OrdersBean.OrderItemBean> rows = o.getRows();
                     if (null != rows) {
