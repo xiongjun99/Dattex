@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -28,26 +29,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.yyydjk.library.BannerLayout
-                    android:id="@+id/banner"
+                <com.jude.rollviewpager.RollPagerView
+                    android:id="@+id/vp_roll"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:autoPlayDuration="5000"
-                    app:indicatorMargin="10dp"
-                    app:indicatorPosition="centerBottom"
-                    app:indicatorShape="rect"
-                    app:indicatorSpace="3dp"
-                    app:layout_constraintDimensionRatio="1:0.64"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:scrollDuration="1100"
-                    app:selectedIndicatorColor="@color/color_FFFFFFFF"
-                    app:selectedIndicatorHeight="2dp"
-                    app:selectedIndicatorWidth="6dp"
-                    app:unSelectedIndicatorColor="#99ffffff"
-                    app:unSelectedIndicatorHeight="2dp"
-                    app:unSelectedIndicatorWidth="6dp" >
-
-                </com.yyydjk.library.BannerLayout>
+                    android:layout_height="@dimen/dp_200"
+                    app:rollviewpager_hint_gravity="right"
+                    app:rollviewpager_play_delay="5000"
+                    tools:ignore="MissingConstraints" />
 
                 <ImageView
                     android:id="@+id/iv_ip"
@@ -272,7 +260,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.6dp"
                 android:background="@color/color_99000000" />
-
+          <RelativeLayout
+              android:id="@+id/rl_market_title"
+              android:visibility="gone"
+             android:padding="@dimen/dp_10"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <RelativeLayout
+                  android:layout_marginRight="@dimen/dp_20"
+                  android:layout_toLeftOf="@+id/rl_24h"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+                  <TextView
+                      android:paddingLeft="16dp"
+                      android:layout_alignParentLeft="true"
+                      android:text="资产"
+                      style="@style/Auth_TextView_Style"></TextView>
+                  <TextView
+                      android:paddingRight="@dimen/dp_16"
+                      android:layout_alignParentRight="true"
+                      android:text="最新价"
+                      style="@style/Auth_TextView_Style"></TextView>
+              </RelativeLayout>
+              <RelativeLayout
+                  android:id="@+id/rl_24h"
+                  android:layout_alignParentRight="true"
+                  android:layout_width="@dimen/dp_70"
+                  android:layout_height="wrap_content">
+                  <TextView
+                      android:paddingLeft="@dimen/dp_10"
+                      android:text="24H成交额"
+                      style="@style/Auth_TextView_Style"></TextView>
+              </RelativeLayout>
+          </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

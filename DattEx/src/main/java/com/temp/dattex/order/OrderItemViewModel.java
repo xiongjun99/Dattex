@@ -12,6 +12,7 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.util.CoverDialogViewModel;
 import com.temp.dattex.util.DialogUtil;
+import com.temp.dattex.util.Utils;
 
 /**
  * @Package: com.temp.dattex.order
@@ -24,7 +25,7 @@ import com.temp.dattex.util.DialogUtil;
 public class OrderItemViewModel extends BaseViewModel {
     private ObservableField<String> amount = new ObservableField("");
     private ObservableField<Boolean> show = new ObservableField();
-    private ObservableField<String> contractType = new ObservableField();
+    public ObservableField<String> contractType = new ObservableField();
     private ObservableField<Boolean> orderShow = new ObservableField();
 
     public ObservableField<Boolean> getOrderShow() {
@@ -186,19 +187,22 @@ public class OrderItemViewModel extends BaseViewModel {
     @SingleClick
     //设置止盈止损 /app/exchange/setProfitLossRate
     public void ensureOrder() {
-            float stopLossRate = Float.parseFloat(downStopPercent.get()) / 100;
-            float stopProfitRate = Float.parseFloat(upStopPercent.get()) / 100;
+        float stopLossRate = Float.parseFloat(downStopPercent.get()) / 100;
+        float stopProfitRate = Float.parseFloat(upStopPercent.get()) / 100;
+
         DataService.getInstance().getProfitLossRate(direction.get(),id.get(),lever.get(),amount.get(),String.valueOf(stopLossRate),String.valueOf(stopProfitRate),symbol.get()).compose(ResponseTransformer.handleResult())
                 .subscribe(data->{
-                    ToastUtil.show(getApplication(),"设置成功...");
+                    ToastUtil.show(getApplication(),"设置成功");
                 },t->{
-                    ToastUtil.show(getApplication(),"设置失败...");
+                    ToastUtil.show(getApplication(),t.getMessage());
                 });
             if (null != getDialog()) {
                 getDialog().dismiss();
                 setDialog(null);
             }
     }
+
+
     @SingleClick
     public void downStopPercentPlus() {
         String text = downStopPercent.get();

@@ -29,7 +29,7 @@
             android:layout_height="64dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="23dp"
-            android:src="@mipmap/icon_logo2" />
+            android:src="@mipmap/ic_launcher" />
 
 
         <TextView
@@ -40,7 +40,7 @@
             android:shadowColor="#80000000"
             android:shadowDy="3"
             android:shadowRadius="3.0"
-            android:text="DattEx"
+            android:text="@string/app_name"
             android:textColor="@color/color_FFFFFFFF"
             android:textSize="18dp" />
 
@@ -152,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/selector_button_width"
+            android:background="@drawable/drawable_button_ensure"
             android:gravity="center"
             android:onClick="@{loginViewModel::login}"
             android:padding="15dp"

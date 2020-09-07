@@ -15,6 +15,7 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.BaseActivity;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.WithdrawListAdapter;
+import com.temp.dattex.bean.NewPayTypeBean;
 import com.temp.dattex.bean.OrdersBean;
 import com.temp.dattex.bean.WithDrawListBean;
 import com.temp.dattex.net.DataService;
@@ -26,7 +27,6 @@ import java.util.List;
 public class NewPayTypeActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private WithdrawListAdapter withdrawListAdapter;
-    private List<WithDrawListBean> list = new ArrayList<>();
     private TextView tvBottom;
     private TitleBar titleBar;
 
@@ -35,6 +35,12 @@ public class NewPayTypeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newpaytype);
         initView();
+        initData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         initData();
     }
 
@@ -47,7 +53,7 @@ public class NewPayTypeActivity extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.clearFocus();
         recyclerView.setFocusable(false);
-        withdrawListAdapter = new WithdrawListAdapter(list);
+        withdrawListAdapter = new WithdrawListAdapter(this,null);
         recyclerView.setAdapter(withdrawListAdapter);
         tvBottom = (TextView)findViewById(R.id.tv_bottom);
         titleBar = (TitleBar) findViewById(R.id.title_bar);
@@ -58,25 +64,27 @@ public class NewPayTypeActivity extends BaseActivity {
         });
         withdrawListAdapter.setOnItemClickListener((adapter, view, position) -> {
             Intent it = new Intent(this,WithdrawActivity.class);
-            it.putExtra("str",withdrawListAdapter.getData().get(position).getString1());
-            it.putExtra("str1",withdrawListAdapter.getData().get(position).getString2());
+            it.putExtra("name",withdrawListAdapter.getData().get(position).getBankName());
+            it.putExtra("account",withdrawListAdapter.getData().get(position).getReceivingAccount());
+            it.putExtra("reciveItemId",withdrawListAdapter.getData().get(position).getId());
+            it.putExtra("payType",withdrawListAdapter.getData().get(position).getType());
             setResult(RESULT_OK, it);
             finish();
         });
     }
     private void initData() {
-        DataService.getInstance().getMemberReciveItem("").compose(ResponseTransformer.<Object>handleResult()).subscribe(
+        DataService.getInstance().getMemberReciveItem("0").compose(ResponseTransformer.<List<NewPayTypeBean>>handleResult()).subscribe(
                 bean -> {
+                    withdrawListAdapter.setNewData(bean);
                 }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
         );
-        String [] strings1 = {"建设银行","支付宝"};
-        String [] strings2 = {"*********4342","*********3289"};
-        for (int i = 0; i < strings1.length; i++) {
-            WithDrawListBean data = new WithDrawListBean();
-            data.setString1(strings1[i]);
-            data.setString2(strings2[i]);
-            list.add(data);
-        }
-        withdrawListAdapter.setDiffNewData(list);
+//        String [] strings1 = {"建设银行","支付宝"};
+//        String [] strings2 = {"*********4342","*********3289"};
+//        for (int i = 0; i < strings1.length; i++) {
+//            WithDrawListBean data = new WithDrawListBean();
+//            data.setString1(strings1[i]);
+//            data.setString2(strings2[i]);
+//            list.add(data);
+//        }
     }
 }

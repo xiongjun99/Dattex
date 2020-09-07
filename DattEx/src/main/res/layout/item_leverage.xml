@@ -11,15 +11,27 @@
             name="laverageBean"
             type="String" />
     </data>
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_282C42"
+        android:orientation="vertical"
+        >
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{()->tradeViewModel.changeLeverage(laverageBean)}"
+        android:gravity="center"
         android:padding="16dp"
         android:text="@{laverageBean.substring(0,2)}"
         android:textColor="@color/color_FFFFFFFF">
-
-
     </TextView>
+
+        <View
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@color/color_1A1C29"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"></View>
+    </LinearLayout>
 </layout>

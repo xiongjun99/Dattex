@@ -72,6 +72,7 @@ public class AssetsConfigs {
                     if(null != coinbean){
                         for (int i = 0; i < coinbean.size(); i++) {
                             CoinBean coinBean = coinbean.get(i);
+                            System.out.println("------"+coinBean.getWithdrawFee());
                             if(null !=coinBean){
                                 coinBeanHashMap.put(coinBean.getId(), coinBean);
                                 freshAssetsByCoinId(coinBean.getId());
@@ -87,6 +88,7 @@ public class AssetsConfigs {
     public void freshAssetsByCoinId(String CoinId) {
         DataService.getInstance().getAssetsByCoinId(CoinId).compose(ResponseTransformer.<NewAssetsBean>handleResult()).subscribe(
                 assetsBean -> {
+                    System.out.println("---------assetsBean"+assetsBean);
                     if(null != assetsBean){
                         newAssetsItemBeanMap.put(assetsBean.getCoinId(), assetsBean);
                     }

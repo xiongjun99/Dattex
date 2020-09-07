@@ -14,13 +14,13 @@
         android:height="106dp"
         android:gravity="center_horizontal"
         android:top="128dp">
-        <bitmap android:src="@mipmap/icon_logo" />
+<!--        <bitmap android:src="@mipmap/icon_logo" />-->
     </item>
     <item
         android:width="86dp"
         android:height="21dp"
         android:gravity="center_horizontal"
         android:top="258dp">
-        <bitmap android:src="@mipmap/icon_logo_name" />
+<!--        <bitmap android:src="@mipmap/icon_logo_name" />-->
     </item>
 </layer-list>

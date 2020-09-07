@@ -64,10 +64,12 @@
             android:layout_height="wrap_content" >
 
             <TextView
+                android:id="@+id/unit_price"
                 android:layout_gravity="center_horizontal"
-                android:text="单价(USDT)"
+                android:text=""
                 style="@style/Auth_TextView_Style"
                 android:layout_alignParentLeft="true"></TextView>
+
             <TextView
                 android:layout_marginTop="3dp"
                 android:layout_gravity="center_horizontal"
@@ -83,8 +85,8 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content" >
             <TextView
+                android:id="@+id/apply_max"
                 android:layout_gravity="center_horizontal"
-                android:text="最大申购(BTRT)"
                 style="@style/Auth_TextView_Style"
                 android:layout_alignParentLeft="true"></TextView>
             <TextView
@@ -102,8 +104,9 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content" >
             <TextView
+                android:id="@+id/transaction_price"
                 android:layout_gravity="center_horizontal"
-                android:text="成交总额(USDT)"
+                android:text=""
                 style="@style/Auth_TextView_Style"
                 android:layout_alignParentLeft="true"></TextView>
             <TextView

@@ -3,6 +3,7 @@ package com.temp.dattex.setting;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 
 import com.common.framework.basic.BaseViewModel;
 
@@ -36,7 +37,15 @@ import com.common.framework.basic.BaseViewModel;
  *                    '.:::::'                    ':'````..
  *************************************************************************/
 public class SettingViewModel extends BaseViewModel {
+    public ObservableField<String> revise = new ObservableField<>("aaaaaaaaaaaa");
 
+    public ObservableField<String> getRevise() {
+        return revise;
+    }
+
+    public void setRevise(ObservableField<String> revise) {
+        this.revise = revise;
+    }
     public SettingViewModel(@NonNull Application application) {
         super(application);
     }

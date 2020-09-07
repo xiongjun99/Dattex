@@ -5,20 +5,31 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/dp_5"
     android:paddingBottom="@dimen/dp_5">
-   <TextView
-       android:gravity="center_horizontal"
-       android:layout_weight="1"
-       android:id="@+id/tv_number"
-     style="@style/White_TextView_Style"></TextView>
-    <TextView
+    <RelativeLayout
         android:gravity="center_horizontal"
         android:layout_weight="1"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content">
+        <TextView
+        android:id="@+id/tv_number"
+        style="@style/White_TextView_Style"></TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:gravity="right"
+        android:layout_weight="1"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content">
+    <TextView
         android:id="@+id/tv_price"
         style="@style/White_TextView_Style"></TextView>
-    <TextView
-        android:gravity="center_horizontal"
+    </RelativeLayout>
+    <RelativeLayout
+        android:gravity="right"
         android:layout_weight="1"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content">
+    <TextView
         android:id="@+id/tv_totailprice"
         style="@style/White_TextView_Style"></TextView>
-    
+    </RelativeLayout>
 </LinearLayout>

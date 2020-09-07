@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:background="@null"
-                    android:hint="支付宝单笔最低100元，最高50000"
+                    android:hint="@{@string/input_in + @string/comma + @string/minNumber + walletModel.otcminAmount + @string/comma + @string/maxNumber + walletModel.otcMaxAmount}"
                     android:paddingTop="13dp"
                     android:paddingBottom="13dp"
                     android:text="@={walletModel.balance}"
@@ -170,7 +170,7 @@
                     android:layout_marginRight="15dp"
                     android:paddingTop="13dp"
                     android:paddingBottom="13dp"
-                    android:text="元"
+                    android:text="@={walletModel.exchangeType}"
                     android:textColor="@color/color_FFA3A6BF"
                     android:textSize="12dp" />
 
@@ -197,14 +197,25 @@
                     android:text="当前USDT买入价："
                     android:textColor="@color/color_FF767B99"
                     android:textSize="12dp" />
-
-                <TextView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@{walletModel.price}"
-                    android:textColor="@color/color_FFEDEEF2"
-                    android:textSize="12dp" />
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{walletModel.unit}"
+                        android:textColor="@color/color_FFEDEEF2"
+                        android:textSize="12dp" />
+                    <TextView
+                        android:layout_marginLeft="@dimen/dp_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{walletModel.price}"
+                        android:textColor="@color/color_FFEDEEF2"
+                        android:textSize="12dp" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -406,7 +417,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="行情火爆，勾币人数过多，商家应接不暇"
+                android:text="行情火爆，购币人数过多，商家应接不暇"
                 android:textColor="@color/color_FFEC891B"
                 android:textSize="10dp" />
 
@@ -423,7 +434,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:paddingBottom="20dp"
-                android:text="请提前做好勾币准备，以免影响您的交易"
+                android:text="请提前做好购币准备，以免影响您的交易"
                 android:textColor="@color/color_FFEC891B"
                 android:textSize="10sp" />
 

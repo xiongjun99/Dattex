@@ -14,6 +14,7 @@ import com.temp.dattex.bean.LoginBean;
 import com.temp.dattex.bean.MarketListBean;
 import com.temp.dattex.bean.NewApplyBean;
 import com.temp.dattex.bean.NewAssetsBean;
+import com.temp.dattex.bean.NewPayTypeBean;
 import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.OrdersBean;
 import com.temp.dattex.bean.OtcDetailBean;
@@ -22,7 +23,9 @@ import com.temp.dattex.bean.RechargeBean;
 import com.temp.dattex.bean.SymbolConfigBean;
 import com.temp.dattex.bean.TradeDepthBean;
 import com.temp.dattex.bean.UpdateBean;
+import com.temp.dattex.bean.WithdrawBean;
 import com.temp.dattex.bean.WithdrawLimitBean;
+import com.temp.dattex.bean.WithdrawSubmitBean;
 
 import java.util.List;
 import java.util.Map;
@@ -98,7 +101,7 @@ public interface ApiService {
     Observable<BaseResponse<AssetsBean>> userAssets(@Header("x-app-token") String token);
 
     @POST(ApiAddress.USER_COIN)
-    Observable<BaseResponse<List<CoinBean>>> userCoin(@Header("x-app-token") String token);
+    Observable<BaseResponse<List<CoinBean>>> userCoin(@Header("x-app-token") String token, @Body Map<String, Object> param);
 
     @POST(ApiAddress.SYMBOL_LEVERAGE)
     Observable<BaseResponse<List<LeverageBean>>> getLeverage(@Header("x-app-token") String token, @Body Map<String, Object> param);
@@ -110,7 +113,7 @@ public interface ApiService {
     Observable<BaseResponse<OrdersBean>> getAllOrders(@Header("x-app-token") String token, @Body Map<String, Object> param);
 
     @POST(ApiAddress.GETMEMBERRECIVEITEM)
-    Observable<BaseResponse<Object>> getMemberReciveItem(@Header("x-app-token") String token, @Body Map<String, Object> param);
+    Observable<BaseResponse<List<NewPayTypeBean>>> getMemberReciveItem(@Header("x-app-token") String token, @Body Map<String, Object> param);
 
     @POST(ApiAddress.CREATE_REAL_NAME)
     Observable<BaseResponse<Object>> commitRealName(@Body Map<String, Object> param, @Header("x-app-token") String userToken);
@@ -123,13 +126,19 @@ public interface ApiService {
     Observable<BaseResponse<KlineDataBean>> klineHistory(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
 
     @POST(ApiAddress.WITHDRAW_CHECK)
-    Observable<BaseResponse<WithdrawLimitBean>> withdrawLimit(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
+    Observable<BaseResponse<WithdrawLimitBean>> withdrawLimit(@Header("x-app-token") String userToken, @Path("coinId") String coinId);
 
     @POST(ApiAddress.WITHDRAW_COIN)
     Observable<BaseResponse<Object>> withdrawCoin(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
 
+    @POST(ApiAddress.OTC_WITHDRAW)
+    Observable<BaseResponse<WithdrawBean>> inoutWithdraw(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
+
     @POST(ApiAddress.PLACE_POSITION)
     Observable<BaseResponse<Object>> placePosition(@Header("x-app-token") String userToken,@Path("orderId") long orderId);
+
+    @POST(ApiAddress.OTC_REMOVEMEMBERPAYTYPE)
+    Observable<BaseResponse<Object>> removeMemberPayType(@Header("x-app-token") String userToken,@Body Map<String, Object> param);
 
     @POST(ApiAddress.APP_BANNER)
     Observable<BaseResponse<List<BannerItemBean>>> appBanner(@Header("x-app-token") String userToken);
@@ -150,6 +159,8 @@ public interface ApiService {
     @POST(ApiAddress.RECHARGE)
     Observable<BaseResponse<RechargeBean>> getRecharge(@Header("x-app-token") String userToken,@Body Map<String, Object> param);
 
+    @POST(ApiAddress.ADDMEMBERPAYTYPE)
+    Observable<BaseResponse<Object>> addMemberPayType(@Header("x-app-token") String userToken,@Body Map<String, Object> param);
 
     @POST(ApiAddress.TRANSFERRED)
     Observable<BaseResponse<Object>> getTransferred(@Header("x-app-token") String userToken,@Path("id") int id);

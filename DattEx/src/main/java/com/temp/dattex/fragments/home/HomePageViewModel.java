@@ -69,17 +69,8 @@ import java.util.TimerTask;
  *************************************************************************/
 public class HomePageViewModel extends BaseViewModel {
     private Timer timer;
-    private int checkRank = 0;
+    public ObservableField<Integer> checkRank = new ObservableField<>(1);
 
-//    private ObservableField<MarketRecyclerAdapter> adapter = new ObservableField<>(new MarketRecyclerAdapter(R.layout.item_market_layout, null));
-//
-//    public ObservableField<MarketRecyclerAdapter> getAdapter() {
-//        return adapter;
-//    }
-//
-//    public void setAdapter(ObservableField<MarketRecyclerAdapter> adapter) {
-//        this.adapter = adapter;
-//    }
     private ObservableField<NewMarketRecyclerAdapter> adapter = new ObservableField<>(new NewMarketRecyclerAdapter(R.layout.item_newmarket_layout,getApplication(), null));
 
     public ObservableField<NewMarketRecyclerAdapter> getAdapter() {
@@ -101,7 +92,24 @@ public class HomePageViewModel extends BaseViewModel {
     }
 
     public ObservableField<List<String>> urls = new ObservableField<>(new ArrayList<String>());
+    public ObservableField<String> bannerText = new ObservableField<>("");
+    public ObservableField<String> bannerTextcN = new ObservableField<>("");
 
+    public ObservableField<String> getBannerTextcN() {
+        return bannerTextcN;
+    }
+
+    public void setBannerTextcN(ObservableField<String> bannerTextcN) {
+        this.bannerTextcN = bannerTextcN;
+    }
+
+    public ObservableField<String> getBannerText() {
+        return bannerText;
+    }
+
+    public void setBannerText(ObservableField<String> bannerText) {
+        this.bannerText = bannerText;
+    }
 
     public HomePageViewModel(@NonNull Application application) {
         super(application);
@@ -110,27 +118,28 @@ public class HomePageViewModel extends BaseViewModel {
 
     @SingleClick
     public void checkUpRank(View view) {
-        checkRank = 1;
+        checkRank.set(1);
 //        getMarketList(1);
     }
 
     @SingleClick
     public void checkDownRank(View view) {
-        checkRank = 2 ;
+        checkRank.set(2);
 //        getMarketList(2);
     }
 
     @SingleClick
     public void checkDealRank(View view) {
-        checkRank = 3;
+        checkRank.set(3);
 //        getMarketList(3);
     }
 
 
     public void openWebView(String url) {
-        Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, url);
-        startActivity(WebViewActivity.class, bundle);
+        ToastUtil.show(getApplication(),"暂未开通");
+//        Bundle bundle = new Bundle();
+//        bundle.putString(WebViewActivity.KEY_PARAM_URL, url);
+//        startActivity(WebViewActivity.class, bundle);
     }
 
 
@@ -162,7 +171,6 @@ public class HomePageViewModel extends BaseViewModel {
                         }
                     });
                     for (MarketListBean p : list.get()) {
-                        System.out.println("----------111"+p.getChanges());
                     }
             } else if (pos == 2) {
                         //直接在这里添加我们的排序规则
@@ -172,7 +180,6 @@ public class HomePageViewModel extends BaseViewModel {
                             }
                  });
             for (MarketListBean p : list.get()) {
-                System.out.println("-----222"+p.getChanges());
              }
             } else if (pos ==3){
                         Collections.sort(list.get(), new Comparator<MarketListBean>() {
@@ -187,7 +194,6 @@ public class HomePageViewModel extends BaseViewModel {
                             }
                         });
                         for (MarketListBean p : list.get()) {
-                            System.out.println("----------333"+p.getDealCount());
                         }
             }
             if (adapter.get().getData()==null||adapter.get().getData().size()==0){
@@ -195,6 +201,7 @@ public class HomePageViewModel extends BaseViewModel {
             }else {
             adapter.get().setNewData(list.get());
             }
+                    adapter.get().setPos(pos);
            }, t -> {
                     ToastUtil.show(BaseApplication.getInstance(), t.getMessage());}
         );
@@ -209,7 +216,7 @@ public class HomePageViewModel extends BaseViewModel {
 //        if (null == data || data.size() == 0) {
 //            getAdapter().get().addData(symbols);
 //        }
-        getMarketList(checkRank);
+        getMarketList(checkRank.get());
         DataService.getInstance().appBanner().compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if(null != b && b.size() != 0){
@@ -232,7 +239,7 @@ public class HomePageViewModel extends BaseViewModel {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                getMarketList(checkRank);
+                getMarketList(checkRank.get());
             }
         }, 1000, 1000);
     }

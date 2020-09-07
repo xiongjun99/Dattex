@@ -37,8 +37,8 @@ public class ApiAddress {
     public static final String NOTICE_DETAIL_URL = "http://www.baidu.com";
     public static final String USER_PROTOCOL_URL = "http://www.baidu.com";
     public static final String USER_INVITED_URL = "http://www.baidu.com";
-//    public static final String BASE_URL = "http://8.210.211.248:10088";
-    public static final String BASE_URL = "http://45.132.238.82:8088";
+    public static final String BASE_URL = "http://app.buda.tc:8088";
+//    public static final String BASE_URL = "http://45.132.238.82:8088";
 
     //public static final String BASE_URL = "http://121.40.199.201";
     public static final String WEB_SOCKET_URL = "ws://8.210.211.248:10088/imserver/10000";
@@ -84,10 +84,13 @@ public class ApiAddress {
     public static final String CANCEL = "/app/otc/inout/cancel/{id}";
     public static final String RECHARGE = "/app/otc/inout/recharge";
     public static final String OTC_DETAIL = "/app/otc/inout/detail/{id}";
-
+    public static final String OTC_REMOVEMEMBERPAYTYPE = "/app/otc/removeMemberPayType";
+    public static final String OTC_WITHDRAW = "/app/otc/inout/withdraw";
     public static final String GETASSETSBYCOINID = "/app/wallet/getAssetsByCoinId";
     public static final String MARKETLIST = "/app/market/list";
     public static final String ProfitLossRate = "/app/exchange/setProfitLossRate";
+    public static final String ADDMEMBERPAYTYPE = "/app/otc/addMemberPayType";
+
 
 }
 

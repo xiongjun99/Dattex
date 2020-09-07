@@ -88,7 +88,7 @@ public class HomeViewPagerFragment extends Fragment {
             public void run() {
                 getMarketList();
             }
-        }, 30000, 30000);
+        }, 1000, 1000);
     }
     @Override
     public void onPause() {
@@ -98,6 +98,28 @@ public class HomeViewPagerFragment extends Fragment {
             timer = null;
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (null != timer) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
     private void getMarketList() {
         DataService.getInstance().getMarketList().compose(ResponseTransformer.<List<MarketListBean>>handleResult()).subscribe(
                 l -> {

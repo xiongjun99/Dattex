@@ -26,11 +26,12 @@ public class LoginInfo {
      * @param memberId
      * @param recode
      */
-    public static void sign(String account, String token, int memberId, String recode) {
+    public static void sign(String account, String token, int memberId, String recode,String isCertification) {
         SPUtil.setParam(Constants.SP_KEY_LOGIN_ACCOUNT, account);
         SPUtil.setParam(Constants.SP_KEY_LOGIN_TOKEN, token);
         SPUtil.setParam(Constants.SP_KEY_LOGIN_MEMBERID, memberId);
         SPUtil.setParam(Constants.SP_KEY_LOGIN_RECODE, recode);
+        SPUtil.setParam(Constants.SP_KEY_LOGIN_ISCERTIFICATION, isCertification);
     }
 
     /**
@@ -63,5 +64,14 @@ public class LoginInfo {
 
     public static String getAccount() {
         return (String) SPUtil.getParam(Constants.SP_KEY_LOGIN_ACCOUNT, "");
+    }
+    public static String isCertification() {
+        return (String) SPUtil.getParam(Constants.SP_KEY_LOGIN_ISCERTIFICATION, "");
+    }
+    public static void  getisCertification(String isCertification) {
+        SPUtil.setParam(Constants.SP_KEY_LOGIN_ISCERTIFICATION, isCertification);
+    }
+    public static String getRecode() {
+        return (String) SPUtil.getParam(Constants.SP_KEY_LOGIN_RECODE, "");
     }
 }

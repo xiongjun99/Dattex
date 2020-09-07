@@ -27,6 +27,9 @@ import com.temp.dattex.R;
 import com.temp.dattex.country.CountryActivity;
 import com.temp.dattex.net.DataService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Scheduler;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -60,10 +63,13 @@ public class AuthViewModel extends BaseViewModel implements
      * 国家
      */
     public ObservableField<String> country = new ObservableField<>("中国");
+
+    public ObservableField<String> Code = new ObservableField<>("+86");
+
     /**
      * 国家类型，true中国，中国以外 false
      */
-    public ObservableField<Boolean> countyType = new ObservableField<>(true);
+    public ObservableField<Boolean> countyType = new ObservableField<>(false);
     /**
      * 其他国家的id
      */
@@ -76,6 +82,19 @@ public class AuthViewModel extends BaseViewModel implements
      * 其他国家的姓
      */
     public ObservableField<String> orderCountrySurname = new ObservableField<>("");
+
+    public ObservableField<String> identityType = new ObservableField<>("");
+    public ObservableField<List<String>> mlist = new ObservableField<>();
+
+    public ObservableField<List<String>> getMlist() {
+        return mlist;
+    }
+
+    public void setMlist(ObservableField<List<String>> mlist) {
+        this.mlist = mlist;
+    }
+
+
     /**
      * pop按钮状态
      */
@@ -108,6 +127,18 @@ public class AuthViewModel extends BaseViewModel implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        identityType.set(mlist.get().get(position));
+        uc.pop.setValue(false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        List<String> listData = new ArrayList<>();
+        listData.add("身份证");
+        listData.add("护照");
+        mlist.set(listData);
+        identityType.set(mlist.get().get(0));
     }
 
     @Override
@@ -129,33 +160,43 @@ public class AuthViewModel extends BaseViewModel implements
     @SuppressLint("CheckResult")
     @SingleClick
     public void commit() {
-        //提交身份验证
-        if (countyType.get()) {
-            if (TextUtils.isEmpty(name.get())) {
-                ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_name));
-                return;
-            } else if (TextUtils.isEmpty(id.get())) {
-                ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_id));
-                return;
-            }
-        } else {
-            if (TextUtils.isEmpty(orderCountyId.get())) {
-                ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_Iden_num));
-                return;
-            } else if (TextUtils.isEmpty(orderCountyName.get())) {
-                ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_order_name));
-                return;
-            } else if (TextUtils.isEmpty(orderCountrySurname.get())) {
-                ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_surname));
-                return;
-            }
+        if (TextUtils.isEmpty(orderCountyId.get())) {
+            ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_Iden_num));
+            return;
+        } else if (TextUtils.isEmpty(orderCountrySurname.get())) {
+            ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_surname));
+            return;
+        } else if (TextUtils.isEmpty(orderCountyName.get())) {
+            ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_order_name));
+            return;
+        }else if (TextUtils.isEmpty(identityType.get())) {
+            ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_select_idtype));
+            return;
         }
+        String mOrderCountyId = "";
+        if (identityType.get().startsWith("身份证")){
+            mOrderCountyId = "01";
+        }else {
+            mOrderCountyId = "02";
+        }
+//        //提交身份验证
+//        if (countyType.get()) {
+//            if (TextUtils.isEmpty(name.get())) {
+//                ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_name));
+//                return;
+//            } else if (TextUtils.isEmpty(id.get())) {
+//                ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.please_input_id));
+//                return;
+//            }
+//        } else {
+//        }
         // TODO: 2020/5/17 身份验证接口
         DataService.getInstance()
-                .commitAuth(id.get(), name.get()).
+                .commitAuth(Code.get(),orderCountyId.get(), name.get(),orderCountrySurname.get(),orderCountyName.get(),mOrderCountyId).
                 compose(ResponseTransformer.handleResult())
                 .subscribe(o -> {
-
+                    finish();
+                    ToastUtil.show(BaseApplication.getInstance(), "提交成功");
                 }, throwable -> {
                     String message = throwable.getMessage();
                     ToastUtil.show(BaseApplication.getInstance(), message);
@@ -170,6 +211,7 @@ public class AuthViewModel extends BaseViewModel implements
             String name = data.getStringExtra(Constants.KEY_COUNTRY_NAME);
             countyType.set(code.equals(Constants.COUNTRY_CODE_CHINA));
             country.set(name);
+            Code.set(code);
         }
     }
 }

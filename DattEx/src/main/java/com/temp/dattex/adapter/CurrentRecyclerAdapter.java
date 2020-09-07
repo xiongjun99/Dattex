@@ -1,5 +1,6 @@
 package com.temp.dattex.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.temp.dattex.order.OrderItemViewModel;
 
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -27,14 +29,15 @@ import java.util.List;
  * @Email: 86152
  */
 public class CurrentRecyclerAdapter extends BaseQuickAdapter<OrdersBean.OrderItemBean, BaseViewHolder> {
-
+    private Context mContext;
     private OrderItemViewModel orderItemViewModel;
     private int mType ,mOrdertype;
-    public CurrentRecyclerAdapter(int layoutResId, List<OrdersBean.OrderItemBean> data,int type,int ordertype) {
+    public CurrentRecyclerAdapter(Context context,int layoutResId, List<OrdersBean.OrderItemBean> data, int type, int ordertype) {
         super(layoutResId, data);
         orderItemViewModel = new OrderItemViewModel(Application.getInstance());
         mType = type;
         mOrdertype= ordertype;
+        mContext = context;
     }
 
     @Override
@@ -43,6 +46,31 @@ public class CurrentRecyclerAdapter extends BaseQuickAdapter<OrdersBean.OrderIte
         binding.setOrderItemViewModel(orderItemViewModel);
         binding.setOrderBean(currentOrderBean);
         TextView tvSet = helper.findView(R.id.tv_set);
+        TextView tvMarketprice = helper.findView(R.id.tv_marketprice);
+        TextView tvContractType = helper.getView(R.id.tv_contracttype);
+        TextView inCreaseValues = helper.getView(R.id.tv_profit);
+        TextView TextCurrentPrice = helper.getView(R.id.text_current_price);
+        TextView tvTime = helper.getView(R.id.tv_time);
+        TextView tvPlace = helper.getView(R.id.tv_place);
+        if ( mOrdertype ==0  ){
+            tvMarketprice.setText(""+currentOrderBean.getMarketPrice());
+            if (currentOrderBean.getProfitType()==0){
+                inCreaseValues.setSelected(true);
+                inCreaseValues.setText("-"+ new BigDecimal(currentOrderBean.getIncreaseValues()).setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
+            } else {
+                inCreaseValues.setSelected(false);
+                inCreaseValues.setText("+"+ new BigDecimal(currentOrderBean.getIncreaseValues()).setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
+            }
+        }else {
+            if (currentOrderBean.getProfitType()==0){
+                inCreaseValues.setSelected(true);
+                inCreaseValues.setText("-"+ new BigDecimal(currentOrderBean.getFinalAmount()).setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
+            } else {
+                inCreaseValues.setSelected(false);
+                inCreaseValues.setText("+"+ new BigDecimal(currentOrderBean.getFinalAmount()).setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
+            }
+            tvMarketprice.setText(""+currentOrderBean.getEndMarketPrice());
+        }
         tvSet.setOnClickListener(view -> {
             orderItemViewModel.getDirection().set(String.valueOf(currentOrderBean.getDirection()));
             orderItemViewModel.getSymbol().set(String.valueOf(currentOrderBean.getSymbol()));
@@ -54,34 +82,36 @@ public class CurrentRecyclerAdapter extends BaseQuickAdapter<OrdersBean.OrderIte
             orderItemViewModel.set();
         });
         if (mType ==0){
-            orderItemViewModel.getShow().set(false);
+            orderItemViewModel.getShow().set(true);
         }else {
             orderItemViewModel.getShow().set(true);
         }
-        if (currentOrderBean.getContractType().equals("01")){
-            orderItemViewModel.getContractType().set("合约订单");
-        }else {
-            orderItemViewModel.getContractType().set("新币订单");
-        }
-        TextView inCreaseValues = helper.getView(R.id.tv_profit);
+        tvTime.setText(currentOrderBean.getBuyTime());
         if (mOrdertype == 1){
-            if (currentOrderBean.getProfitType()==0){
-                inCreaseValues.setSelected(false);
-                inCreaseValues.setText("-"+currentOrderBean.getFinalAmount());
-            } else {
-                inCreaseValues.setSelected(true);
-                inCreaseValues.setText("+"+currentOrderBean.getFinalAmount());
-            }
             orderItemViewModel.getOrderShow().set(true);
-        }else {
-            if (currentOrderBean.getProfitType()==0){
-                inCreaseValues.setSelected(false);
-                inCreaseValues.setText("-"+currentOrderBean.getIncreaseValues());
-            } else {
-                inCreaseValues.setSelected(true);
-                inCreaseValues.setText("+"+currentOrderBean.getIncreaseValues());
-            }
+            TextCurrentPrice.setText(mContext.getResources().getString(R.string.text_place_price));
+            tvSet.setVisibility(View.GONE);
+            tvPlace.setVisibility(View.GONE);
+        } else {
+            tvSet.setVisibility(View.VISIBLE);
+            tvPlace.setVisibility(View.VISIBLE);
             orderItemViewModel.getOrderShow().set(false);
+            TextCurrentPrice.setText(mContext.getResources().getString(R.string.text_current_price));
+            if (currentOrderBean.getContractType().equals("01")){
+                tvPlace.setVisibility(View.VISIBLE);
+                tvSet.setVisibility(View.VISIBLE);
+            }else {
+                tvPlace.setVisibility(View.GONE);
+                tvSet.setVisibility(View.GONE);
+            }
+        }
+
+        if (currentOrderBean.getContractType().equals("01")){
+            tvContractType.setText("合约订单");
+            tvContractType.setBackground(mContext.getResources().getDrawable(R.drawable.shape_red_round));
+        } else {
+            tvContractType.setText("申购订单");
+            tvContractType.setBackground(mContext.getResources().getDrawable(R.drawable.shape_blue_round));
         }
     }
 

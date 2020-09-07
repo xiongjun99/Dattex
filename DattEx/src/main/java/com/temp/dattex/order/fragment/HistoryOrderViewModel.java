@@ -35,11 +35,17 @@ public class HistoryOrderViewModel extends BaseViewModel {
     @Override
     public void onCreate() {
         super.onCreate();
-        DataService.getInstance().getAllOrders(2,page, "").compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        page = 0;
+        DataService.getInstance().getAllOrders("",2,page, "").compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
                 o -> {
                     List<OrdersBean.OrderItemBean> rows = o.getRows();
                     if (null != rows) {
-                        rcyAdapter.get().addData(rows);
+                        rcyAdapter.get().setNewData(rows);
                         page++;
                     }
                 }, t -> {

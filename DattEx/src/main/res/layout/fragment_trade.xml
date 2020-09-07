@@ -3,6 +3,7 @@
     xmlns:custom="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="tradeViewModel"
@@ -222,6 +223,7 @@
                                 android:textSize="14dp" />
 
                             <EditText
+
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -282,27 +284,35 @@
                             android:layout_width="match_parent"
                             android:layout_height="6dp"
                             android:layout_weight="1">
-                            <com.temp.dattex.widget.SeekbarWithIntervals
-                                android:id="@+id/seekbarWithIntervals"
+                            <com.temp.dattex.widget.view.CustomSeekBar
+                                android:id="@+id/seekbar"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
+                                android:layout_height="30dp"
+                                android:layout_margin="5dp"
+                                app:csb_background_color="#FFAAAAAA"
+                                app:csb_progress_height="@dimen/dp_1"
+                                app:csb_progress_color="@color/color_FF47BAFC"
+                                app:csb_section_enable="true"
+                                app:csb_section_radius="@dimen/dp_3"
+                                app:csb_thumb_radius="@dimen/dp_10"
+                                setMaxProgress="@{tradeViewModel.seekbarIntervals.size()-1}"
                                 />
-
                             <TextView
+                                android:id="@+id/tv_positionercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentBottom="true"
-                                android:text='@{String.valueOf(tradeViewModel.positionPercent)}'
                                 android:textColor="@color/color_FF767B99"
-                                android:textSize="10dp" />
+                               android:text="@{String.valueOf(tradeViewModel.positionPercent)}"
+                               android:textSize="10dp" />
                         </RelativeLayout>
-
+<!--                        android:visibility="@{tradeViewModel.isShow?View.VISIBLE:View.GONE}"-->
                         <TextView
+                            android:id="@+id/tv_placeanorder"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_marginTop="35dp"
+                            android:layout_marginTop="@dimen/dp_20"
                             android:layout_weight="1"
                             android:background="@drawable/shape_trade_login_background"
                             android:gravity="center"
@@ -368,6 +378,7 @@
                                 android:textSize="12dp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/rl_test"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
@@ -375,6 +386,14 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:id="@+id/rl_aska"
+                                    android:background="#33DC4D4D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.aska1}"
                                     android:layout_alignParentLeft="true"
@@ -389,6 +408,15 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:visibility="gone"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:layout_marginBottom="@dimen/dp_2"
+                                android:id="@+id/rl_aska1"
+                                android:background="#33DC4D4D"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"></LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.aska3}"
                                     android:layout_alignParentLeft="true"
@@ -403,6 +431,16 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_aska2"
+                                    android:background="#33DC4D4D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.aska5}"
                                     android:layout_alignParentLeft="true"
@@ -417,6 +455,16 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_aska3"
+                                    android:background="#33DC4D4D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.aska7}"
                                     android:layout_alignParentLeft="true"
@@ -431,6 +479,16 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_aska4"
+                                    android:background="#33DC4D4D"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.aska9}"
                                     android:layout_alignParentLeft="true"
@@ -441,10 +499,52 @@
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
                             </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_weight="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip">
+                                <TextView
+                                    android:layout_marginTop="@dimen/dp_1"
+                                    android:id="@+id/currentprice"
+                                    android:text="@{tradeViewModel.currentprice}"
+                                    android:textSize="@dimen/dp_18"
+                                    style="@style/Green_TextView12_Style"></TextView>
+
+                                <LinearLayout
+                                    android:layout_marginTop="@dimen/dp_1"
+                                    android:orientation="horizontal"
+                                    android:layout_below="@+id/currentprice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                <TextView
+                                    android:text="≈"
+                                    style="@style/Auth_TextView_Style"></TextView>
+                                    <TextView
+                                        android:text="@{tradeViewModel.cnyprice}"
+                                        android:layout_marginLeft="@dimen/dp_5"
+                                        android:layout_marginRight="@dimen/dp_5"
+                                        style="@style/Auth_TextView_Style"></TextView>
+                                    <TextView
+                                        android:text="@string/CNY"
+                                        style="@style/Auth_TextView_Style"></TextView>
+                                </LinearLayout>
+                            </RelativeLayout>
                             <RelativeLayout
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_bids"
+                                    android:background="#3320BC68"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.bids1}"
                                     android:layout_alignParentLeft="true"
@@ -459,6 +559,16 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_bids1"
+                                    android:background="#3320BC68"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.bids3}"
                                     android:layout_alignParentLeft="true"
@@ -473,6 +583,16 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_bids2"
+                                    android:background="#3320BC68"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.bids5}"
                                     android:layout_alignParentLeft="true"
@@ -487,6 +607,16 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_bids3"
+                                    android:background="#3320BC68"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.bids7}"
                                     android:layout_alignParentLeft="true"
@@ -501,6 +631,16 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dip">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    android:layout_marginTop="@dimen/dp_2"
+                                    android:layout_marginBottom="@dimen/dp_2"
+                                    android:id="@+id/rl_bids4"
+                                    android:background="#3320BC68"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                </LinearLayout>
                                 <TextView
                                     android:text="@{tradeViewModel.bids9}"
                                     android:layout_alignParentLeft="true"
@@ -512,9 +652,9 @@
                                     style="@style/White_TextView_Style"></TextView>
                             </RelativeLayout>
                         </LinearLayout>
-                        <!--                        <com.temp.dattex.widget.TradeDepthView-->
-                        <!--                            android:layout_width="match_parent"-->
-                        <!--                            android:layout_height="match_parent" />-->
+                        <!--    <com.temp.dattex.widget.TradeDepthView-->
+                        <!--    android:layout_width="match_parent"-->
+                        <!--    android:layout_height="match_parent" />-->
                     </LinearLayout>
 
                 </LinearLayout>

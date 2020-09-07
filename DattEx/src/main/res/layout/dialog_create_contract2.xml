@@ -66,11 +66,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:gravity="center_vertical"
-                android:text="止盈("
+                android:text="止盈"
                 android:textColor="@color/color_FF20BC68"
                 android:textSize="14dp" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -83,7 +84,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text=")"
+                android:text=""
                 android:textColor="@color/color_FF20BC68"
                 android:textSize="14dp" />
 
@@ -136,11 +137,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:gravity="center_vertical"
-                android:text="止损("
+                android:text="止损"
                 android:textColor="@color/color_FFDC4D4D"
                 android:textSize="14dp" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -153,7 +155,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text=")"
+                android:text=""
                 android:textColor="@color/color_FFDC4D4D"
                 android:textSize="14dp" />
 

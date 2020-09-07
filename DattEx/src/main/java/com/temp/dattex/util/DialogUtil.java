@@ -14,6 +14,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.exchange.utilslib.DisplayUtil;
+import com.independ.framework.response.BaseResponse;
+import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.R;
 import com.temp.dattex.bean.SymbolConfigBean;
 import com.temp.dattex.databinding.DialogChangeLeverageBinding;
@@ -26,18 +28,22 @@ import com.temp.dattex.databinding.DialogSwitchCoinBinding;
 import com.temp.dattex.databinding.DialogUpdateBinding;
 import com.temp.dattex.databinding.ItemTradeSwitchCoinBinding;
 import com.temp.dattex.fragments.trade.TradeViewModel;
+import com.temp.dattex.net.DataService;
 import com.temp.dattex.order.OrderItemViewModel;
+
+import java.util.List;
+
+import io.reactivex.Observable;
 
 public class DialogUtil {
 
-    public static void showSwitchCoinDialog(Context context, SwitchSymbolDialogViewModel viewModel) {
-
+    public static void showSwitchCoinDialog(Context context, SwitchSymbolDialogViewModel viewModel ,List<SymbolConfigBean> symbols) {
         Dialog dialog = new Dialog(context, R.style.DialogFullScreen);
         DialogSwitchCoinBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_switch_coin, null, false);
         binding.setSwitchSymbolViewModel(viewModel);
         viewModel.setDialog(dialog);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                FrameLayout.LayoutParams.MATCH_PARENT, 800);
         layoutParams.gravity = Gravity.CENTER;
         dialog.setContentView(binding.getRoot(), layoutParams);
         binding.recyclerViewDialogSwitchSymbol.setLayoutManager(new LinearLayoutManager(context));
@@ -51,7 +57,8 @@ public class DialogUtil {
 
             @Override
             public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-                SymbolConfigBean symbolBean = viewModel.getSymbolBean(position);
+                SymbolConfigBean symbolBean = symbols.get(position);
+//                SymbolConfigBean symbolBean = viewModel.getSymbolBean(position);
                 holder.binding.setSymbolBean(symbolBean);
                 holder.binding.getRoot().setOnClickListener(v -> {
                     viewModel.setSymbol(symbolBean.getCoinSymbol(), symbolBean.getBaseSymbol());
@@ -113,7 +120,7 @@ public class DialogUtil {
         DialogUpdateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_update, null, false);
         binding.setViewModel(viewModel);
         viewModel.setDialog(dialog);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 1200);
         layoutParams.leftMargin = 40;
         layoutParams.rightMargin = 40;
         layoutParams.gravity = Gravity.CENTER;

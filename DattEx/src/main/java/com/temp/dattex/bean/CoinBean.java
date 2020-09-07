@@ -1,6 +1,6 @@
 package com.temp.dattex.bean;
 
-public class CoinBean {
+public class    CoinBean {
 
     /**
      * id : USDT-ERC20
@@ -22,6 +22,7 @@ public class CoinBean {
      * state : true
      * allowOut : true
      * sortNo : 3
+     * withdrawFee
      */
 
     private String id;
@@ -43,7 +44,14 @@ public class CoinBean {
     private boolean state;
     private boolean allowOut;
     private int sortNo;
+    private float withdrawFee;
+    public float getWithdrawFee() {
+        return withdrawFee;
+    }
 
+    public void setWithdrawFee(float withdrawFee) {
+        this.withdrawFee = withdrawFee;
+    }
     public String getId() {
         return id;
     }

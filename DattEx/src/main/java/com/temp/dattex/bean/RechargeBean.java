@@ -167,7 +167,7 @@ public class RechargeBean {
         private String currency;
         private String fee;
         private int id;
-        private boolean inOrOut;
+        private int inOrOut;
         private int memberId;
         private int money;
         private String msg;
@@ -233,11 +233,11 @@ public class RechargeBean {
             this.id = id;
         }
 
-        public boolean isInOrOut() {
+        public int isInOrOut() {
             return inOrOut;
         }
 
-        public void setInOrOut(boolean inOrOut) {
+        public void setInOrOut(int inOrOut) {
             this.inOrOut = inOrOut;
         }
 

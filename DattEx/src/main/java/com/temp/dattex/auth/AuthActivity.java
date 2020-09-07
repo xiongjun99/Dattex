@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.databinding.Observable;
 
 import com.common.framework.basic.BaseActivity;
 import com.exchange.utilslib.LogUtil;
@@ -18,11 +19,7 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthViewModel> {
 
-    List<String> listData = new ArrayList<>();
-
     private EditPop editPop;
-    private FleXoPopWindow fleXoPopWindow;
-
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -41,16 +38,19 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthViewMode
             createPop();
             editPop.popState(isShow);
         });
+        viewModel.identityType.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                viewModel.onDismiss();
+            }
+        });
     }
 
 
     public void createPop() {
         if (editPop == null) {
-            listData.add("身份证");
-            listData.add("驾照");
-            listData.add("护照");
             editPop = new EditPop(this,viewModel.pPosition.get());
-            editPop.setAdapterData(listData, binding.line);
+            editPop.setAdapterData(viewModel.mlist.get(), binding.line);
             editPop.setOnItemClickListener(viewModel);
             editPop.setOnDismissListener(viewModel);
         }

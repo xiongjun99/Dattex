@@ -2,6 +2,7 @@ package com.temp.dattex.setting;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -10,11 +11,14 @@ import android.widget.TextView;
 
 import com.common.framework.basic.BaseActivity;
 import com.independ.framework.client.RetrofitClient;
+import com.temp.dattex.Application;
 import com.temp.dattex.BR;
 import com.temp.dattex.R;
 import com.temp.dattex.databinding.ActivitySafeBinding;
+import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.util.Utils;
 import com.temp.dattex.widget.SettingItemView;
+import com.temp.dattex.widget.TitleBar;
 
 /*************************************************************************
  * Description   :
@@ -47,6 +51,7 @@ import com.temp.dattex.widget.SettingItemView;
  *************************************************************************/
 public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingViewModel> {
     private SettingItemView tvRevise;
+    private TextView ip;
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_setting;
@@ -65,15 +70,26 @@ public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingVi
     @Override
     public void initView() {
         super.initView();
-        tvRevise = findViewById(R.id.tv_revise);
+        TitleBar titleBar =(TitleBar)findViewById(R.id.titlebar);
+        titleBar.setLeftTwoClick(this);
+
+        tvRevise =(SettingItemView) findViewById(R.id.tv_revise);
+        ip =(TextView) findViewById(R.id.ip);
         tvRevise.setOnClickListener(view -> {
             showDialog();
         });
+        if (TextUtils.isEmpty(Application.URL)){
+            Application.URL = ApiAddress.BASE_URL;
+            ip.setText(Application.URL);
+        }else {
+            ip.setText(Application.URL);
+        }
     }
     public  void showDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_ipadress,null,false);
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
         EditText etIpadress = view.findViewById(R.id.et_ipadress);
+        etIpadress.setText(ApiAddress.BASE_URL);
         TextView tvCancel = view.findViewById(R.id.tv_cancel);
         TextView tvConfirm = view.findViewById(R.id.tv_confirm);
         tvCancel.setText("取消");
@@ -86,7 +102,9 @@ public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingVi
             @Override
             public void onClick(View v) {
 //                RetrofitClient.getInstance().initRetrofit(ApiAddress.BASE_URL);
-                RetrofitClient.getInstance().initRetrofit("http://"+etIpadress.getText().toString());
+                RetrofitClient.getInstance().initRetrofit(etIpadress.getText().toString());
+                Application.URL = etIpadress.getText().toString();
+                ip.setText(Application.URL);
                 //... To-do
                 dialog.dismiss();
             }

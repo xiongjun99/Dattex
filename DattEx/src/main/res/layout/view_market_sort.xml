@@ -17,6 +17,8 @@
         android:paddingRight="16dp">
 
         <TextView
+            android:paddingLeft="16dp"
+            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/market_assets"
@@ -24,11 +26,10 @@
             android:textSize="12dp" />
 
         <TextView
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_toLeftOf="@+id/market_up_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="124dp"
-            android:drawablePadding="4dp"
             android:onClick="@{()->marketSortViewModel.priceSort()}"
             android:text="@string/market_latest_price"
             android:textColor="@color/color_FFA3A6BF"
@@ -36,11 +37,11 @@
             app:imgResource="@{marketSortViewModel.sortPriceImageResource}" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/market_up_down"
+            android:layout_alignParentRight="true"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:drawablePadding="4dp"
-            android:gravity="right|center_vertical"
+            android:gravity="center"
             android:onClick="@{()->marketSortViewModel.changeSort()}"
             android:text="@string/market_up_down"
             android:textColor="@color/color_FFA3A6BF"

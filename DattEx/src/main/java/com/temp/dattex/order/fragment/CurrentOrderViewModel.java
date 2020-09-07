@@ -67,7 +67,7 @@ public class CurrentOrderViewModel extends BaseViewModel {
                 public void run() {
                     freshOrderList();
                 }
-            }, 5000, 5000);
+            }, 2000, 2000);
         }
     }
     @Override
@@ -80,7 +80,7 @@ public class CurrentOrderViewModel extends BaseViewModel {
     }
     @SuppressLint("CheckResult")
     private void freshOrderList() {
-        DataService.getInstance().getAllOrders(1,page, "").compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
+        DataService.getInstance().getAllOrders("",1,page, "").compose(ResponseTransformer.<OrdersBean>handleResult()).subscribe(
                 bean -> {
                     List<OrdersBean.OrderItemBean> rows = bean.getRows();
 

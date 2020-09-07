@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
@@ -12,6 +14,7 @@ import com.common.framework.basic.AppManager;
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.click.SingleClick;
 import com.exchange.utilslib.LogUtil;
+import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
@@ -19,6 +22,7 @@ import com.temp.dattex.auth.AuthActivity;
 import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.config.AssetsConfigs;
 import com.temp.dattex.database.LoginInfo;
+import com.temp.dattex.invite.InviteActivity;
 import com.temp.dattex.login.LoginActivity;
 import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.net.DataService;
@@ -31,6 +35,8 @@ import com.temp.dattex.util.Utils;
 import com.temp.dattex.wallet.WalletActivity;
 import com.temp.dattex.web.WebViewActivity;
 import com.temp.dattex.withdraw.WithdrawActivity;
+
+import java.math.BigDecimal;
 
 /**
  * @Package: com.temp.dattex.my
@@ -48,9 +54,10 @@ public class MyViewModel extends BaseViewModel {
     public ObservableField<Boolean> isLogin = new ObservableField<>(false);
     public ObservableField<String> assets = new ObservableField<>("");
     public ObservableField<String> account = new ObservableField<>("");
-    public ObservableField<String> balance = new ObservableField<>("0.0");
+    public ObservableField<String> balance = new ObservableField<>("0.0000000");
     public ObservableField<String> frozen = new ObservableField<>("0.0");
     public ObservableField<String> cnyprice = new ObservableField<>("0.0");
+    public ObservableField<String> nameAuth = new ObservableField<>("实名认证");
 
     public ObservableField<String> getCnyprice() {
         return cnyprice;
@@ -67,10 +74,15 @@ public class MyViewModel extends BaseViewModel {
     public void setFrozen(ObservableField<String> frozen) {
         this.frozen = frozen;
     }
-
-
     public ObservableField<String> getBalance() {
         return balance;
+    }
+    public ObservableField<String> getNameAuth() {
+        return nameAuth;
+    }
+
+    public void setNameAuth(ObservableField<String> nameAuth) {
+        this.nameAuth = nameAuth;
     }
 
     public void setBalance(ObservableField<String> balance) {
@@ -99,6 +111,7 @@ public class MyViewModel extends BaseViewModel {
         isLogin.set(LoginInfo.isSign());
         account.set(!isLogin.get() ? getApplication().getResources().getString(R.string.title_unlogin) : LoginInfo.getAccount());
         assets.set(AssetsConfigs.getInstance().getCnyTotal());
+        balance.set("0.0000000");
     }
 
 
@@ -108,8 +121,10 @@ public class MyViewModel extends BaseViewModel {
         if (requestCode == MY_VIEW_REQUEST_CODE) {
             LogUtil.d("登录成功");
             initUserInfo();
+        }else if (requestCode == MY_VIEW_REQUEST_AUTH) {
+//         nameAuth.set("实名认证中");
+            onResume();
         }
-
     }
 
     public void loginOut() {
@@ -118,10 +133,11 @@ public class MyViewModel extends BaseViewModel {
             initUserInfo();
         }
     }
-
     @SingleClick
     public void nameAuth() {
-        startActivityForFragment(AuthActivity.class, null, MY_VIEW_REQUEST_AUTH);
+        if (LoginInfo.isCertification().startsWith("0")) {
+            startActivityForFragment(AuthActivity.class, null, MY_VIEW_REQUEST_AUTH);
+        }
     }
 
     @SingleClick
@@ -131,26 +147,35 @@ public class MyViewModel extends BaseViewModel {
 
     @SingleClick
     public void withdraw() {
-        startActivity(WithdrawActivity.class);
+        if (LoginInfo.isCertification().startsWith("2")){
+            Bundle data = new Bundle();
+            data.putString("balance",balance.get());
+            startActivity(WithdrawActivity.class,data);
+        } else {
+            Toast.makeText(getApplication(),"请先实名认证",Toast.LENGTH_LONG).show();
+        }
     }
 
     @SingleClick
     public void recharge() {
-        startActivity(WalletActivity.class);
+        if (LoginInfo.isCertification().startsWith("2")){
+            startActivity(WalletActivity.class);
+         } else {
+            Toast.makeText(getApplication(),"请先实名认证",Toast.LENGTH_LONG).show();
+        }
     }
 
     @SingleClick
     public void invited() {
-        Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_INVITED_URL);
-        startActivity(WebViewActivity.class, bundle);
+        startActivity(InviteActivity.class);
     }
 
     @SingleClick
     public void helpCenter() {
-        Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_INVITED_URL);
-        startActivity(WebViewActivity.class, bundle);
+        ToastUtil.show(getApplication(),"未开放");
+//        Bundle bundle = new Bundle();
+//        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_INVITED_URL);
+//        startActivity(WebViewActivity.class, bundle);
     }
 
     @SingleClick
@@ -164,9 +189,10 @@ public class MyViewModel extends BaseViewModel {
 
     @SingleClick
     public void customerService() {
-        Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_INVITED_URL);
-        startActivity(WebViewActivity.class, bundle);
+        ToastUtil.show(getApplication(),"未开放");
+//        Bundle bundle = new Bundle();
+//        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_INVITED_URL);
+//        startActivity(WebViewActivity.class, bundle);
     }
 
     @SingleClick
@@ -184,10 +210,22 @@ public class MyViewModel extends BaseViewModel {
         DataService.getInstance().getAssetsByCoinId(CoinId).compose(ResponseTransformer.<NewAssetsBean>handleResult()).subscribe(
                 assetsBean -> {
                     if(null != assetsBean) {
-                        System.out.println("-------最新余额----"+assetsBean.getBalance());
-                        balance.set(assetsBean.getBalance());
+                        AssetsConfigs.getInstance().getNewAssetsItemBeanMap().put("USDT",assetsBean);
+                        BigDecimal bg = new BigDecimal(assetsBean.getBalance());
+                        balance.set(bg.toPlainString());
                         frozen.set("冻结: "+assetsBean.getFrozen());
+                        LoginInfo.getisCertification(assetsBean.getIsCertification());
                         cnyprice.set("≈"+" "+ Utils.keepTwo(Double.valueOf(assetsBean.getCnyprice())*Double.valueOf(assetsBean.getBalance()))+" CNY");
+                        System.out.println("--------认证"+assetsBean.getIsCertification());
+                        if (assetsBean.getIsCertification().equals("1")){
+                                nameAuth.set("审核中");
+                            } else if (assetsBean.getIsCertification().equals("2")){
+                                nameAuth.set("已实名认证");
+                            } else if (assetsBean.getIsCertification().equals("3")){
+                                nameAuth.set("未通过实名认证");
+                            } else {
+                            nameAuth.set("实名认证");
+                        }
                     }
                 }, t -> {
                     System.out.println("-------no----根据币种ID获取对应币种的会员资产钱包信息");

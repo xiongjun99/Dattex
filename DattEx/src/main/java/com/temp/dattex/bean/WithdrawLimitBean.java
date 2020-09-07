@@ -41,6 +41,7 @@ public class WithdrawLimitBean implements Serializable {
      * maxOut : string
      * minFee : string
      * minOut : string
+     * withdrawFee
      */
 
     private boolean allowOut;
@@ -49,7 +50,14 @@ public class WithdrawLimitBean implements Serializable {
     private float maxOut;
     private float minFee;
     private float minOut;
+    private float withdrawFee;
+    public float getWithdrawFee() {
+        return withdrawFee;
+    }
 
+    public void setWithdrawFee(float withdrawFee) {
+        this.withdrawFee = withdrawFee;
+    }
     public boolean getAllowOut() {
         return allowOut;
     }

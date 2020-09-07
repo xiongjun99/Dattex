@@ -8,17 +8,32 @@
             type="com.temp.dattex.splash.SplashViewModel" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        android:background="@mipmap/loading"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
+        android:layout_height="match_parent"
+        >
+    <ImageView
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:layout_above="@+id/rl_bottom"
+        android:src="@mipmap/splash"
+        android:id="@+id/iv_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ImageView>
+        <RelativeLayout
+            android:visibility="gone"
+            android:background="@color/encode_view"
+            android:id="@+id/rl_bottom"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|bottom"
-            android:paddingBottom="80dp"
-            android:text="@string/text_welcome"
-            android:textColor="@color/color_FFFFFFFF"
-            android:textSize="16dp" />
+            android:layout_height="@dimen/dp_150">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/buda_logo"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_50"></ImageView>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

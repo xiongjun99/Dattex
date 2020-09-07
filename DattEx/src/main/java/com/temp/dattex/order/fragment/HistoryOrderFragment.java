@@ -49,7 +49,7 @@ public class HistoryOrderFragment extends BaseFragment<FragmentHistoryLayoutBind
     @Override
     public void initView() {
         List<OrdersBean.OrderItemBean> list = new ArrayList<>();
-        CurrentRecyclerAdapter currentRecyclerAdapter = new CurrentRecyclerAdapter(R.layout.item_order, list,1,1);
+        CurrentRecyclerAdapter currentRecyclerAdapter = new CurrentRecyclerAdapter(getActivity(),R.layout.item_order, list,1,1);
         View emptyView = LayoutInflater
                 .from(getActivity())
                 .inflate(R.layout.order_empty_layout, null);

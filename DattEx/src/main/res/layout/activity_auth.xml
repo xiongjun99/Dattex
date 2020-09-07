@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -10,7 +11,7 @@
             type="com.temp.dattex.auth.AuthViewModel" />
     </data>
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_FF1A1C29"
@@ -21,7 +22,8 @@
             android:layout_height="wrap_content"
             app:leftIcon="@mipmap/icon_common_back"
             app:titleText="@string/text_title_auth"
-            app:titleTextColor="@color/color_FFFFFFFF" />
+            app:titleTextColor="@color/color_FFFFFFFF"
+            app:leftClick="@{authViewModle}"></com.temp.dattex.widget.TitleBar>
 
         <RelativeLayout
             android:onClick="@{()->authViewModle.countrySelected()}"
@@ -77,11 +79,12 @@
             android:layout_marginTop="48dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical"
-            android:visibility="@{authViewModle.countyType?View.VISIBLE:View.GONE}">
+            android:visibility="gone">
 
             <TextView
                 style="@style/Auth_TextView_Style"
                 android:text="@string/auth_title_name" />
+
 
             <EditText
                 style="@style/Auth_EditText_Style"
@@ -99,8 +102,7 @@
                 style="@style/Auth_EditText_Style"
                 android:layout_marginTop="12dp"
                 android:hint="@string/auth_input_id_num"
-                android:text="@={authViewModle.id}"
-                 />
+                android:text="@={authViewModle.id}" />
         </LinearLayout>
 
 
@@ -129,13 +131,11 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="14dp"
                     android:paddingBottom="13dp"
-                    android:text="@string/auth_other_type"
-                    android:textColor="@color/color_FF4D5273"
+                    android:text="@{authViewModle.identityType}"
+                    android:textColor="@color/encode_view"
                     android:textSize="16sp" />
 
-
                 <Button
-
                     android:padding="10dp"
                     app:selected="@{authViewModle.btState}"
                     android:layout_width="8dp"
@@ -173,21 +173,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-
+                <TextView
+                    style="@style/Auth_TextView_Style"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/auth_country_surnam" />
 
                 <TextView
                     style="@style/Auth_TextView_Style"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/auth_country_name"
-
                     />
 
-                <TextView
-                    style="@style/Auth_TextView_Style"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/auth_country_surnam" />
             </LinearLayout>
 
 
@@ -202,8 +200,8 @@
                     android:layout_width="0dp"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:hint="@string/auth_input_country_name"
-                    android:text="@={authViewModle.orderCountyName}"
+                    android:hint="@string/auth_input_name"
+                    android:text="@={authViewModle.orderCountrySurname}"
                      />
 
                 <EditText
@@ -211,8 +209,8 @@
                     android:layout_width="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:hint="@string/auth_input_name"
-                    android:text="@={authViewModle.orderCountrySurname}"
+                    android:hint="@string/auth_input_country_name"
+                    android:text="@={authViewModle.orderCountyName}"
                    />
 
             </LinearLayout>
@@ -224,7 +222,6 @@
             android:layout_weight="1">
 
             <Button
-
                 android:onClick="@{()->authViewModle.commit()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -232,7 +229,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="44dp"
-                android:background="@drawable/selector_button_width"
+                android:background="@drawable/drawable_button_ensure"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:text="@string/auth_commit"

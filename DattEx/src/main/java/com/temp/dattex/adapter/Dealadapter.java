@@ -24,12 +24,12 @@ public Dealadapter(int layoutResId,Context context, List<DealItemBean> data) {
 @Override
 protected void convert(BaseViewHolder helper, DealItemBean dethBean) {
     TextView tvTime = helper.getView(R.id.tv_time);
-    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat sdf=new SimpleDateFormat("HH:mm:ss");
     String sd = sdf.format(new Date(Long.parseLong(String.valueOf(dethBean.getTs()))));      // 时间戳转换成时间
     tvTime.setText(""+sd);
 
     TextView tvNumber = helper.getView(R.id.tv_number);
-    tvNumber.setText(""+dethBean.getAmount());
+    tvNumber.setText(""+Utils.keepTwo(dethBean.getAmount()));
 
     TextView tvPrice = helper.getView(R.id.tv_price);
     tvPrice.setText(Utils.keepTwo(Double.valueOf(dethBean.getPrice())));

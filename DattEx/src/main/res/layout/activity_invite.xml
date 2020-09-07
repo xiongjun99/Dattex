@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/invite_backround">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:padding="@dimen/dp_20"
+        android:layout_alignParentLeft="true"
+        android:src="@mipmap/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ImageView>
+</RelativeLayout>
+    <LinearLayout
+        android:padding="@dimen/dp_15"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_invite"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_400">
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_3"
+            android:paddingBottom="@dimen/dp_3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="邀请方式"
+                style="@style/White_TextView18_Style"></TextView>
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:drawablePadding="@dimen/dp_5"
+                android:drawableLeft="@mipmap/problem"
+                android:layout_marginLeft="@dimen/dp_10"
+              android:text="奖励说明"
+              style="@style/Copy_TextView_Style"></TextView>
+        </LinearLayout>
+
+       <LinearLayout
+           android:layout_marginTop="@dimen/dp_10"
+           android:padding="@dimen/dp_10"
+           android:background="@drawable/shape_market_line"
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:text="邀请码"
+               style="@style/Auth_TextView_Style"></TextView>
+           <TextView
+               android:paddingRight="@dimen/dp_10"
+               android:gravity="right"
+               android:id="@+id/tv_invite_code"
+               android:layout_weight="1"
+               android:text="-"
+               style="@style/Auth_TextView_Style"></TextView>
+           <TextView
+               android:id="@+id/tv_code_copy"
+               android:text="复制"
+               style="@style/Copy_TextView_Style"></TextView>
+       </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/shape_market_line"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="邀请链接"
+                style="@style/Auth_TextView_Style"></TextView>
+            <TextView
+
+                android:paddingRight="@dimen/dp_10"
+                android:gravity="right"
+                android:id="@+id/tv_invite_link"
+                android:layout_weight="1"
+                android:text="-"
+                style="@style/Auth_TextView_Style"></TextView>
+            <TextView
+                android:id="@+id/tv_link_copy"
+                android:text="复制"
+                style="@style/Copy_TextView_Style"></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

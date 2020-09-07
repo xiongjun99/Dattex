@@ -6,7 +6,10 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
@@ -14,12 +17,14 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
 import com.common.framework.basic.BaseViewModel;
+import com.common.framework.bus.SingleLiveEvent;
 import com.common.framework.click.SingleClick;
 import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.bean.AssetsBean;
+import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.WithdrawLimitBean;
 import com.temp.dattex.binding.adapter.EditTextBinding;
@@ -29,8 +34,11 @@ import com.temp.dattex.config.SymbolConfigs;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.record.CoinRecordActivity;
 import com.temp.dattex.util.Utils;
+import com.temp.dattex.wallet.WalletModel;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
 
 /*************************************************************************
@@ -62,7 +70,7 @@ import java.util.List;
  * ```` ':.          ':::::::::'                  ::::..
  *                    '.:::::'                    ':'````..
  *************************************************************************/
-public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBindingAdapter.TitleRightClickListener, EditTextBinding.EditListener {
+public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBindingAdapter.TitleRightClickListener, EditTextBinding.EditListener, AdapterView.OnItemClickListener, PopupWindow.OnDismissListener {
 
     private WithdrawLimitBean withdrawLimitBean;
 
@@ -71,26 +79,97 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     }
 
     public MutableLiveData scanLiveData = new MutableLiveData();
-    private ObservableField<Float> balance = new ObservableField<>(0f);
+    private ObservableField<String> balance = new ObservableField<>();
     private ObservableField<String> withdrawAmount = new ObservableField<>("");
+    public ObservableField<String> minAmount = new ObservableField<>("");
+    public ObservableField<String> MaxAmount = new ObservableField<>("");
     private ObservableField<String> withdrawCoin = new ObservableField<>("");
     private ObservableField<String> realGetAmount = new ObservableField<>("");
-    private ObservableField<String> serviceCharge = new ObservableField<>("");
+    private ObservableField<String> serviceCharge = new ObservableField<>("0.0000000");
     private ObservableField<String> withdrawAddress = new ObservableField<>("");
     private ObservableField<String> minWithdraw = new ObservableField<>("0.01");
-
+    private ObservableField<String> AdressAmount = new ObservableField<>("0.0000000");
     private ObservableField<String> buyRatio = new ObservableField<>("");
     private ObservableField<String> exchangeType = new ObservableField<>("");
-
     private ObservableField<String> sellnumber = new ObservableField<>("");
-
     private ObservableField<String> tips = new ObservableField<>("• 请勿向上述地址充值任何非USDT资产，否则资产将不可找回。\n" +
             "• 您充值至上述地址后，需要整个网络节点的确认，2次网络确认后到账，6次网络确认后可提币。\n" +
             "• 最小充值金额： " + minWithdraw.get() + " " + withdrawCoin + "，小于最小金额的充值将不会上账。");
     private ObservableField<String> price = new ObservableField<>("");
-    private ObservableField<String> accountPrice = new ObservableField<>("");
+    public ObservableField<String> accountPrice = new ObservableField<>("0.000");
     public ObservableField<List<OTCcfgBean>> otc = new ObservableField<>();
     private ObservableField<String> payType = new ObservableField<>("请选择");
+    private ObservableField<String> VerificationCode = new ObservableField<>("");
+    public ObservableField<String> OtcminAmount = new ObservableField<>("");
+    public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
+    public ObservableField<Integer> pPosition = new ObservableField<>(0);
+
+    public ObservableField<String> getVerificationCode() {
+        return VerificationCode;
+    }
+    public ObservableField<Integer> popStaus = new ObservableField<>(0);
+    public ObservableField<String> unit = new ObservableField<>();
+
+    public ObservableField<String> getUnit() {
+        return unit;
+    }
+
+    public void setUnit(ObservableField<String> unit) {
+        this.unit = unit;
+    }
+
+    public WalletModel.UIChangeObservable uc = new WalletModel.UIChangeObservable();
+
+    public ObservableField<String> getMaxAmount() {
+        return MaxAmount;
+    }
+
+    public void setMaxAmount(ObservableField<String> maxAmount) {
+        MaxAmount = maxAmount;
+    }
+
+    public ObservableField<String> getOtcminAmount() {
+        return OtcminAmount;
+    }
+
+    public void setOtcminAmount(ObservableField<String> otcminAmount) {
+        OtcminAmount = otcminAmount;
+    }
+
+
+    public ObservableField<String> getOtcMaxAmount() {
+        return OtcMaxAmount;
+    }
+
+    public void setOtcMaxAmount(ObservableField<String> otcMaxAmount) {
+        OtcMaxAmount = otcMaxAmount;
+    }
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (getExchangeType().get().equals(otc.get().get(i).getCurrency())){
+            getAccountPrice().set("");
+            getNumber().set("");
+            getUnit().set("");
+        } else {
+            getExchangeType().set(String.valueOf(otc.get().get(i).getCurrency()));
+            getPrice().set(String.valueOf(otc.get().get(i).getSellRatio()));
+            getUnit().set(otc.get().get(i).getSymbol());
+        }
+        uc.pop.setValue(false);
+    }
+
+    @Override
+    public void onDismiss() {
+
+    }
+
+    public static class UIChangeObservable {
+        //密码开关观察者
+        public SingleLiveEvent<Boolean> pop = new SingleLiveEvent<>();
+    }
+    public void setVerificationCode(ObservableField<String> verificationCode) {
+        VerificationCode = verificationCode;
+    }
 
     public ObservableField<String> getNumber() {
         return number;
@@ -100,7 +179,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
         this.number = number;
     }
 
-    private ObservableField<String> number = new ObservableField<>("");
+    public ObservableField<String> number = new ObservableField<>("");
 
     public ObservableField<String> getPayType() {
         return payType;
@@ -134,11 +213,23 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
         this.accountPrice = accountPrice;
     }
 
+    public ObservableField<String> getMinAmount() {
+        return minAmount;
+    }
 
+    public void setMinAmount(ObservableField<String> minAmount) {
+        this.minAmount = minAmount;
+    }
     public ObservableField<String> getPrice() {
         return price;
     }
+    public ObservableField<String> getAdressAmount() {
+        return AdressAmount;
+    }
 
+    public void setAdressAmount(ObservableField<String> adressAmount) {
+        AdressAmount = adressAmount;
+    }
     public void setPrice(ObservableField<String> price) {
         this.price = price;
     }
@@ -151,11 +242,11 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
         this.buyRatio = buyRatio;
     }
 
-    public ObservableField<Float> getBalance() {
+    public ObservableField<String> getBalance() {
         return balance;
     }
 
-    public void setBalance(ObservableField<Float> balance) {
+    public void setBalance(ObservableField<String> balance) {
         this.balance = balance;
     }
 
@@ -228,27 +319,17 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
                     s = s.substring(1);
                 }
             }
-            if (TextUtils.isEmpty(s)) {
-                serviceCharge.set("0.00");
-            } else {
-                float v = Float.parseFloat(s) * withdrawLimitBean.getFeeRate();
-                serviceCharge.set(String.valueOf(v < withdrawLimitBean.getMinFee() ? withdrawLimitBean.getMinFee() : v));
-            }
+
             getWithdrawAmount().set(s);
+            if (!TextUtils.isEmpty(getWithdrawAmount().get())&& Math.round(Float.valueOf(serviceCharge.get())) < Math.round(Float.valueOf(getWithdrawAmount().get())) ){
+                getWithdrawAmount().set(s);
+                AdressAmount.set(Utils.subtraction(getWithdrawAmount().get(),serviceCharge.get()));
+            }else {
+                AdressAmount.set("0.0000000");
+            }
         }
     };
 
-    @SuppressLint("CheckResult")
-    @SingleClick
-    public void doWithdraw() {
-        DataService.getInstance().withdrawCoin(withdrawCoin.get(), withdrawAmount.get(), withdrawAddress.get()).compose(ResponseTransformer.handleResult()).<Object>subscribe(
-                b -> {
-                    finish();
-                }, t -> {
-
-                }
-        );
-    }
     @SingleClick
     public void AddressTakeOut() {
 
@@ -261,22 +342,16 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
 
     @SingleClick
     public void withdrawAll() {
-        if (null != withdrawLimitBean && balance.get() > withdrawLimitBean.getMinOut()) {
-            float v = balance.get() * withdrawLimitBean.getFeeRate();
-            if (v < withdrawLimitBean.getMinFee()) {
-                v = withdrawLimitBean.getMinFee();
-            }
-            withdrawAmount.set(String.valueOf(balance.get() - v));
-            serviceCharge.set(String.valueOf(v));
-        }
+//        if (null != withdrawLimitBean && balance.get() > withdrawLimitBean.getMinOut()) {
+//            float v = balance.get() * withdrawLimitBean.getFeeRate();
+//            if (v < withdrawLimitBean.getMinFee()) {
+//                v = withdrawLimitBean.getMinFee();
+//            }
+//            withdrawAmount.set(String.valueOf(balance.get() - v));
+//            serviceCharge.set(String.valueOf(v));
+//        }
     }
-    @SingleClick
-    public void Confirm_Sell() {
-        if (Integer.valueOf(number.get())<200){
-            number.set("");
-            return;
-        }
-    }
+
     @SingleClick
     public void scanQrCode() {
         scanLiveData.postValue(null);
@@ -290,7 +365,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     //选择提币地址响应
     @SingleClick
     public void SelectwithdrawAddress() {
-        startActivity(WithdrawListActivity.class);
+//     startActivity(WithdrawListActivity.class,1);
     }
 
 
@@ -318,8 +393,10 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     public void afterTextChanged(EditText view, String s) {
         view.setSelection(s.length());
         number.set(s);
-        if (!TextUtils.isEmpty(s.toString())){
-            accountPrice.set(String.valueOf(Utils.keepTwo(Float.valueOf(s.toString())*Float.valueOf(price.get()))));
+        if (!TextUtils.isEmpty(s)){
+            accountPrice.set(Utils.format4(String.valueOf(Utils.keepTwo(Float.valueOf(s.toString())*Float.valueOf(price.get())))));
+        }else {
+            accountPrice.set("0.000");
         }
     }
 
@@ -334,30 +411,32 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     public void onStop() {
         super.onStop();
         getWithdrawAmount().removeOnPropertyChangedCallback(withdrawAmountChangeCallBack);
+
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void onCreate() {
         super.onCreate();
-        sellnumber.set("可卖："+AssetsConfigs.getInstance().getCoinInfo("USDT").getBalance()+" USDT");
         getOtcData();
-//        DataService.getInstance().withdrawLimit(withdrawCoin.get()).compose(ResponseTransformer.<WithdrawLimitBean>handleResult()).subscribe(
-//                bean -> {
-//                    if (bean.getAllowOut()) {
-//                        withdrawLimitBean = bean;
-//                    } else {
-//                        finish();
-//                    }
-//                }, t -> {
-//
-//                }
-//        );
+        withdrawCoin.set("USDT");
+        NewAssetsBean coinInfo = AssetsConfigs.getInstance().getCoinInfo("USDT");
+        DataService.getInstance().withdrawLimit(withdrawCoin.get()).compose(ResponseTransformer.<WithdrawLimitBean>handleResult()).subscribe(
+                bean -> {
+                    if (bean.getAllowOut()) {
+                        withdrawLimitBean = bean;
+                        minAmount.set(""+(int)withdrawLimitBean.getMinOut());
+                        MaxAmount.set(""+(int)withdrawLimitBean.getMaxOut());
+                        serviceCharge.set(Utils.format8(String.valueOf(bean.getWithdrawFee())));
+                        balance.set(Utils.subtraction(balance.get(),serviceCharge.get()));
 
-//        AssetsBean.AssetsItemBean coinInfo = AssetsConfigs.getInstance().getCoinInfo(withdrawCoin.get().toUpperCase());
-//        if (null != coinInfo && !TextUtils.isEmpty(coinInfo.getBalance())) {
-//            balance.set(Float.parseFloat(coinInfo.getBalance()));
-//        }
+                    } else {
+                        finish();
+                    }
+                }, t -> {
+
+                }
+        );
     }
     @SuppressLint("CheckResult")
     private void getOtcData() {
@@ -367,11 +446,14 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
                         exchangeType.set(b.get(0).getCurrency());
                         price.set(""+b.get(0).getSellRatio());
                         otc.set(b);
+                        OtcminAmount.set(Utils.format0(b.get(0).getMinOutQty()));
+                        OtcMaxAmount.set(Utils.format0(b.get(0).getMaxOutQty()));
+                        unit.set(otc.get().get(0).getSymbol());
                     }else {
-                        ToastUtil.show(getApplication(),"获取OTC配置失败");
+                        ToastUtil.show(getApplication(),"获取配置失败");
                         finish();
                     }
                 }, t -> {
-                });
+         });
     }
 }

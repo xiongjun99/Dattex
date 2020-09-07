@@ -20,6 +20,7 @@ import com.temp.dattex.Application;
 import com.temp.dattex.widget.ProgressBar;
 import com.temp.dattex.widget.SettingItemView;
 import com.temp.dattex.widget.sort.MarketSortView;
+import com.temp.dattex.widget.view.CustomSeekBar;
 
 import java.util.List;
 
@@ -103,5 +104,8 @@ public class CommonViewBinding {
 
     }
 
-
+    @BindingAdapter("setMaxProgress")
+    public static void setMaxProgress(CustomSeekBar customSeekBar , int maxProgress) {
+        customSeekBar.setMaxProgress(maxProgress);
+    }
 }

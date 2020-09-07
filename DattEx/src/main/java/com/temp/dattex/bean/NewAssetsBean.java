@@ -1,5 +1,7 @@
 package com.temp.dattex.bean;
 
+import java.math.BigDecimal;
+
 public class NewAssetsBean {
     /**
      * memberId : 10005
@@ -20,6 +22,16 @@ public class NewAssetsBean {
     private String balance;
     private String frozen;
     private boolean created;
+    private String isCertification;
+
+    public String getIsCertification() {
+        return isCertification;
+    }
+
+    public void setIsCertification(String isCertification) {
+        this.isCertification = isCertification;
+    }
+
 
     public int getMemberId() {
         return memberId;

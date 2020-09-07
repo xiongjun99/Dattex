@@ -54,7 +54,7 @@ public class CurrentOrderFragment extends BaseFragment<FragmentCurrentLayoutBind
     @Override
     public void initView() {
         LogUtil.d("init view " + System.currentTimeMillis());
-        CurrentRecyclerAdapter currentRecyclerAdapter = new CurrentRecyclerAdapter(R.layout.item_order, null,1,0);
+        CurrentRecyclerAdapter currentRecyclerAdapter = new CurrentRecyclerAdapter(getActivity(),R.layout.item_order, null,1,0);
         View emptyView = LayoutInflater
                 .from(getActivity())
                 .inflate(R.layout.order_empty_layout, null);

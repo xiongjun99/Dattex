@@ -6,6 +6,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
@@ -27,7 +29,7 @@ import com.temp.dattex.util.Utils;
 import com.temp.dattex.widget.TitleBar;
 import java.util.Timer;
 import java.util.TimerTask;
-
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class BuyActivity extends Activity {
     private TextView tvProposal, tvPrice, tvBuyBum, tvAmount, tvSafety, tvPayee, tvOpenbank, tvBankaccount,tvAccount,tvBuyTime,tv_cancel,tvAccountName;
     private int id;
@@ -57,6 +59,7 @@ public class BuyActivity extends Activity {
         stopTimer();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void initView() {
         payType = getIntent().getIntExtra("payType", 0);
         id = getIntent().getIntExtra("id", 0);
@@ -99,24 +102,24 @@ public class BuyActivity extends Activity {
             llOther.setVisibility(View.VISIBLE);
         }
         tvBankaccountCopy.setOnClickListener(view -> {
-            setClipboard(tvBankaccount.getText().toString());
-            ToastUtil.show(this,"已复制...");
+            Utils.setClipboard(this,tvBankaccount.getText().toString());
+            ToastUtil.show(this,"已复制");
         });
         tvOpenbankCopy.setOnClickListener(view -> {
-            setClipboard(tvOpenbank.getText().toString());
-            ToastUtil.show(this,"已复制...");
+            Utils.setClipboard(this,tvOpenbank.getText().toString());
+            ToastUtil.show(this,"已复制");
         });
         tvAccountCopy.setOnClickListener(view -> {
-            setClipboard(tvAccount.getText().toString());
-            ToastUtil.show(this,"已复制...");
+            Utils.setClipboard(this,tvAccount.getText().toString());
+            ToastUtil.show(this,"已复制");
         });
         tvPayeeCopy.setOnClickListener(view -> {
-            setClipboard(tvPayee.getText().toString());
-            ToastUtil.show(this,"已复制...");
+            Utils.setClipboard(this,tvPayee.getText().toString());
+            ToastUtil.show(this,"已复制");
         });
         tvSafetyCopy.setOnClickListener(view -> {
-            setClipboard(tvSafety.getText().toString());
-            ToastUtil.show(this,"已复制...");
+            Utils.setClipboard(this,tvSafety.getText().toString());
+            ToastUtil.show(this,"已复制");
         });
         titleBar = (TitleBar) findViewById(R.id.title_bar);
         titleBar.setLeftTwoClick(this);
@@ -176,7 +179,7 @@ public class BuyActivity extends Activity {
         DataService.getInstance().Cancel(id).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if(b!=null){
-                        ToastUtil.show(BuyActivity.this,"取消成功...");
+                        ToastUtil.show(BuyActivity.this,"取消成功");
                         finish();
                     }
                 }, t -> {
@@ -264,13 +267,5 @@ public class BuyActivity extends Activity {
         dialog.show();
         //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
         dialog.getWindow().setLayout((Utils.getScreenWidth(this)/4*3), LinearLayout.LayoutParams.WRAP_CONTENT);
-    }
-    public void setClipboard(String str){
-//获取剪贴板管理器：
-        ClipboardManager cm = (ClipboardManager) getSystemService(this.CLIPBOARD_SERVICE);
-// 创建普通字符型ClipData
-        ClipData mClipData = ClipData.newPlainText("Label", str);
-// 将ClipData内容放到系统剪贴板里。
-        cm.setPrimaryClip(mClipData);
     }
 }

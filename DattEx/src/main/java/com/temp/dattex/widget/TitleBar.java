@@ -1,5 +1,6 @@
 package com.temp.dattex.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,7 +17,7 @@ import com.common.framework.basic.BaseViewModel;
 import com.temp.dattex.R;
 import com.temp.dattex.binding.adapter.TitleBarClickBindingAdapter;
 
-
+@SuppressLint("NewApi")
 public class TitleBar extends RelativeLayout {
 
     private TextView textViewTitle;

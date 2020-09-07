@@ -44,7 +44,15 @@ public class LoginBean implements Serializable {
     private int memberId;
     private String recode;
     private String token;
+    private String isCertification;
 
+    public String getIsCertification() {
+        return isCertification;
+    }
+
+    public void setIsCertification(String isCertification) {
+        this.isCertification = isCertification;
+    }
     public String getAccount() {
         return account;
     }

@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.temp.dattex.R;
 import com.temp.dattex.bean.HomeViewPagerBean;
 import com.temp.dattex.bean.MarketListBean;
+import com.temp.dattex.util.Utils;
 
 import java.util.List;
 
@@ -26,11 +27,11 @@ public class EntranceAdapter extends BaseQuickAdapter<MarketListBean, BaseViewHo
 //        tvCNY.setText(item.getCNY());
 
         if (Float.valueOf(item.getChanges()) < 0.0){
-            tvPercentage.setText(item.getChanges()+"%");
+            tvPercentage.setText(Utils.FloatkeepTwo(Float.valueOf(item.getChanges()))+"%");
             tvCurrentindex.setTextColor(getContext().getResources().getColor(R.color.color_FFDC4D4D));
             tvPercentage.setTextColor(getContext().getResources().getColor(R.color.color_FFDC4D4D));
         }else if (Float.valueOf(item.getChanges()) > 0.0){
-            tvPercentage.setText("+"+item.getChanges()+"%");
+            tvPercentage.setText("+"+Utils.FloatkeepTwo(Float.valueOf((item.getChanges())))+"%");
             tvCurrentindex.setTextColor(getContext().getResources().getColor(R.color.color_FF20BC68));
             tvPercentage.setTextColor(getContext().getResources().getColor(R.color.color_FF20BC68));
         }

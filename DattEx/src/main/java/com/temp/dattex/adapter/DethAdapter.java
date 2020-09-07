@@ -22,11 +22,11 @@ public DethAdapter(int layoutResId,Context context, List<DethBean> data) {
 @Override
 protected void convert(BaseViewHolder helper, DethBean dethBean) {
         TextView tvNumber = helper.getView(R.id.tv_number);
-        tvNumber.setText(dethBean.getNum());
+        tvNumber.setText(Utils.keepTwo(Double.valueOf(dethBean.getNum())));
         TextView tvPrice = helper.getView(R.id.tv_price);
         tvPrice.setText(Utils.keepTwo(Double.valueOf(dethBean.getPrice())));
         TextView tvTotailprice = helper.getView(R.id.tv_totailprice);
-        tvTotailprice.setText(""+Float.valueOf(dethBean.getNum())*Float.valueOf(dethBean.getPrice()));
+        tvTotailprice.setText(dethBean.getTotalNum());
         if (dethBean.getName().contains("asks")){
         tvPrice.setTextColor(mContext.getResources().getColor(R.color.color_FFDC4D4D));
         } else {

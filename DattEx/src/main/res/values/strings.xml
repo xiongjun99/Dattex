@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DattEx</string>
+    <string name="app_name">buda</string>
     <string name="text_register">注册</string>
     <string name="text_reset_password">重置密码</string>
     <string name="text_input_password">请输入密码</string>
@@ -20,7 +20,7 @@
     <string name="text_password_limit">请输入6~16位密码</string>
     <string name="text_input_pass_word_repeat">请重复输入</string>
     <string name="text_input_phone_code">请输入验证码</string>
-    <string name="text_title_auth">身份验证</string>
+    <string name="text_title_auth">实名认证</string>
     <string name="Recharge_Info">充值详情</string>
     <string name="Add_Address">添加提币地址</string>
     <string name="PayType">支付方式</string>
@@ -35,11 +35,13 @@
     <string name="text_reset_password_success">密码重置成功</string>
     <string name="text_regist_success">注册成功</string>
     <string name="text_regist_fail">注册失败</string>
-    <string name="auth_input_name">请输入您的姓名</string>
+    <string name="auth_input_name">请输入您的姓氏</string>
     <string name="auth_input_id_num">请输入您的身份证号</string>
+    <string name="auth_input_card_num">请输入您的证件号</string>
     <string name="auth_input_bankcard">请输入您的银行卡号</string>
     <string name="auth_input_bankname">请输入开户行名称</string>
-    <string name="auth_input_pay_account">请输入支付接收账号</string>
+    <string name="auth_input_pay_account">请核对收款账号与姓名一致</string>
+    <string name="auth_input_bank_account">请确认银行卡与姓名一致</string>
 
     <string name="auth_title_id_num">身份证</string>
     <string name="auth_title_name">姓名</string>
@@ -63,8 +65,8 @@
     <string name="text_bid">买盘</string>
     <string name="text_offer">卖盘</string>
     <string name="auth_other_type">选择证件类型</string>
-    <string name="auth_country_name">名</string>
-    <string name="auth_country_surnam">姓</string>
+    <string name="auth_country_name">名字</string>
+    <string name="auth_country_surnam">姓氏</string>
     <string name="auth_input_country_name">请输入您的名字</string>
     <string name="text_total">累计</string>
     <string name="text_price">价格</string>
@@ -79,11 +81,14 @@
     <string name="home_title_price">行情</string>
     <string name="home_title_first">首页</string>
     <string name="xxx">&#160;&#160;</string>
+    <string name="x">&#160;</string>
+
     <string name="sell_amount">卖出数量</string>
     <string name="current_price">当前USDT卖出价:</string>
     <string name="Arrival_rate">到账率：100%</string>
     <string name="Current_Activities">限时活动</string>
     <string name="Confirm_Sell">确定卖出</string>
+    <string name="Confirm_Withdraw">确定提币</string>
 
 
     <string name="my_login_pay">登录查看我的资产</string>
@@ -107,7 +112,7 @@
     <string name="TransferAccountsPrice">转账金额:</string>
     <string name="MayWithdraw">提币数量</string>
     <string name="add">+ 添加</string>
-    <string name="addPayType">+ 添加支付方式</string>
+    <string name="addPayType">+ 添加收款方式</string>
 
     <string name="Yes">是</string>
     <string name="No">否</string>
@@ -146,6 +151,8 @@
     <string name="please_input_id">请输入身份证号</string>
     <string name="please_input_Iden_num">请输入证件号码</string>
     <string name="please_input_order_name">请输入名字</string>
+    <string name="please_select_idtype">请选择证件类型</string>
+
     <string name="please_input_surname">请输入姓</string>
     <string name="title_order">订单</string>
     <string name="order_empty">暂无订单</string>
@@ -174,10 +181,20 @@
     <string name="text_withdraw_coin">提币币种</string>
     <string name="text_withdraw_address">提币地址</string>
     <string name="text_get_amount">到账数量</string>
+    <string name="text_input_withdraw_address">请输入或长按粘贴地址</string>
     <string name="text_withdraw_address_hint">+ 添加提币地址</string>
     <string name="select_withdraw_address_hint">选择提币地址</string>
     <string name="remarks">备注名称</string>
     <string name="select">请选择</string>
+    <string name="minNumber">最低</string>
+    <string name="maxNumber">最高</string>
+    <string name="input">请输入提币数量</string>
+    <string name="input_sell">请输入出售数量</string>
+    <string name="input_in">请输入购买数量</string>
+
+    <string name="comma">，</string>
+    <string name="minnumber">最低卖出数量</string>
+
 
     <string name="text_recharge_coin">充币币种</string>
     <string name="text_save_qr_code">保存二维码</string>
@@ -202,6 +219,7 @@
     <string name="text_open_price">开仓价格</string>
     <string name="text_yingkui">盈亏</string>
     <string name="text_current_price">当前价格</string>
+    <string name="text_place_price">平仓价格</string>
     <string name="text_place_postion">平仓</string>
     <string name="text_order_record">账单明细</string>
     <string name="text_safe">安全设置</string>

@@ -129,6 +129,16 @@ public class OrdersBean implements Serializable {
         private String symbol;
         private int upordownType;
         private float finalAmount;
+        private String endTime;
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
+        }
+
 
         public float getFinalAmount() {
             return finalAmount;

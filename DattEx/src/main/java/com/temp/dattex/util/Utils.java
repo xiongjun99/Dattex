@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -20,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
@@ -30,6 +33,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,11 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Utils {
-    /**
-     * 保留小数点后2位
-     *
-     * @return
-     */
+
     public static String keepTwo(double b) {
         DecimalFormat format = new DecimalFormat("#0.00");
         String str = format.format(b);
@@ -61,6 +62,75 @@ public class Utils {
     }
     public static int getScreenWidth(Context context) {
         return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    public static String subtraction(String value_1,String value_2) {
+        BigDecimal bd = new BigDecimal(value_1);
+        BigDecimal bd2 = new BigDecimal(value_2);
+        BigDecimal bd3 = bd.subtract(bd2);
+        System.out.println("--------------差  是：" + bd3);
+        return bd3.toString();
+    }
+    public static String add(String value_1,String value_2) {
+        BigDecimal bd = new BigDecimal(value_1);
+        BigDecimal bd2 = new BigDecimal(value_2);
+        BigDecimal bd3 = bd.add(bd2);
+        System.out.println("--------------加法  是：" + bd3);
+        return bd3.toString();
+    }
+
+    public static String multiply(String value_1,String value_2) {
+        BigDecimal bd = new BigDecimal(value_1);
+        BigDecimal bd2 = new BigDecimal(value_2);
+        BigDecimal bd3 = bd.multiply(bd2);
+        System.out.println("--------------乘法  是：" + bd3);
+        return bd3.toString();
+    }
+
+    public static String divide(String value_1,String value_2) {
+        BigDecimal bd = new BigDecimal(value_1);
+        BigDecimal bd2 = new BigDecimal(value_2);
+        BigDecimal bd3 = bd.divide(bd2).setScale(8, BigDecimal.ROUND_DOWN);
+        return bd3.toString();
+    }
+    public static String format0(String value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(0, RoundingMode.HALF_UP);
+        return bd.toString();
+    }
+    public static String format(String value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.toString();
+    }
+    public static String format8(String value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(8, RoundingMode.HALF_UP);
+        return bd.toString();
+    }
+    public static String format4(String value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(4, RoundingMode.HALF_UP);
+        return bd.toString();
+    }
+    public static String rvZeroAndDot(String s){
+        if (s.isEmpty()) {
+            return null;
+        }
+        if(s.indexOf(".") > 0){
+            s = s.replaceAll("0+?$", "");//去掉多余的0
+            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+        return s;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static void setClipboard(Context context, String str){
+//获取剪贴板管理器：
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
+// 创建普通字符型ClipData
+        ClipData mClipData = ClipData.newPlainText("Label", str);
+// 将ClipData内容放到系统剪贴板里。
+        cm.setPrimaryClip(mClipData);
     }
     /**
 

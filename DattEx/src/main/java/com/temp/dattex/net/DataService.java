@@ -17,6 +17,7 @@ import com.temp.dattex.bean.LoginBean;
 import com.temp.dattex.bean.MarketListBean;
 import com.temp.dattex.bean.NewApplyBean;
 import com.temp.dattex.bean.NewAssetsBean;
+import com.temp.dattex.bean.NewPayTypeBean;
 import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.OrdersBean;
 import com.temp.dattex.bean.OtcDetailBean;
@@ -26,7 +27,9 @@ import com.temp.dattex.bean.SymbolConfigBean;
 import com.temp.dattex.bean.TradeDepthBean;
 import com.temp.dattex.bean.TransferredBean;
 import com.temp.dattex.bean.UpdateBean;
+import com.temp.dattex.bean.WithdrawBean;
 import com.temp.dattex.bean.WithdrawLimitBean;
+import com.temp.dattex.bean.WithdrawSubmitBean;
 import com.temp.dattex.database.LoginInfo;
 
 import java.util.List;
@@ -129,7 +132,9 @@ public class DataService {
     }
 
     public Observable<BaseResponse<List<CoinBean>>> userCoin() {
-        return RetrofitClient.getInstance().create(ApiService.class).userCoin(LoginInfo.getUserToken());
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_COIN_ID, "USDT");
+        return RetrofitClient.getInstance().create(ApiService.class).userCoin(LoginInfo.getUserToken(),params);
     }
 
     public Observable<BaseResponse<NewAssetsBean>> getAssetsByCoinId(String coinId) {
@@ -138,6 +143,12 @@ public class DataService {
         return RetrofitClient.getInstance().create(ApiService.class).getAssetsByCoinId(LoginInfo.getUserToken(),params);
     }
     public Observable<BaseResponse<Object>> getProfitLossRate(String direction,String id,String lever,String price,String stopLossRates,String stopProfitRates,String symbol) {
+          if (stopLossRates.equals("1.0")){
+              stopLossRates = "1";
+          }
+          if (stopProfitRates.equals("1.0")){
+              stopProfitRates = "1";
+          }
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_DIRECTION, direction);
         params.put(Constants.REQUEST_KEY_ID, id);
@@ -160,8 +171,16 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_DIRECTION, direction);
         params.put(Constants.REQUEST_KEY_LEVER, lever);
         params.put(Constants.REQUEST_KEY_PRICE, price);
-        params.put(Constants.REQUEST_KEY_STOP_LOSS_RATES, stopLossRates);
-        params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, stopProfitRates);
+        if (stopProfitRates==1.0){
+            params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, (int)stopProfitRates);
+        }else {
+            params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, stopProfitRates);
+        }
+        if (stopProfitRates==1.0){
+            params.put(Constants.REQUEST_KEY_STOP_LOSS_RATES, (int)stopLossRates);
+        }else {
+            params.put(Constants.REQUEST_KEY_STOP_LOSS_RATES, stopLossRates);
+        }
         params.put(Constants.REQUEST_KEY_SYMBOL, symbol);
         return RetrofitClient.getInstance().create(ApiService.class).placeAnOrder(LoginInfo.getUserToken(), params);
     }
@@ -175,26 +194,30 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_SYMBOL, symbol);
         return RetrofitClient.getInstance().create(ApiService.class).getLeverage(LoginInfo.getUserToken(), params);
     }
-    public Observable<BaseResponse<List<TradeDepthBean>>> getDepth(int btcusdt) {
+    public Observable<BaseResponse<List<TradeDepthBean>>> getDepth(String symbols) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
-        params.put(Constants.BTCUSDT, btcusdt);
+        params.put(symbols, 5);
         return RetrofitClient.getInstance().create(ApiService.class).getDepth(LoginInfo.getUserToken(), params);
     }
     public Observable<BaseResponse<List<MarketListBean>>> getMarketList() {
         return RetrofitClient.getInstance().create(ApiService.class).getMarketList(LoginInfo.getUserToken());
     }
 
-    public Observable<BaseResponse<OrdersBean>> getAllOrders(int state,int page, String filter) {
+    public Observable<BaseResponse<OrdersBean>> getAllOrders(String contractType,int state,int page, String symbol) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_DIR, "asc");
         params.put(Constants.REQUEST_KEY_PAGE, page);
         params.put(Constants.REQUEST_KEY_SIZE, 100);
         params.put(Constants.REQUEST_KEY_STATE, state);
+        params.put(Constants.REQUEST_KEY_CONTRACTTYPE, contractType);
+        params.put(Constants.REQUEST_KEY_SYMBOL,symbol);
+
         return RetrofitClient.getInstance().create(ApiService.class).getAllOrders(LoginInfo.getUserToken(), params);
     }
 
-    public Observable<BaseResponse<Object>> getMemberReciveItem(String coinId) {
+    public Observable<BaseResponse<List<NewPayTypeBean>>> getMemberReciveItem(String isWallet) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_ISWALLET, isWallet);
         return RetrofitClient.getInstance().create(ApiService.class).getMemberReciveItem(LoginInfo.getUserToken(), params);
     }
 
@@ -203,10 +226,14 @@ public class DataService {
      *
      * @return
      */
-    public Observable<BaseResponse<Object>> commitAuth(String identityCard, String realName) {
+    public Observable<BaseResponse<Object>> commitAuth(String areaCode,String identityCard, String realName,String lastName,String firstName,String identityType) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_ID_AREA_CODE, areaCode);
         params.put(Constants.REQUEST_KEY_ID_ENTITY_CARD, identityCard);
         params.put(Constants.REQUEST_KEY_REAL_NAME, realName);
+        params.put(Constants.REQUEST_KEY_LASTNAME, lastName);
+        params.put(Constants.REQUEST_KEY_FIRSTNAME, firstName);
+        params.put(Constants.REQUEST_KEY_IDENTITYTYPE, identityType);
         return RetrofitClient.getInstance().create(ApiService.class).commitRealName(params, LoginInfo.getUserToken());
     }
 
@@ -232,14 +259,16 @@ public class DataService {
     public Observable<BaseResponse<WithdrawLimitBean>> withdrawLimit(String symbol) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_COIN_ID, symbol);
-        return RetrofitClient.getInstance().create(ApiService.class).withdrawLimit(LoginInfo.getUserToken(), params);
+        return RetrofitClient.getInstance().create(ApiService.class).withdrawLimit(LoginInfo.getUserToken(), symbol);
     }
 
-    public Observable<BaseResponse<Object>> withdrawCoin(String coinId, String amount, String toAddr) {
+    public Observable<BaseResponse<Object>> withdrawCoin(String code, String amount, String coinId,String toAddr) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
-        params.put(Constants.REQUEST_KEY_COIN_ID, amount);
+        params.put(Constants.REQUEST_KEY_AMOUNT, amount);
+        params.put(Constants.REQUEST_KEY_CODE, code);
         params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
-        params.put(Constants.REQUEST_KEY_COIN_ID, toAddr);
+        params.put(Constants.REQUEST_KEY_TOADDR, toAddr);
+
         //{
         //  "amount": 0,
         //  "code": "string",
@@ -250,6 +279,27 @@ public class DataService {
         //  "toAddr": "string"
         //}
         return RetrofitClient.getInstance().create(ApiService.class).withdrawCoin(LoginInfo.getUserToken(), params);
+    }
+
+    public Observable<BaseResponse<WithdrawBean>> inoutWithdraw(String validCode, String coinId, String amount, String currency, String memberCardId, String money, int payType, int reciveItemId) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_AMOUNT, amount);
+        params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
+        params.put(Constants.REQUEST_KEY_CURRENCY, currency);
+        params.put(Constants.REQUEST_KEY_MEMBERCARDID, memberCardId);
+        params.put(Constants.REQUEST_KEY_MONEY, money);
+        params.put(Constants.REQUEST_KEY_PAYTYPE, payType);
+        params.put(Constants.REQUEST_KEY_RECIVEITEMID, reciveItemId);
+        params.put(Constants.REQUEST_VALIDCODE, validCode);
+        return RetrofitClient.getInstance().create(ApiService.class).inoutWithdraw(LoginInfo.getUserToken(), params);
+    }
+
+
+    //删除支付方式
+    public Observable<BaseResponse<Object>> removeMemberPayType(int id) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_ID, id);
+        return RetrofitClient.getInstance().create(ApiService.class).removeMemberPayType(LoginInfo.getUserToken(), params);
     }
 
     public Observable<BaseResponse<Object>> placePosition(long orderId) {
@@ -277,6 +327,23 @@ public class DataService {
     }
     public Observable<BaseResponse<List<PayTypeBean>>> getPayType() {
         return RetrofitClient.getInstance().create(ApiService.class).getPayType(LoginInfo.getUserToken());
+    }
+    public Observable<BaseResponse<Object>> addMemberPayType(String addr,String bankName,String province,String city,String isWallet,String lastName,String firstName,String openingBank,String receivingAccount,int type,String validCode) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_COIN_ID, "CNY");
+        params.put(Constants.REQUEST_KEY_BANKNAME, bankName);
+        params.put(Constants.REQUEST_KEY_PROVINCE, province);
+        params.put(Constants.REQUEST_KEY_CITY, city);
+        params.put(Constants.REQUEST_KEY_ISWALLET, isWallet);
+        params.put(Constants.REQUEST_KEY_LASTNAME, lastName);
+        params.put(Constants.REQUEST_KEY_FIRSTNAME, firstName);
+        params.put(Constants.REQUEST_KEY_OPENINGBANK, openingBank);
+        params.put(Constants.REQUEST_KEY_RECEIVINGACCOUNT, receivingAccount);
+        params.put(Constants.REQUEST_KEY_TYPE, type);
+        params.put(Constants.REQUEST_VALIDCODE, validCode);
+        params.put(Constants.REQUEST_ADDR, addr);
+
+        return RetrofitClient.getInstance().create(ApiService.class).addMemberPayType(LoginInfo.getUserToken(),params);
     }
     public Observable<BaseResponse<RechargeBean>> getRecharge(String amount,String coinId,String currency,String money,int payType) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();

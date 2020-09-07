@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.exchange.utilslib.ToastUtil;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.HomeFunctionAdapter;
 import com.temp.dattex.apply.ApplyActivity;
@@ -47,17 +49,19 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         recyclerView.setAdapter(homeFunctionAdapter);
         homeFunctionAdapter.setOnItemClickListener((adapter, view1, position) -> {
                if (homeFunctionList.get(position).isWeb()==true && "帮助中心".equals(homeFunctionList.get(position).getmFunName())){
-                   Bundle bundle = new Bundle();
-                   bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.HELP_CENTER_URL);
-                   Intent it = new Intent(getActivity(),WebViewActivity.class);
-                   it.putExtras(bundle);
-                   startActivity(it);
+                   ToastUtil.show(getActivity(),"暂未开通");
+                   //                   Bundle bundle = new Bundle();
+//                   bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.HELP_CENTER_URL);
+//                   Intent it = new Intent(getActivity(),WebViewActivity.class);
+//                   it.putExtras(bundle);
+//                   startActivity(it);
                } else if (homeFunctionList.get(position).isWeb()==true && "新闻公告".equals(homeFunctionList.get(position).getmFunName())){
-                    Bundle bundle = new Bundle();
-                    bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.NEWS_NOTICE_URL);
-                    Intent it = new Intent(getActivity(),WebViewActivity.class);
-                    it.putExtras(bundle);
-                    startActivity(it);
+                   ToastUtil.show(getActivity(),"暂未开通");
+                   //                    Bundle bundle = new Bundle();
+//                    bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.NEWS_NOTICE_URL);
+//                    Intent it = new Intent(getActivity(),WebViewActivity.class);
+//                    it.putExtras(bundle);
+//                    startActivity(it);
                 }else if (homeFunctionList.get(position).isWeb()==false && "新币申购".equals(homeFunctionList.get(position).getmFunName())){
                    Intent it = new Intent(getActivity(), ApplyActivity.class);
                    startActivity(it);

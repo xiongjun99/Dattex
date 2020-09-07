@@ -6,8 +6,13 @@ import androidx.annotation.NonNull;
 
 import com.common.framework.basic.BaseViewModel;
 import com.exchange.utilslib.LooperUtil;
+import com.exchange.utilslib.SPUtil;
+import com.independ.framework.response.ResponseTransformer;
+import com.temp.dattex.Constants;
 import com.temp.dattex.config.AssetsConfigs;
+import com.temp.dattex.config.SymbolConfigs;
 import com.temp.dattex.home.HomeActivity;
+import com.temp.dattex.net.DataService;
 
 /*************************************************************************
  * Description   :
@@ -64,13 +69,13 @@ public class SplashViewModel extends BaseViewModel {
     @Override
     public void onCreate() {
         super.onCreate();
-        LooperUtil.getHandler().postDelayed(runnable, 2000);
+//        LooperUtil.getHandler().postDelayed(runnable, 3000);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        LooperUtil.getHandler().postDelayed(runnable, 2000);
+        LooperUtil.getHandler().postDelayed(runnable, 3000);
     }
 
     @Override

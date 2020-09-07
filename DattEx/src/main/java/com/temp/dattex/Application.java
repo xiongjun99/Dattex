@@ -58,6 +58,7 @@ import java.util.HashMap;
  *                    '.:::::'                    ':'````..
  *************************************************************************/
 public class Application extends BaseApplication implements SPUtil.SpClearListener {
+    public static String URL;
     @SuppressLint("CheckResult")
     @Override
     public void onCreate() {

@@ -50,7 +50,7 @@ import java.util.TimerTask;
 
 public class MarketFragment extends BaseFragment<FragmentMarketLayoutBinding, MarketViewModel> {
     private Timer timer;
-    private  List<MarketListBean> listBeans = new ArrayList<>();
+    private List<MarketListBean> listBeans = new ArrayList<>();
     private NewMarketRecyclerAdapter marketRecyclerAdapter;
     private RecyclerView recycler_view;
     @Override
@@ -77,9 +77,6 @@ public class MarketFragment extends BaseFragment<FragmentMarketLayoutBinding, Ma
     public void initView() {
         getUsdtcny();
         getMarketList();
-//        List<SymbolConfigBean> symbols = SymbolConfigs.getInstance().getSymbols();
-//        MarketRecyclerAdapter marketRecyclerAdapter = new MarketRecyclerAdapter(R.layout.item_market_layout, symbols);
-//        viewModel.adapter.set(marketRecyclerAdapter);
         recycler_view = getActivity().findViewById(R.id.recycler_view);
         marketRecyclerAdapter = new NewMarketRecyclerAdapter(R.layout.item_newmarket_layout,getActivity(),listBeans);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -88,7 +85,6 @@ public class MarketFragment extends BaseFragment<FragmentMarketLayoutBinding, Ma
         marketRecyclerAdapter.setOnItemClickListener((adapter, view, position) -> {
             Intent intent = new Intent(getActivity(), KlineActivity.class);
             intent.putExtra(Constants.REQUEST_KEY_COIN_ID, marketRecyclerAdapter.getData().get(position).getCoinId());
-//          intent.putExtra(Constants.KEY_RIGHT_COIN, marketBean.getBaseSymbol());
             startActivity(intent);
         });
     }

@@ -3,6 +3,7 @@ package com.temp.dattex.wallet;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import androidx.annotation.RequiresApi;
@@ -50,7 +51,7 @@ public class WalletActivity extends BaseActivity<ActivityWalletBinding, WalletMo
     private FleXoPopWindow fleXoPopWindow;
     private EditPop editPop,pay_Pop;
     private RadioButton rbBuy,rbWallet;
-
+    private EditText tvWithdrawAddress;
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_wallet;
@@ -108,6 +109,9 @@ public class WalletActivity extends BaseActivity<ActivityWalletBinding, WalletMo
         super.onCreate(savedInstanceState);
         rbBuy = (RadioButton) findViewById(R.id.rb_buy);
         rbWallet = (RadioButton) findViewById(R.id.rb_wallet);
+        tvWithdrawAddress = (EditText)findViewById(R.id.tv_withdraw_address);
+        tvWithdrawAddress.setTextSize(12);
+
         rbBuy.setOnClickListener(view -> {
             rbBuy.setChecked(true);
             rbWallet.setChecked(false);

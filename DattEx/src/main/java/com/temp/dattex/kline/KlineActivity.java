@@ -1,19 +1,29 @@
 package com.temp.dattex.kline;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.RequiresApi;
+import androidx.databinding.Observable;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.common.framework.basic.BaseActivity;
+import com.exchange.utilslib.LogUtil;
 import com.google.zxing.common.StringUtils;
+import com.icechao.klinelib.utils.Status;
+import com.icechao.klinelib.view.KLineChartView;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.databinding.ActivityKlineBinding;
 import com.temp.dattex.home.HomeActivity;
+import com.temp.dattex.widget.EditPop;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*************************************************************************
  * Description   :
@@ -44,8 +54,11 @@ import com.temp.dattex.home.HomeActivity;
  * ```` ':.          ':::::::::'                  ::::..
  *                    '.:::::'                    ':'````..
  *************************************************************************/
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class KlineActivity extends BaseActivity<ActivityKlineBinding, KlineViewModel> {
-   private String Symbol;
+    private String Symbol;
+    private EditPop editPop;
+    private KLineChartView kLineChartView;
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_kline;
@@ -58,7 +71,49 @@ public class KlineActivity extends BaseActivity<ActivityKlineBinding, KlineViewM
 
     @Override
     public void initViewObservable() {
-//  binding.recyclerViewKlineBottomList
+//      binding.recyclerViewKlineBottomList
+        viewModel.uc.pop.observe(this, isShow -> {
+            LogUtil.e(isShow);
+            createPop();
+            editPop.popState(isShow);
+        });
+        viewModel.getPopType().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (viewModel.getPopType().get()!=null){
+                    if (viewModel.getPopType().get().equals("4")){
+                        kLineChartView.setKlineState(Status.KlineStatus.TIME_LINE);
+                        if (editPop !=null){
+                            editPop.dismiss();
+                        }
+                    } else {
+                        kLineChartView.setKlineState(Status.KlineStatus.K_LINE);
+                        if (editPop !=null){
+                            editPop.dismiss();
+                        }
+                    }
+                }
+            }
+        });
+    }
+    public void createPop() {
+        if (editPop == null) {
+            editPop = new EditPop(this,viewModel.pPosition.get());
+            editPop.setAdapterData(viewModel.getListData().get(), binding.more);
+            editPop.setOnItemClickListener(viewModel);
+            editPop.setOnDismissListener(viewModel);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        List<String> list = new ArrayList<>();
+        list.add("分时");
+        list.add("30分");
+        list.add("4小时");
+        list.add("1周");
+        viewModel.getListData().set(list);
     }
 
     @Override
@@ -88,6 +143,7 @@ public class KlineActivity extends BaseActivity<ActivityKlineBinding, KlineViewM
             it.putExtra("rightCoin",viewModel.getRightCoin().get());
             startActivity(it);
         });
-
+        kLineChartView = (KLineChartView)findViewById(R.id.kline_chart_view);
+//      kLineChartView.setKlineState(Status.KlineStatus.TIME_LINE);
     }
 }

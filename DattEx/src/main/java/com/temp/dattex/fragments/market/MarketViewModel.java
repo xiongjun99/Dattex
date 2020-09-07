@@ -21,10 +21,8 @@ import com.temp.dattex.widget.sort.MarketSortView;
  */
 
 public class MarketViewModel extends BaseViewModel implements MarketSortView.OnSortChangeListener {
-
 //    public ObservableField<MarketRecyclerAdapter> adapter = new ObservableField<>();
 //    public ObservableField<NewMarketRecyclerAdapter> adapter = new ObservableField<>();
-
     public MarketViewModel(@NonNull Application application) {
         super(application);
     }

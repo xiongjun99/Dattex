@@ -59,12 +59,38 @@ public class NewApplyBean {
         private String symbol;
         private int totalPrice;
         private int tradingQty;
+        private int subscribePrice;
         private String type;
         private String typeName;
         private int unitPrice;
         private String updateTime;
         private String updateUser;
+        private int subscribeQty;
+        private int tradingPrice;
 
+        public int getSubscribeQty() {
+            return subscribeQty;
+        }
+
+        public void setSubscribeQty(int subscribeQty) {
+            this.subscribeQty = subscribeQty;
+        }
+
+        public int getTradingPrice() {
+            return tradingPrice;
+        }
+
+        public void setTradingPrice(int tradingPrice) {
+            this.tradingPrice = tradingPrice;
+        }
+
+        public int getSubscribePrice() {
+            return subscribePrice;
+        }
+
+        public void setSubscribePrice(int subscribePrice) {
+            this.subscribePrice = subscribePrice;
+        }
         public String getApplyTypeName() {
             return applyTypeName;
         }

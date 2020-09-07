@@ -146,7 +146,6 @@ public class LoginViewModel extends BaseViewModel {
         } else if (TextUtils.isEmpty(passWord.get())) {
             ToastUtil.show(getApplication(), getApplication().getResources().getText(R.string.text_input_password));
         } else {
-
             InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
             DataService.getInstance().userLogin(userName.get(), passWord.get(), countryCode.get())
@@ -156,7 +155,7 @@ public class LoginViewModel extends BaseViewModel {
                         LoginInfo.sign(loginBean.getAccount(),
                                 loginBean.getToken(),
                                 loginBean.getMemberId(),
-                                loginBean.getRecode());
+                                loginBean.getRecode(),loginBean.getIsCertification());
                         if (TextUtils.isEmpty(nextPage)) {
                             finishFragmentResult();
                         } else {

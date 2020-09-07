@@ -30,6 +30,7 @@
                 android:background="@drawable/selector_wallet_title_left"
                 android:button="@null"
                 android:checked="false"
+                android:enabled="false"
                 android:onClick="@{()->withdrawViewModel.SellUSDT()}"
                 android:paddingLeft="13dp"
                 android:paddingTop="5dp"

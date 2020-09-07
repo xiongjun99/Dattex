@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.reactivex.Observable;
 
@@ -87,7 +88,7 @@ public class SymbolConfigs implements WebSocket.SocketListener {
         Observable<BaseResponse<List<SymbolConfigBean>>> baseResponseObservable = DataService.getInstance().symbolConfig();
         baseResponseObservable.compose(ResponseTransformer.handleResult()).subscribe(o -> {
             if (null != o && o.size() > 0) {
-                Collections.sort(o, (symbolConfigBean, t1) -> symbolConfigBean.getSort() - t1.getSort());
+//                Collections.sort(o, (symbolConfigBean, t1) -> symbolConfigBean.getSort() - t1.getSort());
                 int size = o.size();
                 for (int i = 0; i < size; i++) {
                     SymbolConfigBean symbolConfigBean = o.get(i);
@@ -120,7 +121,6 @@ public class SymbolConfigs implements WebSocket.SocketListener {
     public List<SymbolConfigBean> getSymbols() {
         return new LinkedList<>(configMap.values());
     }
-
     public SymbolConfigBean getSymbol(String symbol) {
         return configMap.get(symbol);
     }
@@ -131,7 +131,6 @@ public class SymbolConfigs implements WebSocket.SocketListener {
 
     @Override
     public void onMessage(String message) {
-
         if (!TextUtils.isEmpty(message)) {
             SocketDataBean socketDataBean = gson.fromJson(message, SocketDataBean.class);
             if (null != socketDataBean) {

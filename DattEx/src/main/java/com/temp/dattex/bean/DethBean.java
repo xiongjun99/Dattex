@@ -1,6 +1,7 @@
 package com.temp.dattex.bean;
 
 public class DethBean {
+    private String TotalNum;
     private String num;
     private String price;
     private String name;
@@ -27,4 +28,12 @@ public class DethBean {
     public void setName(String name) {
         this.name = name;
     }
+    public String getTotalNum() {
+        return TotalNum;
+    }
+
+    public void setTotalNum(String totalNum) {
+        TotalNum = totalNum;
+    }
+
 }

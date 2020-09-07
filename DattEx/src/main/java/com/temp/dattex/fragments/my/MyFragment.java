@@ -8,21 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
-
 import com.common.framework.basic.BaseFragment;
-import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.BR;
 import com.temp.dattex.R;
-import com.temp.dattex.bean.AssetsBean;
-import com.temp.dattex.bean.SymbolConfigBean;
-import com.temp.dattex.config.AssetsConfigs;
-import com.temp.dattex.config.SymbolConfigs;
 import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.databinding.FragmentMyBinding;
-import com.temp.dattex.login.LoginActivity;
-import com.temp.dattex.net.DataService;
 import com.temp.dattex.util.Utils;
 
 /**
@@ -57,19 +48,8 @@ public class MyFragment extends BaseFragment<FragmentMyBinding, MyViewModel> {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-      initView();
-    }
-
-    @Override
     public void initView() {
         llExit =  (LinearLayout) getActivity().findViewById(R.id.ll_exit);
-        if (LoginInfo.isSign()) {
-            llExit.setVisibility(View.VISIBLE);
-        } else {
-            llExit.setVisibility(View.GONE);
-        }
         llExit.setOnClickListener(view -> {
             showIsExitDialog();
         });
@@ -86,7 +66,6 @@ public class MyFragment extends BaseFragment<FragmentMyBinding, MyViewModel> {
     }
 
     public  void showIsExitDialog() {
-
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_isexit,null,false);
         final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         TextView tvCancel = view.findViewById(R.id.tv_cancel);
@@ -101,8 +80,10 @@ public class MyFragment extends BaseFragment<FragmentMyBinding, MyViewModel> {
             public void onClick(View v) {
                 //... To-do
                 if (LoginInfo.isSign()) {
-                    LoginInfo.signOut();
-                    startActivity(LoginActivity.class);
+                    viewModel.loginOut();
+//                    LoginInfo.signOut();
+//                    startActivity(LoginActivity.class);
+                    llExit.setVisibility(View.GONE);
                 }
                 dialog.dismiss();
             }
@@ -110,5 +91,16 @@ public class MyFragment extends BaseFragment<FragmentMyBinding, MyViewModel> {
         dialog.show();
         //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
         dialog.getWindow().setLayout((Utils.getScreenWidth(getActivity())/4*3), LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (LoginInfo.isSign()) {
+            viewModel.balance.set("0.0000000");
+            llExit.setVisibility(View.VISIBLE);
+        } else {
+            llExit.setVisibility(View.GONE);
+        }
     }
 }

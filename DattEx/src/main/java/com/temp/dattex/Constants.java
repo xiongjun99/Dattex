@@ -71,6 +71,9 @@ public class Constants {
     public static final String SP_KEY_SYMBOL_CONFIG = "SP_KEY_SYMBOL_CONFIG";
     public static final String SP_KEY_USDT_CNY_RATE = "SP_KEY_USDT_CNY_RATE";
 
+    public static final String SP_KEY_LOGIN_ISCERTIFICATION = "SP_KEY_LOGIN_ISCERTIFICATION";
+
+
     public static final String REQUEST_KEY_SYMBOL = "symbol";
     public static final String BTCUSDT = "btcusdt";
     public static final String REQUEST_KEY_ID = "id";
@@ -85,21 +88,39 @@ public class Constants {
     public static final String REQUEST_KEY_PAGE = "page";
     public static final String REQUEST_KEY_SIZE = "size";
     public static final String REQUEST_KEY_STATE = "state";
+    public static final String REQUEST_KEY_CONTRACTTYPE = "contractType";
+
+    public static final String REQUEST_KEY_ISWALLET = "isWallet";
+    public static final String REQUEST_KEY_LASTNAME = "lastName";
+    public static final String REQUEST_KEY_FIRSTNAME = "firstName";
+    public static final String REQUEST_KEY_IDENTITYTYPE = "identityType";
+
+    public static final String REQUEST_KEY_OPENINGBANK = "openingBank";
 
     public static final String REQUEST_KEY_SORT = "sort";
     public static final String REQUEST_KEY_ID_ENTITY_CARD = "identityCard";
     public static final String REQUEST_KEY_REAL_NAME = "realName";
+    public static final String REQUEST_KEY_ID_AREA_CODE = "areaCode";
     public static final String REQUEST_KEY_COIN_ID = "coinId";
     public static final String REQUEST_KEY_PERIOD = "period";
     public static final String REQUEST_KEY_ORDER_ID = "orderId";
     public static final String REQUEST_KEY_AMOUNT = "amount";
     public static final String REQUEST_KEY_CURRENCY = "currency";
+    public static final String REQUEST_KEY_MEMBERCARDID = "memberCardId";
+    public static final String REQUEST_KEY_TOADDR = "toAddr";
+
+    public static final String REQUEST_KEY_RECIVEITEMID = "reciveItemId";
+
     public static final String REQUEST_KEY_MONEY = "money";
     public static final String REQUEST_KEY_PAYTYPE = "payType";
-
-
+    public static final String REQUEST_KEY_BANKNAME = "bankName";
+    public static final String REQUEST_KEY_CITY = "city";
+    public static final String REQUEST_KEY_PROVINCE = "province";
+    public static final String REQUEST_KEY_RECEIVINGACCOUNT = "receivingAccount";
+    public static final String REQUEST_KEY_TYPE = "type";
     public static final String REQUEST_APPLYID = "applyId";
     public static final String REQUEST_SUBSCRIBEQTY = "subscribeQty";
     public static final String REQUEST_VALIDCODE = "validCode";
+    public static final String REQUEST_ADDR = "addr";
 
 }

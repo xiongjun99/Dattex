@@ -15,15 +15,13 @@
         android:background="@color/color_282C42"
         android:orientation="vertical">
 
-
         <com.temp.dattex.widget.TitleBar
+            android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            app:leftClick="@{settingViewModel}"
             app:leftIcon="@mipmap/icon_common_back"
-            app:titleText="@string/text_setting"
-            app:titleTextColor="@color/color_FFFFFFFF" />
+            app:titleText="@string/text_title_auth"
+            app:titleTextColor="@color/color_FFFFFFFF"></com.temp.dattex.widget.TitleBar>
 
         <View
             android:layout_width="match_parent"
@@ -47,11 +45,25 @@
             android:layout_height="50dp"
             app:leftText="版本更新"
             app:rightText="更新 V1.03" />
-        <com.temp.dattex.widget.SettingItemView
-            android:id="@+id/tv_revise"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:leftText="修改服务器地址"
-            app:rightText="" />
+            android:layout_height="wrap_content">
+
+            <com.temp.dattex.widget.SettingItemView
+                android:id="@+id/tv_revise"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:leftText="修改地址"
+                app:rightText="" />
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:id="@+id/ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/encode_view"></TextView>
+        </RelativeLayout>
+
     </LinearLayout>
 </layout>

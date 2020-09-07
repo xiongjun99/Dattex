@@ -81,29 +81,29 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     public void initView() {
         super.initView();
         String Many = getIntent().getStringExtra("many");
-        if (null!=Many&&(Many.equals("0")||Many.equals("1"))){
-            viewModel.checkBottom(2);
-            System.out.println("---------"+getIntent().getStringExtra("leftCoin"));
-            System.out.println("---------"+getIntent().getStringExtra("rightCoin"));
-
+        if (Many!=null){
+            if (Many.equals("0")||Many.equals("1")){
+                viewModel.checkBottom(2);
+            }
         }
         DataService.getInstance().UpDate().compose(ResponseTransformer.handleResult()).subscribe(
                 d -> {
-//                    if (!d.getAndroid().getVersion().equals(Utils.getVersion(this))){
-//                        String[] sourceStrArray = d.getAndroid().getForcedUpdateVer().split(",");
-//                        for (int i = 0; i < sourceStrArray.length; i++) {
-//                            if (sourceStrArray[i].equals(Utils.getVersion(this))){
-//                                UpdateDialogViewModel updateDialogViewModel = new UpdateDialogViewModel();
-//                                updateDialogViewModel.setNewVersionInfo(d.getAndroid().getMemo());
-//                                updateDialogViewModel.setNewVersionName(d.getAndroid().getVersion());
-//                                DialogUtil.showUpdateDialog(this,updateDialogViewModel);
-//                             } else {
-//                                System.out.println("-------bbbbbbb"+sourceStrArray[i]);
-//                            }
-//                        }
-//                    }
+                    if (!d.getAndroid().getVersion().equals(Utils.getVersion(this))){
+
+                        String[] sourceStrArray = d.getAndroid().getForcedUpdateVer().split(",");
+                        for (int i = 0; i < sourceStrArray.length; i++) {
+                            if (sourceStrArray[i].equals(Utils.getVersion(this))){
+                                UpdateDialogViewModel updateDialogViewModel = new UpdateDialogViewModel();
+                                updateDialogViewModel.setNewVersionInfo(d.getAndroid().getMemo().replace("\\n", "\n"));
+                                updateDialogViewModel.setNewVersionName(d.getAndroid().getVersion());
+                                DialogUtil.showUpdateDialog(this,updateDialogViewModel);
+                             } else {
+                                System.out.println("-------bbbbbbb"+sourceStrArray[i]);
+                            }
+                        }
+                    }
                 }, t -> {
-                    ToastUtil.show(this,"获取版本更新失败...");
+//                    ToastUtil.show(this,"获取版本更新失败...");
                 }
         );
     }

@@ -78,7 +78,7 @@
                         android:paddingTop="6dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="6dp"
-                        android:text="@string/text_name_auth"
+                        android:text="@{myViewModel.nameAuth}"
                         android:textColor="@color/color_FFFFFFFF"
                         android:textSize="12dp"
                         android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
@@ -116,6 +116,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginLeft="16dp"
                     android:text="我的资产(USDT)"
@@ -136,6 +137,7 @@
 
 
                     <TextView
+                        android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
                         android:textSize="14dp"
                         android:text="@{myViewModel.cnyprice}"
                         android:layout_centerVertical="true"
@@ -145,6 +147,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginLeft="16dp"
                     android:text="@{myViewModel.frozen}"

@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.databinding.adapters.TextViewBindingAdapter;
@@ -87,14 +89,15 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public WalletModel.UIChangeObservable pay_uc = new WalletModel.UIChangeObservable();
     public WalletModel.UIChangeObservable uc = new WalletModel.UIChangeObservable();
     private ObservableField<String> exchangeType = new ObservableField<>("");
-    private ObservableField<String> amount = new ObservableField<>("0");
+    private ObservableField<String> amount = new ObservableField<>("0.0000000");
     private ObservableField<String> price = new ObservableField<>("");
     private ObservableField<String> balance = new ObservableField<>("");
     private ObservableField<String> name = new ObservableField<>("");
     private ObservableField<String> payForType = new ObservableField<>("");
     private ObservableField<Integer> payForTypeID = new ObservableField<>(0);
     private ObservableField<Integer> id = new ObservableField<>(0);
-
+    public ObservableField<String> OtcminAmount = new ObservableField<>("");
+    public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
     private ObservableField<Boolean> showOtc = new ObservableField<>(true);
     private ObservableField<Bitmap> qrBitmap = new ObservableField<>();
     private ObservableField<Drawable> buyDrawable = new ObservableField<>(getApplication().getResources().getDrawable(R.drawable.drawable_button_cancel));
@@ -112,6 +115,33 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
 
     public ObservableField<List<OTCcfgBean>> otc = new ObservableField<>();
     public ObservableField<List<PayTypeBean>> paytype = new ObservableField<>();
+    private ObservableField<String> unit = new ObservableField<>("");
+
+    public ObservableField<String> getUnit() {
+        return unit;
+    }
+
+    public void setUnit(ObservableField<String> unit) {
+        this.unit = unit;
+    }
+
+
+    public ObservableField<String> getOtcminAmount() {
+        return OtcminAmount;
+    }
+
+    public void setOtcminAmount(ObservableField<String> otcminAmount) {
+        OtcminAmount = otcminAmount;
+    }
+
+    public ObservableField<String> getOtcMaxAmount() {
+        return OtcMaxAmount;
+    }
+
+    public void setOtcMaxAmount(ObservableField<String> otcMaxAmount) {
+        OtcMaxAmount = otcMaxAmount;
+    }
+
     public ObservableField<Drawable> getBuyDrawable() {
         return buyDrawable;
     }
@@ -169,6 +199,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         ClipboardManager cm = (ClipboardManager) BaseApplication.getInstance().getSystemService(Context.CLIPBOARD_SERVICE);
         // 将文本内容放到系统剪贴板里。
         cm.setText(address.get());
+        ToastUtil.show(getApplication(),"复制成功");
     }
     @SingleClick
     public void saveImage() {
@@ -183,7 +214,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public void changeBalance(float num) {
         balance.set(String.valueOf(num));
         if (price!=null){
-            amount.set(String.valueOf(Utils.keepTwo(Float.valueOf(balance.get())/Float.valueOf(price.get()))));
+            amount.set(Utils.divide(balance.get(),price.get()));
         }else {
             ToastUtil.show(getApplication(),"请选择购买方式");
         }
@@ -285,7 +316,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
 
         @Override public void afterTextChanged(Editable s){
             if (!TextUtils.isEmpty(s.toString())){
-                amount.set(String.valueOf(Utils.keepTwo(Float.valueOf(s.toString())/Float.valueOf(price.get()))));
+                amount.set(Utils.format8(Utils.multiply(s.toString(),price.get())));
                 buyDrawable.set(getApplication().getResources().getDrawable(R.drawable.drawable_button_ensure));
                 setBuyDrawable(buyDrawable);
             }
@@ -313,6 +344,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
             exchangeType.set(String.valueOf(otc.get().get(i).getCurrency()));
             price.set(String.valueOf(otc.get().get(i).getBuyRatio()));
             uc.pop.setValue(false);
+            unit.set(otc.get().get(i).getSymbol());
         }else {
             payType = i;
             payForTypeID.set(paytype.get().get(i).getId());
@@ -328,7 +360,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
 
     public static class UIChangeObservable {
         //密码开关观察者
-        SingleLiveEvent<Boolean> pop = new SingleLiveEvent<>();
+        public SingleLiveEvent<Boolean> pop = new SingleLiveEvent<>();
         SingleLiveEvent<Boolean> pay_pop = new SingleLiveEvent<>();
     }
     @SingleClick
@@ -348,6 +380,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         if (null != coinInfo) {
             qrBitmap.set(createQRcodeImage(coinInfo.getAddr()));
             address.set(coinInfo.getAddr());
+        }else {
         }
     }
     public Bitmap createQRcodeImage(String url) {
@@ -398,6 +431,9 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
                         exchangeType.set(b.get(0).getCurrency());
                         price.set(String.valueOf(b.get(0).getBuyRatio()));
                         otc.set(b);
+                        OtcminAmount.set(Utils.format0(b.get(0).getMinOutQty()));
+                        OtcMaxAmount.set(Utils.format0(b.get(0).getMaxOutQty()));
+                        unit.set(b.get(0).getSymbol());
                         mhandler.sendEmptyMessage(1);
                     }else {
                         ToastUtil.show(getApplication(),"获取OTC配置失败");
@@ -450,6 +486,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
                         ToastUtil.show(getApplication(),"创建订单失败");
                     }
                 }, t -> {
+                    System.out.println("-----------aaaaaaaaaaa"+t.getMessage());
                     ToastUtil.show(getApplication(),t.getMessage());
                 });
     }
