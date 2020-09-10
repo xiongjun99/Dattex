@@ -28,6 +28,7 @@ import com.temp.dattex.config.SymbolConfigs;
 import com.temp.dattex.kline.KlineActivity;
 import com.temp.dattex.net.ApiService;
 import com.temp.dattex.net.DataService;
+import com.temp.dattex.notice.NoticeActivity;
 import com.temp.dattex.web.WebViewActivity;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -136,7 +137,8 @@ public class HomePageViewModel extends BaseViewModel {
 
 
     public void openWebView(String url) {
-        ToastUtil.show(getApplication(),"暂未开通");
+        startActivity(NoticeActivity.class);
+//        ToastUtil.show(getApplication(),"暂未开通");
 //        Bundle bundle = new Bundle();
 //        bundle.putString(WebViewActivity.KEY_PARAM_URL, url);
 //        startActivity(WebViewActivity.class, bundle);

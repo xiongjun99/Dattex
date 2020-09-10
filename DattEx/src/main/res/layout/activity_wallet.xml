@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <import type="android.view.View" />
         <variable
             name="walletModel"
@@ -35,6 +34,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:visibility="visible"
                     android:checked="true"
                     android:id="@+id/rb_buy"
                     android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
-                android:text="买入金额"
+                android:text="买入数量"
                 android:textColor="@color/color_FFA3A6BF"
                 android:textSize="12dp" />
 
@@ -170,7 +170,7 @@
                     android:layout_marginRight="15dp"
                     android:paddingTop="13dp"
                     android:paddingBottom="13dp"
-                    android:text="@={walletModel.exchangeType}"
+                    android:text="USDT"
                     android:textColor="@color/color_FFA3A6BF"
                     android:textSize="12dp" />
 
@@ -239,74 +239,79 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_otc_quick"
-                    android:gravity="center"
-                    android:onClick="@{()->walletModel.changeBalance(1000f)}"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="1000"
-                    android:textColor="@color/color_FFA3A6BF"
-                    android:textSize="13dp" />
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/recycler_view"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_otc_quick"
-                    android:gravity="center"
-                    android:onClick="@{()->walletModel.changeBalance(5000f)}"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="5000"
-                    android:textColor="@color/color_FFA3A6BF"
-                    android:textSize="13dp" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/shape_otc_quick"-->
+<!--                    android:gravity="center"-->
+<!--                    android:onClick="@{()->walletModel.changeBalance(1000f)}"-->
+<!--                    android:paddingTop="2dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="1000"-->
+<!--                    android:textColor="@color/color_FFA3A6BF"-->
+<!--                    android:textSize="13dp" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_otc_quick"
-                    android:gravity="center"
-                    android:onClick="@{()->walletModel.changeBalance(10000f)}"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="10000"
-                    android:textColor="@color/color_FFA3A6BF"
-                    android:textSize="13dp" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="4dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/shape_otc_quick"-->
+<!--                    android:gravity="center"-->
+<!--                    android:onClick="@{()->walletModel.changeBalance(5000f)}"-->
+<!--                    android:paddingTop="2dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="5000"-->
+<!--                    android:textColor="@color/color_FFA3A6BF"-->
+<!--                    android:textSize="13dp" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_otc_quick"
-                    android:gravity="center"
-                    android:onClick="@{()->walletModel.changeBalance(200000f)}"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="20000"
-                    android:textColor="@color/color_FFA3A6BF"
-                    android:textSize="13dp" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="4dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/shape_otc_quick"-->
+<!--                    android:gravity="center"-->
+<!--                    android:onClick="@{()->walletModel.changeBalance(10000f)}"-->
+<!--                    android:paddingTop="2dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="10000"-->
+<!--                    android:textColor="@color/color_FFA3A6BF"-->
+<!--                    android:textSize="13dp" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_otc_quick"
-                    android:gravity="center"
-                    android:onClick="@{()->walletModel.changeBalance(500000f)}"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="50000"
-                    android:textColor="@color/color_FFA3A6BF"
-                    android:textSize="13dp" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="4dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/shape_otc_quick"-->
+<!--                    android:gravity="center"-->
+<!--                    android:onClick="@{()->walletModel.changeBalance(200000f)}"-->
+<!--                    android:paddingTop="2dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="20000"-->
+<!--                    android:textColor="@color/color_FFA3A6BF"-->
+<!--                    android:textSize="13dp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="4dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/shape_otc_quick"-->
+<!--                    android:gravity="center"-->
+<!--                    android:onClick="@{()->walletModel.changeBalance(500000f)}"-->
+<!--                    android:paddingTop="2dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="50000"-->
+<!--                    android:textColor="@color/color_FFA3A6BF"-->
+<!--                    android:textSize="13dp" />-->
             </LinearLayout>
 
 
@@ -325,6 +330,8 @@
                     android:text="到账数量"
                     android:textColor="@color/color_FFA3A6BF"
                     android:textSize="12dp" />
+
+
 
                 <TextView
                     android:layout_width="wrap_content"

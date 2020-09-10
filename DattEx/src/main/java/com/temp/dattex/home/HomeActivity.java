@@ -3,12 +3,17 @@ package com.temp.dattex.home;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -89,18 +94,23 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         DataService.getInstance().UpDate().compose(ResponseTransformer.handleResult()).subscribe(
                 d -> {
                     if (!d.getAndroid().getVersion().equals(Utils.getVersion(this))){
-
+                        UpdateDialogViewModel updateDialogViewModel = new UpdateDialogViewModel();
+                        updateDialogViewModel.setNewVersionInfo(d.getAndroid().getMemo().replace("\\n", "\n"));
+                        updateDialogViewModel.setNewVersionName("V"+d.getAndroid().getVersion());
+                        updateDialogViewModel.setLinkUrl(d.getAndroid().getDownloadLink());
+                        DialogUtil.showUpdateDialog(this,updateDialogViewModel);
                         String[] sourceStrArray = d.getAndroid().getForcedUpdateVer().split(",");
                         for (int i = 0; i < sourceStrArray.length; i++) {
                             if (sourceStrArray[i].equals(Utils.getVersion(this))){
-                                UpdateDialogViewModel updateDialogViewModel = new UpdateDialogViewModel();
-                                updateDialogViewModel.setNewVersionInfo(d.getAndroid().getMemo().replace("\\n", "\n"));
-                                updateDialogViewModel.setNewVersionName(d.getAndroid().getVersion());
-                                DialogUtil.showUpdateDialog(this,updateDialogViewModel);
-                             } else {
-                                System.out.println("-------bbbbbbb"+sourceStrArray[i]);
+                                System.out.println("------强制更新");
+                                updateDialogViewModel.setOpen(true);
+                            } else {
+                                updateDialogViewModel.setOpen(false);
+                                System.out.println("------可以关闭");
                             }
                         }
+                    } else {
+                        System.out.println("-------最新版本无需更新");
                     }
                 }, t -> {
 //                    ToastUtil.show(this,"获取版本更新失败...");
@@ -115,4 +125,5 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         HomeFragmentPagerAdapter baseFragmentPagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager());
         viewModel.pagerAdapter.set(baseFragmentPagerAdapter);
     }
+
 }

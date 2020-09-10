@@ -1,25 +1,35 @@
 package com.temp.dattex.wallet;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableField;
 import androidx.databinding.adapters.TextViewBindingAdapter;
 
@@ -28,6 +38,7 @@ import com.common.framework.basic.BaseApplication;
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.bus.SingleLiveEvent;
 import com.common.framework.click.SingleClick;
+import com.exchange.utilslib.DisplayUtil;
 import com.exchange.utilslib.ToastUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -44,6 +55,7 @@ import com.temp.dattex.bean.PayTypeBean;
 import com.temp.dattex.binding.adapter.TitleBarClickBindingAdapter;
 import com.temp.dattex.buy.BuyActivity;
 import com.temp.dattex.config.AssetsConfigs;
+import com.temp.dattex.databinding.DialogLoadpayBinding;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.record.CoinRecordActivity;
 import com.temp.dattex.util.DialogUtil;
@@ -113,9 +125,18 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public ObservableField<Integer> pPosition = new ObservableField<>(0);
     public ObservableField<Integer> popStaus = new ObservableField<>(0);
 
-    public ObservableField<List<OTCcfgBean>> otc = new ObservableField<>();
-    public ObservableField<List<PayTypeBean>> paytype = new ObservableField<>();
+    public ObservableField<OTCcfgBean> otc = new ObservableField<>();
     private ObservableField<String> unit = new ObservableField<>("");
+
+    public ObservableField<String> getCount() {
+        return count;
+    }
+
+    public void setCount(ObservableField<String> count) {
+        this.count = count;
+    }
+
+    private ObservableField<String> count = new ObservableField<>("");
 
     public ObservableField<String> getUnit() {
         return unit;
@@ -145,11 +166,11 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public ObservableField<Drawable> getBuyDrawable() {
         return buyDrawable;
     }
-    private int payType;
 
     public void setBuyDrawable(ObservableField<Drawable> buyDrawable) {
         this.buyDrawable = buyDrawable;
     }
+
     public ObservableField<Bitmap> getQrBitmap() {
         return qrBitmap;
     }
@@ -189,6 +210,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public void setTips(ObservableField<String> tips) {
         this.tips = tips;
     }
+
     /**
      * pop按钮状态
      */
@@ -199,8 +221,9 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         ClipboardManager cm = (ClipboardManager) BaseApplication.getInstance().getSystemService(Context.CLIPBOARD_SERVICE);
         // 将文本内容放到系统剪贴板里。
         cm.setText(address.get());
-        ToastUtil.show(getApplication(),"复制成功");
+        ToastUtil.show(getApplication(), "复制成功");
     }
+
     @SingleClick
     public void saveImage() {
 
@@ -210,13 +233,14 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public void switchCoin() {
 
     }
+
     @SingleClick
     public void changeBalance(float num) {
-        balance.set(String.valueOf(num));
-        if (price!=null){
-            amount.set(Utils.divide(balance.get(),price.get()));
-        }else {
-            ToastUtil.show(getApplication(),"请选择购买方式");
+        balance.set(Utils.format0(num));
+        if (price != null) {
+            amount.set(Utils.format8(balance.get()));
+        } else {
+            ToastUtil.show(getApplication(), "请选择购买方式");
         }
     }
 
@@ -303,6 +327,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         btState.set(!btState.get());
         pay_uc.pay_pop.setValue(btState.get());
     }
+
     public TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -314,24 +339,54 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
 
         }
 
-        @Override public void afterTextChanged(Editable s){
-            if (!TextUtils.isEmpty(s.toString())){
-                amount.set(Utils.format8(Utils.multiply(s.toString(),price.get())));
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (!TextUtils.isEmpty(s.toString())) {
+                amount.set(Utils.format8(s.toString()));
+//              amount.set(Utils.format8(Utils.multiply(s.toString(),price.get())));
                 buyDrawable.set(getApplication().getResources().getDrawable(R.drawable.drawable_button_ensure));
                 setBuyDrawable(buyDrawable);
+
+            } else {
+                amount.set("0.0000000");
             }
-     }
-};
+        }
+    };
     @SingleClick
     public void ensureOrder() {
-        if (!TextUtils.isEmpty(amount.get())&&!TextUtils.isEmpty(exchangeType.get())&&!TextUtils.isEmpty(balance.get())&& payForTypeID.get()>0){
-            getRecharge();
-        }else {
-            ToastUtil.show(getApplication(),"请填写完整的买入信息");
+        if (!TextUtils.isEmpty(amount.get()) && !TextUtils.isEmpty(exchangeType.get()) && !TextUtils.isEmpty(balance.get()) && payForTypeID.get() > 0) {
+//          getRecharge();
+            WalletModel walletModel = new WalletModel(getApplication());
+            walletModel.setCount(count);
+            DialogUtil.showWallPayDialog(AppManager.getActivityStack().peek(), walletModel);
+            timer.start();
+        } else {
+            ToastUtil.show(getApplication(), "请填写完整的买入信息");
         }
-//        WalletPayDialogViewModel walletPayDialogViewModel = new WalletPayDialogViewModel();
-//        DialogUtil.showWallPayDialog(AppManager.getActivityStack().peek(), walletPayDialogViewModel);
     }
+
+    CountDownTimer timer = new CountDownTimer(3000, 1000) {
+        public void onTick(long millisUntilFinished) {
+            count.set(millisUntilFinished / 1000 + "s");
+            if (count.get().contains("0")){
+                count.set("买家已接单");
+                new Thread (new Runnable(){
+                    public void run(){
+                        try {
+                            Thread.sleep(3000);
+                            PayDialog.dismiss();
+                            PayDialog = null;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }
+
+        public void onFinish() {
+        }
+    };
 
     @SingleClick
     public void changeType(float num) {
@@ -340,15 +395,16 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if(popStaus.get()==0){
-            exchangeType.set(String.valueOf(otc.get().get(i).getCurrency()));
-            price.set(String.valueOf(otc.get().get(i).getBuyRatio()));
+        if (popStaus.get() == 0) {
+            pPosition.set(i);
+            exchangeType.set(String.valueOf(otc.get().getOtcCfgs().get(i).getCurrency()));
+            price.set(String.valueOf(otc.get().getOtcCfgs().get(i).getBuyRatio()));
             uc.pop.setValue(false);
-            unit.set(otc.get().get(i).getSymbol());
-        }else {
-            payType = i;
-            payForTypeID.set(paytype.get().get(i).getId());
-            payForType.set(paytype.get().get(i).getName().getZh());
+            unit.set(otc.get().getOtcCfgs().get(i).getSymbol());
+        } else {
+            pPosition.set(i);
+            payForTypeID.set(otc.get().getPayTypes().get(i).getId());
+            payForType.set(otc.get().getPayTypes().get(i).getName());
             pay_uc.pay_pop.setValue(false);
         }
     }
@@ -363,16 +419,19 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         public SingleLiveEvent<Boolean> pop = new SingleLiveEvent<>();
         SingleLiveEvent<Boolean> pay_pop = new SingleLiveEvent<>();
     }
+
     @SingleClick
     public void popDown() {
         btState.set(!btState.get());
         uc.pop.setValue(btState.get());
     }
+
     @SingleClick
     public void PayPopDown() {
         btState.set(!btState.get());
         pay_uc.pay_pop.setValue(btState.get());
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -380,9 +439,10 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         if (null != coinInfo) {
             qrBitmap.set(createQRcodeImage(coinInfo.getAddr()));
             address.set(coinInfo.getAddr());
-        }else {
+        } else {
         }
     }
+
     public Bitmap createQRcodeImage(String url) {
         int w = 500, h = 500;
         try {
@@ -417,6 +477,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         return null;
 
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -427,67 +488,53 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     private void getOtcData() {
         DataService.getInstance().getOtcCfg().compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
-                    if(b!=null && b.size() != 0){
-                        exchangeType.set(b.get(0).getCurrency());
-                        price.set(String.valueOf(b.get(0).getBuyRatio()));
+                    if (b != null) {
+                        exchangeType.set(b.getOtcCfgs().get(0).getCurrency());
+                        price.set(String.valueOf(b.getOtcCfgs().get(0).getBuyRatio()));
                         otc.set(b);
-                        OtcminAmount.set(Utils.format0(b.get(0).getMinOutQty()));
-                        OtcMaxAmount.set(Utils.format0(b.get(0).getMaxOutQty()));
-                        unit.set(b.get(0).getSymbol());
-                        mhandler.sendEmptyMessage(1);
-                    }else {
-                        ToastUtil.show(getApplication(),"获取OTC配置失败");
-                        finish();
+                        OtcminAmount.set(Utils.format0(b.getPayTypes().get(0).getMinIn()));
+                        OtcMaxAmount.set(Utils.format0(b.getPayTypes().get(0).getMaxIn()));
+                        unit.set(b.getOtcCfgs().get(0).getSymbol());
+                        payForTypeID.set(b.getPayTypes().get(0).getId());
+                        payForType.set(b.getPayTypes().get(0).getName());
+                        otc.set(b);
+                    } else {
+                        ToastUtil.show(getApplication(), "获取OTC配置失败");
                     }
                 }, t -> {
-                });
-    }
-
-    private Handler mhandler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == 1){
-                getPayTypeData();
-            }
-        }
-    };
-
-    private void getPayTypeData() {
-        DataService.getInstance().getPayType().compose(ResponseTransformer.handleResult()).subscribe(
-                b -> {
-                    if(b!=null && b.size() != 0){
-                        payForTypeID.set(b.get(0).getId());
-                        payForType.set(b.get(0).getName().getZh());
-                        paytype.set(b);
-                    }else {
-                        ToastUtil.show(getApplication(),"获取支付方式配置失败");
-                    }
-                }, t -> {
+                    ToastUtil.show(getApplication(), t.getMessage());
                 });
     }
 
     private void getRecharge() {
-        DataService.getInstance().getRecharge(amount.get(),"",exchangeType.get(),balance.get(),payForTypeID.get()).compose(ResponseTransformer.handleResult()).subscribe(
+        DataService.getInstance().getRecharge(amount.get(), "", exchangeType.get(), balance.get(), payForTypeID.get()).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
-                    if(b!=null){
+                    if (b != null) {
                         name.set(b.getOtc().getName());
                         id.set(b.getRecord().getId());
                         Bundle bundle = new Bundle();
-                        bundle.putString("payForType",payForType.get());
-                        bundle.putInt("payType",payType);
-                        bundle.putInt("id",id.get());
-                        bundle.putString("price",price.get());
-                        bundle.putString("num",amount.get());
-                        bundle.putString("amount",balance.get());
-                        bundle.putString("name",name.get());
-                        bundle.putString("ext",b.getOtc().getExt());
-                        bundle.putString("card",b.getOtc().getCard());
-                        startActivity(BuyActivity.class,bundle);
-                    }else {
-                        ToastUtil.show(getApplication(),"创建订单失败");
+                        bundle.putString("payForType", payForType.get());
+                        bundle.putInt("payType", pPosition.get());
+                        bundle.putInt("id", id.get());
+                        bundle.putString("price", price.get());
+                        bundle.putString("num", amount.get());
+                        bundle.putString("amount", balance.get());
+                        bundle.putString("name", name.get());
+                        bundle.putString("ext", b.getOtc().getExt());
+                        bundle.putString("card", b.getOtc().getCard());
+                        startActivity(BuyActivity.class, bundle);
+                    } else {
+                        ToastUtil.show(getApplication(), "创建订单失败");
                     }
                 }, t -> {
-                    System.out.println("-----------aaaaaaaaaaa"+t.getMessage());
-                    ToastUtil.show(getApplication(),t.getMessage());
+                    ToastUtil.show(getApplication(), t.getMessage());
                 });
     }
+
+    private Dialog PayDialog;
+
+    public void setPayDialog(Dialog payDialog) {
+        this.PayDialog = payDialog;
+    }
 }
+

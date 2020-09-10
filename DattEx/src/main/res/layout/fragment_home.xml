@@ -25,10 +25,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <com.jude.rollviewpager.RollPagerView
                     android:id="@+id/vp_roll"
                     android:layout_width="match_parent"
@@ -36,21 +35,30 @@
                     app:rollviewpager_hint_gravity="right"
                     app:rollviewpager_play_delay="5000"
                     tools:ignore="MissingConstraints" />
-
                 <ImageView
+                    android:layout_marginTop="@dimen/dp_5"
                     android:id="@+id/iv_ip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:src="@mipmap/icon_home_right"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_alignParentRight="true"
+                    />
+                <ImageView
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:src="@mipmap/minilogo"
+                    />
+            </RelativeLayout>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <LinearLayout
+                android:id="@+id/notice"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:gravity="center_vertical"
@@ -65,7 +73,23 @@
                     android:paddingLeft="16dp"
                     android:src="@mipmap/icon_notice" />
 
+                <com.sunfusheng.marqueeview.MarqueeView
+                    android:id="@+id/marqueeView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    app:mvAnimDuration="1000"
+                    app:mvDirection="bottom_to_top"
+                    app:mvInterval="3000"
+                    app:mvTextColor="@color/encode_view"
+                    app:mvTextSize="14sp"
+                    app:mvSingleLine="true"
+                    />
+
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
@@ -77,6 +101,7 @@
                     android:textSize="14dp" />
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="05-15"

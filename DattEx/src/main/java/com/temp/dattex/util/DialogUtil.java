@@ -2,12 +2,15 @@ package com.temp.dattex.util;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -30,6 +33,7 @@ import com.temp.dattex.databinding.ItemTradeSwitchCoinBinding;
 import com.temp.dattex.fragments.trade.TradeViewModel;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.order.OrderItemViewModel;
+import com.temp.dattex.wallet.WalletModel;
 
 import java.util.List;
 
@@ -120,14 +124,22 @@ public class DialogUtil {
         DialogUpdateBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_update, null, false);
         binding.setViewModel(viewModel);
         viewModel.setDialog(dialog);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 1200);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 1400);
         layoutParams.leftMargin = 40;
         layoutParams.rightMargin = 40;
         layoutParams.gravity = Gravity.CENTER;
         dialog.setContentView(binding.getRoot(), layoutParams);
+        dialog.setCancelable(false);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
         attributes.width = DisplayUtil.getScreenContentWidth(context) - DisplayUtil.dp2px(context, 32);
         dialog.getWindow().setAttributes(attributes);
+        dialog.setOnKeyListener((dialogInterface, i, keyEvent) -> {
+            if (i == keyEvent.KEYCODE_SEARCH){
+                return true;
+            }else {
+                return false;
+            }
+        });
         dialog.show();
     }
 
@@ -156,7 +168,7 @@ public class DialogUtil {
         binding.setFilterViewModel(viewModel);
         viewModel.setDialog(dialog);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         layoutParams.gravity = Gravity.BOTTOM;
         dialog.setContentView(binding.getRoot(), layoutParams);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
@@ -188,22 +200,23 @@ public class DialogUtil {
         dialog.show();
     }
 
-    public static void showWallPayDialog(Context context, WalletPayDialogViewModel viewModel) {
+    public static void showWallPayDialog(Context context, WalletModel walletModel) {
         Dialog dialog = new Dialog(context, R.style.DialogFullScreen);
         DialogLoadpayBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_loadpay, null, false);
-        binding.setWalletPayDialogViewModel(viewModel);
-        viewModel.setDialog(dialog);
+        binding.setWalletModel(walletModel);
+        walletModel.setPayDialog(dialog);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-        FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
         dialog.setContentView(binding.getRoot(), layoutParams);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
-        attributes.width = DisplayUtil.getScreenContentWidth(context);
+        attributes.width = DisplayUtil.getScreenContentWidth(context)/2 + DisplayUtil.dp2px(context, 80);
         attributes.height = DisplayUtil.getScreenContentHeight(context) - DisplayUtil.dp2px(context, 44);
         attributes.gravity = Gravity.CENTER;
         dialog.getWindow().setAttributes(attributes);
         dialog.setCanceledOnTouchOutside(true);
-        dialog.setOnDismissListener(dialog1 -> viewModel.setDialog(null));
+        dialog.setOnDismissListener(dialog1 -> walletModel.setPayDialog(null));
         dialog.show();
+
     }
 }

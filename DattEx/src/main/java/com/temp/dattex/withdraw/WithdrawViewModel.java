@@ -146,15 +146,15 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     }
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (getExchangeType().get().equals(otc.get().get(i).getCurrency())){
-            getAccountPrice().set("");
-            getNumber().set("");
-            getUnit().set("");
-        } else {
-            getExchangeType().set(String.valueOf(otc.get().get(i).getCurrency()));
-            getPrice().set(String.valueOf(otc.get().get(i).getSellRatio()));
-            getUnit().set(otc.get().get(i).getSymbol());
-        }
+//        if (getExchangeType().get().equals(otc.get().get(0).getData().getOtcCfgs().get(i).getCurrency())){
+//            getAccountPrice().set("");
+//            getNumber().set("");
+//            getUnit().set("");
+//        } else {
+//            getExchangeType().set(String.valueOf(otc.get().get(0).getData().getOtcCfgs().get(i).getCurrency()));
+//            getPrice().set(String.valueOf(otc.get().get(0).getData().getOtcCfgs().get(i).getSellRatio()));
+//            getUnit().set(otc.get().get(0).getData().getOtcCfgs().get(i).getSymbol());
+//        }
         uc.pop.setValue(false);
     }
 
@@ -319,11 +319,15 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
                     s = s.substring(1);
                 }
             }
-
-            getWithdrawAmount().set(s);
-            if (!TextUtils.isEmpty(getWithdrawAmount().get())&& Math.round(Float.valueOf(serviceCharge.get())) < Math.round(Float.valueOf(getWithdrawAmount().get())) ){
-                getWithdrawAmount().set(s);
-                AdressAmount.set(Utils.subtraction(getWithdrawAmount().get(),serviceCharge.get()));
+             getWithdrawAmount().set(s);
+            if (!TextUtils.isEmpty(s)){
+                if (Utils.compareTo(getWithdrawAmount().get(),balance.get())==false){
+                    getWithdrawAmount().set(balance.get());
+                    AdressAmount.set(Utils.subtraction(getWithdrawAmount().get(),serviceCharge.get()));
+                }else {
+                    getWithdrawAmount().set(s);
+                    AdressAmount.set(Utils.subtraction(getWithdrawAmount().get(),serviceCharge.get()));
+                }
             }else {
                 AdressAmount.set("0.0000000");
             }
@@ -418,7 +422,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     @Override
     public void onCreate() {
         super.onCreate();
-        getOtcData();
+//        getOtcData();
         withdrawCoin.set("USDT");
         NewAssetsBean coinInfo = AssetsConfigs.getInstance().getCoinInfo("USDT");
         DataService.getInstance().withdrawLimit(withdrawCoin.get()).compose(ResponseTransformer.<WithdrawLimitBean>handleResult()).subscribe(
@@ -428,13 +432,11 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
                         minAmount.set(""+(int)withdrawLimitBean.getMinOut());
                         MaxAmount.set(""+(int)withdrawLimitBean.getMaxOut());
                         serviceCharge.set(Utils.format8(String.valueOf(bean.getWithdrawFee())));
-                        balance.set(Utils.subtraction(balance.get(),serviceCharge.get()));
-
                     } else {
                         finish();
                     }
                 }, t -> {
-
+                    ToastUtil.show(getApplication(),t.getMessage());
                 }
         );
     }
@@ -442,18 +444,18 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     private void getOtcData() {
         DataService.getInstance().getOtcCfg().compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
-                    if(b!=null && b.size() != 0){
-                        exchangeType.set(b.get(0).getCurrency());
-                        price.set(""+b.get(0).getSellRatio());
-                        otc.set(b);
-                        OtcminAmount.set(Utils.format0(b.get(0).getMinOutQty()));
-                        OtcMaxAmount.set(Utils.format0(b.get(0).getMaxOutQty()));
-                        unit.set(otc.get().get(0).getSymbol());
+                    if(b!=null){
+//                        exchangeType.set(otc.get().get(0).getData().getOtcCfgs().get(0).getCurrency());
+//                        price.set(""+otc.get().get(0).getData().getOtcCfgs().get(0).getSellRatio());
+//                        otc.set(b);
+//                        OtcminAmount.set(Utils.format0(otc.get().get(0).getData().getPayTypes().get(0).getMinOut()));
+//                        OtcMaxAmount.set(Utils.format0(otc.get().get(0).getData().getPayTypes().get(0).getMaxOut()));
+//                        unit.set(otc.get().get(0).getData().getOtcCfgs().get(0).getSymbol());
                     }else {
                         ToastUtil.show(getApplication(),"获取配置失败");
-                        finish();
                     }
                 }, t -> {
-         });
+                    ToastUtil.show(getApplication(),t.getMessage());
+                });
     }
 }

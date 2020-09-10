@@ -99,14 +99,24 @@
         <item name="android:textColor">@color/color_FFFFFFFF</item>
         <item name="android:textSize">12dp</item>
     </style>
-
+    <style name="White_TextView16_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFFFFFFF</item>
+        <item name="android:textSize">16dp</item>
+    </style>
     <style name="White_TextView18_Style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/color_FFFFFFFF</item>
         <item name="android:textSize">18dp</item>
     </style>
-
+    <style name="White_TextView24_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFFFFFFF</item>
+        <item name="android:textSize">24dp</item>
+    </style>
     <style name="Red_TextView14_Style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

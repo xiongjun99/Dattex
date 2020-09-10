@@ -21,7 +21,7 @@ project.ext {
     android = [
             compileSdkVersion: 28,
             minSdkVersion    : 19,
-            targetSdkVersion : 28,
+            targetSdkVersion : 22,
     ]
 
     dependencies = [

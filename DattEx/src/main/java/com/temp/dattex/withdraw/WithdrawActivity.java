@@ -88,7 +88,7 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
     private TextView tvAdressCode,tvVerificationCode,tvConfirm,cnySymbol;
     private EditText etVerificationCode,etWithdrawAmount;
     private int reciveItemId,payType;
-    private int type = 0;
+    private int type = 1;
     private EditPop editPop;
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -115,9 +115,9 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
     public void createPop() {
         if (editPop == null) {
             List<String> listData = new ArrayList<>();
-            for (int i = 0; i < viewModel.otc.get().size(); i++) {
-                listData.add(viewModel.otc.get().get(i).getCurrency());
-            }
+//            for (int i = 0; i < viewModel.otc.get().size(); i++) {
+//                listData.add(viewModel.otc.get().get(0).getData().getOtcCfgs().get(i).getCurrency());
+//            }
             editPop = new EditPop(this,viewModel.pPosition.get());
             editPop.setAdapterData(listData, binding.line);
             editPop.setOnItemClickListener(viewModel);
@@ -161,6 +161,7 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
         Bundle bundle = getIntent().getExtras();
         String balance  = bundle.getString("balance");
         viewModel.getBalance().set(balance);
+        System.out.println("----------"+balance);
         viewModel.getSellnumber().set(balance +" USDT");
         tvConfirm = (TextView)findViewById(R.id.tv_confirm);
         cnySymbol = (TextView)findViewById(R.id.cny_symbol);
@@ -204,6 +205,7 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
             ll_withdraw.setBackgroundColor(getResources().getColor(R.color.color_1A1C29));
         });
         rbAdress.setOnClickListener(view -> {
+
             ll_withdraw.setBackgroundColor(getResources().getColor(R.color.color_282C42));
             type = 1;
             ll_address.setVisibility(View.VISIBLE);
@@ -262,24 +264,22 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
               finish();
              }
         }, t -> {
-             ToastUtil.show(BaseApplication.getInstance(),"操作失败");
+             ToastUtil.show(BaseApplication.getInstance(),"操作失败,"+ t.getMessage());
         });
     }
     @SuppressLint("CheckResult")//钱包提币
     @SingleClick
     public void doWithdraw() {
-//        String coinId = "";
-//        if ((viewModel.getWithdrawCoin().get().contains("USDT")||viewModel.getWithdrawCoin().get().contains("usdt"))&&!TextUtils.isEmpty(viewModel.getWithdrawCoin().get())){
-//            coinId =  "USDT-ERC20";
-//        }else {
-//            coinId =  "USDT-ERC20";
-//        }
-        if(TextUtils.isEmpty(etAdressCode.getText().toString())){
-            ToastUtil.show(BaseApplication.getInstance(),"请填写验证码");
-            return;
-        }
         if(TextUtils.isEmpty(viewModel.getWithdrawAddress().get())){
             ToastUtil.show(BaseApplication.getInstance(),"请选择提币地址");
+            return;
+        }
+        if(TextUtils.isEmpty(etAdressCode.getText().toString())){
+            ToastUtil.show(BaseApplication.getInstance(),"请输入验证码");
+            return;
+        }
+        if(TextUtils.isEmpty(viewModel.getAdressAmount().get())){
+            ToastUtil.show(BaseApplication.getInstance(),"请输入提币数量");
             return;
         }
         DataService.getInstance().withdrawCoin(etAdressCode.getText().toString(), viewModel.getWithdrawAmount().get(),viewModel.getWithdrawCoin().get(), viewModel.getWithdrawAddress().get()).compose(ResponseTransformer.handleResult()).<Object>subscribe(
@@ -287,7 +287,7 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
                     finish();
                     ToastUtil.show(BaseApplication.getInstance(),"操作成功");
                 }, t -> {
-                    ToastUtil.show(BaseApplication.getInstance(),"操作失败");
+                    ToastUtil.show(BaseApplication.getInstance(),"操作失败,"+ t.getMessage());
                 }
         );
     }
@@ -327,45 +327,5 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
                 }
                 break;
         }
-    }
-    public  void showPayDialog() {
-         List<String> list = new ArrayList<>();
-         for (int i = 0; i < viewModel.otc.get().size(); i++) {
-             list.add(viewModel.otc.get().get(i).getCurrency());
-        }
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_withdrawpay,null,false);
-        final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
-        ImageView ivCancel = view .findViewById(R.id.iv_cancel);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.shape_country_list_item_line));
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        DialogPayAdapter applyAdapter = new DialogPayAdapter(list);
-        recyclerView.setAdapter(applyAdapter);
-        applyAdapter.setOnItemClickListener((adapter, view1, position) -> {
-            if (list!=null) {
-                if (viewModel.getExchangeType().get().equals(list.get(position))){
-                    viewModel.getAccountPrice().set("");
-                    viewModel.getNumber().set("");
-                } else {
-                    viewModel.getExchangeType().set(String.valueOf(viewModel.otc.get().get(position).getCurrency()));
-                    viewModel.getPrice().set(String.valueOf(viewModel.otc.get().get(position).getSellRatio()));
-
-                }
-            }
-            dialog.dismiss();
-        });
-        ivCancel.setOnClickListener(view1 -> {
-            dialog.dismiss();
-        });
-        Window window = dialog.getWindow();
-        window.setGravity(Gravity.CENTER); // 此处可以设置dialog显示的位置
-        window.setWindowAnimations(R.style.Animation_Design_BottomSheetDialog); // 添加动画
-        dialog.show();
-        //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 }

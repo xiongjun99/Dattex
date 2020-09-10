@@ -136,7 +136,7 @@
                 </LinearLayout>
             </RelativeLayout>
             <TextView
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginRight="@dimen/dp_16"
                 android:id="@+id/tv_payinfo"
                 android:layout_gravity="right"

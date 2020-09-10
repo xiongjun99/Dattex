@@ -67,8 +67,6 @@ public class PlaceAnOrderDialogModel {
         if (null != onEnsureListener) {
             float stopLossRate = Float.parseFloat(downStopPercent.get()) / 100;
             float stopProfitRate = Float.parseFloat(upStopPercent.get()) / 100;
-            System.out.println("-------------"+stopLossRate);
-            System.out.println("-------------"+stopProfitRate);
             onEnsureListener.onEnsure(stopProfitRate, stopLossRate);
             if (null != getDialog()) {
                 getDialog().dismiss();

@@ -257,6 +257,7 @@ public class AddPayTypeActivity extends BaseActivity implements AdapterView.OnIt
                         ToastUtil.show(getApplication(),"获取支付方式配置失败");
                     }
                 }, t -> {
+                    ToastUtil.show(getApplication(),t.getMessage());
                 });
     }
 //    type (1银行 2支付宝 3微信 4数字钱包)

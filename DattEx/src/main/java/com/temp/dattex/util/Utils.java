@@ -64,6 +64,17 @@ public class Utils {
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
+    public  static  boolean compareTo(String str,String str1){
+        BigDecimal a = new BigDecimal (str);
+        BigDecimal b = new BigDecimal (str1);
+
+        if(a.compareTo(b) == 1) {
+            System.out.println("a大于b");
+            return false;
+        }
+            return true;
+    }
+
     public static String subtraction(String value_1,String value_2) {
         BigDecimal bd = new BigDecimal(value_1);
         BigDecimal bd2 = new BigDecimal(value_2);
@@ -90,9 +101,15 @@ public class Utils {
     public static String divide(String value_1,String value_2) {
         BigDecimal bd = new BigDecimal(value_1);
         BigDecimal bd2 = new BigDecimal(value_2);
-        BigDecimal bd3 = bd.divide(bd2).setScale(8, BigDecimal.ROUND_DOWN);
+        BigDecimal bd3 =  bd.divide(bd2,8,RoundingMode.DOWN);
         return bd3.toString();
     }
+    public static String format0(float value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(0, RoundingMode.HALF_UP);
+        return bd.toString();
+    }
+
     public static String format0(String value) {
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(0, RoundingMode.HALF_UP);

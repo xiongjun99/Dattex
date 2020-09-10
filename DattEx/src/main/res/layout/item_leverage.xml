@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:onClick="@{()->tradeViewModel.changeLeverage(laverageBean)}"
         android:gravity="center"
-        android:padding="16dp"
-        android:text="@{laverageBean.substring(0,2)}"
+        android:padding="10dp"
+        android:text="@{laverageBean.substring(0,2)+ @string/X}"
         android:textColor="@color/color_FFFFFFFF">
     </TextView>
 

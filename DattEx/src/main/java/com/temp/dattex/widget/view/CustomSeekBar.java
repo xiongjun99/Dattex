@@ -300,6 +300,7 @@ public class CustomSeekBar extends View {
                     moveToPoint(HORIZONTAL == mOrientation ? x : y);
                     onProgressChanged(true);
                 }
+
                 if (null != parent) {
                     parent.requestDisallowInterceptTouchEvent(false);
                 }
@@ -481,7 +482,6 @@ public class CustomSeekBar extends View {
             mIsMovedOut = true;
             mCurrProgress = HORIZONTAL == mOrientation ? mMinProgress : mMaxProgress;
         }
-
         if (HORIZONTAL == mOrientation) {
             mThumbDestRect.left = (int) (coord - mThumbRadius);
             mThumbDestRect.right = (int) (coord + mThumbRadius);

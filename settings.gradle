@@ -1,3 +1,4 @@
+include ':indicatorseekbar'
 rootProject.name='exchane-project'
 include ':DattEx'
 include ':framework'

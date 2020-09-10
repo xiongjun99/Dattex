@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text='@{ (dataBean.income?"+":"-") + dataBean.amount}'
-                android:textColor="@{dataBean.income? @color/color_FF20BC68 : @color/color_FF20BC68}"
+                android:textColor="@{dataBean.income? @color/color_FF20BC68 : @color/color_FFDC4D4D}"
                 android:textSize="18dp" />
 
             <TextView

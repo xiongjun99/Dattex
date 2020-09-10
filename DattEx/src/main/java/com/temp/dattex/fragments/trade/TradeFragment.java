@@ -90,6 +90,7 @@ public class TradeFragment extends BaseFragment<FragmentTradeBinding, TradeViewM
         customSeekBar = (CustomSeekBar)getActivity().findViewById(R.id.seekbar);
         textView = (TextView)getActivity().findViewById(R.id.tv_positionercent);
         tvPlaceAnorder = (TextView)getActivity().findViewById(R.id.tv_placeanorder);
+
         customSeekBar.setOnProgressChangedListener((seekBar, fromUser, isFinished) -> {
             if (seekbarIntervals ==null ||seekbarIntervals.size()<=0) {
 //               ToastUtil.show(getActivity(),"杠杆获取失败");
@@ -146,6 +147,7 @@ public class TradeFragment extends BaseFragment<FragmentTradeBinding, TradeViewM
                    viewModel.getIsShow().set(true);
                    customSeekBar.setThumbEnable(true);
                    viewModel.leverageAdapter.setNewData(Arrays.asList(o.getExchangeLevers().replaceAll(" ","").split(",")));
+                   viewModel.getLeveraged().set(String.valueOf(viewModel.leverageAdapter.getData().get(0)).substring(0, String.valueOf(viewModel.leverageAdapter.getData().get(0)).indexOf("X")));
                    seekbarIntervals = Arrays.asList(o.getExchangePrincipalPrice().replaceAll(" ","").split(","));
                    viewModel.seekbarIntervals.set(seekbarIntervals);
                    viewModel.getPositionPercent().set(Integer.valueOf(seekbarIntervals.get(0)));
@@ -199,16 +201,16 @@ public class TradeFragment extends BaseFragment<FragmentTradeBinding, TradeViewM
     }
     @Override
     public void initViewObservable() {
-        viewModel.getAska1().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                new Thread(new Runnable() {
-                    public void run() {
-                   handler.sendEmptyMessage(1);
-                    }
-                }).start();
-            }
-        });
+//        viewModel.getAska1().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+//            @Override
+//            public void onPropertyChanged(Observable sender, int propertyId) {
+//                new Thread(new Runnable() {
+//                    public void run() {
+//                   handler.sendEmptyMessage(1);
+//                    }
+//                }).start();
+//            }
+//        });
 
 
        viewModel.getTrade().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
@@ -302,18 +304,18 @@ public class TradeFragment extends BaseFragment<FragmentTradeBinding, TradeViewM
         dialog.getWindow().setAttributes(params);
 
     }
-    Handler handler=new Handler(){
+    Handler handler = new Handler(){
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rlAska.getLayoutParams();
-                    params.width = dip2px(getActivity(),Float.valueOf(viewModel.getAska2().get())*10);
-                    rlAska.post(new Runnable() {
-                        public void run() {
-                            rlAska.setLayoutParams(params);
-                        }
-                    });
+//                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rlAska.getLayoutParams();
+//                    params.width = dip2px(getActivity(),Float.valueOf(viewModel.getAska2().get())*10);
+//                    rlAska.post(new Runnable() {
+//                        public void run() {
+//                            rlAska.setLayoutParams(params);
+//                        }
+//                    });
 //                rlAska.invalidate();
 
 //                RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) rlAska1.getLayoutParams();

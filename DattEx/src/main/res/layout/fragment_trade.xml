@@ -285,10 +285,12 @@
                             android:layout_height="6dp"
                             android:layout_weight="1">
                             <com.temp.dattex.widget.view.CustomSeekBar
+                                android:visibility="gone"
                                 android:id="@+id/seekbar"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
                                 android:layout_margin="5dp"
+                                android:background="@null"
                                 app:csb_background_color="#FFAAAAAA"
                                 app:csb_progress_height="@dimen/dp_1"
                                 app:csb_progress_color="@color/color_FF47BAFC"
@@ -307,7 +309,6 @@
                                android:text="@{String.valueOf(tradeViewModel.positionPercent)}"
                                android:textSize="10dp" />
                         </RelativeLayout>
-<!--                        android:visibility="@{tradeViewModel.isShow?View.VISIBLE:View.GONE}"-->
                         <TextView
                             android:id="@+id/tv_placeanorder"
                             android:layout_width="match_parent"

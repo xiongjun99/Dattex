@@ -119,7 +119,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     //可用余额
     private ObservableField<String> availableBalance = new ObservableField<>("0.0");
     //杠杆倍数
-    private ObservableField<String> leveraged = new ObservableField<>("25");
+    private ObservableField<String> leveraged = new ObservableField<>("");
 
     //交易总额
     private ObservableField<String> tradeAmount = new ObservableField<>("300");
@@ -494,9 +494,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     @Override
     public void onProgressChanged(int progress) {
         getPositionPercent().set(progress);
-//        Float aFloat = Float.valueOf(availableBalance.get());
         tradeAmount.set(String.valueOf(progress));
-//        tradeAmount.set(String.format("%.0" + symbolConfig.getBaseCoinScale() + "f", progress * 1f * aFloat));
     }
 
     @SingleClick
@@ -725,7 +723,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     @SuppressLint("CheckResult")
     @Override
     public void onEnsure(float stopProfitRate, float stopLossRate) {
-        DataService.getInstance().placeOrder(leftCoin.get() + "/" + rightCoin.get(), tradeBuy.get() ? 0 : 1, leveraged.get(), tradeAmount.get(), stopLossRate, stopProfitRate).compose(ResponseTransformer.handleResult()).subscribe(
+        DataService.getInstance().placeOrder(leftCoin.get() + "/" + rightCoin.get(), tradeBuy.get() ? 0 : 1, leveraged.get(), tradeAmount.get(),stopLossRate, stopProfitRate).compose(ResponseTransformer.handleResult()).subscribe(
                 o -> {
 //                    freshAssetsByCoinId(rightCoin.get());
                     freshOrderList();
@@ -739,8 +737,6 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
                     if(null != assetsBean) {
                         BigDecimal bg = new BigDecimal(assetsBean.getBalance());
                         availableBalance.set(bg.toPlainString());
-                        System.out.println("-------最新余额----"+availableBalance.get());
-
                     }
                 }, t -> {
                     System.out.println("-------no----根据币种ID获取对应币种的会员资产钱包信息");

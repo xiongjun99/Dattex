@@ -15,6 +15,7 @@ import com.temp.dattex.bean.MarketListBean;
 import com.temp.dattex.bean.NewApplyBean;
 import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.bean.NewPayTypeBean;
+import com.temp.dattex.bean.NoticeBean;
 import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.OrdersBean;
 import com.temp.dattex.bean.OtcDetailBean;
@@ -151,7 +152,7 @@ public interface ApiService {
     Observable<BaseResponse<FuncListBean>> getFuncList(@Header("x-app-token") String userToken);
 
     @POST(ApiAddress.OTC_CFG)
-    Observable<BaseResponse<List<OTCcfgBean>>> getOtcCfg(@Header("x-app-token") String userToken);
+    Observable<BaseResponse<OTCcfgBean>> getOtcCfg(@Header("x-app-token") String userToken);
 
     @POST(ApiAddress.PAY_TYPE)
     Observable<BaseResponse<List<PayTypeBean>>> getPayType(@Header("x-app-token") String userToken);
@@ -183,6 +184,13 @@ public interface ApiService {
 
     @POST(ApiAddress.FINDBYPAGEAPPLYCOIN)
     Observable<BaseResponse<NewApplyBean>> getFindByPageApplyCoin(@Header("x-app-token") String token, @Body Map<String, Object> param);
+
+    @POST(ApiAddress.FINDBYPAGE)
+    Observable<BaseResponse<NoticeBean>> getNotice(@Header("x-app-token") String token, @Body Map<String, Object> param);
+
+    @POST(ApiAddress.FINDBYID)
+    Observable<BaseResponse<NoticeBean.RowsBean>> getNoticeListInfo(@Header("x-app-token") String token, @Body Map<String, Object> param);
+
 
     @POST(ApiAddress.APPLYCOIN)
     Observable<BaseResponse<Object>> getApplyCoin(@Header("x-app-token") String token, @Body Map<String, Object> param);

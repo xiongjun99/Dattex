@@ -2,6 +2,7 @@ package com.temp.dattex.fragments.home;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -29,12 +30,18 @@ import com.independ.framework.client.RetrofitClient;
 import com.independ.framework.response.ResponseTransformer;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
+import com.sunfusheng.marqueeview.IMarqueeItem;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.temp.dattex.BR;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.ImageNormalAdapter;
 import com.temp.dattex.adapter.PagerAdapter;
 import com.temp.dattex.bean.FuncListBean;
+import com.temp.dattex.bean.NoticeBean;
 import com.temp.dattex.databinding.FragmentHomeBinding;
+import com.temp.dattex.net.DataService;
+import com.temp.dattex.notice.NoticeActivity;
+import com.temp.dattex.notice.NoticeInfoActivity;
 import com.temp.dattex.util.Utils;
 
 import java.util.ArrayList;
@@ -76,6 +83,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     private List<FuncListBean.AndroidBean> listBeans = new ArrayList<>();
     ArrayList<Fragment> list;
     private RelativeLayout rlMarketTitle;
+    private List<String> messages = new ArrayList<>();
+    private MarqueeView marqueeView;
+    private List<NoticeBean.RowsBean> noticeList = new ArrayList<>();
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return R.layout.fragment_home;
@@ -108,48 +118,47 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         list.get(0).onPause();
     }
 
-    @SuppressLint("CheckResult")
     private void initData() {
-//        functionViewPager = getActivity().findViewById(R.id.function_view_pager);
-//        ArrayList<Fragment> functionList = new ArrayList<>();
-//        functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
-//        functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
-//        CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
-//        indicator2.setViewPager(functionViewPager);
-//        int j =0;
-//        for (int i = 0; i < 3; i++) {
-//            if(i%2==0){
-//                j++;
-//                functionList.add(new HomeFunctionFragment(j-1));
-//                functionViewPager.setAdapter(functionAdapter);
-//                functionAdapter.notifyDataSetChanged();
-//            }
-//        }
-
-
-//        showLoading(getActivity(),false);
-//        DataService.getInstance().getFuncList().compose(ResponseTransformer.<FuncListBean>handleResult()).subscribe(
-//                b -> {
-//                    dismissLoading();
-//                    listBeans = b.getAndroid();
-//                    for (int i = 0; i < listBeans.size(); i++) {
-//                        if(4%2==0){
-//                            if (i >0 ){
-//                                System.out.println("-----yesaa"+(i-1));
-//                            }else {
-//                                System.out.println("-----yesbb"+i);
-//                            }
-//                        }else {
-//                            System.out.println("-----ccccc"+i);
-//                        }
-//                    }
-//                }, t -> {
-//                    dismissLoading();
-//                    ToastUtil.show(getActivity(),t.getMessage());
-//                });
+        ArrayList<Fragment> functionList = new ArrayList<>();
+        functionViewPager = getActivity().findViewById(R.id.function_view_pager);
+        functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
+        functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
+        CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
+//      showLoading(getActivity(),false);
+        DataService.getInstance().getFuncList().compose(ResponseTransformer.<FuncListBean>handleResult()).subscribe(
+                b -> {
+                    dismissLoading();
+                    listBeans = b.getAndroid();
+                    for (int i = 0; i < listBeans.size(); i++) {
+                             int j =0;
+                            if(i%2==0){
+                                j++;
+                                functionList.add(new HomeFunctionFragment(j-1,listBeans));
+                                functionViewPager.setAdapter(functionAdapter);
+                                functionAdapter.notifyDataSetChanged();
+                                indicator2.setViewPager(functionViewPager);
+                            }
+                    }
+                }, t -> {
+                    dismissLoading();
+                    ToastUtil.show(getActivity(),t.getMessage());
+                });
     }
 
     private void initViews() {
+         marqueeView = getActivity().findViewById(R.id.marqueeView);
+         marqueeView.setOnItemClickListener((position, textView) -> {
+             Intent it = new Intent(getActivity(), NoticeInfoActivity.class);
+             it.putExtra("id",noticeList.get(position).getId());
+             it.putExtra("time",noticeList.get(position).getPublishTime());
+             it.putExtra("title",noticeList.get(position).getTitle());
+             startActivity(it);
+         });
+         LinearLayout   notice = getActivity().findViewById(R.id.notice);
+         notice.setOnClickListener(view -> {
+//             startActivity(NoticeActivity.class);
+        });
+
         list = new ArrayList<>();
         list.add(new HomeViewPagerFragment(0));
 //      list.add(new HomeViewPagerFragment(1));
@@ -160,15 +169,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         CircleIndicator indicator = (CircleIndicator)getActivity(). findViewById(R.id.indicator);
         indicator.setViewPager(view_pager);
         //初始化ViewPager
-        ArrayList<Fragment> functionList = new ArrayList<>();
-        functionList.add(new HomeFunctionFragment(0));
-        functionList.add(new HomeFunctionFragment(1));
-        functionViewPager = getActivity().findViewById(R.id.function_view_pager);
-        functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
-        functionViewPager.setAdapter(functionAdapter);
-        functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
-        CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
-        indicator2.setViewPager(functionViewPager);
+//        ArrayList<Fragment> functionList = new ArrayList<>();
+//        functionList.add(new HomeFunctionFragment(0));
+//        functionList.add(new HomeFunctionFragment(1));
+//        functionViewPager = getActivity().findViewById(R.id.function_view_pager);
+//        functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
+//        functionViewPager.setAdapter(functionAdapter);
+//        functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
+//        CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
+//        indicator2.setViewPager(functionViewPager);
         ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
         iv_ip.setOnClickListener(view -> {
             ToastUtil.show(getActivity(),"暂未开通");
@@ -184,6 +193,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     @Override
     public void onResume() {
         super.onResume();
+        Notice();
     }
 
     @Override
@@ -242,5 +252,21 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
             }
         });
     }
-
+    private void Notice (){
+        DataService.getInstance().getNotice(1,1,1,1).compose(ResponseTransformer.handleResult()).subscribe(
+                b -> {
+                    if (b.getRows()==null||b.getRows().size()<=0){
+                        messages.add("暂无公告");
+                    }else {
+                        noticeList = b.getRows();
+                        for (int i = 0; i < b.getRows().size(); i++) {
+                            messages.add(b.getRows().get(i).getTitle());
+                        }
+                    }
+                    marqueeView.startWithList(messages);
+                    marqueeView.startWithList(messages, R.anim.anim_bottom_in, R.anim.anim_top_out);
+                }, t -> {
+                    ToastUtil.show(getActivity(),"获取公告失败"+t.getMessage());
+                });
+    }
 }

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="settingViewModel"
             type="com.temp.dattex.setting.SettingViewModel" />
@@ -20,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftIcon="@mipmap/icon_common_back"
-            app:titleText="@string/text_title_auth"
+            app:titleText="@string/title_system_setting"
             app:titleTextColor="@color/color_FFFFFFFF"></com.temp.dattex.widget.TitleBar>
 
         <View
@@ -29,24 +28,38 @@
             android:background="@color/color_4D000000" />
 
         <com.temp.dattex.widget.SettingItemView
+            android:id="@+id/tv_switch"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:leftText="切换语言"
-            app:rightText="中文" />
+            app:rightText="" />
 
         <com.temp.dattex.widget.SettingItemView
+            android:id="@+id/tv_clean"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:leftText="清理缓存"
-            app:rightText="0M" />
-
+            app:rightText="" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <com.temp.dattex.widget.SettingItemView
+            android:id="@+id/tv_upload"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:leftText="版本更新"
-            app:rightText="更新 V1.03" />
-
+            app:leftText="当前版本"
+            app:rightText="" />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_50"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_upload_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/encode_view"></TextView>
+        </RelativeLayout>
         <RelativeLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -55,10 +68,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:leftText="修改地址"
-                app:rightText="" />
+                app:rightText=""
+                />
 
             <TextView
-                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_50"
+                android:layout_alignParentRight="true"
                 android:id="@+id/ip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

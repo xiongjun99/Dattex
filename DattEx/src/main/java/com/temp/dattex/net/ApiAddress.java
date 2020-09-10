@@ -90,7 +90,8 @@ public class ApiAddress {
     public static final String MARKETLIST = "/app/market/list";
     public static final String ProfitLossRate = "/app/exchange/setProfitLossRate";
     public static final String ADDMEMBERPAYTYPE = "/app/otc/addMemberPayType";
-
+    public static final String FINDBYPAGE = "/app/article/findByPage";
+    public static final String FINDBYID = "/app/article/findById";
 
 }
 

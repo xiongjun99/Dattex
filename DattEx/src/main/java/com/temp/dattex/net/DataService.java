@@ -18,6 +18,7 @@ import com.temp.dattex.bean.MarketListBean;
 import com.temp.dattex.bean.NewApplyBean;
 import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.bean.NewPayTypeBean;
+import com.temp.dattex.bean.NoticeBean;
 import com.temp.dattex.bean.OTCcfgBean;
 import com.temp.dattex.bean.OrdersBean;
 import com.temp.dattex.bean.OtcDetailBean;
@@ -31,6 +32,7 @@ import com.temp.dattex.bean.WithdrawBean;
 import com.temp.dattex.bean.WithdrawLimitBean;
 import com.temp.dattex.bean.WithdrawSubmitBean;
 import com.temp.dattex.database.LoginInfo;
+import com.temp.dattex.util.Utils;
 
 import java.util.List;
 import java.util.Map;
@@ -172,12 +174,13 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_LEVER, lever);
         params.put(Constants.REQUEST_KEY_PRICE, price);
         if (stopProfitRates==1.0){
-            params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, (int)stopProfitRates);
+            System.out.println("--------aaaaaaaaa");
+            params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, Utils.format0(stopProfitRates));
         }else {
             params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, stopProfitRates);
         }
-        if (stopProfitRates==1.0){
-            params.put(Constants.REQUEST_KEY_STOP_LOSS_RATES, (int)stopLossRates);
+        if (stopLossRates==1.0){
+            params.put(Constants.REQUEST_KEY_STOP_LOSS_RATES, Utils.format0(stopLossRates));
         }else {
             params.put(Constants.REQUEST_KEY_STOP_LOSS_RATES, stopLossRates);
         }
@@ -322,7 +325,7 @@ public class DataService {
         return RetrofitClient.getInstance().create(ApiService.class).getDealList(params);
     }
 
-    public Observable<BaseResponse<List<OTCcfgBean>>> getOtcCfg() {
+    public Observable<BaseResponse<OTCcfgBean>> getOtcCfg() {
         return RetrofitClient.getInstance().create(ApiService.class).getOtcCfg(LoginInfo.getUserToken());
     }
     public Observable<BaseResponse<List<PayTypeBean>>> getPayType() {
@@ -369,6 +372,25 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_PAGE, page);
         params.put(Constants.REQUEST_KEY_SIZE, 100);
         return RetrofitClient.getInstance().create(ApiService.class).getFindByPageApplyCoin(LoginInfo.getUserToken(),params);
+    }
+    public Observable<BaseResponse<NoticeBean>> getNotice(int page, int type, int isEnabled, int isSticky) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_PAGE, page);
+        params.put(Constants.REQUEST_KEY_SIZE, 100);
+        params.put(Constants.REQUEST_KEY_TYPE, type);
+        params.put(Constants.REQUEST_KEY_ISENABLED, isEnabled);
+        params.put(Constants.ISSTICKY, isSticky);
+        return RetrofitClient.getInstance().create(ApiService.class).getNotice(LoginInfo.getUserToken(),params);
+    }
+    public Observable<BaseResponse<NoticeBean.RowsBean>> getNoticeListInfo(int id, int page, int type, int isEnabled, int isSticky) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_ID, id);
+        params.put(Constants.REQUEST_KEY_PAGE, page);
+        params.put(Constants.REQUEST_KEY_SIZE, 100);
+        params.put(Constants.REQUEST_KEY_TYPE, type);
+        params.put(Constants.REQUEST_KEY_ISENABLED, isEnabled);
+        params.put(Constants.ISSTICKY, isSticky);
+        return RetrofitClient.getInstance().create(ApiService.class).getNoticeListInfo(LoginInfo.getUserToken(),params);
     }
     public Observable<BaseResponse<UpdateBean>> UpDate() {
         return RetrofitClient.getInstance().create(ApiService.class).UpDate(LoginInfo.getUserToken());

@@ -5,15 +5,20 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 
 import com.temp.dattex.R;
 import com.temp.dattex.databinding.ViewSettingItemBinding;
+
+import org.w3c.dom.Text;
 
 /*************************************************************************
  * Description   :
@@ -69,11 +74,11 @@ public class SettingItemView extends FrameLayout {
     }
 
     private void initView(Context context, AttributeSet attrs) {
+//        View inflate = LayoutInflater.from(context).inflate(R.layout.view_setting_item, this, true);
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_setting_item, this, true);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SettingItemView);
         binding.textViewRightText.setText(typedArray.getString(R.styleable.SettingItemView_rightText));
         binding.textViewLeftText.setText(typedArray.getString(R.styleable.SettingItemView_leftText));
-
         typedArray.recycle();
     }
 

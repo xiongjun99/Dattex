@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+
+import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.R;
 import com.temp.dattex.net.DataService;
@@ -107,6 +109,7 @@ BuyDetailActivity extends Activity {
                         tvEndTime.setText(Utils.dateTostring(b.getRecord().getUpdated()));
                     }
                 }, t -> {
+                    ToastUtil.show(getApplication(),t.getMessage());
                 });
     }
 }

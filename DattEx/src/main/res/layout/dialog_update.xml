@@ -2,34 +2,26 @@
 <layout>
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="com.temp.dattex.util.UpdateDialogViewModel" />
     </data>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/dp_20">
-        <com.icechao.klinelib.view.ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
             android:background="@drawable/shape_dialig_switch_symbol_background"
-            android:orientation="vertical">
+            android:layout_above="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
             <RelativeLayout
+                android:id="@+id/rl_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,13 +52,12 @@
                         android:text="@{viewModel.newVersionName}"
                         android:textColor="@color/color_CCFFFFFF"
                         android:textSize="20dp" />
-
                 </LinearLayout>
-
-
             </RelativeLayout>
-
             <TextView
+                android:layout_marginBottom="@dimen/dp_10"
+                android:id="@+id/info"
+                android:layout_below="@+id/rl_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -74,24 +65,35 @@
                 android:text="版本介绍"
                 android:textColor="@color/color_FFEDEEF2"
                 android:textSize="16dp" />
-
-
-            <TextView
+            <com.icechao.klinelib.view.ScrollView
+                android:layout_below="@+id/info"
+                android:layout_above="@+id/upload"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:lineSpacingExtra="16dp"
-                android:text="@{viewModel.newVersionInfo}"
-                android:textColor="@color/color_FFEDEEF2"
-                android:textSize="16sp" />
-
+                android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="16dp"
+                    android:text="@{viewModel.newVersionInfo}"
+                    android:textColor="@color/color_FFEDEEF2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            </com.icechao.klinelib.view.ScrollView>
             <TextView
+                android:layout_alignParentBottom="true"
+                android:id="@+id/upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/dp_16"
                 android:background="@drawable/shape_my_login"
                 android:gravity="center"
                 android:onClick="@{()->viewModel.updateApp()}"
@@ -99,17 +101,23 @@
                 android:text="立即升级"
                 android:textColor="@color/color_FFFFFFFF"
                 android:textSize="14dp" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/ll_bottom"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:visibility="@{viewModel.open ?View.INVISIBLE:View.VISIBLE}"
+                android:layout_marginBottom="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:onClick="@{()->viewModel.closeDialog()}"
+                android:src="@mipmap/icon_cirlce_cross" />
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
-            android:onClick="@{()->viewModel.closeDialog()}"
-            android:src="@mipmap/icon_cirlce_cross" />
-</LinearLayout>
-        </com.icechao.klinelib.view.ScrollView>
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>

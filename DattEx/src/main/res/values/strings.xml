@@ -29,6 +29,9 @@
     <string name="CNY">CNY</string>
 
     <string name="newApply">新币申购、增发申购</string>
+    <string name="notice">公告</string>
+    <string name="noticeinfo">文章</string>
+
     <string name="text_null"></string>
     <string name="text_input_new_password">请输入新的密码</string>
     <string name="text_done">完成</string>
@@ -225,6 +228,7 @@
     <string name="text_safe">安全设置</string>
     <string name="text_setting">系统设置</string>
 
+    <string name="X">X</string>
 
     <string name="apply_unitPrice">申购单价</string>
     <string name="apply_number">申购数量</string>

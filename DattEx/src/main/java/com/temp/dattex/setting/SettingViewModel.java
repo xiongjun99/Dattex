@@ -37,12 +37,11 @@ import com.common.framework.basic.BaseViewModel;
  *                    '.:::::'                    ':'````..
  *************************************************************************/
 public class SettingViewModel extends BaseViewModel {
-    public ObservableField<String> revise = new ObservableField<>("aaaaaaaaaaaa");
+    public ObservableField<String> revise = new ObservableField<>("");
 
     public ObservableField<String> getRevise() {
         return revise;
     }
-
     public void setRevise(ObservableField<String> revise) {
         this.revise = revise;
     }

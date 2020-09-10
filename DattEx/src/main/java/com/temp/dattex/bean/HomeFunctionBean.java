@@ -3,7 +3,7 @@ package com.temp.dattex.bean;
 public class HomeFunctionBean {
     private String mFunName;
     private String mFunInfo;
-    private int mURL;
+    private String mURL;
     private String Test;
     private boolean isWeb;
 
@@ -38,15 +38,15 @@ public class HomeFunctionBean {
         this.mFunInfo = mFunInfo;
     }
 
-    public int getmURL() {
+    public String getmURL() {
         return mURL;
     }
 
-    public void setmURL(int mURL) {
+    public void setmURL(String mURL) {
         this.mURL = mURL;
     }
 
-    public HomeFunctionBean(String FunName, String FunInfo, int URL ,String test , boolean isweb) {
+    public HomeFunctionBean(String FunName, String FunInfo, String URL ,String test , boolean isweb) {
         this.mFunInfo = FunInfo;
         this.mFunName = FunName;
         this.mURL = URL;

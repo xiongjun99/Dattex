@@ -35,11 +35,11 @@ public class InviteActivity extends BaseActivity {
         }
         tvCodeCopy.setOnClickListener(view -> {
             Utils.setClipboard(this, tvInviteCode.getText().toString());
-            ToastUtil.show(this, "已复制...");
+            ToastUtil.show(this, "复制成功");
         });
         tvLinkCopy.setOnClickListener(view -> {
             Utils.setClipboard(this, tvInviteLink.getText().toString());
-            ToastUtil.show(this, "已复制...");
+            ToastUtil.show(this, "复制成功");
         });
     }
 }

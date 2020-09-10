@@ -202,10 +202,8 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
             }
         }
     };
-
     private Timer timer;
     private SymbolConfigBean symbolConfig;
-
     public KlineViewModel(@NonNull Application application) {
         super(application);
     }
@@ -221,31 +219,25 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
     public ObservableField<List<DethBean>> dethBeanList = new ObservableField<>(new ArrayList<DethBean>());
     public ObservableField<DethAdapter> Depthadapter = new ObservableField<>(new DethAdapter(R.layout.item_deth_layout,getApplication(), null));
     public ObservableField<List<DealItemBean>> dealBeanList = new ObservableField<>(new ArrayList<DealItemBean>());
-
     public ObservableField<Dealadapter> Dealadapter = new ObservableField<>(new Dealadapter(R.layout.item_deal_layout,getApplication(), null));
     public KLineChartAdapter<KlineDataBean.DataBean> adapter = new KLineChartAdapter<>();
     private ObservableField<BottomNav> bottomNav = new ObservableField<>(BottomNav.DEPTH);
     private ObservableField<String> moreText = new ObservableField<>("更多");
-
     public ObservableField<String> getMoreText() {
         return moreText;
     }
-
     public void setMoreText(ObservableField<String> moreText) {
         this.moreText = moreText;
     }
     public ObservableField<Dealadapter> getDealadapter() {
         return Dealadapter;
     }
-
     public void setDealadapter(ObservableField<Dealadapter> dealadapter) {
         Dealadapter = dealadapter;
     }
-
     public ObservableField<DethAdapter> getDepthadapter() {
         return Depthadapter;
     }
-
     public void setDepthadapter(ObservableField<DethAdapter> depthadapter) {
         Depthadapter = depthadapter;
     }
@@ -513,11 +505,6 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
                         }
                 );
                 getMarketList();
-//                DataService.getInstance().klineHistory(symbol.toLowerCase(), 1, "1day").compose(ResponseTransformer.<KlineDataBean>handleResult()).subscribe(
-//                        k -> showHeaderData(k), t -> {
-//                            System.out.println("--------------"+t.getMessage());
-//                        }
-//                );
             }
         }, 2000, 2000);
     }
@@ -526,7 +513,7 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
                 l -> {
                     showHeaderData(l);
                 }, t -> {
-                    ToastUtil.show(BaseApplication.getInstance(), t.getMessage());}
+                 }
         );
     }
     @SuppressLint("CheckResult")
@@ -594,7 +581,6 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
                         ToastUtil.show(BaseApplication.getInstance(), "暂无深度行情");
                     }
                 }, t -> {
-                    ToastUtil.show(BaseApplication.getInstance(), t.getMessage());
                 });
     }
     @SuppressLint("CheckResult")

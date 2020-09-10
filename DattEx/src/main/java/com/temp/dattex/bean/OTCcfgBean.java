@@ -1,148 +1,220 @@
 package com.temp.dattex.bean;
 
+import java.util.List;
+
 public class OTCcfgBean {
+
     /**
-     * buyFee : 0
-     * buyRatio : 0
-     * created : 2020-08-05T08:36:06.674Z
-     * currency : string
-     * feeModel : 0
-     * sellFee : 0
-     * sellRatio : 0
-     * symbol : string
-     * updated : 2020-08-05T08:36:06.674Z
-     * weight : 0
-     * minInQty
-     * maxInQty
-     * minOutQty
-     * maxOutQty
+     * success : true
+     * data : {"payTypes":[{"id":1,"name":"银行卡","minIn":1000,"maxIn":10000,"inDefault":[1000,5000,10000,20000,50000],"minOut":100,"maxOut":1000,"outDefault":[100,500,1000,2000,5000],"enable":1,"stopBegin":"23:00:00","stopEnd":"24:00:00"},{"id":2,"name":"支付宝","minIn":2000,"maxIn":10000,"inDefault":[2000,5000,10000,20000,50000],"minOut":200,"maxOut":1000,"outDefault":[100,500,1000,2000,5000],"enable":1,"stopBegin":null,"stopEnd":null},{"id":3,"name":"微信","minIn":3000,"maxIn":10000,"inDefault":[3000,5000,10000,20000,50000],"minOut":300,"maxOut":1000,"outDefault":[100,500,1000,2000,5000],"enable":1,"stopBegin":null,"stopEnd":null}],"otcCfgs":[{"currency":"CNY","symbol":"¥","sellRatio":1,"buyRatio":1,"created":"2020-09-07 01:35:14","updated":"2020-09-07 01:35:14","weight":2},{"currency":"USD","symbol":"$","sellRatio":1,"buyRatio":1,"created":"2020-09-07 01:35:00","updated":"2020-09-07 01:35:00","weight":1}]}
      */
+        private List<PayTypesBean> payTypes;
+        private List<OtcCfgsBean> otcCfgs;
+        public List<PayTypesBean> getPayTypes() {
+            return payTypes;
+        }
 
-    private double buyFee;
-    private double buyRatio;
-    private String created;
-    private String currency;
-    private double feeModel;
-    private double sellFee;
-    private double sellRatio;
-    private String symbol;
-    private String updated;
-    private int weight;
-    private String minInQty;
-    private String maxInQty;
-    private String minOutQty;
-    private String maxOutQty;
+        public void setPayTypes(List<PayTypesBean> payTypes) {
+            this.payTypes = payTypes;
+        }
 
-    public String getMinInQty() {
-        return minInQty;
-    }
+        public List<OtcCfgsBean> getOtcCfgs() {
+            return otcCfgs;
+        }
 
-    public void setMinInQty(String minInQty) {
-        this.minInQty = minInQty;
-    }
+        public void setOtcCfgs(List<OtcCfgsBean> otcCfgs) {
+            this.otcCfgs = otcCfgs;
+        }
 
-    public String getMaxInQty() {
-        return maxInQty;
-    }
+        public static class PayTypesBean {
+            /**
+             * id : 1
+             * name : 银行卡
+             * minIn : 1000
+             * maxIn : 10000
+             * inDefault : [1000,5000,10000,20000,50000]
+             * minOut : 100
+             * maxOut : 1000
+             * outDefault : [100,500,1000,2000,5000]
+             * enable : 1
+             * stopBegin : 23:00:00
+             * stopEnd : 24:00:00
+             */
 
-    public void setMaxInQty(String maxInQty) {
-        this.maxInQty = maxInQty;
-    }
+            private int id;
+            private String name;
+            private int minIn;
+            private int maxIn;
+            private int minOut;
+            private int maxOut;
+            private int enable;
+            private String stopBegin;
+            private String stopEnd;
+            private List<Integer> inDefault;
+            private List<Integer> outDefault;
 
-    public String getMinOutQty() {
-        return minOutQty;
-    }
+            public int getId() {
+                return id;
+            }
 
-    public void setMinOutQty(String minOutQty) {
-        this.minOutQty = minOutQty;
-    }
+            public void setId(int id) {
+                this.id = id;
+            }
 
-    public String getMaxOutQty() {
-        return maxOutQty;
-    }
+            public String getName() {
+                return name;
+            }
 
-    public void setMaxOutQty(String maxOutQty) {
-        this.maxOutQty = maxOutQty;
-    }
+            public void setName(String name) {
+                this.name = name;
+            }
 
+            public int getMinIn() {
+                return minIn;
+            }
 
-    public double getBuyFee() {
-        return buyFee;
-    }
+            public void setMinIn(int minIn) {
+                this.minIn = minIn;
+            }
 
-    public void setBuyFee(double buyFee) {
-        this.buyFee = buyFee;
-    }
+            public int getMaxIn() {
+                return maxIn;
+            }
 
-    public double getBuyRatio() {
-        return buyRatio;
-    }
+            public void setMaxIn(int maxIn) {
+                this.maxIn = maxIn;
+            }
 
-    public void setBuyRatio(double buyRatio) {
-        this.buyRatio = buyRatio;
-    }
+            public int getMinOut() {
+                return minOut;
+            }
 
-    public String getCreated() {
-        return created;
-    }
+            public void setMinOut(int minOut) {
+                this.minOut = minOut;
+            }
 
-    public void setCreated(String created) {
-        this.created = created;
-    }
+            public int getMaxOut() {
+                return maxOut;
+            }
 
-    public String getCurrency() {
-        return currency;
-    }
+            public void setMaxOut(int maxOut) {
+                this.maxOut = maxOut;
+            }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
+            public int getEnable() {
+                return enable;
+            }
 
-    public double getFeeModel() {
-        return feeModel;
-    }
+            public void setEnable(int enable) {
+                this.enable = enable;
+            }
 
-    public void setFeeModel(double feeModel) {
-        this.feeModel = feeModel;
-    }
+            public String getStopBegin() {
+                return stopBegin;
+            }
 
-    public double getSellFee() {
-        return sellFee;
-    }
+            public void setStopBegin(String stopBegin) {
+                this.stopBegin = stopBegin;
+            }
 
-    public void setSellFee(double sellFee) {
-        this.sellFee = sellFee;
-    }
+            public String getStopEnd() {
+                return stopEnd;
+            }
 
-    public double getSellRatio() {
-        return sellRatio;
-    }
+            public void setStopEnd(String stopEnd) {
+                this.stopEnd = stopEnd;
+            }
 
-    public void setSellRatio(double sellRatio) {
-        this.sellRatio = sellRatio;
-    }
+            public List<Integer> getInDefault() {
+                return inDefault;
+            }
 
-    public String getSymbol() {
-        return symbol;
-    }
+            public void setInDefault(List<Integer> inDefault) {
+                this.inDefault = inDefault;
+            }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+            public List<Integer> getOutDefault() {
+                return outDefault;
+            }
 
-    public String getUpdated() {
-        return updated;
-    }
+            public void setOutDefault(List<Integer> outDefault) {
+                this.outDefault = outDefault;
+            }
+        }
 
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
+        public static class OtcCfgsBean {
+            /**
+             * currency : CNY
+             * symbol : ¥
+             * sellRatio : 1.0
+             * buyRatio : 1.0
+             * created : 2020-09-07 01:35:14
+             * updated : 2020-09-07 01:35:14
+             * weight : 2
+             */
 
-    public int getWeight() {
-        return weight;
-    }
+            private String currency;
+            private String symbol;
+            private double sellRatio;
+            private double buyRatio;
+            private String created;
+            private String updated;
+            private int weight;
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
+            public String getCurrency() {
+                return currency;
+            }
+
+            public void setCurrency(String currency) {
+                this.currency = currency;
+            }
+
+            public String getSymbol() {
+                return symbol;
+            }
+
+            public void setSymbol(String symbol) {
+                this.symbol = symbol;
+            }
+
+            public double getSellRatio() {
+                return sellRatio;
+            }
+
+            public void setSellRatio(double sellRatio) {
+                this.sellRatio = sellRatio;
+            }
+
+            public double getBuyRatio() {
+                return buyRatio;
+            }
+
+            public void setBuyRatio(double buyRatio) {
+                this.buyRatio = buyRatio;
+            }
+
+            public String getCreated() {
+                return created;
+            }
+
+            public void setCreated(String created) {
+                this.created = created;
+            }
+
+            public String getUpdated() {
+                return updated;
+            }
+
+            public void setUpdated(String updated) {
+                this.updated = updated;
+            }
+
+            public int getWeight() {
+                return weight;
+            }
+
+            public void setWeight(int weight) {
+                this.weight = weight;
+            }
+        }
 }

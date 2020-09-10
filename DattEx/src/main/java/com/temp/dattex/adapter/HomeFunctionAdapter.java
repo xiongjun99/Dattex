@@ -1,5 +1,6 @@
 package com.temp.dattex.adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.temp.dattex.R;
@@ -14,8 +16,10 @@ import com.temp.dattex.bean.HomeFunctionBean;
 import java.util.List;
 
 public class HomeFunctionAdapter extends BaseQuickAdapter<HomeFunctionBean, BaseViewHolder> {
-    public HomeFunctionAdapter(@Nullable List<HomeFunctionBean> data) {
+    Context mContext;
+    public HomeFunctionAdapter(@Nullable List<HomeFunctionBean> data,Context context) {
         super(R.layout.item_homefunction, data);
+        mContext = context;
     }
 
     @Override
@@ -25,7 +29,10 @@ public class HomeFunctionAdapter extends BaseQuickAdapter<HomeFunctionBean, Base
         TextView tvFunInfo = helper.getView(R.id.tv_fun_info);
         tvFunInfo.setText(item.getmFunInfo());
         ImageView ivFun = helper.getView(R.id.iv_fun);
-        Bitmap bmp = BitmapFactory.decodeResource(getContext().getResources(), item.getmURL());
-        ivFun.setImageBitmap(bmp);
+        if (tvFunName.getText().toString().contains("帮助中心")){
+            Glide.with(mContext).load(R.mipmap.icon_help_center).into(ivFun);
+        }else if (tvFunName.getText().toString().contains("新闻公告")){
+            Glide.with(mContext).load(R.mipmap.icon_news).into(ivFun);
+        }
     }
 }

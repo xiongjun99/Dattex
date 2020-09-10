@@ -34,12 +34,13 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:visibility="gone"
                     android:id="@+id/rb_usdt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_wallet_title_left"
                     android:button="@null"
-                    android:checked="true"
+                    android:checked="false"
                     android:paddingLeft="13dp"
                     android:paddingTop="5dp"
                     android:paddingRight="13dp"
@@ -53,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_wallet_title_right"
                     android:button="@null"
-                    android:checked="false"
+                    android:checked="true"
                     android:gravity="center"
                     android:paddingLeft="13dp"
                     android:paddingTop="5dp"
@@ -83,7 +84,7 @@
                     android:layout_marginBottom="@dimen/dp_10"
                     android:background="@color/color_FF282C42"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <View
                         android:background="@color/color_1A1C29"
@@ -266,7 +267,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:digits="1234567890"
+                            android:digits="1234567890."
                             android:hint="@{@string/input + @string/comma + @string/minNumber + withdrawViewModel.minAmount + @string/comma + @string/maxNumber + withdrawViewModel.maxAmount}"
                             android:inputType="numberDecimal"
                             android:longClickable="false"
@@ -435,7 +436,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="@dimen/dp_10"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -726,7 +727,7 @@
                         android:id="@+id/tv_confirm"
                         style="@style/White_TextView_Style"
                         android:layout_centerInParent="true"
-                        android:text="@string/Confirm_Sell"></TextView>
+                        android:text="@string/Confirm_Withdraw"></TextView>
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

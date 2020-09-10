@@ -89,7 +89,8 @@ public class Constants {
     public static final String REQUEST_KEY_SIZE = "size";
     public static final String REQUEST_KEY_STATE = "state";
     public static final String REQUEST_KEY_CONTRACTTYPE = "contractType";
-
+    public static final String REQUEST_KEY_ISENABLED = "isEnabled";
+    public static final String ISSTICKY = "isSticky";
     public static final String REQUEST_KEY_ISWALLET = "isWallet";
     public static final String REQUEST_KEY_LASTNAME = "lastName";
     public static final String REQUEST_KEY_FIRSTNAME = "firstName";
