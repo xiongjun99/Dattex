@@ -156,7 +156,6 @@ public class LoginViewModel extends BaseViewModel {
                                 loginBean.getToken(),
                                 loginBean.getMemberId(),
                                 loginBean.getRecode(),loginBean.getIsCertification());
-                        System.out.println("------------"+loginBean.getRecode());
                         if (TextUtils.isEmpty(nextPage)) {
                             finishFragmentResult();
                         } else {

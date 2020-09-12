@@ -3,13 +3,16 @@ package com.temp.dattex.setting;
 import android.app.AlertDialog;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.common.framework.basic.BaseActivity;
 import com.exchange.utilslib.ToastUtil;
@@ -61,6 +64,9 @@ import org.w3c.dom.Attr;
 public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingViewModel> {
     private SettingItemView tvRevise,tvUpload,tvClean,tvSwitch;
     private TextView ip,tvUploadText;
+    final static int COUNTS = 10;// 点击次数
+    final static long DURATION = 10000;// 规定有效时间
+    long[] mHits = new long[COUNTS];
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_setting;
@@ -88,6 +94,23 @@ public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingVi
         tvSwitch =(SettingItemView) findViewById(R.id.tv_switch);
         ip =(TextView) findViewById(R.id.ip);
         tvUploadText =(TextView) findViewById(R.id.tv_upload_text);
+        RelativeLayout relativelayout = (RelativeLayout) findViewById(R.id.relativelayout);
+        relativelayout.setOnClickListener(new View.OnClickListener() {
+            long[] mHints = new long[3];//初始全部为0
+            @Override
+            public void onClick(View view) {
+                //每次点击时，数组向前移动一位
+                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+                //为数组最后一位赋值
+                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+                if (mHits[0] >= (SystemClock.uptimeMillis() - DURATION)) {
+                    mHits = new long[COUNTS];//重新初始化数组
+                    showDialog();
+                }
+                System.out.println("----------"+mHits);
+            }
+        });
+
         tvRevise.setOnClickListener(view -> {
             showDialog();
         });
@@ -107,30 +130,30 @@ public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingVi
         }else {
             ip.setText(Application.URL);
         }
+
+
     }
     public  void showDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_ipadress,null,false);
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
         EditText etIpadress = view.findViewById(R.id.et_ipadress);
-        etIpadress.setText(ApiAddress.BASE_URL);
+        etIpadress.setText(ip.getText());
         TextView tvCancel = view.findViewById(R.id.tv_cancel);
         TextView tvConfirm = view.findViewById(R.id.tv_confirm);
         tvCancel.setText("取消");
         tvConfirm.setText("确定");
+        dialog.setCancelable(false);
         tvCancel.setOnClickListener(v -> {
             //... To-do
             dialog.dismiss();
         });
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                RetrofitClient.getInstance().initRetrofit(ApiAddress.BASE_URL);
-                RetrofitClient.getInstance().initRetrofit(etIpadress.getText().toString());
-                Application.URL = etIpadress.getText().toString();
-                ip.setText(Application.URL);
-                //... To-do
-                dialog.dismiss();
-            }
+        tvConfirm.setOnClickListener(v -> {
+//          RetrofitClient.getInstance().initRetrofit(ApiAddress.BASE_URL);
+            RetrofitClient.getInstance().initRetrofit(etIpadress.getText().toString());
+            Application.URL = etIpadress.getText().toString();
+            ip.setText(etIpadress.getText());
+            //... To-do
+            dialog.dismiss();
         });
 
         dialog.show();
@@ -140,7 +163,7 @@ public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingVi
     public void Upload(){
         DataService.getInstance().UpDate().compose(ResponseTransformer.handleResult()).subscribe(
                 d -> {
-                    if (!d.getAndroid().getVersion().equals(Utils.getVersion(this))){
+                    if (Integer.valueOf(d.getAndroid().getVersion().replace(".",""))>Integer.valueOf(Utils.getVersion(this).replace(".",""))){
                         UpdateDialogViewModel updateDialogViewModel = new UpdateDialogViewModel();
                         updateDialogViewModel.setNewVersionInfo(d.getAndroid().getMemo().replace("\\n", "\n"));
                         updateDialogViewModel.setNewVersionName("V"+d.getAndroid().getVersion());
@@ -158,7 +181,6 @@ public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingVi
                         }
                     } else {
                         ToastUtil.show(this,"最新版本无需更新");
-                        System.out.println("-------最新版本无需更新");
                     }
                 }, t -> {
 //                    ToastUtil.show(this,"获取版本更新失败...");

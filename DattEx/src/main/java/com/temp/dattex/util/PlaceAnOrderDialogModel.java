@@ -5,6 +5,7 @@ import android.app.Dialog;
 import androidx.databinding.ObservableField;
 
 import com.common.framework.click.SingleClick;
+import com.temp.dattex.fragments.trade.TradeViewModel;
 
 public class PlaceAnOrderDialogModel {
 
@@ -52,7 +53,6 @@ public class PlaceAnOrderDialogModel {
     public void setDownStopPercent(ObservableField<String> downStopPercent) {
         this.downStopPercent = downStopPercent;
     }
-
 
     @SingleClick
     public void closeDialog() {

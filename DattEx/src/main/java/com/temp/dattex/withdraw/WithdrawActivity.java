@@ -115,9 +115,6 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
     public void createPop() {
         if (editPop == null) {
             List<String> listData = new ArrayList<>();
-//            for (int i = 0; i < viewModel.otc.get().size(); i++) {
-//                listData.add(viewModel.otc.get().get(0).getData().getOtcCfgs().get(i).getCurrency());
-//            }
             editPop = new EditPop(this,viewModel.pPosition.get());
             editPop.setAdapterData(listData, binding.line);
             editPop.setOnItemClickListener(viewModel);
@@ -192,8 +189,6 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
             sendPhoneCode();
         });
         ll_select_address.setOnClickListener(view -> {
-//            Intent intent = new Intent(WithdrawActivity.this,WithdrawListActivity.class);
-//            startActivityForResult(intent,1);
         });
         rbUsdt = (RadioButton) findViewById(R.id.rb_usdt);
         rbAdress = (RadioButton) findViewById(R.id.rb_address);

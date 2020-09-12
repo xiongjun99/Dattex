@@ -87,7 +87,7 @@ public class HomeViewModel extends BaseViewModel {
 //        AssetsConfigs.getInstance().freshCoin();
 //        AssetsConfigs.getInstance().freshAssets();
         if (AssetsConfigs.getInstance().getCoinBeanHashMap().size()==0 &&AssetsConfigs.getInstance().getNewAssetsItemBeanMap().size()==0){
-         AssetsConfigs.getInstance().freshCoin();
+            AssetsConfigs.getInstance().freshCoin();
         }
     }
 

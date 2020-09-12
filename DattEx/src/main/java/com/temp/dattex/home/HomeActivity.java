@@ -93,7 +93,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         }
         DataService.getInstance().UpDate().compose(ResponseTransformer.handleResult()).subscribe(
                 d -> {
-                    if (!d.getAndroid().getVersion().equals(Utils.getVersion(this))){
+
+                    if (Integer.valueOf(d.getAndroid().getVersion().replace(".",""))>Integer.valueOf(Utils.getVersion(this).replace(".",""))){
                         UpdateDialogViewModel updateDialogViewModel = new UpdateDialogViewModel();
                         updateDialogViewModel.setNewVersionInfo(d.getAndroid().getMemo().replace("\\n", "\n"));
                         updateDialogViewModel.setNewVersionName("V"+d.getAndroid().getVersion());
@@ -110,7 +111,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
                             }
                         }
                     } else {
-                        System.out.println("-------最新版本无需更新");
+                        System.out.println("-----------最新版本无需更新");
                     }
                 }, t -> {
 //                    ToastUtil.show(this,"获取版本更新失败...");

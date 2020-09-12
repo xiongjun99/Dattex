@@ -427,14 +427,10 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
         NewAssetsBean coinInfo = AssetsConfigs.getInstance().getCoinInfo("USDT");
         DataService.getInstance().withdrawLimit(withdrawCoin.get()).compose(ResponseTransformer.<WithdrawLimitBean>handleResult()).subscribe(
                 bean -> {
-                    if (bean.getAllowOut()) {
                         withdrawLimitBean = bean;
                         minAmount.set(""+(int)withdrawLimitBean.getMinOut());
                         MaxAmount.set(""+(int)withdrawLimitBean.getMaxOut());
                         serviceCharge.set(Utils.format8(String.valueOf(bean.getWithdrawFee())));
-                    } else {
-                        finish();
-                    }
                 }, t -> {
                     ToastUtil.show(getApplication(),t.getMessage());
                 }

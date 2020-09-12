@@ -34,8 +34,8 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:visibility="visible"
-                    android:checked="true"
+                    android:visibility="gone"
+                    android:checked="false"
                     android:id="@+id/rb_buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:textColor="@drawable/selector_wallet_title_text" />
 
                 <RadioButton
-                    android:checked="false"
+                    android:checked="true"
                     android:id="@+id/rb_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -160,6 +160,7 @@
                     android:text="@={walletModel.balance}"
                     android:textColor="@color/color_FF767B99"
                     android:textColorHint="@color/color_FF767B99"
+                    android:maxLength="42"
                     android:textSize="16dp" />
 
                 <TextView

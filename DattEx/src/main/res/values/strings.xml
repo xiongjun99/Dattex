@@ -12,7 +12,7 @@
     <string name="text_input_number">请输入数量</string>
     <string name="text_area">地区</string>
     <string name="text_has_read">我已经阅读并确认</string>
-    <string name="text_protocol">《 DattEx 用户服务协议》</string>
+    <string name="text_protocol">《 buda 用户服务协议》</string>
     <string name="text_need_agree_protocol">请勾选用户协议</string>
     <string name="text_next_step">下一步</string>
     <string name="text_input_invited_code">请输入邀请码</string>
@@ -30,7 +30,7 @@
 
     <string name="newApply">新币申购、增发申购</string>
     <string name="notice">公告</string>
-    <string name="noticeinfo">文章</string>
+    <string name="noticeinfo"></string>
 
     <string name="text_null"></string>
     <string name="text_input_new_password">请输入新的密码</string>
@@ -236,5 +236,6 @@
 
     <string name="apply_coinId">币种</string>
     <string name="USDT">USDT</string>
+    <string name="s">s</string>
 
 </resources>

@@ -385,11 +385,13 @@ public class DataService {
     public Observable<BaseResponse<NoticeBean.RowsBean>> getNoticeListInfo(int id, int page, int type, int isEnabled, int isSticky) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_ID, id);
-        params.put(Constants.REQUEST_KEY_PAGE, page);
-        params.put(Constants.REQUEST_KEY_SIZE, 100);
-        params.put(Constants.REQUEST_KEY_TYPE, type);
-        params.put(Constants.REQUEST_KEY_ISENABLED, isEnabled);
-        params.put(Constants.ISSTICKY, isSticky);
+        if (id!=1){
+            params.put(Constants.REQUEST_KEY_PAGE, page);
+            params.put(Constants.REQUEST_KEY_SIZE, 100);
+            params.put(Constants.REQUEST_KEY_TYPE, type);
+            params.put(Constants.REQUEST_KEY_ISENABLED, isEnabled);
+            params.put(Constants.ISSTICKY, isSticky);
+        }
         return RetrofitClient.getInstance().create(ApiService.class).getNoticeListInfo(LoginInfo.getUserToken(),params);
     }
     public Observable<BaseResponse<UpdateBean>> UpDate() {

@@ -56,7 +56,7 @@ public class HomeViewPagerFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutParams(layoutParams12);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
-        entranceAdapter = new EntranceAdapter(list);
+        entranceAdapter = new EntranceAdapter(getActivity(),list);
         recyclerView.setAdapter(entranceAdapter);
         initData(processStatus);
         entranceAdapter.setOnItemClickListener((adapter, view1, position) -> {
@@ -123,15 +123,23 @@ public class HomeViewPagerFragment extends Fragment {
     private void getMarketList() {
         DataService.getInstance().getMarketList().compose(ResponseTransformer.<List<MarketListBean>>handleResult()).subscribe(
                 l -> {
-                    list = l;
-                    if (entranceAdapter.getData()==null||entranceAdapter.getData().size()==0){
-                        entranceAdapter.addData(l);
-                    }else {
-                        entranceAdapter.setNewData(l);
+                    if (list!=null&&list.size()>0){
+                      list.clear();
+                     }
+                    for (int i = 0; i < l.size(); i++) {
+                        if (i<3){
+                            entranceAdapter.addData(i,l.get(i));
+                        }
                     }
-
+//                    entranceAdapter.notifyDataSetChanged();
+//                    if (entranceAdapter.getData()==null||entranceAdapter.getData().size()==0){
+//                        entranceAdapter.addData(l);
+//                    }else {
+//                        entranceAdapter.setNewData(l);
+//                    }
                 }, t -> {
                     ToastUtil.show(BaseApplication.getInstance(), t.getMessage());}
         );
     }
+
 }

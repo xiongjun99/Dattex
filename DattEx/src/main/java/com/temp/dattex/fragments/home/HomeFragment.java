@@ -43,6 +43,9 @@ import com.temp.dattex.net.DataService;
 import com.temp.dattex.notice.NoticeActivity;
 import com.temp.dattex.notice.NoticeInfoActivity;
 import com.temp.dattex.util.Utils;
+import com.temp.dattex.web.WebViewActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,14 +114,26 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         initData();
         initViews();
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        marqueeView.startFlipping();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        marqueeView.stopFlipping();
+    }
     @Override
     public void onPause() {
         super.onPause();
         list.get(0).onPause();
+        marqueeView.stopFlipping();
     }
 
     private void initData() {
+        Notice();
         ArrayList<Fragment> functionList = new ArrayList<>();
         functionViewPager = getActivity().findViewById(R.id.function_view_pager);
         functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
@@ -137,6 +152,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                                 functionViewPager.setAdapter(functionAdapter);
                                 functionAdapter.notifyDataSetChanged();
                                 indicator2.setViewPager(functionViewPager);
+                                indicator2.setVisibility(View.GONE);
                             }
                     }
                 }, t -> {
@@ -148,11 +164,19 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     private void initViews() {
          marqueeView = getActivity().findViewById(R.id.marqueeView);
          marqueeView.setOnItemClickListener((position, textView) -> {
-             Intent it = new Intent(getActivity(), NoticeInfoActivity.class);
-             it.putExtra("id",noticeList.get(position).getId());
-             it.putExtra("time",noticeList.get(position).getPublishTime());
-             it.putExtra("title",noticeList.get(position).getTitle());
-             startActivity(it);
+             if (!messages.contains("暂无公告") && messages.size()>0){
+                 Bundle bundle = new Bundle();
+                 bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
+                 bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+noticeList.get(position).getId());
+                 startActivity(WebViewActivity.class, bundle);
+//                 Intent it = new Intent(getActivity(), NoticeInfoActivity.class);
+//                 it.putExtra("id",noticeList.get(position).getId());
+//                 it.putExtra("time",noticeList.get(position).getPublishTime());
+//                 it.putExtra("title",noticeList.get(position).getTitle());
+//                 startActivity(it);
+             }else {
+                 System.out.println("------暂无公告");
+             }
          });
          LinearLayout   notice = getActivity().findViewById(R.id.notice);
          notice.setOnClickListener(view -> {
@@ -168,6 +192,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         view_pager.setCurrentItem(0);  //初始化显示第一个页面
         CircleIndicator indicator = (CircleIndicator)getActivity(). findViewById(R.id.indicator);
         indicator.setViewPager(view_pager);
+        indicator.setVisibility(View.GONE);
         //初始化ViewPager
 //        ArrayList<Fragment> functionList = new ArrayList<>();
 //        functionList.add(new HomeFunctionFragment(0));
@@ -186,14 +211,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         vp_roll.setAdapter(new ImageNormalAdapter());//设置适配器
         vp_roll.setHintView(new ColorPointHintView(getActivity(), Color.WHITE, Color.GRAY));//设置指示器颜色
         vp_roll.setHintPadding(0,0, DisplayUtil.getScreenHardwareWidth(getActivity())/2 - 60,40);
-
         rlMarketTitle  = getActivity().findViewById(R.id.rl_market_title);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Notice();
     }
 
     @Override
@@ -217,7 +240,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 //                }
 //            }
 //        }
-
         viewModel.checkRank.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -268,5 +290,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                 }, t -> {
                     ToastUtil.show(getActivity(),"获取公告失败"+t.getMessage());
                 });
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -6,6 +6,7 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -110,7 +111,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     private ObservableField<Integer> id = new ObservableField<>(0);
     public ObservableField<String> OtcminAmount = new ObservableField<>("");
     public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
-    private ObservableField<Boolean> showOtc = new ObservableField<>(true);
+    private ObservableField<Boolean> showOtc = new ObservableField<>(false);
     private ObservableField<Bitmap> qrBitmap = new ObservableField<>();
     private ObservableField<Drawable> buyDrawable = new ObservableField<>(getApplication().getResources().getDrawable(R.drawable.drawable_button_cancel));
     private ObservableField<String> rechargeCoin = new ObservableField<>("USDT");
@@ -124,10 +125,17 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
      */
     public ObservableField<Integer> pPosition = new ObservableField<>(0);
     public ObservableField<Integer> popStaus = new ObservableField<>(0);
-
     public ObservableField<OTCcfgBean> otc = new ObservableField<>();
     private ObservableField<String> unit = new ObservableField<>("");
+    private ObservableField<Boolean> isOk = new ObservableField<>(false);
 
+    public ObservableField<Boolean> getIsOk() {
+        return isOk;
+    }
+
+    public void setIsOk(ObservableField<Boolean> isOk) {
+        this.isOk = isOk;
+    }
     public ObservableField<String> getCount() {
         return count;
     }
@@ -356,34 +364,26 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public void ensureOrder() {
         if (!TextUtils.isEmpty(amount.get()) && !TextUtils.isEmpty(exchangeType.get()) && !TextUtils.isEmpty(balance.get()) && payForTypeID.get() > 0) {
 //          getRecharge();
-            WalletModel walletModel = new WalletModel(getApplication());
-            walletModel.setCount(count);
-            DialogUtil.showWallPayDialog(AppManager.getActivityStack().peek(), walletModel);
+            this.setCount(count);
+            DialogUtil.showWallPayDialog(AppManager.getActivityStack().peek(), this);
             timer.start();
         } else {
             ToastUtil.show(getApplication(), "请填写完整的买入信息");
         }
     }
 
-    CountDownTimer timer = new CountDownTimer(3000, 1000) {
+    CountDownTimer timer = new CountDownTimer(6000, 1000) {
         public void onTick(long millisUntilFinished) {
-            count.set(millisUntilFinished / 1000 + "s");
-            if (count.get().contains("0")){
+            count.set(""+millisUntilFinished / 2000);
+            if (count.get().contains("1")){
                 count.set("买家已接单");
-                new Thread (new Runnable(){
-                    public void run(){
-                        try {
-                            Thread.sleep(3000);
-                            PayDialog.dismiss();
-                            PayDialog = null;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                isOk.set(true);
+            }
+            if ( millisUntilFinished / 500 == 0 ) {
+                PayDialog.dismiss();
+                PayDialog = null;
             }
         }
-
         public void onFinish() {
         }
     };

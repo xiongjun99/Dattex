@@ -144,6 +144,7 @@ public class KlineActivity extends BaseActivity<ActivityKlineBinding, KlineViewM
             startActivity(it);
         });
         kLineChartView = (KLineChartView)findViewById(R.id.kline_chart_view);
-//      kLineChartView.setKlineState(Status.KlineStatus.TIME_LINE);
+        kLineChartView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        //      kLineChartView.setKlineState(Status.KlineStatus.TIME_LINE);
     }
 }

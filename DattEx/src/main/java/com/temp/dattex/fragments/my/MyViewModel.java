@@ -22,6 +22,7 @@ import com.temp.dattex.auth.AuthActivity;
 import com.temp.dattex.bean.NewAssetsBean;
 import com.temp.dattex.config.AssetsConfigs;
 import com.temp.dattex.database.LoginInfo;
+import com.temp.dattex.help.HelpActivity;
 import com.temp.dattex.invite.InviteActivity;
 import com.temp.dattex.login.LoginActivity;
 import com.temp.dattex.net.ApiAddress;
@@ -172,7 +173,7 @@ public class MyViewModel extends BaseViewModel {
 
     @SingleClick
     public void helpCenter() {
-        ToastUtil.show(getApplication(),"未开放");
+        startActivity(HelpActivity.class);
 //        Bundle bundle = new Bundle();
 //        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_INVITED_URL);
 //        startActivity(WebViewActivity.class, bundle);
@@ -203,7 +204,9 @@ public class MyViewModel extends BaseViewModel {
     public void onResume() {
         super.onResume();
         initUserInfo();
-        freshAssetsByCoinId("USDT");
+        if (LoginInfo.isSign()) {
+            freshAssetsByCoinId("USDT");
+        }
     }
     @SuppressLint("CheckResult")
     public void freshAssetsByCoinId(String CoinId) {

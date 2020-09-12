@@ -1,4 +1,4 @@
-package com.temp.dattex.notice;
+package com.temp.dattex.help;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
@@ -19,13 +18,15 @@ import com.temp.dattex.BaseActivity;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.NoticeAdapter;
 import com.temp.dattex.bean.NoticeBean;
-import com.temp.dattex.help.HelpActivity;
 import com.temp.dattex.net.DataService;
+import com.temp.dattex.notice.NoticeActivity;
 import com.temp.dattex.web.WebViewActivity;
 import com.temp.dattex.widget.TitleBar;
+
 import java.util.ArrayList;
 import java.util.List;
-public class NoticeActivity extends BaseActivity {
+
+public class HelpActivity extends BaseActivity {
     private TitleBar titleBar;
     private RecyclerView recyclerView;
     private NoticeAdapter noticeAdapter;
@@ -44,6 +45,7 @@ public class NoticeActivity extends BaseActivity {
     }
     private void initView() {
         titleBar = findViewById(R.id.title_bar);
+        titleBar.setTitleText("帮助");
         titleBar.setLeftTwoClick(this);
         recyclerView = findViewById(R.id.recycler_view);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -57,28 +59,23 @@ public class NoticeActivity extends BaseActivity {
         noticeAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-//                Intent it = new Intent(NoticeActivity.this, NoticeInfoActivity.class);
-//                it.putExtra("id",noticeAdapter.getData().get(position).getId());
-//                it.putExtra("time",noticeAdapter.getData().get(position).getPublishTime());
-//                it.putExtra("title",noticeAdapter.getData().get(position).getTitle());
-//                startActivity(it);
-                Intent it = new Intent(NoticeActivity.this, WebViewActivity.class);
-                it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "公告");
+                Intent it = new Intent(HelpActivity.this, WebViewActivity.class);
+                it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "帮助");
                 it.putExtra(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+noticeAdapter.getData().get(position).getId());
                 startActivity(it);
             }
         });
     }
     private void getData() {
-        DataService.getInstance().getNotice(1,1,1,1).compose(ResponseTransformer.handleResult()).subscribe(
+        DataService.getInstance().getNotice(1,3,1,0).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if (b.getRows()==null||b.getRows().size()<=0){
-                        Toast.makeText(this,"暂无公告",Toast.LENGTH_LONG).show();
+                        Toast.makeText(this,"暂无帮助信息",Toast.LENGTH_LONG).show();
                     } else {
                         noticeAdapter.setNewData(b.getRows());
                     }
                 }, t -> {
-                    ToastUtil.show(this,"获取公告失败"+t.getMessage());
+                    ToastUtil.show(this,"获取帮助信息失败"+t.getMessage());
                 });
     }
 }

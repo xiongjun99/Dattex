@@ -44,15 +44,15 @@ public class WebViewModel extends BaseViewModel implements WebView.FindListener 
         super(application);
     }
 
-    private ObservableField<String> titleText = new ObservableField<>("");
+    private ObservableField<String> Text = new ObservableField<>("");
     private ObservableField<String> loadUrl = new ObservableField<>();
 
-    public ObservableField<String> getTitleText() {
-        return titleText;
+    public ObservableField<String> getText() {
+        return Text;
     }
 
     public void setTitleText(ObservableField<String> titleText) {
-        this.titleText = titleText;
+        this.Text = titleText;
     }
 
     public ObservableField<String> getLoadUrl() {

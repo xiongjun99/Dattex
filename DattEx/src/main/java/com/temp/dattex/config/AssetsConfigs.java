@@ -6,6 +6,7 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.bean.AssetsBean;
 import com.temp.dattex.bean.CoinBean;
 import com.temp.dattex.bean.NewAssetsBean;
+import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.net.WebSocket;
 
@@ -75,7 +76,9 @@ public class AssetsConfigs {
                             System.out.println("------"+coinBean.getWithdrawFee());
                             if(null !=coinBean){
                                 coinBeanHashMap.put(coinBean.getId(), coinBean);
-                                freshAssetsByCoinId(coinBean.getId());
+                                if (LoginInfo.isSign()){
+                                    freshAssetsByCoinId(coinBean.getId());
+                                }
                             }
                         }
                     }
@@ -88,7 +91,6 @@ public class AssetsConfigs {
     public void freshAssetsByCoinId(String CoinId) {
         DataService.getInstance().getAssetsByCoinId(CoinId).compose(ResponseTransformer.<NewAssetsBean>handleResult()).subscribe(
                 assetsBean -> {
-                    System.out.println("---------assetsBean"+assetsBean);
                     if(null != assetsBean){
                         newAssetsItemBeanMap.put(assetsBean.getCoinId(), assetsBean);
                     }

@@ -1,5 +1,6 @@
 package com.temp.dattex.util;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -97,7 +99,7 @@ public class DialogUtil {
         binding.setContractModel(placeAnOrderDialogModel);
         placeAnOrderDialogModel.setDialog(dialog);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
         dialog.setContentView(binding.getRoot(), layoutParams);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
@@ -105,6 +107,8 @@ public class DialogUtil {
         dialog.getWindow().setAttributes(attributes);
         dialog.show();
     }
+
+
     public static void createContractDialog2(Context context, OrderItemViewModel orderItemViewModel) {
         Dialog dialog = new Dialog(context, R.style.DialogFullScreen);
         DialogCreateContract2Binding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_create_contract2, null, false);
@@ -217,6 +221,5 @@ public class DialogUtil {
         dialog.setCanceledOnTouchOutside(true);
         dialog.setOnDismissListener(dialog1 -> walletModel.setPayDialog(null));
         dialog.show();
-
     }
 }

@@ -80,6 +80,15 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/encode_view"></TextView>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/relativelayout"
+                android:layout_alignParentBottom="true"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80"></RelativeLayout>
 
+        </RelativeLayout>
     </LinearLayout>
 </layout>

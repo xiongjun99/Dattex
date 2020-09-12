@@ -223,7 +223,8 @@
                                 android:textSize="14dp" />
 
                             <EditText
-
+                                android:focusableInTouchMode="false"
+                                android:focusable="false"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -284,11 +285,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="6dp"
                             android:layout_weight="1">
+                            <com.warkiz.widget.IndicatorSeekBar
+                                android:id="@+id/test_seekbar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:isb_progress="0"
+                                app:isb_show_tick_marks_type="oval"
+                                app:isb_tick_marks_color="@color/selector_tick_marks_color"
+                                app:isb_thumb_color="@color/color_FF47BAFC"
+                                app:isb_track_progress_color="@color/color_FF47BAFC"
+                                app:isb_show_indicator="none"
+                                app:isb_thumb_size="16dp"
+                                />
                             <com.temp.dattex.widget.view.CustomSeekBar
                                 android:visibility="gone"
                                 android:id="@+id/seekbar"
                                 android:layout_width="match_parent"
-                                android:layout_height="30dp"
+                                android:layout_height="1dp"
                                 android:layout_margin="5dp"
                                 android:background="@null"
                                 app:csb_background_color="#FFAAAAAA"
@@ -389,18 +402,19 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:id="@+id/rl_aska"
                                     android:background="#33DC4D4D"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska1}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Red_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska2}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -411,7 +425,6 @@
                                 android:layout_height="0dip">
                             <LinearLayout
                                 android:orientation="horizontal"
-                                android:visibility="gone"
                                 android:layout_marginTop="@dimen/dp_2"
                                 android:layout_marginBottom="@dimen/dp_2"
                                 android:id="@+id/rl_aska1"
@@ -419,11 +432,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"></LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska3}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Red_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska4}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -434,7 +449,6 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_aska2"
@@ -443,11 +457,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska5}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Red_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska6}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -458,7 +474,6 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_aska3"
@@ -467,11 +482,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska7}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Red_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska8}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -482,7 +499,6 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_aska4"
@@ -491,11 +507,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska9}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Red_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.aska10}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -538,7 +556,6 @@
 
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_bids"
@@ -547,11 +564,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids1}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Green_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids2}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -562,7 +581,6 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_bids1"
@@ -571,11 +589,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids3}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Green_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids4}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -586,7 +606,6 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_bids2"
@@ -595,11 +614,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids5}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Green_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids6}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -610,7 +631,6 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_bids3"
@@ -619,11 +639,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids7}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Green_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids8}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>
@@ -634,7 +656,6 @@
                                 android:layout_height="0dip">
                                 <LinearLayout
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_marginTop="@dimen/dp_2"
                                     android:layout_marginBottom="@dimen/dp_2"
                                     android:id="@+id/rl_bids4"
@@ -643,11 +664,13 @@
                                     android:layout_height="match_parent">
                                 </LinearLayout>
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids9}"
                                     android:layout_alignParentLeft="true"
                                     style="@style/Green_TextView12_Style"></TextView>
 
                                 <TextView
+                                    android:layout_centerVertical="true"
                                     android:text="@{tradeViewModel.bids10}"
                                     android:layout_alignParentRight="true"
                                     style="@style/White_TextView_Style"></TextView>

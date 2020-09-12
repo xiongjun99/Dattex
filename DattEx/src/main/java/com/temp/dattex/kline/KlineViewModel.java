@@ -645,7 +645,7 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
             high.set(Utils.format(list.get(i).getHigh()));
             low.set(Utils.format(list.get(i).getLow()));
             vol.set(Utils.format(list.get(i).getAvg()));
-            realPriceCny.set(getApplication().getResources().getString(R.string.About_Symbol)+getApplication().getResources().getString(R.string.xxx) + Utils.FloatkeepTwo(SymbolConfigs.getInstance().getCnyRate() * Float.valueOf(list.get(0).getPrice()))+getApplication().getResources().getString(R.string.xxx)+getApplication().getResources().getString(R.string.CNY));
+            realPriceCny.set(getApplication().getResources().getString(R.string.About_Symbol)+getApplication().getResources().getString(R.string.xxx) + Utils.FloatkeepTwo(SymbolConfigs.getInstance().getCnyRate() * Float.valueOf(list.get(i).getPrice()))+getApplication().getResources().getString(R.string.xxx)+getApplication().getResources().getString(R.string.CNY));
             change.set(Float.valueOf(Utils.format(list.get(i).getChanges())));
                 }
             }

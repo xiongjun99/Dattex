@@ -18,7 +18,9 @@ import com.temp.dattex.adapter.HomeFunctionAdapter;
 import com.temp.dattex.apply.ApplyActivity;
 import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.bean.HomeFunctionBean;
+import com.temp.dattex.help.HelpActivity;
 import com.temp.dattex.net.ApiAddress;
+import com.temp.dattex.notice.NoticeActivity;
 import com.temp.dattex.web.WebViewActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,19 +55,22 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         recyclerView.setAdapter(homeFunctionAdapter);
         homeFunctionAdapter.setOnItemClickListener((adapter, view1, position) -> {
                if (homeFunctionList.get(position).isWeb()==true && "帮助中心".equals(homeFunctionList.get(position).getmFunName())){
-                   ToastUtil.show(getActivity(),"暂未开通");
+//                   ToastUtil.show(getActivity(),"暂未开通");
 //                   Bundle bundle = new Bundle();
 //                   bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.HELP_CENTER_URL);
-//                   Intent it = new Intent(getActivity(),WebViewActivity.class);
+                   Intent it = new Intent(getActivity(), HelpActivity.class);
 //                   it.putExtras(bundle);
-//                   startActivity(it);
+                   startActivity(it);
                } else if (homeFunctionList.get(position).isWeb()==true && "新闻公告".equals(homeFunctionList.get(position).getmFunName())){
-                   ToastUtil.show(getActivity(),"暂未开通");
+//                   ToastUtil.show(getActivity(),"暂未开通");
                    //                    Bundle bundle = new Bundle();
 //                    bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.NEWS_NOTICE_URL);
 //                    Intent it = new Intent(getActivity(),WebViewActivity.class);
 //                    it.putExtras(bundle);
 //                    startActivity(it);
+                   Intent it = new Intent(getActivity(), NoticeActivity.class);
+//                   it.putExtras(bundle);
+                   startActivity(it);
                 }else if (homeFunctionList.get(position).isWeb()==false && "新币申购".equals(homeFunctionList.get(position).getmFunName())){
                    Intent it = new Intent(getActivity(), ApplyActivity.class);
                    startActivity(it);

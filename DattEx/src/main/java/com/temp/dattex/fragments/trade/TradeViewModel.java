@@ -43,16 +43,10 @@ import com.temp.dattex.util.DialogUtil;
 import com.temp.dattex.util.PlaceAnOrderDialogModel;
 import com.temp.dattex.util.SwitchSymbolDialogViewModel;
 import com.temp.dattex.util.Utils;
-import com.temp.dattex.wallet.WalletActivity;
 import com.temp.dattex.widget.ProgressBar;
 import com.temp.dattex.widget.TradeDepthView;
-import com.temp.dattex.widget.view.CustomSeekBar;
-
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -60,7 +54,6 @@ import java.util.TimerTask;
 public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgressChangeListener, EditTextBinding.EditListener, PlaceAnOrderDialogModel.OnEnsureListener, SwitchSymbolDialogViewModel.OnSymbolSet {
     public CurrentRecyclerAdapter adapter = new CurrentRecyclerAdapter(getApplication(),R.layout.item_order, new ArrayList<>(),0,0);
     public BaseQuickAdapter leverageAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_leverage, new ArrayList<String>()) {
-
         @Override
         protected void convert(BaseViewHolder baseViewHolder, String leverageBean) {
             ItemLeverageBinding binding = baseViewHolder.getBinding();
@@ -521,6 +514,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
             if (isShow.get()==true){
                 DialogUtil.changeLeverage(AppManager.getActivityStack().peek(), this);
             }else {
+
             }
         }
     }
@@ -545,7 +539,6 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     public void showAllOrders() {
         startActivity(OrderActivity.class);
     }
-
     @SingleClick
     public void placeAnOrder() {
         if (!TextUtils.isEmpty(tradeAmount.get())) {
@@ -555,7 +548,8 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
                     placeAnOrderDialogModel.setOnEnsureListener(this);
                     placeAnOrderDialogModel.setPrice(tradeAmount.get());
                     DialogUtil.createContractDialog(AppManager.getActivityStack().peek(), placeAnOrderDialogModel);
-                } else {
+                }
+                else {
                     ToastUtil.show(getApplication(),"请先实名认证");
                 }
             } else {
@@ -566,6 +560,12 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
         }
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -574,7 +574,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
             timer = null;
         }
     }
-
+    Boolean isLogin = false;
     @Override
     public void onResume() {
         super.onResume();
@@ -582,16 +582,19 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
 //            getPlaceAnOrder().set(getApplication().getResources().getString(getTradeBuy().get() ? R.string.text_buy : R.string.text_sell));
             freshAssetsByCoinId(rightCoin.get());
             placeAnOrder.set("创建合约");
+            freshOrderList();
+            isLogin=true;
         } else {
+            isLogin=false;
             placeAnOrder.set("登录");
         }
-        freshOrderList();
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-//              getMarketList();
-                freshOrderList();
+                if (isLogin == true){
+                    freshOrderList();
+                }
                 getDepth();
             }
         }, 1000, 1000);
@@ -605,7 +608,6 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     }
     @SuppressLint("CheckResult")
     private void getDepth() {
-
         DataService.getInstance().getDepth(leftCoin.get().toUpperCase() + "/" + rightCoin.get().toUpperCase()).compose(ResponseTransformer.<List<TradeDepthBean>>handleResult()).subscribe(
                 list -> {
                     String CNY_RATE = getCNY_RATE().get();
@@ -665,8 +667,6 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
         );
         getTradeAmount().addOnPropertyChangedCallback(tradeAmountChangeCallBack);
         symbolConfigList.set(SymbolConfigs.getInstance().getSymbols());
-//        leftCoin.set(symbolConfigList.get().get(0).getCoinSymbol());
-//        rightCoin.set(symbolConfigList.get().get(0).getBaseSymbol());
     }
 
     @Override
@@ -702,19 +702,19 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
 //            PointCount.set(1);
 //        }
     }
-    public void initData(){
-        DataService.getInstance().getInfoBySymbol(leftCoin.get() + "/" + rightCoin.get()).compose(ResponseTransformer.<InfoBySymbolBean>handleResult()).subscribe(
-                o -> {
-                    isShow.set(true);
-                    leverageAdapter.addData(Arrays.asList(o.getExchangeLevers().replaceAll(" ","").split(",")));
-                    seekbarIntervals.set(Arrays.asList(o.getExchangePrincipalPrice().replaceAll(" ","").split(",")));
-                    positionPercent.set(Integer.valueOf(seekbarIntervals.get().get(0)));
-                }, t ->{
-                    isShow.set(false);
-//                  ToastUtil.show(getApplication(), t.getMessage());
-                }
-        );
-    }
+//    public void initData(){
+//        DataService.getInstance().getInfoBySymbol(leftCoin.get() + "/" + rightCoin.get()).compose(ResponseTransformer.<InfoBySymbolBean>handleResult()).subscribe(
+//                o -> {
+//                    isShow.set(true);
+//                    leverageAdapter.addData(Arrays.asList(o.getExchangeLevers().replaceAll(" ","").split(",")));
+//                    seekbarIntervals.set(Arrays.asList(o.getExchangePrincipalPrice().replaceAll(" ","").split(",")));
+//                    positionPercent.set(Integer.valueOf(seekbarIntervals.get().get(0)));
+//                }, t ->{
+//                    isShow.set(false);
+////                  ToastUtil.show(getApplication(), t.getMessage());
+//                }
+//        );
+//    }
     @Override
     public void afterTextChanged(EditText view, String text) {
         view.setSelection(text.length());
@@ -794,4 +794,11 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
     public void setLeverageDialog(Dialog leverageDialog) {
         this.leverageDialog = leverageDialog;
     }
+
+    private Dialog p;
+
+    public void setP(Dialog p) {
+        this.p = p;
+    }
+
 }

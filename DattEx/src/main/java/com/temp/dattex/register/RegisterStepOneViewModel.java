@@ -17,8 +17,11 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.country.CountryActivity;
+import com.temp.dattex.help.HelpActivity;
+import com.temp.dattex.kline.KlineActivity;
 import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.net.DataService;
+import com.temp.dattex.notice.NoticeInfoActivity;
 import com.temp.dattex.web.WebViewActivity;
 
 /*************************************************************************
@@ -175,9 +178,14 @@ public class RegisterStepOneViewModel extends BaseViewModel {
     @SingleClick
     public void openProtocol() {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_TITLE, getApplication().getResources().getString(R.string.text_protocol));
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_PROTOCOL_URL);
+        bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "协议");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id=1");
         startActivity(WebViewActivity.class, bundle);
+
+//        Intent it = new Intent(getApplication(), WebViewActivity.class);
+//        it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "协议");
+//        it.putExtra(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id=1");
+//        startActivity(it);
     }
 
     @Override

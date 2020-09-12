@@ -60,7 +60,7 @@ public class WebViewAdapter {
         WebChromeClient webChromeClient = new WebChromeClient() {
             @Override
             public void onReceivedTitle(WebView view, String title) {
-                viewModel.getTitleText().set(title);
+//                viewModel.getTitleText().set(title);
             }
         };
         webView.setWebChromeClient(webChromeClient);

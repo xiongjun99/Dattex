@@ -219,20 +219,20 @@ public class HomePageViewModel extends BaseViewModel {
 //            getAdapter().get().addData(symbols);
 //        }
         getMarketList(checkRank.get());
-        DataService.getInstance().appBanner().compose(ResponseTransformer.handleResult()).subscribe(
-                b -> {
-                    if(null != b && b.size() != 0){
-                        urls.get().clear();
-                        for (BannerItemBean bannerItemBean : b) {
-                            if (bannerItemBean.isEnable()) {
-                                urls.get().add(bannerItemBean.getUrl());
-                            }
-                        }
-                    }
-                    urls.notifyChange();
-                }, t -> {
-                    ToastUtil.show(getApplication(),t.getMessage());
-                });
+//        DataService.getInstance().appBanner().compose(ResponseTransformer.handleResult()).subscribe(
+//                b -> {
+//                    if(null != b && b.size() != 0){
+//                        urls.get().clear();
+//                        for (BannerItemBean bannerItemBean : b) {
+//                            if (bannerItemBean.isEnable()) {
+//                                urls.get().add(bannerItemBean.getUrl());
+//                            }
+//                        }
+//                    }
+//                    urls.notifyChange();
+//                }, t -> {
+//                    ToastUtil.show(getApplication(),t.getMessage());
+//                });
     }
     @Override
     public void onResume() {

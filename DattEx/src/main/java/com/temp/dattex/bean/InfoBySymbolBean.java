@@ -1,6 +1,9 @@
 package com.temp.dattex.bean;
 
-public class InfoBySymbolBean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class InfoBySymbolBean implements Parcelable {
 
     /**
      * symbol : BTC/USDT
@@ -44,5 +47,15 @@ public class InfoBySymbolBean {
 
     public void setExchangeLevers(String exchangeLevers) {
         this.exchangeLevers = exchangeLevers;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

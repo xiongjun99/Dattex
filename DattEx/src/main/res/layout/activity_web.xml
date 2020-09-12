@@ -20,7 +20,7 @@
             android:focusableInTouchMode="true"
             app:leftClick="@{webViewModel}"
             app:leftIcon="@mipmap/icon_common_back"
-            app:titleText="@{webViewModel.titleText}"
+            app:titleText="@{webViewModel.text}"
             app:titleTextColor="@color/color_FFFFFFFF" />
 
         <WebView
