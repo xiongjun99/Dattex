@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">buda</string>
+    <string name="app_name">Dattex</string>
     <string name="text_register">注册</string>
     <string name="text_reset_password">重置密码</string>
     <string name="text_input_password">请输入密码</string>
@@ -12,7 +12,7 @@
     <string name="text_input_number">请输入数量</string>
     <string name="text_area">地区</string>
     <string name="text_has_read">我已经阅读并确认</string>
-    <string name="text_protocol">《 buda 用户服务协议》</string>
+    <string name="text_protocol">《 Dattex 用户服务协议》</string>
     <string name="text_need_agree_protocol">请勾选用户协议</string>
     <string name="text_next_step">下一步</string>
     <string name="text_input_invited_code">请输入邀请码</string>
