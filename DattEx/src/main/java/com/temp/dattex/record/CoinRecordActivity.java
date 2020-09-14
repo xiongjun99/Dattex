@@ -1,16 +1,22 @@
 package com.temp.dattex.record;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.common.framework.basic.BaseActivity;
-import com.exchange.utilslib.ToastUtil;
 import com.temp.dattex.BR;
 import com.temp.dattex.Constants;
 import com.temp.dattex.R;
 import com.temp.dattex.databinding.ActivityCoinRecordBinding;
+import com.temp.dattex.util.Utils;
 
 /*************************************************************************
  * Description   :
@@ -42,7 +48,6 @@ import com.temp.dattex.databinding.ActivityCoinRecordBinding;
  *                    '.:::::'                    ':'````..
  *************************************************************************/
 public class CoinRecordActivity extends BaseActivity<ActivityCoinRecordBinding, CoinRecordViewModel> {
-
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_coin_record;
@@ -52,8 +57,10 @@ public class CoinRecordActivity extends BaseActivity<ActivityCoinRecordBinding, 
     public void initParam() {
         super.initParam();
         String stringExtra = getIntent().getStringExtra(Constants.KEY_COIN_NAME);
+        int inorout = getIntent().getIntExtra(Constants.REQUEST_KEY_INOROUT,0);
         if (!TextUtils.isEmpty(stringExtra)) {
             viewModel.setCoinName(stringExtra);
+            viewModel.setInorout(inorout);
         } else {
             finish();
         }
@@ -66,16 +73,24 @@ public class CoinRecordActivity extends BaseActivity<ActivityCoinRecordBinding, 
 
     @Override
     public void initViewObservable() {
-
     }
-
+    protected void onStart() {
+        super.onStart();
+    }
     @Override
     public void initView() {
         super.initView();
         View emptyView = LayoutInflater
                 .from(this)
                 .inflate(R.layout.order_empty_layout, null);
-        viewModel.adapter.setUseEmpty(true);
-        viewModel.adapter.setEmptyView(emptyView);
+        viewModel.madapter.setUseEmpty(true);
+        viewModel.madapter.setEmptyView(emptyView);
+
+        if (viewModel.getInorout()==0){
+            binding.tvTitle.setTitleText("充币记录");
+        }else {
+            binding.tvTitle.setTitleText("提币记录");
+        }
+
     }
 }

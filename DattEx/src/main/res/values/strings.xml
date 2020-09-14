@@ -227,6 +227,8 @@
     <string name="text_order_record">账单明细</string>
     <string name="text_safe">安全设置</string>
     <string name="text_setting">系统设置</string>
+    <string name="text_online_recharge">链上充币</string>
+    <string name="text_online_withdraw">链上提币</string>
 
     <string name="X">X</string>
 

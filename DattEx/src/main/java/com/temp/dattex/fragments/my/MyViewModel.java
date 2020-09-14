@@ -4,13 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
-import com.common.framework.basic.AppManager;
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.click.SingleClick;
 import com.exchange.utilslib.LogUtil;
@@ -25,16 +23,13 @@ import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.help.HelpActivity;
 import com.temp.dattex.invite.InviteActivity;
 import com.temp.dattex.login.LoginActivity;
-import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.order.OrderActivity;
-import com.temp.dattex.record.CoinRecordActivity;
+import com.temp.dattex.withdraworwallet.WithdrawOrWalletActivity;
 import com.temp.dattex.safe.SafeActivity;
 import com.temp.dattex.setting.SettingActivity;
-import com.temp.dattex.util.DialogUtil;
 import com.temp.dattex.util.Utils;
 import com.temp.dattex.wallet.WalletActivity;
-import com.temp.dattex.web.WebViewActivity;
 import com.temp.dattex.withdraw.WithdrawActivity;
 
 import java.math.BigDecimal;
@@ -101,9 +96,14 @@ public class MyViewModel extends BaseViewModel {
 
     @SingleClick
     public void coinRecord() {
+//        Bundle bundle = new Bundle();
+//        bundle.putString(Constants.KEY_COIN_NAME, "USDT");
+//        bundle.putInt(Constants.REQUEST_KEY_INOROUT, 2);
+//        startActivity(CoinRecordActivity.class, bundle);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_COIN_NAME, "USDT");
-        startActivity(CoinRecordActivity.class, bundle);
+        startActivity(WithdrawOrWalletActivity.class, bundle);
+
     }
 
 
@@ -213,9 +213,11 @@ public class MyViewModel extends BaseViewModel {
         DataService.getInstance().getAssetsByCoinId(CoinId).compose(ResponseTransformer.<NewAssetsBean>handleResult()).subscribe(
                 assetsBean -> {
                     if(null != assetsBean) {
-                        AssetsConfigs.getInstance().getNewAssetsItemBeanMap().put("USDT",assetsBean);
+                      AssetsConfigs.getInstance().getNewAssetsItemBeanMap().put("USDT",assetsBean);
                         BigDecimal bg = new BigDecimal(assetsBean.getBalance());
                         balance.set(bg.toPlainString());
+                        System.out.println("-------余额"+assetsBean.getBalance());
+                        System.out.println("-------余额"+balance.get());
                         frozen.set("冻结: "+assetsBean.getFrozen());
                         LoginInfo.getisCertification(assetsBean.getIsCertification());
                         cnyprice.set("≈"+" "+ Utils.keepTwo(Double.valueOf(assetsBean.getCnyprice())*Double.valueOf(assetsBean.getBalance()))+" CNY");

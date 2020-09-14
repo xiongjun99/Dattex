@@ -53,7 +53,6 @@ public class WebViewActivity extends BaseActivity<ActivityWebBinding, WebViewMod
         if (!TextUtils.isEmpty(paramTitle)) {
             viewModel.getText().set(paramTitle);
         }
-        System.out.println("--------"+paramUrl);
     }
 
     @Override

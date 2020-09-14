@@ -1,99 +1,98 @@
 package com.temp.dattex.bean;
 
-import java.math.BigDecimal;
-
 public class NewAssetsBean {
-    /**
-     * memberId : 10005
-     * coinId : USDT-ERC20
-     * cnyprice : 7.01
-     * addr : 0x8a78025449348d55f06d5f2b423e09fa47cfe97c
-     * ercAddr : null
-     * balance : 1000000
-     * frozen : 1000
-     * created : true
-     */
 
-    private int memberId;
-    private String coinId;
-    private String cnyprice;
-    private String addr;
-    private Object ercAddr;
-    private String balance;
-    private String frozen;
-    private boolean created;
-    private String isCertification;
+        /**
+         * memberId : 31
+         * coinId : USDT
+         * cnyprice : 7.01
+         * addr : 0x6971c7d49574a7843b4f2db60ab959ed23c5898b
+         * ercAddr : null
+         * balance : 40019737.75000000
+         * frozen : 3800.00000000
+         * created : 1
+         * isCertification : 2
+         */
 
-    public String getIsCertification() {
-        return isCertification;
-    }
+        private int memberId;
+        private String coinId;
+        private String cnyprice;
+        private String addr;
+        private Object ercAddr;
+        private String balance;
+        private String frozen;
+        private int created;
+        private String isCertification;
 
-    public void setIsCertification(String isCertification) {
-        this.isCertification = isCertification;
-    }
+        public int getMemberId() {
+            return memberId;
+        }
 
+        public void setMemberId(int memberId) {
+            this.memberId = memberId;
+        }
 
-    public int getMemberId() {
-        return memberId;
-    }
+        public String getCoinId() {
+            return coinId;
+        }
 
-    public void setMemberId(int memberId) {
-        this.memberId = memberId;
-    }
+        public void setCoinId(String coinId) {
+            this.coinId = coinId;
+        }
 
-    public String getCoinId() {
-        return coinId;
-    }
+        public String getCnyprice() {
+            return cnyprice;
+        }
 
-    public void setCoinId(String coinId) {
-        this.coinId = coinId;
-    }
+        public void setCnyprice(String cnyprice) {
+            this.cnyprice = cnyprice;
+        }
 
-    public String getCnyprice() {
-        return cnyprice;
-    }
+        public String getAddr() {
+            return addr;
+        }
 
-    public void setCnyprice(String cnyprice) {
-        this.cnyprice = cnyprice;
-    }
+        public void setAddr(String addr) {
+            this.addr = addr;
+        }
 
-    public String getAddr() {
-        return addr;
-    }
+        public Object getErcAddr() {
+            return ercAddr;
+        }
 
-    public void setAddr(String addr) {
-        this.addr = addr;
-    }
+        public void setErcAddr(Object ercAddr) {
+            this.ercAddr = ercAddr;
+        }
 
-    public Object getErcAddr() {
-        return ercAddr;
-    }
+        public String getBalance() {
+            return balance;
+        }
 
-    public void setErcAddr(Object ercAddr) {
-        this.ercAddr = ercAddr;
-    }
+        public void setBalance(String balance) {
+            this.balance = balance;
+        }
 
-    public String getBalance() {
-        return balance;
-    }
+        public String getFrozen() {
+            return frozen;
+        }
 
-    public void setBalance(String balance) {
-        this.balance = balance;
-    }
+        public void setFrozen(String frozen) {
+            this.frozen = frozen;
+        }
 
-    public String getFrozen() {
-        return frozen;
-    }
+        public int getCreated() {
+            return created;
+        }
 
-    public void setFrozen(String frozen) {
-        this.frozen = frozen;
-    }
+        public void setCreated(int created) {
+            this.created = created;
+        }
 
-    public boolean isCreated() {
-        return created;
-    }
+        public String getIsCertification() {
+            return isCertification;
+        }
 
-    public void setCreated(boolean created) {
-        this.created = created;
-    }
+        public void setIsCertification(String isCertification) {
+            this.isCertification = isCertification;
+        }
 }

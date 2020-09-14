@@ -1,5 +1,6 @@
 package com.temp.dattex.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,6 +38,17 @@ public class DateFormatter {
 
     public static String formatTime(long time) {
         return dateFormatter.format(new Date(time));
-
+    }
+    public static String StrformatTime(String time) {
+        String now = "";
+        try {
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sf1 = new SimpleDateFormat("HH:mm MM/dd");
+            Date date = sf.parse(time);
+            now = sf1.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return now;
     }
 }

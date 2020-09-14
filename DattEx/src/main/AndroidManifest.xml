@@ -67,6 +67,12 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
+            android:name=".withdraworwallet.WithdrawOrWalletActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
             android:name=".notice.NoticeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"

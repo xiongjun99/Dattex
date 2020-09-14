@@ -63,7 +63,9 @@ public class Utils {
     public static int getScreenWidth(Context context) {
         return context.getResources().getDisplayMetrics().widthPixels;
     }
-
+    public static int getScreenHeight(Context context) {
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
     public  static  boolean compareTo(String str,String str1){
         BigDecimal a = new BigDecimal (str);
         BigDecimal b = new BigDecimal (str1);

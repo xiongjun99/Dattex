@@ -63,7 +63,16 @@
                     android:text="钱包提币"
                     android:textColor="@drawable/selector_wallet_title_text" />
             </RadioGroup>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:onClick="@{()->withdrawViewModel.rightClick()}"
+                android:text="提币记录"
+                android:textColor="@color/color_FFEDEEF2"
+                android:textSize="12dp" />
         </RelativeLayout>
 
 

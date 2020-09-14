@@ -389,6 +389,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     @Override
     public void rightClick() {
         Bundle bundle = new Bundle();
+        bundle.putInt(Constants.REQUEST_KEY_INOROUT, 1);
         bundle.putString(Constants.KEY_COIN_NAME, withdrawCoin.get());
         startActivity(CoinRecordActivity.class, bundle);
     }
@@ -403,7 +404,6 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
             accountPrice.set("0.000");
         }
     }
-
 
     @Override
     public void onStart() {
@@ -436,6 +436,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
                 }
         );
     }
+
     @SuppressLint("CheckResult")
     private void getOtcData() {
         DataService.getInstance().getOtcCfg().compose(ResponseTransformer.handleResult()).subscribe(

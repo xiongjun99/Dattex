@@ -8,6 +8,7 @@ import com.temp.dattex.bean.AssetsBean;
 import com.temp.dattex.bean.AssetsRecordBean;
 import com.temp.dattex.bean.BannerItemBean;
 import com.temp.dattex.bean.CoinBean;
+import com.temp.dattex.bean.CoinRecordBean;
 import com.temp.dattex.bean.DealItemBean;
 import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.bean.InfoBySymbolBean;
@@ -174,7 +175,6 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_LEVER, lever);
         params.put(Constants.REQUEST_KEY_PRICE, price);
         if (stopProfitRates==1.0){
-            System.out.println("--------aaaaaaaaa");
             params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, Utils.format0(stopProfitRates));
         }else {
             params.put(Constants.REQUEST_KEY_STOP_PROFIT_RATES, stopProfitRates);
@@ -240,7 +240,6 @@ public class DataService {
         return RetrofitClient.getInstance().create(ApiService.class).commitRealName(params, LoginInfo.getUserToken());
     }
 
-
     public Observable<BaseResponse<AssetsRecordBean>> assetsRecorde(String coinId, int page, String sort) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
@@ -249,6 +248,19 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_SIZE, 100);
         params.put(Constants.REQUEST_KEY_SORT, sort);
         return RetrofitClient.getInstance().create(ApiService.class).assetsRecord(LoginInfo.getUserToken(), params);
+    }
+
+    public Observable<BaseResponse<CoinRecordBean>> findWithdrawRecord(int inorout , String coinId, int page, String sort) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
+        params.put(Constants.REQUEST_KEY_DIR, "asc");
+        params.put(Constants.REQUEST_KEY_PAGE, page);
+        params.put(Constants.REQUEST_KEY_SIZE, 100);
+        params.put(Constants.REQUEST_KEY_SORT, sort);
+        if (inorout!=2){
+        params.put(Constants.REQUEST_KEY_INOROUT, inorout);
+        }
+        return RetrofitClient.getInstance().create(ApiService.class).findWithdrawRecord(LoginInfo.getUserToken(), params);
     }
 
     public Observable<BaseResponse<KlineDataBean>> klineHistory(String symbol, int size, String period) {

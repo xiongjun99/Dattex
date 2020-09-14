@@ -205,7 +205,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 //        indicator2.setViewPager(functionViewPager);
         ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
         iv_ip.setOnClickListener(view -> {
-            ToastUtil.show(getActivity(),"暂未开通");
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.buda.tc/php/app.php?widget-mobile");
+        startActivity(WebViewActivity.class, bundle);
         });
         RollPagerView vp_roll = getActivity().findViewById(R.id.vp_roll);
         vp_roll.setAdapter(new ImageNormalAdapter());//设置适配器

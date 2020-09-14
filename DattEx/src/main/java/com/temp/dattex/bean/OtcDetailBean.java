@@ -52,7 +52,7 @@ public class OtcDetailBean {
         private int state;
         private int payType;
         private String currency;
-        private boolean inOrOut;
+        private int inOrOut;
         private String coinId;
         private double money;
         private double amount;
@@ -111,11 +111,11 @@ public class OtcDetailBean {
             this.currency = currency;
         }
 
-        public boolean isInOrOut() {
+        public int isInOrOut() {
             return inOrOut;
         }
 
-        public void setInOrOut(boolean inOrOut) {
+        public void setInOrOut(int inOrOut) {
             this.inOrOut = inOrOut;
         }
 

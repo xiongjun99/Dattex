@@ -722,6 +722,7 @@ public class TradeViewModel extends BaseViewModel implements ProgressBar.OnProgr
 
     @SuppressLint("CheckResult")
     @Override
+    //设置止盈止损
     public void onEnsure(float stopProfitRate, float stopLossRate) {
         DataService.getInstance().placeOrder(leftCoin.get() + "/" + rightCoin.get(), tradeBuy.get() ? 0 : 1, leveraged.get(), tradeAmount.get(),stopLossRate, stopProfitRate).compose(ResponseTransformer.handleResult()).subscribe(
                 o -> {

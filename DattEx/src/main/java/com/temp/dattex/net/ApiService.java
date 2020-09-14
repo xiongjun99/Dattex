@@ -5,6 +5,7 @@ import com.temp.dattex.bean.AssetsBean;
 import com.temp.dattex.bean.AssetsRecordBean;
 import com.temp.dattex.bean.BannerItemBean;
 import com.temp.dattex.bean.CoinBean;
+import com.temp.dattex.bean.CoinRecordBean;
 import com.temp.dattex.bean.DealItemBean;
 import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.bean.InfoBySymbolBean;
@@ -122,6 +123,8 @@ public interface ApiService {
     @POST(ApiAddress.ASSETS_RECORD)
     Observable<BaseResponse<AssetsRecordBean>> assetsRecord(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
 
+    @POST(ApiAddress.WITHDRAW_FINDWITHDRAWRECORD)
+    Observable<BaseResponse<CoinRecordBean>> findWithdrawRecord(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
 
     @POST(ApiAddress.KLINE_HISTORY)
     Observable<BaseResponse<KlineDataBean>> klineHistory(@Header("x-app-token") String userToken, @Body Map<String, Object> param);

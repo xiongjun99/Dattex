@@ -27,7 +27,6 @@ public class OrderItemViewModel extends BaseViewModel {
     private ObservableField<Boolean> show = new ObservableField();
     public ObservableField<String> contractType = new ObservableField();
     private ObservableField<Boolean> orderShow = new ObservableField();
-
     public ObservableField<Boolean> getOrderShow() {
         return orderShow;
     }
@@ -189,7 +188,6 @@ public class OrderItemViewModel extends BaseViewModel {
     public void ensureOrder() {
         float stopLossRate = Float.parseFloat(downStopPercent.get()) / 100;
         float stopProfitRate = Float.parseFloat(upStopPercent.get()) / 100;
-
         DataService.getInstance().getProfitLossRate(direction.get(),id.get(),lever.get(),amount.get(),String.valueOf(stopLossRate),String.valueOf(stopProfitRate),symbol.get()).compose(ResponseTransformer.handleResult())
                 .subscribe(data->{
                     ToastUtil.show(getApplication(),"设置成功");

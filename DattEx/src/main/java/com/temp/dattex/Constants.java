@@ -95,9 +95,8 @@ public class Constants {
     public static final String REQUEST_KEY_LASTNAME = "lastName";
     public static final String REQUEST_KEY_FIRSTNAME = "firstName";
     public static final String REQUEST_KEY_IDENTITYTYPE = "identityType";
-
+    public static final String REQUEST_KEY_INOROUT = "inorout";
     public static final String REQUEST_KEY_OPENINGBANK = "openingBank";
-
     public static final String REQUEST_KEY_SORT = "sort";
     public static final String REQUEST_KEY_ID_ENTITY_CARD = "identityCard";
     public static final String REQUEST_KEY_REAL_NAME = "realName";

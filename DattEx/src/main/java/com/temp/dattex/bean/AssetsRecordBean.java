@@ -34,113 +34,114 @@ import java.util.List;
  *************************************************************************/
 public class AssetsRecordBean implements Serializable {
 
-    /**
-     * rows : [{"amount":"string","code":"string","income":true,"left":"string","rectime":"2020-06-04T10:17:14.121Z","remarks":"string"}]
-     * size : 0
-     * start : 0
-     * total : 0
-     */
-
-    private int size;
-    private int start;
-    private int total;
-    private List<AssetsItemBean> rows;
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public List<AssetsItemBean> getRows() {
-        return rows;
-    }
-
-    public void setRows(List<AssetsItemBean> rows) {
-        this.rows = rows;
-    }
-
-    public static class AssetsItemBean {
         /**
-         * amount : string
-         * code : string
-         * income : true
-         * left : string
-         * rectime : 2020-06-04T10:17:14.121Z
-         * remarks : string
+         * size : 100
+         * total : 4
+         * rows : [{"code":"ORDER_PRICE_UNFROZEN","amount":"0.00000000","income":1,"left":"40016196.75000000","rectime":"2020-09-13 19:35:22","remarks":"订单本金解除冻结"},{"code":"WITHDRAW_FROZEN","amount":"2991.00000000","income":0,"left":"40016196.75000000","rectime":"2020-09-13 19:34:25","remarks":"提币冻结"},{"code":"ORDER_PRICE_FROZEN","amount":"500.00000000","income":0,"left":"40019237.75000000","rectime":"2020-09-13 19:33:43","remarks":"订单本金冻结"},{"code":"FEE_DEDUCT","amount":"50.00000000","income":0,"left":"40019187.75000000","rectime":"2020-09-13 19:33:43","remarks":"手续费扣减"}]
+         * start : 0
+         * summber : null
          */
 
-        private double amount;
-        private String code;
-        private boolean income;
-        private String left;
-        private long rectime;
-        private String remarks;
+        private int size;
+        private int total;
+        private int start;
+        private List<RowsBean> rows;
 
-        public double getAmount() {
-            return amount;
+        public int getSize() {
+            return size;
         }
 
-        public void setAmount(double amount) {
-            this.amount = amount;
+        public void setSize(int size) {
+            this.size = size;
         }
 
-        public String getCode() {
-            return code;
+        public int getTotal() {
+            return total;
         }
 
-        public void setCode(String code) {
-            this.code = code;
+        public void setTotal(int total) {
+            this.total = total;
         }
 
-        public boolean isIncome() {
-            return income;
+        public int getStart() {
+            return start;
         }
 
-        public void setIncome(boolean income) {
-            this.income = income;
+        public void setStart(int start) {
+            this.start = start;
         }
 
-        public String getLeft() {
-            return left;
+        public List<RowsBean> getRows() {
+            return rows;
         }
 
-        public void setLeft(String left) {
-            this.left = left;
+        public void setRows(List<RowsBean> rows) {
+            this.rows = rows;
         }
 
-        public long getRectime() {
-            return rectime;
-        }
+        public static class RowsBean {
+            /**
+             * code : ORDER_PRICE_UNFROZEN
+             * amount : 0.00000000
+             * income : 1
+             * left : 40016196.75000000
+             * rectime : 2020-09-13 19:35:22
+             * remarks : 订单本金解除冻结
+             */
 
-        public void setRectime(long rectime) {
-            this.rectime = rectime;
-        }
+            private String code;
+            private String amount;
+            private int income;
+            private String left;
+            private String rectime;
+            private String remarks;
 
-        public String getRemarks() {
-            return remarks;
-        }
+            public String getCode() {
+                return code;
+            }
 
-        public void setRemarks(String remarks) {
-            this.remarks = remarks;
+            public void setCode(String code) {
+                this.code = code;
+            }
+
+            public String getAmount() {
+                return amount;
+            }
+
+            public void setAmount(String amount) {
+                this.amount = amount;
+            }
+
+            public int getIncome() {
+                return income;
+            }
+
+            public void setIncome(int income) {
+                this.income = income;
+            }
+
+            public String getLeft() {
+                return left;
+            }
+
+            public void setLeft(String left) {
+                this.left = left;
+            }
+
+            public String getRectime() {
+                return rectime;
+            }
+
+            public void setRectime(String rectime) {
+                this.rectime = rectime;
+            }
+
+            public String getRemarks() {
+                return remarks;
+            }
+
+            public void setRemarks(String remarks) {
+                this.remarks = remarks;
+            }
         }
-    }
 }

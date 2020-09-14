@@ -256,6 +256,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     @Override
     public void rightClick() {
         Bundle bundle = new Bundle();
+        bundle.putInt(Constants.REQUEST_KEY_INOROUT, 0);
         bundle.putString(Constants.KEY_COIN_NAME, rechargeCoin.get());
         startActivity(CoinRecordActivity.class, bundle);
     }

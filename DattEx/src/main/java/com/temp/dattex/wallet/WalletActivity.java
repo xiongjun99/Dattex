@@ -2,33 +2,23 @@ package com.temp.dattex.wallet;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.RadioButton;
-import android.widget.SimpleAdapter;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.Observable;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.common.framework.BR;
 import com.common.framework.basic.BaseActivity;
 import com.exchange.utilslib.LogUtil;
-import com.temp.dattex.BR;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.WalletGridAdapter;
 import com.temp.dattex.databinding.ActivityWalletBinding;
 import com.temp.dattex.widget.EditPop;
 import com.temp.dattex.widget.FleXoPopWindow;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*************************************************************************
  * Description   :
@@ -85,6 +75,7 @@ public class WalletActivity extends BaseActivity<ActivityWalletBinding, WalletMo
             createPop();
             editPop.popState(isShow);
         });
+
         viewModel.pay_uc.pay_pop.observe(this, isShow -> {
             viewModel.popStaus.set(1);
             LogUtil.e(isShow);

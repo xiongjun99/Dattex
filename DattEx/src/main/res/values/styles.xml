@@ -87,11 +87,24 @@
         <item name="android:textColor">@color/color_FFA3A6BF</item>
         <item name="android:textSize">12dp</item>
     </style>
+    <style name="Auth_TextView16_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_FFA3A6BF</item>
+        <item name="android:textSize">16dp</item>
+    </style>
     <style name="Copy_TextView_Style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/color_4B8BEB</item>
         <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="Blue_TextView_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_4B8BEB</item>
+        <item name="android:textSize">24dp</item>
     </style>
     <style name="White_TextView_Style">
         <item name="android:layout_width">wrap_content</item>

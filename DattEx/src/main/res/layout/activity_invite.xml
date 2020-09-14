@@ -89,5 +89,83 @@
                 style="@style/Copy_TextView_Style"></TextView>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/shape_market_line"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="邀请海报"
+                style="@style/Auth_TextView_Style"></TextView>
+            <TextView
+                android:visibility="invisible"
+                android:paddingRight="@dimen/dp_10"
+                android:gravity="right"
+                android:id="@+id/tv_invite_poster"
+                android:layout_weight="1"
+                android:text="-"
+                style="@style/Auth_TextView_Style"></TextView>
+            <TextView
+                android:id="@+id/tv_share"
+                android:text="分享"
+                style="@style/Copy_TextView_Style"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="邀请记录"
+                style="@style/White_TextView18_Style"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content">
+            <TextView
+                android:text="用户"
+              style="@style/Auth_TextView_Style"></TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="时间"
+                    style="@style/Auth_TextView_Style"></TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="交易数"
+                    style="@style/Auth_TextView_Style"></TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:text="返佣金额"
+                    style="@style/Auth_TextView_Style"></TextView>
+            </RelativeLayout>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </RelativeLayout>
