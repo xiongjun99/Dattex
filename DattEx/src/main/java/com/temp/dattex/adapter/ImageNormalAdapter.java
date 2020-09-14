@@ -10,14 +10,13 @@ import com.temp.dattex.R;
 public class ImageNormalAdapter extends StaticPagerAdapter {
     //本地图片资源
     int[] imgs = new int[]{
-            R.mipmap.banner_1,
-            R.mipmap.banner_2,
+            R.mipmap.banner,
     };
 
     @Override
     public View getView(ViewGroup container, int position) {
         ImageView view = new ImageView(container.getContext());
-        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        view.setScaleType(ImageView.ScaleType.FIT_XY);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view.setImageResource(imgs[position]);
         return view;

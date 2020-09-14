@@ -139,7 +139,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
         functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
         CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
-//      showLoading(getActivity(),false);
         DataService.getInstance().getFuncList().compose(ResponseTransformer.<FuncListBean>handleResult()).subscribe(
                 b -> {
                     dismissLoading();
@@ -169,11 +168,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                  bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
                  bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+noticeList.get(position).getId());
                  startActivity(WebViewActivity.class, bundle);
-//                 Intent it = new Intent(getActivity(), NoticeInfoActivity.class);
-//                 it.putExtra("id",noticeList.get(position).getId());
-//                 it.putExtra("time",noticeList.get(position).getPublishTime());
-//                 it.putExtra("title",noticeList.get(position).getTitle());
-//                 startActivity(it);
              }else {
                  System.out.println("------暂无公告");
              }
@@ -211,7 +205,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         });
         RollPagerView vp_roll = getActivity().findViewById(R.id.vp_roll);
         vp_roll.setAdapter(new ImageNormalAdapter());//设置适配器
-        vp_roll.setHintView(new ColorPointHintView(getActivity(), Color.WHITE, Color.GRAY));//设置指示器颜色
+        vp_roll.setHintView(new ColorPointHintView(getActivity(), Color.TRANSPARENT, Color.TRANSPARENT));//设置指示器颜色
         vp_roll.setHintPadding(0,0, DisplayUtil.getScreenHardwareWidth(getActivity())/2 - 60,40);
         rlMarketTitle  = getActivity().findViewById(R.id.rl_market_title);
     }
@@ -223,25 +217,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 
     @Override
     public void initViewObservable() {
-//        ArrayList<Drawable> list = new ArrayList<>();
-//        list.add(getResources().getDrawable(R.mipmap.banner_1));
-//        binding.banner.setViews(list);
-//        binding.banner.setViewUrls(list);
-
-//        binding.banner.setOnBannerItemClickListener(i -> {
-//        });
-//        viewModel.urls.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId) {
-//                if (viewModel.urls.get()!=null&&viewModel.urls.get().size()>0){
-//                    binding.banner.setViewUrls(viewModel.urls.get());
-//                } else {
-//                    viewModel.urls.get().add("http://m.qpic.cn/psc?/V14aPuF23M185L/bqQfVz5yrrGYSXMvKr.cqXR4CUi4.45EWI.8oWrZCG7mAJ1iDASm3J*dIB1rQVR*344D21s*jaYH0LpEOT6Sd9iqsWccu2xXKiqDWjrKKPs!/b&bo=ZQTQAgAAAAADB5E!&rf=viewer_4");
-//                    viewModel.urls.get().add("http://m.qpic.cn/psc?/V14aPuF23M185L/TmEUgtj9EK6.7V8ajmQrEAB1gaYCDKz48yMV0PUJsSslcZeQZeCESCq4SDw8W2tnSflniXSjv9Mz76zornBskwJMuOvn4d6hFE5Uoa.u2Mc!/b&bo=ZQTQAgAAAAADN6E!&rf=viewer_4");
-//                    binding.banner.setViewUrls(viewModel.urls.get());
-//                }
-//            }
-//        }
         viewModel.checkRank.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -255,24 +230,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         viewModel.list.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-//                if (viewModel.list.get()!=null&&viewModel.list.get().size()>0){
-//                    ArrayList<Fragment> list = new ArrayList<>();
-//                    view_pager = getActivity().findViewById(R.id.view_pager);
-//                    mAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), list);
-//                    view_pager.setCurrentItem(0);  //初始化显示第一个页面
-//                    CircleIndicator indicator = (CircleIndicator)getActivity(). findViewById(R.id.indicator);
-//                    indicator.setViewPager(view_pager);
-//
-//                    int j =0;
-//                    for (int i = 0; i < viewModel.list.get().size(); i++) {
-//                        if(i%3==0){
-//                          j++;
-//                        list.add(new HomeViewPagerFragment(j-1));
-//                        view_pager.setAdapter(mAdapter);
-//                        functionAdapter.notifyDataSetChanged();
-//               }
-//            }
-//         }
             }
         });
     }
