@@ -2,19 +2,11 @@ package com.temp.dattex;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.common.framework.basic.AppManager;
 import com.common.framework.basic.BaseActivity;
 import com.common.framework.basic.BaseApplication;
 import com.exchange.utilslib.SPUtil;
-import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.client.RetrofitClient;
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.config.SymbolConfigs;
@@ -22,10 +14,6 @@ import com.temp.dattex.login.LoginActivity;
 import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.net.WebSocket;
-import com.temp.dattex.util.Utils;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
-
 import java.util.HashMap;
 
 /*************************************************************************
