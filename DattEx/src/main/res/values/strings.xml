@@ -93,6 +93,7 @@
     <string name="Confirm_Sell">确定卖出</string>
     <string name="Confirm_Withdraw">确定提币</string>
 
+    <string name="Cancel_Withdraw">取消提币</string>
 
     <string name="my_login_pay">登录查看我的资产</string>
     <string name="immediately_login">立即登录</string>
@@ -208,6 +209,12 @@
     <string name="text_welcome">欢迎来到DattEx</string>
     <string name="text_quick_filter">快捷筛选</string>
     <string name="text_in">收入</string>
+    <string name="text_fee">手续费</string>
+    <string name="text_Trade">交易返佣</string>
+    <string name="text_Invite">邀请返佣</string>
+    <string name="text_register_reward">注册奖励</string>
+    <string name="text_recharge_reward">充值奖励</string>
+
     <string name="text_out">支出</string>
     <string name="text_ensure">确认</string>
     <string name="text_reset">重置</string>

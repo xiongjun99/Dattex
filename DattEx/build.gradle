@@ -9,7 +9,7 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         applicationId rootProject.ext.dattex["applicationId"]
         versionCode 2
-        versionName "1.2.8"
+        versionName "1.2.9"
 
         // Enabling multidex support.
         multiDexEnabled true

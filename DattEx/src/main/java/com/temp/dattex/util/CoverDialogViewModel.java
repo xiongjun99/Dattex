@@ -33,7 +33,6 @@ public class CoverDialogViewModel extends BaseViewModel {
     public CoverDialogViewModel(@NonNull Application application) {
         super(application);
         tradeViewModel = new TradeViewModel(com.temp.dattex.Application.getInstance());
-
     }
 
     @SingleClick

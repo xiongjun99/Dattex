@@ -3,9 +3,11 @@ package com.temp.dattex.withdraworwallet;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -25,11 +27,20 @@ import com.temp.dattex.util.DialogUtil;
 
 import java.util.List;
 
-public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarClickBindingAdapter.TitleRightClickListener, CommonViewBinding.SmartViewListener {
+public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarClickBindingAdapter.TitleRightClickListener, CommonViewBinding.SmartViewListener, CoinRecordFilerViewModel.OnEnsureListener {
 
     private String coinName;
     private int page;
 
+    public ObservableField<Integer> getType() {
+        return type;
+    }
+
+    public void setType(ObservableField<Integer> type) {
+        this.type = type;
+    }
+
+    private ObservableField<Integer> type = new ObservableField<>(-1);
 
     public WithDrawWalletViewModel(@NonNull Application application) {
         super(application);
@@ -37,14 +48,15 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
 
     @Override
     public void rightClick() {
-        CoinRecordFilerViewModel coinRecordFilerViewModel = new CoinRecordFilerViewModel();
+        CoinRecordFilerViewModel coinRecordFilerViewModel = new CoinRecordFilerViewModel(getApplication());
         Activity peek = AppManager.getActivityStack().peek();
+        coinRecordFilerViewModel.setOnEnsureListener(this);
         DialogUtil.showFilterDialog(peek, coinRecordFilerViewModel);
-
     }
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        page ++;
         getData();
     }
 
@@ -65,24 +77,26 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
     }
 
     @SuppressLint("CheckResult")
-    private void getData() {
-        DataService.getInstance().assetsRecorde(coinName, page, "").compose(ResponseTransformer.<AssetsRecordBean>handleResult()).subscribe(
+    public void getData() {
+        DataService.getInstance().getFindMemberBill(type.get(),coinName, page, "").compose(ResponseTransformer.<AssetsRecordBean>handleResult()).subscribe(
                 bean -> {
                     List<AssetsRecordBean.RowsBean> rows = bean.getRows();
-                    if (null != rows) {
-                        page++;
-                        adapter.addData(rows);
-                        adapter.notifyDataSetChanged();
+                    if (null != rows && rows.size() > 0) {
+                        adapter.setNewData(bean.getRows());
+                    } else {
+                        adapter.setNewData(null);
                     }
                 }, t -> {
 
                 }
         );
     }
-
+    @Override
+    public void onEnsure(int value) {
+        type.set(value);
+        getData();
+    }
     public BaseQuickAdapter adapter = new BaseQuickAdapter<AssetsRecordBean.RowsBean, BaseViewHolder>(R.layout.item_with_wallet) {
-
-
         @Override
         protected void convert(BaseViewHolder viewHolder,AssetsRecordBean.RowsBean assetsItemBean) {
             ItemWithWalletBinding binding = viewHolder.getBinding();

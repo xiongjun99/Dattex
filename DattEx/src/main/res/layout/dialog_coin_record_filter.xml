@@ -95,12 +95,12 @@
                 android:layout_weight="1"
                 android:background="@drawable/selector_checked_4b8beb"
                 android:button="@null"
-                android:checked="@{filterViewModel.filter == Filters.IN}"
+                android:checked="@{filterViewModel.filter == Filters.FEE}"
                 android:gravity="center"
-                android:onClick="@{()->filterViewModel.setFilterType(Filters.IN)}"
+                android:onClick="@{()->filterViewModel.setFilterType(Filters.FEE)}"
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
-                android:text="@string/text_in"
+                android:text="@string/text_fee"
                 android:textColor="@drawable/selector_checked_ffffff_normal_767b99"
                 android:textSize="14dp" />
 
@@ -112,17 +112,70 @@
                 android:layout_weight="1"
                 android:background="@drawable/selector_checked_4b8beb"
                 android:button="@null"
-                android:checked="@{filterViewModel.filter == Filters.OUT}"
+                android:checked="@{filterViewModel.filter == Filters.TRADE}"
                 android:gravity="center"
-                android:onClick="@{()->filterViewModel.setFilterType(Filters.OUT)}"
+                android:onClick="@{()->filterViewModel.setFilterType(Filters.TRADE)}"
                 android:paddingTop="13dp"
                 android:paddingBottom="13dp"
-                android:text="@string/text_out"
+                android:text="@string/text_Trade"
+                android:textColor="@drawable/selector_checked_ffffff_normal_767b99"
+                android:textSize="14dp" />
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_checked_4b8beb"
+                android:button="@null"
+                android:checked="@{filterViewModel.filter == Filters.INVITE}"
+                android:gravity="center"
+                android:onClick="@{()->filterViewModel.setFilterType(Filters.INVITE)}"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/text_Invite"
+                android:textColor="@drawable/selector_checked_ffffff_normal_767b99"
+                android:textSize="14dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/selector_checked_4b8beb"
+                android:button="@null"
+                android:checked="@{filterViewModel.filter == Filters.REGISTER}"
+                android:gravity="center"
+                android:onClick="@{()->filterViewModel.setFilterType(Filters.REGISTER)}"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/text_register_reward"
+                android:textColor="@drawable/selector_checked_ffffff_normal_767b99"
+                android:textSize="14dp" />
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_checked_4b8beb"
+                android:button="@null"
+                android:checked="@{filterViewModel.filter == Filters.RECHARGE_1}"
+                android:gravity="center"
+                android:onClick="@{()->filterViewModel.setFilterType(Filters.RECHARGE_1)}"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="@string/text_recharge_reward"
                 android:textColor="@drawable/selector_checked_ffffff_normal_767b99"
                 android:textSize="14dp" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -76,6 +76,7 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
     private String coinName;
     private int page;
     private int inorout;
+    private int id;
 
     public int getInorout() {
         return inorout;
@@ -94,10 +95,9 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
 
     @Override
     public void rightClick() {
-        CoinRecordFilerViewModel coinRecordFilerViewModel = new CoinRecordFilerViewModel();
+        CoinRecordFilerViewModel coinRecordFilerViewModel = new CoinRecordFilerViewModel(getApplication());
         Activity peek = AppManager.getActivityStack().peek();
         DialogUtil.showFilterDialog(peek, coinRecordFilerViewModel);
-
     }
 
     @Override
@@ -139,6 +139,7 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 CoinRecordBean.RowsBean data = (CoinRecordBean.RowsBean) adapter.getData().get(position);
+                id = data.getId();
                 String type = "";
                 String addr = "";
                 if (inorout==1){
@@ -152,7 +153,15 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
             }
         });
     }
+    @SuppressLint("CheckResult")
+    private void withdrawCancle() {
+        DataService.getInstance().withdrawCancle(id).compose(ResponseTransformer.<Object>handleResult()).subscribe(
+                bean -> {
+                }, t -> {
 
+                }
+        );
+    }
 
     public BaseQuickAdapter madapter = new BaseQuickAdapter<CoinRecordBean.RowsBean, BaseViewHolder>(R.layout.item_coin_record) {
 
@@ -198,6 +207,11 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
             //... To-do
             dialog.dismiss();
         });
+        TextView tvCancelWithdraw = view.findViewById(R.id.tv_cancel_withdraw);
+        tvCancelWithdraw.setOnClickListener(view1 -> {
+            withdrawCancle();
+        });
+
         TextView tvAmount = view.findViewById(R.id.tv_amount);
         TextView tvType = view.findViewById(R.id.tv_type);
         TextView tvStatus = view.findViewById(R.id.tv_status);

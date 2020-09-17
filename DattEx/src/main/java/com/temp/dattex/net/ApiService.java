@@ -209,4 +209,11 @@ public interface ApiService {
     Observable<BaseResponse<Object>> getProfitLossRate(@Header("x-app-token") String token, @Body Map<String, Object> param);
 
 
+    @POST(ApiAddress.FINDMEMBERBILL)
+    Observable<BaseResponse<AssetsRecordBean>> getFindMemberBill(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
+
+
+    @POST(ApiAddress.WITHDRAWCANCLE)
+    Observable<BaseResponse<Object>> withdrawCancle(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
+
 }

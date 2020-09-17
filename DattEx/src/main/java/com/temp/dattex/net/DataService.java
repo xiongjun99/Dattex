@@ -423,4 +423,23 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_SYMBOL, symbol);
         return RetrofitClient.getInstance().create(ApiService.class).getInfoBySymbol(LoginInfo.getUserToken(),params);
     }
+
+    public Observable<BaseResponse<AssetsRecordBean>> getFindMemberBill(int type,String coinId, int page, String sort) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
+        params.put(Constants.REQUEST_KEY_DIR, "asc");
+        params.put(Constants.REQUEST_KEY_PAGE, page);
+        params.put(Constants.REQUEST_KEY_SIZE, 100);
+        params.put(Constants.REQUEST_KEY_SORT, sort);
+        if (type!=-1){
+        params.put(Constants.REQUEST_KEY_TYPE, type);
+        }
+        return RetrofitClient.getInstance().create(ApiService.class).getFindMemberBill(LoginInfo.getUserToken(), params);
+    }
+    public Observable<BaseResponse<Object>> withdrawCancle(int id) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_ID, id);
+        return RetrofitClient.getInstance().create(ApiService.class).withdrawCancle(LoginInfo.getUserToken(), params);
+    }
+
 }

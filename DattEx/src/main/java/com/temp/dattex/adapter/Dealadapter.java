@@ -39,6 +39,7 @@ protected void convert(BaseViewHolder helper, DealItemBean dethBean) {
         tvBuySell.setText("做空");
         tvBuySell.setTextColor(mContext.getResources().getColor(R.color.color_FFDC4D4D));
      } else {
+        tvBuySell.setText("做多");
         tvBuySell.setTextColor(mContext.getResources().getColor(R.color.color_FF20BC68));
     }
   }
