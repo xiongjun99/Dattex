@@ -135,6 +135,7 @@
             android:text="区块链交易ID"
             style="@style/Auth_TextView16_Style"></TextView>
         <TextView
+            android:gravity="right"
             android:layout_toRightOf="@+id/txhash"
             android:id="@+id/tv_id"
             android:layout_alignParentRight="true"
