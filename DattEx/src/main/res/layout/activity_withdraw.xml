@@ -48,11 +48,11 @@
                     android:text="出售USDT"
                     android:textColor="@drawable/selector_wallet_title_text" />
 
+<!--                android:background="@drawable/selector_wallet_title_right"-->
                 <RadioButton
                     android:id="@+id/rb_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_wallet_title_right"
                     android:button="@null"
                     android:checked="true"
                     android:gravity="center"

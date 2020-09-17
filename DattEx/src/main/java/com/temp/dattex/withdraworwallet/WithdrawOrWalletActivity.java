@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
+
 import com.common.framework.basic.BaseActivity;
 import com.temp.dattex.BR;
 import com.temp.dattex.Constants;
@@ -44,6 +46,9 @@ public class WithdrawOrWalletActivity extends BaseActivity<ActivityWithWalletBin
         View emptyView = LayoutInflater
                 .from(this)
                 .inflate(R.layout.order_empty_layout, null);
+        TextView tvEmptyName = (TextView)emptyView.findViewById(R.id.tv_empty_name);
+        tvEmptyName.setText("暂无记录");
+
         viewModel.adapter.setUseEmpty(true);
         viewModel.adapter.setEmptyView(emptyView);
     }

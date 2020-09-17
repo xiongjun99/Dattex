@@ -6,6 +6,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -30,6 +31,15 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
     private String coinName;
     private int page;
 
+    public ObservableField<Integer> getType() {
+        return type;
+    }
+
+    public void setType(ObservableField<Integer> type) {
+        this.type = type;
+    }
+
+    private ObservableField<Integer> type = new ObservableField<>(-1);
 
     public WithDrawWalletViewModel(@NonNull Application application) {
         super(application);
@@ -37,10 +47,9 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
 
     @Override
     public void rightClick() {
-        CoinRecordFilerViewModel coinRecordFilerViewModel = new CoinRecordFilerViewModel();
+        CoinRecordFilerViewModel coinRecordFilerViewModel = new CoinRecordFilerViewModel(getApplication());
         Activity peek = AppManager.getActivityStack().peek();
         DialogUtil.showFilterDialog(peek, coinRecordFilerViewModel);
-
     }
 
     @Override
@@ -65,13 +74,16 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
     }
 
     @SuppressLint("CheckResult")
-    private void getData() {
-        DataService.getInstance().assetsRecorde(coinName, page, "").compose(ResponseTransformer.<AssetsRecordBean>handleResult()).subscribe(
+    public void getData() {
+        DataService.getInstance().getFindMemberBill(type.get(),coinName, page, "").compose(ResponseTransformer.<AssetsRecordBean>handleResult()).subscribe(
                 bean -> {
                     List<AssetsRecordBean.RowsBean> rows = bean.getRows();
-                    if (null != rows) {
+                    if (null != rows && rows.size()>0) {
                         page++;
-                        adapter.addData(rows);
+                        adapter.setNewData(rows);
+                    } else {
+                        System.out.println("--------------aaaaaaaaaaaaaaa");
+                        adapter.getData().clear();
                         adapter.notifyDataSetChanged();
                     }
                 }, t -> {

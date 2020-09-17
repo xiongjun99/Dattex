@@ -49,12 +49,13 @@
                     android:text="购买USDT"
                     android:textColor="@drawable/selector_wallet_title_text" />
 
+
+                <!--                android:background="@drawable/selector_wallet_title_right"-->
                 <RadioButton
                     android:checked="true"
                     android:id="@+id/rb_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_wallet_title_right"
                     android:onClick="@{()->walletModel.recharge()}"
                     android:button="@null"
                     android:gravity="center"
@@ -64,6 +65,7 @@
                     android:paddingBottom="5dp"
                     android:text="钱包充币"
                     android:textColor="@drawable/selector_wallet_title_text" />
+
             </RadioGroup>
 
             <TextView

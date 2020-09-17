@@ -83,6 +83,8 @@ public class CoinRecordActivity extends BaseActivity<ActivityCoinRecordBinding, 
         View emptyView = LayoutInflater
                 .from(this)
                 .inflate(R.layout.order_empty_layout, null);
+        TextView tvEmptyName = (TextView)emptyView.findViewById(R.id.tv_empty_name);
+        tvEmptyName.setText("暂无记录");
         viewModel.madapter.setUseEmpty(true);
         viewModel.madapter.setEmptyView(emptyView);
 

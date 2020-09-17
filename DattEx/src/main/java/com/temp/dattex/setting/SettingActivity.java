@@ -180,7 +180,7 @@ public class SettingActivity extends BaseActivity<ActivitySafeBinding, SettingVi
                             }
                         }
                     } else {
-                        ToastUtil.show(this,"最新版本无需更新");
+                        ToastUtil.show(this,"当前已是最新版本");
                     }
                 }, t -> {
 //                    ToastUtil.show(this,"获取版本更新失败...");

@@ -58,7 +58,7 @@
                android:id="@+id/tv_invite_code"
                android:layout_weight="1"
                android:text="-"
-               style="@style/Auth_TextView_Style"></TextView>
+               style="@style/White_TextView_Style"></TextView>
            <TextView
                android:id="@+id/tv_code_copy"
                android:text="复制"
@@ -82,7 +82,7 @@
                 android:id="@+id/tv_invite_link"
                 android:layout_weight="1"
                 android:text="-"
-                style="@style/Auth_TextView_Style"></TextView>
+                style="@style/White_TextView_Style"></TextView>
             <TextView
                 android:id="@+id/tv_link_copy"
                 android:text="复制"
@@ -125,6 +125,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

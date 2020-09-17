@@ -171,4 +171,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_0.5dp"></View>
 
+
+        <TextView
+            android:id="@+id/tv_cancel_withdraw"
+            android:layout_margin="@dimen/dp_20"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:background="@color/color_4B8BEB"
+            android:text="@string/Cancel_Withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"></TextView>
 </LinearLayout>

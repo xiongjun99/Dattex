@@ -25,6 +25,7 @@ import com.temp.dattex.invite.InviteActivity;
 import com.temp.dattex.login.LoginActivity;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.order.OrderActivity;
+import com.temp.dattex.web.WebViewActivity;
 import com.temp.dattex.withdraworwallet.WithdrawOrWalletActivity;
 import com.temp.dattex.safe.SafeActivity;
 import com.temp.dattex.setting.SettingActivity;
@@ -190,10 +191,9 @@ public class MyViewModel extends BaseViewModel {
 
     @SingleClick
     public void customerService() {
-        ToastUtil.show(getApplication(),"未开放");
-//        Bundle bundle = new Bundle();
-//        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.USER_INVITED_URL);
-//        startActivity(WebViewActivity.class, bundle);
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.buda.tc/php/app.php?widget-mobile");
+        startActivity(WebViewActivity.class, bundle);
     }
 
     @SingleClick

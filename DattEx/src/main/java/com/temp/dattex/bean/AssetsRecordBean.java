@@ -96,6 +96,17 @@ public class AssetsRecordBean implements Serializable {
             private String rectime;
             private String remarks;
 
+            public String getBizname() {
+                return bizname;
+            }
+
+            public void setBizname(String bizname) {
+                this.bizname = bizname;
+            }
+
+            private String bizname;
+
+
             public String getCode() {
                 return code;
             }
