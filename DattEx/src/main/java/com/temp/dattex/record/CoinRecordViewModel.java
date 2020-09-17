@@ -25,6 +25,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.common.framework.basic.AppManager;
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.bus.SingleLiveEvent;
+import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.temp.dattex.R;
@@ -157,8 +158,9 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
     private void withdrawCancle() {
         DataService.getInstance().withdrawCancle(id).compose(ResponseTransformer.<Object>handleResult()).subscribe(
                 bean -> {
+                    ToastUtil.show(getApplication(),"取消成功");
                 }, t -> {
-
+                    ToastUtil.show(getApplication(),t.getMessage());
                 }
         );
     }
@@ -210,6 +212,7 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
         TextView tvCancelWithdraw = view.findViewById(R.id.tv_cancel_withdraw);
         tvCancelWithdraw.setOnClickListener(view1 -> {
             withdrawCancle();
+            dialog.dismiss();
         });
 
         TextView tvAmount = view.findViewById(R.id.tv_amount);
