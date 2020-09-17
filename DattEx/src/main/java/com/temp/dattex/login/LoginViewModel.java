@@ -152,7 +152,9 @@ public class LoginViewModel extends BaseViewModel {
                     .compose(ResponseTransformer.<LoginBean>handleResult())
                     .subscribe(loginBean -> {
                         //缓存登录信息到sp   后面处理下网络库同步的问题
-                        LoginInfo.sign(loginBean.getAccount(),
+                        LoginInfo.sign(
+                                passWord.get(),
+                                loginBean.getAccount(),
                                 loginBean.getToken(),
                                 loginBean.getMemberId(),
                                 loginBean.getRecode(),loginBean.getIsCertification());

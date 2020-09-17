@@ -8,6 +8,9 @@
     <string name="text_no_account">没有账号？</string>
     <string name="text_register_now">立即注册</string>
     <string name="text_input_phone_number">请输入手机号</string>
+    <string name="text_input_old_password">请输入旧密码</string>
+    <string name="text_input_againnew_password">重复输入新密码</string>
+
     <string name="text_input_verification_code">请输入验证码</string>
     <string name="text_input_number">请输入数量</string>
     <string name="text_area">地区</string>

@@ -46,8 +46,8 @@ public class ApiAddress {
     public static final String APP_BANNER = "/app/banner/list";
     public static final String SYMBOL_CONFIG = "/app/exchange/config/coin-list";
     public static final String LOGIN_URL = "/app/login";
-    public static final String USER_PROTOCOL = "/app/login";
-    public static final String RESET_PASSWORD = "";
+    public static final String USER_PROTOCOL = "/app/member/updatePwd";
+    public static final String RESET_PASSWORD = "/app/member/updatePwd";
     public static final String USER_REGISTER = "/app/reg";
     public static final String USER_SEND_MESSAGE = "/app/send-code-reg";
     public static final String SENDCODE = "/app/sendCode";

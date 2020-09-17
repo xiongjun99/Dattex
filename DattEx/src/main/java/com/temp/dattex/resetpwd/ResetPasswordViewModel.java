@@ -12,6 +12,7 @@ import com.exchange.utilslib.LooperUtil;
 import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.R;
+import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.net.DataService;
 
 
@@ -19,26 +20,22 @@ public class ResetPasswordViewModel extends BaseViewModel {
     public ResetPasswordViewModel(@NonNull Application application) {
         super(application);
     }
-
-    private ObservableField<String> userName = new ObservableField<>("");
-    private ObservableField<String> phoneCode = new ObservableField<>("");
+    private ObservableField<String> oldPassword = new ObservableField<>("");
+    private ObservableField<String> againPassword = new ObservableField<>("");
     private ObservableField<String> password = new ObservableField<>("");
-    private ObservableField<String> sendCodeText = new ObservableField<>("发送验证码");
-
-    public ObservableField<String> getUserName() {
-        return userName;
+    public ObservableField<String> getOldPassword() {
+        return oldPassword;
     }
 
-    public void setUserName(ObservableField<String> userName) {
-        this.userName = userName;
+    public void setOldPassword(ObservableField<String> oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+    public ObservableField<String> getAgainPassword() {
+        return againPassword;
     }
 
-    public ObservableField<String> getPhoneCode() {
-        return phoneCode;
-    }
-
-    public void setPhoneCode(ObservableField<String> phoneCode) {
-        this.phoneCode = phoneCode;
+    public void setAgainPassword(ObservableField<String> againPassword) {
+        this.againPassword = againPassword;
     }
 
     public ObservableField<String> getPassword() {
@@ -49,49 +46,22 @@ public class ResetPasswordViewModel extends BaseViewModel {
         this.password = password;
     }
 
-    public ObservableField<String> getSendCodeText() {
-        return sendCodeText;
-    }
-
-    public void setSendCodeText(ObservableField<String> sendCodeText) {
-        this.sendCodeText = sendCodeText;
-    }
-
-    @SingleClick
-    public void sendPhoneCode() {
-        try {
-            final int i = Integer.parseInt(sendCodeText.get());
-            if (i == 1) {
-                sendCodeText.set(getApplication().getResources().getString(R.string.text_send_code));
-            } else {
-                sendCodeText.set(String.valueOf(i - 1));
-                LooperUtil.getHandler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        sendPhoneCode();
-                    }
-                }, 1000);
-            }
-        } catch (Exception e) {
-            sendCodeText.set("60");
-            LooperUtil.getHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    sendPhoneCode();
-                }
-            }, 1000);
-        }
-    }
-
     @SuppressLint("CheckResult")
     @SingleClick
     public void resetDone() {
-        DataService.getInstance().userProtocol().
+        if (!oldPassword.get().equals(LoginInfo.getPassWord())){
+            ToastUtil.show(getApplication(),"请输入正确的密码");
+            return;
+        }
+        if (!password.get().equals(againPassword.get())){
+            ToastUtil.show(getApplication(),"请输入相同的新密码");
+            return;
+        }
+        DataService.getInstance().resetPassword(oldPassword.get(),againPassword.get()).
                 compose(ResponseTransformer.handleResult())
                 .subscribe(s -> {
                     finish();
                     ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.text_reset_password_success));
                 }, throwable -> ToastUtil.show(getApplication(), throwable.getMessage()));
-
     }
 }
