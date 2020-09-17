@@ -70,6 +70,8 @@ public class Constants {
     public static final String SP_KEY_LOGIN_TOKEN = "SP_KEY_LOGIN_TOKEN";
     public static final String SP_KEY_SYMBOL_CONFIG = "SP_KEY_SYMBOL_CONFIG";
     public static final String SP_KEY_USDT_CNY_RATE = "SP_KEY_USDT_CNY_RATE";
+    public static final String SP_KEY_PASSWORD = "SP_KEY_PASSWORD";
+
 
     public static final String SP_KEY_LOGIN_ISCERTIFICATION = "SP_KEY_LOGIN_ISCERTIFICATION";
 

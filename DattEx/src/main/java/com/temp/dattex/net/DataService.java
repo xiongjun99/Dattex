@@ -86,15 +86,17 @@ public class DataService {
 
     }
 
-    public Observable<BaseResponse<String>> userProtocol() {
+    public Observable<BaseResponse<String>> userProtocol(){
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         return RetrofitClient.getInstance().create(ApiService.class).userProtocol(params);
 
     }
 
-    public Observable<BaseResponse<Object>> resetPassword() {
+    public Observable<BaseResponse<Object>> resetPassword(String orgPwd,String newPwd) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
-        return RetrofitClient.getInstance().create(ApiService.class).resetPassword(params);
+        params.put("orgPwd", orgPwd);
+        params.put("newPwd", newPwd);
+        return RetrofitClient.getInstance().create(ApiService.class).resetPassword(LoginInfo.getUserToken(),params);
 
     }
 
