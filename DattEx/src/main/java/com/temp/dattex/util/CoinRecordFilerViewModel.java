@@ -1,12 +1,11 @@
 package com.temp.dattex.util;
 
-import android.app.Application;
 import android.app.Dialog;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
-
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.click.SingleClick;
+import com.temp.dattex.Application;
 import com.temp.dattex.withdraworwallet.WithDrawWalletViewModel;
 
 /*************************************************************************
@@ -40,11 +39,8 @@ import com.temp.dattex.withdraworwallet.WithDrawWalletViewModel;
  *************************************************************************/
 public class CoinRecordFilerViewModel extends BaseViewModel {
 
-    private WithDrawWalletViewModel withDrawWalletViewModel;
-
     public CoinRecordFilerViewModel(@NonNull Application application) {
         super(application);
-        withDrawWalletViewModel = new WithDrawWalletViewModel(com.temp.dattex.Application.getInstance());
     }
 
     public enum Filters {
@@ -85,13 +81,24 @@ public class CoinRecordFilerViewModel extends BaseViewModel {
         if (null != getDialog()) {
             getDialog().dismiss();
             setDialog(null);
-            withDrawWalletViewModel.getType().set(filter.get().value);
-            withDrawWalletViewModel.getData();
+        }
+        if (null != onEnsureListener) {
+            onEnsureListener.onEnsure(filter.get().value);
+            onEnsureListener = null;
         }
     }
 
     @SingleClick
     public void setFilterType(Filters filter) {
         getFilter().set(filter);
+    }
+
+    public interface OnEnsureListener {
+        void onEnsure(int value);
+    }
+    private CoinRecordFilerViewModel.OnEnsureListener onEnsureListener;
+
+    public void setOnEnsureListener(CoinRecordFilerViewModel.OnEnsureListener onEnsureListener) {
+        this.onEnsureListener = onEnsureListener;
     }
 }

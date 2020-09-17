@@ -3,6 +3,7 @@ package com.temp.dattex.withdraworwallet;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -26,7 +27,7 @@ import com.temp.dattex.util.DialogUtil;
 
 import java.util.List;
 
-public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarClickBindingAdapter.TitleRightClickListener, CommonViewBinding.SmartViewListener {
+public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarClickBindingAdapter.TitleRightClickListener, CommonViewBinding.SmartViewListener, CoinRecordFilerViewModel.OnEnsureListener {
 
     private String coinName;
     private int page;
@@ -49,11 +50,13 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
     public void rightClick() {
         CoinRecordFilerViewModel coinRecordFilerViewModel = new CoinRecordFilerViewModel(getApplication());
         Activity peek = AppManager.getActivityStack().peek();
+        coinRecordFilerViewModel.setOnEnsureListener(this);
         DialogUtil.showFilterDialog(peek, coinRecordFilerViewModel);
     }
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        page ++;
         getData();
     }
 
@@ -78,23 +81,22 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
         DataService.getInstance().getFindMemberBill(type.get(),coinName, page, "").compose(ResponseTransformer.<AssetsRecordBean>handleResult()).subscribe(
                 bean -> {
                     List<AssetsRecordBean.RowsBean> rows = bean.getRows();
-                    if (null != rows && rows.size()>0) {
-                        page++;
-                        adapter.setNewData(rows);
+                    if (null != rows && rows.size() > 0) {
+                        adapter.setNewData(bean.getRows());
                     } else {
-                        System.out.println("--------------aaaaaaaaaaaaaaa");
-                        adapter.getData().clear();
-                        adapter.notifyDataSetChanged();
+                        adapter.setNewData(null);
                     }
                 }, t -> {
 
                 }
         );
     }
-
+    @Override
+    public void onEnsure(int value) {
+        type.set(value);
+        getData();
+    }
     public BaseQuickAdapter adapter = new BaseQuickAdapter<AssetsRecordBean.RowsBean, BaseViewHolder>(R.layout.item_with_wallet) {
-
-
         @Override
         protected void convert(BaseViewHolder viewHolder,AssetsRecordBean.RowsBean assetsItemBean) {
             ItemWithWalletBinding binding = viewHolder.getBinding();
