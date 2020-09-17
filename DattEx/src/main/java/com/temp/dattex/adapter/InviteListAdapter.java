@@ -7,28 +7,29 @@ import androidx.annotation.NonNull;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.temp.dattex.R;
+import com.temp.dattex.bean.InviteBean;
 import com.temp.dattex.bean.NewApplyBean;
 
 import java.util.List;
 
-public class InviteListAdapter extends BaseQuickAdapter<NewApplyBean.RowsBean, BaseViewHolder> {
+public class InviteListAdapter extends BaseQuickAdapter<InviteBean, BaseViewHolder> {
 
-    public InviteListAdapter(List<NewApplyBean.RowsBean> data) {
+    public InviteListAdapter(List<InviteBean> data) {
         super(R.layout.item_invite_list, data);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, NewApplyBean.RowsBean data) {
+    protected void convert(@NonNull BaseViewHolder helper, InviteBean data) {
         TextView tvName = helper.getView(R.id.tv_name);
-        tvName.setText(data.getApplyTypeName());
+        tvName.setText(""+data.getAccount());
 
         TextView tvTime = helper.getView(R.id.tv_time);
-        tvTime.setText(data.getApplyTypeName());
+        tvTime.setText(""+data.getInviteTime());
 
         TextView tvNumber = helper.getView(R.id.tv_number);
-        tvNumber.setText(data.getApplyTypeName());
+        tvNumber.setText(""+data.getTradeCount());
 
         TextView tvAmount = helper.getView(R.id.tv_amount);
-        tvAmount.setText(data.getApplyTypeName());
+        tvAmount.setText(""+data.getReturnAmount());
     }
 }

@@ -12,6 +12,7 @@ import com.temp.dattex.bean.CoinRecordBean;
 import com.temp.dattex.bean.DealItemBean;
 import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.bean.InfoBySymbolBean;
+import com.temp.dattex.bean.InviteBean;
 import com.temp.dattex.bean.KlineDataBean;
 import com.temp.dattex.bean.LeverageBean;
 import com.temp.dattex.bean.LoginBean;
@@ -387,6 +388,11 @@ public class DataService {
         params.put(Constants.REQUEST_KEY_SIZE, 100);
         return RetrofitClient.getInstance().create(ApiService.class).getFindByPageApplyCoin(LoginInfo.getUserToken(),params);
     }
+
+    public Observable<BaseResponse<List<InviteBean>>> getInviteRecord() {
+        return RetrofitClient.getInstance().create(ApiService.class).getInviteRecord(LoginInfo.getUserToken());
+    }
+
     public Observable<BaseResponse<NoticeBean>> getNotice(int page, int type, int isEnabled, int isSticky) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_PAGE, page);

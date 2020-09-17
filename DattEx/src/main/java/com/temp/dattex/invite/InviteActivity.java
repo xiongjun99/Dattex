@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,8 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.dattex.BaseActivity;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.ApplyAdapter;
+import com.temp.dattex.adapter.InviteListAdapter;
+import com.temp.dattex.bean.InviteBean;
 import com.temp.dattex.bean.NewApplyBean;
 import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.net.DataService;
@@ -26,10 +29,7 @@ import java.util.List;
 public class InviteActivity extends BaseActivity {
     private TextView tvInviteCode, tvCodeCopy, tvLinkCopy, tvInviteLink;
     private RecyclerView recyclerView;
-    private ApplyAdapter applyAdapter;
-    private List<NewApplyBean.RowsBean> list = new ArrayList();
-    int page = 0;
-
+    private InviteListAdapter adapter;
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -56,19 +56,21 @@ public class InviteActivity extends BaseActivity {
             ToastUtil.show(this, "复制成功");
         });
         recyclerView = findViewById(R.id.recycler_view);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.shape_country_list_item_line));
+        recyclerView.addItemDecoration(dividerItemDecoration);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        applyAdapter = new ApplyAdapter(list);
-        recyclerView.setAdapter(applyAdapter);
+        adapter = new InviteListAdapter(null);
+        recyclerView.setAdapter(adapter);
     }
     private void getData() {
-        DataService.getInstance().getFindByPageApplyCoin(page).compose(ResponseTransformer.handleResult()).subscribe(
+        DataService.getInstance().getInviteRecord().compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
-                    list = b.getRows();
-                    applyAdapter.setNewData(list);
+                    adapter.setNewData(b);
                 }, t -> {
-                    ToastUtil.show(getApplicationContext(),"获取申购信息失败"+t.getMessage());
+                    ToastUtil.show(getApplicationContext(),""+t.getMessage());
                 });
     }
 }

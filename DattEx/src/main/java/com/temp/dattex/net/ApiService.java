@@ -9,6 +9,7 @@ import com.temp.dattex.bean.CoinRecordBean;
 import com.temp.dattex.bean.DealItemBean;
 import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.bean.InfoBySymbolBean;
+import com.temp.dattex.bean.InviteBean;
 import com.temp.dattex.bean.KlineDataBean;
 import com.temp.dattex.bean.LeverageBean;
 import com.temp.dattex.bean.LoginBean;
@@ -187,6 +188,9 @@ public interface ApiService {
 
     @POST(ApiAddress.FINDBYPAGEAPPLYCOIN)
     Observable<BaseResponse<NewApplyBean>> getFindByPageApplyCoin(@Header("x-app-token") String token, @Body Map<String, Object> param);
+
+    @POST(ApiAddress.GETINVITERECORD)
+    Observable<BaseResponse<List<InviteBean>>> getInviteRecord(@Header("x-app-token") String token);
 
     @POST(ApiAddress.FINDBYPAGE)
     Observable<BaseResponse<NoticeBean>> getNotice(@Header("x-app-token") String token, @Body Map<String, Object> param);
