@@ -88,6 +88,7 @@ public class ApiAddress {
     public static final String FINDBYID = "/app/article/findById";
     public static final String FINDMEMBERBILL = "/app/wallet/findMemberBill";
     public static final String WITHDRAWCANCLE = "/app/wallet/withdrawCancle";
+    public static final String GETINVITERECORD = "/app/member/getInviteRecord";
 
 }
 
