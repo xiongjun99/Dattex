@@ -28,7 +28,7 @@ android {
         variant.outputs.all {
             if (variant.name.equalsIgnoreCase('release')){
                 def df = new SimpleDateFormat("yyyyMMdd")
-                outputFileName = "app_${df.format(new Date())}_buda${defaultConfig.versionName}.apk"
+                outputFileName = "app_${df.format(new Date())}dattex${defaultConfig.versionName}.apk"
             }
         }
     }
