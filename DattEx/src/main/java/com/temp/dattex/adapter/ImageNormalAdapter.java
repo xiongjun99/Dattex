@@ -10,7 +10,8 @@ import com.temp.dattex.R;
 public class ImageNormalAdapter extends StaticPagerAdapter {
     //本地图片资源
     int[] imgs = new int[]{
-            R.mipmap.banner,
+            R.mipmap.banner_1,
+            R.mipmap.banner_2
     };
 
     @Override

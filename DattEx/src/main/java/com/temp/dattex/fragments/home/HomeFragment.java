@@ -1,36 +1,23 @@
 package com.temp.dattex.fragments.home;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.common.framework.basic.BaseFragment;
 import com.exchange.utilslib.DisplayUtil;
-import com.exchange.utilslib.SPUtil;
 import com.exchange.utilslib.ToastUtil;
-import com.independ.framework.client.RetrofitClient;
 import com.independ.framework.response.ResponseTransformer;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
-import com.sunfusheng.marqueeview.IMarqueeItem;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.temp.dattex.BR;
 import com.temp.dattex.R;
@@ -40,13 +27,8 @@ import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.bean.NoticeBean;
 import com.temp.dattex.databinding.FragmentHomeBinding;
 import com.temp.dattex.net.DataService;
-import com.temp.dattex.notice.NoticeActivity;
-import com.temp.dattex.notice.NoticeInfoActivity;
-import com.temp.dattex.util.Utils;
 import com.temp.dattex.web.WebViewActivity;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 import me.relex.circleindicator.CircleIndicator;
@@ -117,19 +99,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     @Override
     public void onStart() {
         super.onStart();
-        marqueeView.startFlipping();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        marqueeView.stopFlipping();
     }
     @Override
     public void onPause() {
         super.onPause();
         list.get(0).onPause();
-        marqueeView.stopFlipping();
     }
 
     private void initData() {
@@ -179,7 +158,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 
         list = new ArrayList<>();
         list.add(new HomeViewPagerFragment(0));
-//      list.add(new HomeViewPagerFragment(1));
         view_pager = getActivity().findViewById(R.id.view_pager);
         mAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), list);
         view_pager.setAdapter(mAdapter);
@@ -200,7 +178,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
         iv_ip.setOnClickListener(view -> {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.buda.tc/php/app.php?widget-mobile");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.dattex.cc/php/app.php?widget-mobile");
         startActivity(WebViewActivity.class, bundle);
         });
         RollPagerView vp_roll = getActivity().findViewById(R.id.vp_roll);
@@ -234,6 +212,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         });
     }
     private void Notice (){
+        System.out.println("---------aaaaaaaaaaaa");
         DataService.getInstance().getNotice(1,1,1,1).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if (b.getRows()==null||b.getRows().size()<=0){
@@ -245,7 +224,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                         }
                     }
                     marqueeView.startWithList(messages);
-                    marqueeView.startWithList(messages, R.anim.anim_bottom_in, R.anim.anim_top_out);
                 }, t -> {
                     ToastUtil.show(getActivity(),"获取公告失败"+t.getMessage());
                 });
