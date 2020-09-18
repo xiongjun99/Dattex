@@ -141,6 +141,7 @@ public class LoginViewModel extends BaseViewModel {
     @SuppressLint("CheckResult")
     @SingleClick
     public void login(View view) {
+        System.out.println("---------"+LoginInfo.getPassWord());
         if (TextUtils.isEmpty(userName.get())) {
             ToastUtil.show(getApplication(), getApplication().getResources().getText(R.string.text_input_phone_number));
         } else if (TextUtils.isEmpty(passWord.get())) {

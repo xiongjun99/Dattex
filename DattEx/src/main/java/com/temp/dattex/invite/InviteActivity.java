@@ -3,6 +3,8 @@ package com.temp.dattex.invite;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -30,6 +32,7 @@ public class InviteActivity extends BaseActivity {
     private TextView tvInviteCode, tvCodeCopy, tvLinkCopy, tvInviteLink;
     private RecyclerView recyclerView;
     private InviteListAdapter adapter;
+    private ImageView ivCancel;
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -39,10 +42,14 @@ public class InviteActivity extends BaseActivity {
     }
 
     private void initView() {
+        ivCancel = (ImageView) findViewById(R.id.iv_cancel);
         tvInviteCode = (TextView) findViewById(R.id.tv_invite_code);
         tvInviteLink = (TextView) findViewById(R.id.tv_invite_link);
         tvLinkCopy = (TextView) findViewById(R.id.tv_link_copy);
         tvCodeCopy = (TextView) findViewById(R.id.tv_code_copy);
+        ivCancel.setOnClickListener(view -> {
+           finish();
+        });
         if (!TextUtils.isEmpty(LoginInfo.getRecode())) {
             tvInviteCode.setText(LoginInfo.getRecode());
             tvInviteLink.setText("http://reg.buda.tc/#/invitation?invite=" + LoginInfo.getRecode());
