@@ -36,7 +36,7 @@ public class HelpInfoActivity extends BaseActivity {
         titleBar.setLeftTwoClick(this);
         titleBar.setTitleText("帮助");
         tvName = (TextView)findViewById(R.id.tv_name);
-        tvName.setText("buda");
+        tvName.setText("dattex");
         tvTitle = (TextView)findViewById(R.id.tv_title);
         tvTitle.setText(Title);
         tvTime = (TextView)findViewById(R.id.tv_time);

@@ -45,7 +45,7 @@ public class InviteActivity extends BaseActivity {
         });
         if (!TextUtils.isEmpty(LoginInfo.getRecode())) {
             tvInviteCode.setText(LoginInfo.getRecode());
-            tvInviteLink.setText("http://reg.buda.tc/#/invitation?invite=" + LoginInfo.getRecode());
+            tvInviteLink.setText("http://reg.dattex.cc/#/invitation?invite=" + LoginInfo.getRecode());
         }
         tvCodeCopy.setOnClickListener(view -> {
             Utils.setClipboard(this, tvInviteCode.getText().toString());

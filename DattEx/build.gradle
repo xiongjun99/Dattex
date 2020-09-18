@@ -28,13 +28,17 @@ android {
         variant.outputs.all {
             if (variant.name.equalsIgnoreCase('release')){
                 def df = new SimpleDateFormat("yyyyMMdd")
-                outputFileName = "app_${df.format(new Date())}_buda${defaultConfig.versionName}.apk"
+                outputFileName = "app_${df.format(new Date())}dattex${defaultConfig.versionName}.apk"
             }
         }
     }
     signingConfigs {
         debug {
+<<<<<<< HEAD
             storeFile file("../jks/buda.jks")
+=======
+            storeFile file('D:\\Dattex\\DattEx\\jks\\dattex.jks')
+>>>>>>> e7f6ac6e40e0fba4e4d97456712a49946b2c17d9
             storePassword "123456"
             keyAlias "buda"
             keyPassword "123456"

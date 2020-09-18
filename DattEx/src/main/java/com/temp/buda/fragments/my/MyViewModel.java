@@ -191,7 +191,7 @@ public class MyViewModel extends BaseViewModel {
     @SingleClick
     public void customerService() {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.buda.tc/php/app.php?widget-mobile");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.dattex.cc/php/app.php?widget-mobile");
         startActivity(WebViewActivity.class, bundle);
     }
 

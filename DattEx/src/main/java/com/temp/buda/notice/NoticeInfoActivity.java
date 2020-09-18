@@ -45,7 +45,7 @@ public class NoticeInfoActivity extends BaseActivity {
 //             ll.setVisibility(View.GONE);
 //         }
         webView = (WebView)findViewById(R.id.web);
-        content = "<script id=\"__init-script-inline-widget__\">(function(d,t,u,s,e){e=d.getElementsByTagName(t)[0];s=d.createElement(t);s.src=u;s.async=1;e.parentNode.insertBefore(s,e);})(document,'script','//kf.buda.tc/php/app.php?widget-init-inline.js');</script>";
+        content = "<script id=\"__init-script-inline-widget__\">(function(d,t,u,s,e){e=d.getElementsByTagName(t)[0];s=d.createElement(t);s.src=u;s.async=1;e.parentNode.insertBefore(s,e);})(document,'script','//kf.dattex.cc/php/app.php?widget-init-inline.js');</script>";
         WebSettings settings = webView.getSettings();
         settings.setLoadWithOverviewMode(true);//设置WebView是否使用预览模式加载界面。
         webView.setVerticalScrollBarEnabled(false);//不能垂直滑动
@@ -71,7 +71,7 @@ public class NoticeInfoActivity extends BaseActivity {
     private void initData() {
         DataService.getInstance().getNoticeListInfo(id,1,1,1,1).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
-                    content = "<script id=\"__init-script-inline-widget__\">(function(d,t,u,s,e){e=d.getElementsByTagName(t)[0];s=d.createElement(t);s.src=u;s.async=1;e.parentNode.insertBefore(s,e);})(document,'script','//kf.buda.tc/php/app.php?widget-init-inline.js');</script>";
+                    content = "<script id=\"__init-script-inline-widget__\">(function(d,t,u,s,e){e=d.getElementsByTagName(t)[0];s=d.createElement(t);s.src=u;s.async=1;e.parentNode.insertBefore(s,e);})(document,'script','//kf.dattex.cc/php/app.php?widget-init-inline.js');</script>";
                     WebSettings settings = webView.getSettings();
                     settings.setLoadWithOverviewMode(true);//设置WebView是否使用预览模式加载界面。
                     webView.setVerticalScrollBarEnabled(false);//不能垂直滑动

@@ -1,6 +1,9 @@
 package com.temp.buda.fragments.home;
 
+<<<<<<< HEAD:DattEx/src/main/java/com/temp/buda/fragments/home/HomeFragment.java
 import android.content.Intent;
+=======
+>>>>>>> e7f6ac6e40e0fba4e4d97456712a49946b2c17d9:DattEx/src/main/java/com/temp/dattex/fragments/home/HomeFragment.java
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,13 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+<<<<<<< HEAD:DattEx/src/main/java/com/temp/buda/fragments/home/HomeFragment.java
 import android.widget.TextView;
 
+=======
+>>>>>>> e7f6ac6e40e0fba4e4d97456712a49946b2c17d9:DattEx/src/main/java/com/temp/dattex/fragments/home/HomeFragment.java
 import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.common.framework.basic.BaseFragment;
 import com.exchange.utilslib.DisplayUtil;
 import com.exchange.utilslib.ToastUtil;
@@ -23,6 +28,7 @@ import com.independ.framework.response.ResponseTransformer;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.sunfusheng.marqueeview.MarqueeView;
+<<<<<<< HEAD:DattEx/src/main/java/com/temp/buda/fragments/home/HomeFragment.java
 import com.temp.buda.BR;
 import com.temp.buda.R;
 import com.temp.buda.adapter.ImageNormalAdapter;
@@ -34,8 +40,18 @@ import com.temp.buda.net.DataService;
 import com.temp.buda.web.WebViewActivity;
 import com.temp.buda.widget.view.HomeViewFlipper;
 
+=======
+import com.temp.dattex.BR;
+import com.temp.dattex.R;
+import com.temp.dattex.adapter.ImageNormalAdapter;
+import com.temp.dattex.adapter.PagerAdapter;
+import com.temp.dattex.bean.FuncListBean;
+import com.temp.dattex.bean.NoticeBean;
+import com.temp.dattex.databinding.FragmentHomeBinding;
+import com.temp.dattex.net.DataService;
+import com.temp.dattex.web.WebViewActivity;
+>>>>>>> e7f6ac6e40e0fba4e4d97456712a49946b2c17d9:DattEx/src/main/java/com/temp/dattex/fragments/home/HomeFragment.java
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 import me.relex.circleindicator.CircleIndicator;
@@ -123,7 +139,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         functionAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), functionList);
         functionViewPager.setCurrentItem(0);  //初始化显示第一个页面
         CircleIndicator indicator2 = (CircleIndicator)getActivity(). findViewById(R.id.function_indicator);
-//      showLoading(getActivity(),false);
         DataService.getInstance().getFuncList().compose(ResponseTransformer.<FuncListBean>handleResult()).subscribe(
                 b -> {
                     dismissLoading();
@@ -146,6 +161,20 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     }
 
     private void initViews() {
+<<<<<<< HEAD:DattEx/src/main/java/com/temp/buda/fragments/home/HomeFragment.java
+=======
+         marqueeView = getActivity().findViewById(R.id.marqueeView);
+         marqueeView.setOnItemClickListener((position, textView) -> {
+             if (!messages.contains("暂无公告") && messages.size()>0){
+                 Bundle bundle = new Bundle();
+                 bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
+                 bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+noticeList.get(position).getId());
+                 startActivity(WebViewActivity.class, bundle);
+             }else {
+                 System.out.println("------暂无公告");
+             }
+         });
+>>>>>>> e7f6ac6e40e0fba4e4d97456712a49946b2c17d9:DattEx/src/main/java/com/temp/dattex/fragments/home/HomeFragment.java
          LinearLayout   notice = getActivity().findViewById(R.id.notice);
          notice.setOnClickListener(view -> {
 //             startActivity(NoticeActivity.class);
@@ -153,7 +182,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 
         list = new ArrayList<>();
         list.add(new HomeViewPagerFragment(0));
-//      list.add(new HomeViewPagerFragment(1));
         view_pager = getActivity().findViewById(R.id.view_pager);
         mAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), list);
         view_pager.setAdapter(mAdapter);
@@ -174,12 +202,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
         iv_ip.setOnClickListener(view -> {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.buda.tc/php/app.php?widget-mobile");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.dattex.cc/php/app.php?widget-mobile");
         startActivity(WebViewActivity.class, bundle);
         });
         RollPagerView vp_roll = getActivity().findViewById(R.id.vp_roll);
         vp_roll.setAdapter(new ImageNormalAdapter());//设置适配器
-        vp_roll.setHintView(new ColorPointHintView(getActivity(), Color.WHITE, Color.GRAY));//设置指示器颜色
+        vp_roll.setHintView(new ColorPointHintView(getActivity(), Color.TRANSPARENT, Color.TRANSPARENT));//设置指示器颜色
         vp_roll.setHintPadding(0,0, DisplayUtil.getScreenHardwareWidth(getActivity())/2 - 60,40);
         rlMarketTitle  = getActivity().findViewById(R.id.rl_market_title);
 
@@ -195,25 +223,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 
     @Override
     public void initViewObservable() {
-//        ArrayList<Drawable> list = new ArrayList<>();
-//        list.add(getResources().getDrawable(R.mipmap.banner_1));
-//        binding.banner.setViews(list);
-//        binding.banner.setViewUrls(list);
-
-//        binding.banner.setOnBannerItemClickListener(i -> {
-//        });
-//        viewModel.urls.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId) {
-//                if (viewModel.urls.get()!=null&&viewModel.urls.get().size()>0){
-//                    binding.banner.setViewUrls(viewModel.urls.get());
-//                } else {
-//                    viewModel.urls.get().add("http://m.qpic.cn/psc?/V14aPuF23M185L/bqQfVz5yrrGYSXMvKr.cqXR4CUi4.45EWI.8oWrZCG7mAJ1iDASm3J*dIB1rQVR*344D21s*jaYH0LpEOT6Sd9iqsWccu2xXKiqDWjrKKPs!/b&bo=ZQTQAgAAAAADB5E!&rf=viewer_4");
-//                    viewModel.urls.get().add("http://m.qpic.cn/psc?/V14aPuF23M185L/TmEUgtj9EK6.7V8ajmQrEAB1gaYCDKz48yMV0PUJsSslcZeQZeCESCq4SDw8W2tnSflniXSjv9Mz76zornBskwJMuOvn4d6hFE5Uoa.u2Mc!/b&bo=ZQTQAgAAAAADN6E!&rf=viewer_4");
-//                    binding.banner.setViewUrls(viewModel.urls.get());
-//                }
-//            }
-//        }
         viewModel.checkRank.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -227,24 +236,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         viewModel.list.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-//                if (viewModel.list.get()!=null&&viewModel.list.get().size()>0){
-//                    ArrayList<Fragment> list = new ArrayList<>();
-//                    view_pager = getActivity().findViewById(R.id.view_pager);
-//                    mAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), list);
-//                    view_pager.setCurrentItem(0);  //初始化显示第一个页面
-//                    CircleIndicator indicator = (CircleIndicator)getActivity(). findViewById(R.id.indicator);
-//                    indicator.setViewPager(view_pager);
-//
-//                    int j =0;
-//                    for (int i = 0; i < viewModel.list.get().size(); i++) {
-//                        if(i%3==0){
-//                          j++;
-//                        list.add(new HomeViewPagerFragment(j-1));
-//                        view_pager.setAdapter(mAdapter);
-//                        functionAdapter.notifyDataSetChanged();
-//               }
-//            }
-//         }
             }
         });
     }
@@ -257,6 +248,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                         TextView tv_title = itemVp.findViewById(R.id.tv_title);
                         tv_title.setText("暂无公告");
 
+
+                        
                     }else {
                         noticeList = b.getRows();
                         for (int i = 0; i < b.getRows().size(); i++) {
@@ -275,6 +268,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                         }
                         viewFlipper.startFlipping();
                     }
+<<<<<<< HEAD:DattEx/src/main/java/com/temp/buda/fragments/home/HomeFragment.java
+=======
+                    marqueeView.startWithList(messages);
+>>>>>>> e7f6ac6e40e0fba4e4d97456712a49946b2c17d9:DattEx/src/main/java/com/temp/dattex/fragments/home/HomeFragment.java
                 }, t -> {
                     ToastUtil.show(getActivity(),"获取公告失败"+t.getMessage());
                 });
