@@ -73,7 +73,17 @@
                     android:paddingLeft="16dp"
                     android:src="@mipmap/icon_notice" />
 
+                <com.temp.buda.widget.view.HomeViewFlipper
+                    android:id="@+id/viewFlipper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    android:inAnimation="@anim/anim_bottom_in"
+                    android:outAnimation="@anim/anim_top_out">
+                </com.temp.buda.widget.view.HomeViewFlipper>
                 <com.sunfusheng.marqueeview.MarqueeView
+                    android:visibility="gone"
                     android:id="@+id/marqueeView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

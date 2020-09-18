@@ -1,5 +1,6 @@
 package com.temp.buda.fragments.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
@@ -30,6 +32,7 @@ import com.temp.buda.bean.NoticeBean;
 import com.temp.buda.databinding.FragmentHomeBinding;
 import com.temp.buda.net.DataService;
 import com.temp.buda.web.WebViewActivity;
+import com.temp.buda.widget.view.HomeViewFlipper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -72,9 +75,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     private List<FuncListBean.AndroidBean> listBeans = new ArrayList<>();
     ArrayList<Fragment> list;
     private RelativeLayout rlMarketTitle;
-    private List<String> messages = new ArrayList<>();
-    private MarqueeView marqueeView;
     private List<NoticeBean.RowsBean> noticeList = new ArrayList<>();
+    private HomeViewFlipper viewFlipper;
+
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return R.layout.fragment_home;
@@ -87,12 +90,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
 
     @Override
     public void stopLoad() {
-
     }
 
     @Override
     public void lazyLoad() {
-
     }
 
     @Override
@@ -103,19 +104,16 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     @Override
     public void onStart() {
         super.onStart();
-//        marqueeView.startFlipping();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-//        marqueeView.stopFlipping();
     }
     @Override
     public void onPause() {
-        super.onPause();
+            super.onPause();
         list.get(0).onPause();
-//        marqueeView.stopFlipping();
     }
 
     private void initData() {
@@ -148,22 +146,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     }
 
     private void initViews() {
-         marqueeView = getActivity().findViewById(R.id.marqueeView);
-         marqueeView.setOnItemClickListener((position, textView) -> {
-             if (!messages.contains("暂无公告") && messages.size()>0){
-                 Bundle bundle = new Bundle();
-                 bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
-                 bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+noticeList.get(position).getId());
-                 startActivity(WebViewActivity.class, bundle);
-//                 Intent it = new Intent(getActivity(), NoticeInfoActivity.class);
-//                 it.putExtra("id",noticeList.get(position).getId());
-//                 it.putExtra("time",noticeList.get(position).getPublishTime());
-//                 it.putExtra("title",noticeList.get(position).getTitle());
-//                 startActivity(it);
-             }else {
-                 System.out.println("------暂无公告");
-             }
-         });
          LinearLayout   notice = getActivity().findViewById(R.id.notice);
          notice.setOnClickListener(view -> {
 //             startActivity(NoticeActivity.class);
@@ -200,11 +182,15 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         vp_roll.setHintView(new ColorPointHintView(getActivity(), Color.WHITE, Color.GRAY));//设置指示器颜色
         vp_roll.setHintPadding(0,0, DisplayUtil.getScreenHardwareWidth(getActivity())/2 - 60,40);
         rlMarketTitle  = getActivity().findViewById(R.id.rl_market_title);
+
+        viewFlipper = getActivity().findViewById(R.id.viewFlipper);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -262,22 +248,32 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
             }
         });
     }
+
     private void Notice (){
         DataService.getInstance().getNotice(1,1,1,1).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if (b.getRows()==null||b.getRows().size()<=0){
-                        messages.add("暂无公告");
+                        View itemVp = View.inflate(getActivity(), R.layout.item_view_flipper, null);
+                        TextView tv_title = itemVp.findViewById(R.id.tv_title);
+                        tv_title.setText("暂无公告");
                     }else {
                         noticeList = b.getRows();
                         for (int i = 0; i < b.getRows().size(); i++) {
-                            messages.add(b.getRows().get(i).getTitle());
-                            System.out.println("--------"+b.getRows().get(i).getTitle());
+                            View itemVp = View.inflate(getActivity(), R.layout.item_view_flipper, null);
+                            TextView tv_title = itemVp.findViewById(R.id.tv_title);
+                            String announceTitle = b.getRows().get(i).getTitle();
+                            int id = b.getRows().get(i).getId();
+                            tv_title.setText(announceTitle);
+                            itemVp.setOnClickListener(view -> {
+                                Bundle bundle = new Bundle();
+                                bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
+                                bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+id);
+                                startActivity(WebViewActivity.class, bundle);
+                            });
+                            viewFlipper.addView(itemVp);
                         }
+                        viewFlipper.startFlipping();
                     }
-                    marqueeView.startWithList(messages);
-//                    marqueeView.startWithList(messages, R.anim.anim_bottom_in, R.anim.anim_top_out);
-//                    marqueeView.startFlipping();
-
                 }, t -> {
                     ToastUtil.show(getActivity(),"获取公告失败"+t.getMessage());
                 });
