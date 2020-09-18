@@ -30,6 +30,7 @@ import com.temp.buda.adapter.PagerAdapter;
 import com.temp.buda.bean.FuncListBean;
 import com.temp.buda.bean.NoticeBean;
 import com.temp.buda.databinding.FragmentHomeBinding;
+import com.temp.buda.net.ApiAddress;
 import com.temp.buda.net.DataService;
 import com.temp.buda.web.WebViewActivity;
 import com.temp.buda.widget.view.HomeViewFlipper;
@@ -174,7 +175,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
         iv_ip.setOnClickListener(view -> {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.buda.tc/php/app.php?widget-mobile");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.KF_URL +  "/php/app.php?widget-mobile");
         startActivity(WebViewActivity.class, bundle);
         });
         RollPagerView vp_roll = getActivity().findViewById(R.id.vp_roll);
@@ -270,7 +271,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                             itemVp.setOnClickListener(view -> {
                                 Bundle bundle = new Bundle();
                                 bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
-                                bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+id);
+                                bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL+"/#/article?id="+id);
                                 startActivity(WebViewActivity.class, bundle);
                             });
                             viewFlipper.addView(itemVp);

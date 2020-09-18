@@ -22,6 +22,7 @@ import com.temp.buda.database.LoginInfo;
 import com.temp.buda.help.HelpActivity;
 import com.temp.buda.invite.InviteActivity;
 import com.temp.buda.login.LoginActivity;
+import com.temp.buda.net.ApiAddress;
 import com.temp.buda.net.DataService;
 import com.temp.buda.order.OrderActivity;
 import com.temp.buda.web.WebViewActivity;
@@ -191,7 +192,7 @@ public class MyViewModel extends BaseViewModel {
     @SingleClick
     public void customerService() {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.buda.tc/php/app.php?widget-mobile");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.KF_URL+  "/php/app.php?widget-mobile");
         startActivity(WebViewActivity.class, bundle);
     }
 

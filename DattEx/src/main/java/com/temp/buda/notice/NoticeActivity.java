@@ -18,6 +18,7 @@ import com.temp.buda.BaseActivity;
 import com.temp.buda.R;
 import com.temp.buda.adapter.NoticeAdapter;
 import com.temp.buda.bean.NoticeBean;
+import com.temp.buda.net.ApiAddress;
 import com.temp.buda.net.DataService;
 import com.temp.buda.web.WebViewActivity;
 import com.temp.buda.widget.TitleBar;
@@ -62,7 +63,7 @@ public class NoticeActivity extends BaseActivity {
 //                startActivity(it);
                 Intent it = new Intent(NoticeActivity.this, WebViewActivity.class);
                 it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "公告");
-                it.putExtra(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+noticeAdapter.getData().get(position).getId());
+                it.putExtra(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL+"/#/article?id="+noticeAdapter.getData().get(position).getId());
                 startActivity(it);
             }
         });

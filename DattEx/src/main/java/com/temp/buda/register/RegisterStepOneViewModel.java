@@ -17,6 +17,7 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.buda.Constants;
 import com.temp.buda.R;
 import com.temp.buda.country.CountryActivity;
+import com.temp.buda.net.ApiAddress;
 import com.temp.buda.net.DataService;
 import com.temp.buda.web.WebViewActivity;
 
@@ -179,13 +180,8 @@ public class RegisterStepOneViewModel extends BaseViewModel {
     public void openProtocol() {
         Bundle bundle = new Bundle();
         bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "协议");
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id=1");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL+"/#/article?id=1");
         startActivity(WebViewActivity.class, bundle);
-
-//        Intent it = new Intent(getApplication(), WebViewActivity.class);
-//        it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "协议");
-//        it.putExtra(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id=1");
-//        startActivity(it);
     }
 
     @Override
