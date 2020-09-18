@@ -5,7 +5,7 @@
 
         <variable
             name="protocolViewModel"
-            type="com.temp.buda.protocol.ProtocolViewModel" />
+            type="com.temp.dattex.protocol.ProtocolViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:background="@color/color_FF1A1C29"
         android:orientation="vertical">
 
-        <com.temp.buda.widget.TitleBar
+        <com.temp.dattex.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_protocol_title_background"

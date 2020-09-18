@@ -6,32 +6,32 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -80,27 +80,27 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.temp.buda.widget.TradeDepthItemview
+        <com.temp.dattex.widget.TradeDepthItemview
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

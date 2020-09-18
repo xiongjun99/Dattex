@@ -5,7 +5,7 @@
 
         <variable
             name="loginViewModel"
-            type="com.temp.buda.login.LoginViewModel" />
+            type="com.temp.dattex.login.LoginViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

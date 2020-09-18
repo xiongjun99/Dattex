@@ -16,7 +16,7 @@ project.ext {
 
     //dattex
     dattex = [
-            applicationId: "com.temp.buda",
+            applicationId: "com.temp.dattex",
     ]
     android = [
             compileSdkVersion: 28,

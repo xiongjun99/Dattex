@@ -34,20 +34,16 @@ android {
     }
     signingConfigs {
         debug {
-<<<<<<< HEAD
-            storeFile file("../jks/buda.jks")
-=======
-            storeFile file('D:\\Dattex\\DattEx\\jks\\dattex.jks')
->>>>>>> e7f6ac6e40e0fba4e4d97456712a49946b2c17d9
+            storeFile file("../jks/dattex.jks")
             storePassword "123456"
-            keyAlias "buda"
+            keyAlias "dattex"
             keyPassword "123456"
             v2SigningEnabled true
         }
         release {
-            storeFile file("../jks/buda.jks")
+            storeFile file("../jks/dattex.jks")
             storePassword "123456"
-            keyAlias "buda"
+            keyAlias "dattex"
             keyPassword "123456"
             v2SigningEnabled true
 

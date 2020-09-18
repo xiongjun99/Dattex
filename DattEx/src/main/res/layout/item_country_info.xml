@@ -13,7 +13,7 @@
 
         <variable
             name="countryViewModel"
-            type="com.temp.buda.country.CountryViewModel" />
+            type="com.temp.dattex.country.CountryViewModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

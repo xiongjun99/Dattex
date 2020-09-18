@@ -2,10 +2,10 @@
 <layout>
 
     <data>
-        <import type="com.temp.buda.util.DateFormatter" />
+        <import type="com.temp.dattex.util.DateFormatter" />
         <variable
             name="dataBean"
-            type="com.temp.buda.bean.AssetsRecordBean.RowsBean" />
+            type="com.temp.dattex.bean.AssetsRecordBean.RowsBean" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

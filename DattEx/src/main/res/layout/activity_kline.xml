@@ -4,14 +4,14 @@
 
     <data>
 
-        <import type="com.temp.buda.kline.KlineViewModel.BottomNav" />
+        <import type="com.temp.dattex.kline.KlineViewModel.BottomNav" />
 
         <import type="android.view.View" />
 
         <variable
 
             name="klineViewModel"
-            type="com.temp.buda.kline.KlineViewModel" />
+            type="com.temp.dattex.kline.KlineViewModel" />
     </data>
 
     <LinearLayout
@@ -20,7 +20,7 @@
         android:background="@color/color_FF282C42"
         android:orientation="vertical">
 
-        <com.temp.buda.widget.TitleBar
+        <com.temp.dattex.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"

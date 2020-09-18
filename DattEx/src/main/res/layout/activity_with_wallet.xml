@@ -4,7 +4,7 @@
     <data>
         <variable
             name="withdrawWalletViewModel"
-            type="com.temp.buda.withdraworwallet.WithDrawWalletViewModel" />
+            type="com.temp.dattex.withdraworwallet.WithDrawWalletViewModel" />
     </data>
 
 
@@ -14,7 +14,7 @@
         android:background="@color/color_FF282C42"
         android:orientation="vertical">
 
-        <com.temp.buda.widget.TitleBar
+        <com.temp.dattex.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"

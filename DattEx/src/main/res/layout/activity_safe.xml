@@ -6,7 +6,7 @@
 
         <variable
             name="safeViewModel"
-            type="com.temp.buda.safe.SafeViewModel" />
+            type="com.temp.dattex.safe.SafeViewModel" />
     </data>
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
 
-        <com.temp.buda.widget.TitleBar
+        <com.temp.dattex.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
@@ -30,7 +30,7 @@
             android:layout_height="1dp"
             android:background="@color/color_4D000000" />
 
-        <com.temp.buda.widget.SettingItemView
+        <com.temp.dattex.widget.SettingItemView
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:onClick="@{()->safeViewModel.resetPassword()}"

@@ -6,7 +6,7 @@
 
         <variable
             name="currentViewModel"
-            type="com.temp.buda.order.fragment.CurrentOrderViewModel" />
+            type="com.temp.dattex.order.fragment.CurrentOrderViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

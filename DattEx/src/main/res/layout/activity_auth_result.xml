@@ -6,7 +6,7 @@
 
         <variable
             name="authResultViewModel"
-            type="com.temp.buda.auth.AuthResultViewModel" />
+            type="com.temp.dattex.auth.AuthResultViewModel" />
     </data>
 
 
@@ -17,7 +17,7 @@
         android:background="@color/color_FF1A1C29"
         android:orientation="vertical">
 
-        <com.temp.buda.widget.TitleBar
+        <com.temp.dattex.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftClick="@{authResultViewModel}"

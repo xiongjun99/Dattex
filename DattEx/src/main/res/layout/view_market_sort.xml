@@ -6,7 +6,7 @@
 
         <variable
             name="marketSortViewModel"
-            type="com.temp.buda.widget.sort.MarketSortViewModel" />
+            type="com.temp.dattex.widget.sort.MarketSortViewModel" />
     </data>
 
     <RelativeLayout

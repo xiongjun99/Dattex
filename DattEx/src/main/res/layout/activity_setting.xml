@@ -5,7 +5,7 @@
     <data>
         <variable
             name="settingViewModel"
-            type="com.temp.buda.setting.SettingViewModel" />
+            type="com.temp.dattex.setting.SettingViewModel" />
     </data>
 
     <LinearLayout
@@ -14,27 +14,27 @@
         android:background="@color/color_282C42"
         android:orientation="vertical">
 
-        <com.temp.buda.widget.TitleBar
+        <com.temp.dattex.widget.TitleBar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftIcon="@mipmap/icon_common_back"
             app:titleText="@string/title_system_setting"
-            app:titleTextColor="@color/color_FFFFFFFF"></com.temp.buda.widget.TitleBar>
+            app:titleTextColor="@color/color_FFFFFFFF"></com.temp.dattex.widget.TitleBar>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/color_4D000000" />
 
-        <com.temp.buda.widget.SettingItemView
+        <com.temp.dattex.widget.SettingItemView
             android:id="@+id/tv_switch"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:leftText="切换语言"
             app:rightText="" />
 
-        <com.temp.buda.widget.SettingItemView
+        <com.temp.dattex.widget.SettingItemView
             android:id="@+id/tv_clean"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -43,7 +43,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <com.temp.buda.widget.SettingItemView
+        <com.temp.dattex.widget.SettingItemView
             android:id="@+id/tv_upload"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.temp.buda.widget.SettingItemView
+            <com.temp.dattex.widget.SettingItemView
                 android:id="@+id/tv_revise"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

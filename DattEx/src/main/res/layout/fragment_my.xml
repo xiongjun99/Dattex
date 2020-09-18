@@ -8,7 +8,7 @@
 
         <variable
             name="myViewModel"
-            type="com.temp.buda.fragments.my.MyViewModel" />
+            type="com.temp.dattex.fragments.my.MyViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -180,7 +180,7 @@
                     android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}">
 
 
-                    <com.temp.buda.widget.LeftDrawableView
+                    <com.temp.dattex.widget.LeftDrawableView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
@@ -192,7 +192,7 @@
                         app:leftContentICon="@mipmap/icon_white_down" />
 
 
-                    <com.temp.buda.widget.LeftDrawableView
+                    <com.temp.dattex.widget.LeftDrawableView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -219,7 +219,7 @@
             android:paddingBottom="12dp">
 
 
-            <com.temp.buda.widget.RightView
+            <com.temp.dattex.widget.RightView
                 android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
@@ -230,7 +230,7 @@
                 app:lineVisible="true"
                 app:titleContent="@string/text_my_order" />
 
-            <com.temp.buda.widget.RightView
+            <com.temp.dattex.widget.RightView
                 android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
@@ -241,7 +241,7 @@
                 app:lineVisible="true"
                 app:titleContent="@string/title_my_invitation" />
 
-            <com.temp.buda.widget.RightView
+            <com.temp.dattex.widget.RightView
                 android:visibility="@{myViewModel.isLogin?View.VISIBLE:View.GONE}"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
@@ -252,7 +252,7 @@
                 app:lineVisible="true"
                 app:titleContent="@string/title_set_save" />
 
-            <com.temp.buda.widget.RightView
+            <com.temp.dattex.widget.RightView
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:onClick="@{()->myViewModel.helpCenter()}"
@@ -262,7 +262,7 @@
                 app:lineVisible="true"
                 app:titleContent="@string/title_help_center" />
 
-            <com.temp.buda.widget.RightView
+            <com.temp.dattex.widget.RightView
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:onClick="@{()->myViewModel.customerService()}"
@@ -272,7 +272,7 @@
                 app:lineVisible="true"
                 app:titleContent="@string/title_online_customer" />
 
-            <com.temp.buda.widget.RightView
+            <com.temp.dattex.widget.RightView
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:onClick="@{()->myViewModel.setting()}"

@@ -6,11 +6,11 @@
 
         <variable
             name="orderBean"
-            type="com.temp.buda.bean.OrdersBean.OrderItemBean" />
+            type="com.temp.dattex.bean.OrdersBean.OrderItemBean" />
 
         <variable
             name="orderItemViewModel"
-            type="com.temp.buda.order.OrderItemViewModel" />
+            type="com.temp.dattex.order.OrderItemViewModel" />
     </data>
 
     <LinearLayout

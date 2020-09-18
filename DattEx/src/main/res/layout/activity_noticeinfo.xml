@@ -5,7 +5,7 @@
     android:background="@color/color_1A1C29"
     android:orientation="vertical">
 
-    <com.temp.buda.widget.TitleBar
+    <com.temp.dattex.widget.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

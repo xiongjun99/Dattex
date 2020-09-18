@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.temp.buda.net.ApiAddress" />
+        <import type="com.temp.dattex.net.ApiAddress" />
 
         <variable
             name="homeViewModel"
-            type="com.temp.buda.fragments.home.HomePageViewModel" />
+            type="com.temp.dattex.fragments.home.HomePageViewModel" />
     </data>
 
     <com.icechao.klinelib.view.ScrollView
@@ -73,7 +73,7 @@
                     android:paddingLeft="16dp"
                     android:src="@mipmap/icon_notice" />
 
-                <com.temp.buda.widget.view.HomeViewFlipper
+                <com.temp.dattex.widget.view.HomeViewFlipper
                     android:id="@+id/viewFlipper"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     android:layout_weight="1"
                     android:inAnimation="@anim/anim_bottom_in"
                     android:outAnimation="@anim/anim_top_out">
-                </com.temp.buda.widget.view.HomeViewFlipper>
+                </com.temp.dattex.widget.view.HomeViewFlipper>
                 <com.sunfusheng.marqueeview.MarqueeView
                     android:visibility="gone"
                     android:id="@+id/marqueeView"
