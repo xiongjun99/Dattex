@@ -212,7 +212,6 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         });
     }
     private void Notice (){
-        System.out.println("---------aaaaaaaaaaaa");
         DataService.getInstance().getNotice(1,1,1,1).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if (b.getRows()==null||b.getRows().size()<=0){
