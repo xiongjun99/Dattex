@@ -18,6 +18,7 @@ import com.temp.dattex.BaseActivity;
 import com.temp.dattex.R;
 import com.temp.dattex.adapter.NoticeAdapter;
 import com.temp.dattex.bean.NoticeBean;
+import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.web.WebViewActivity;
 import com.temp.dattex.widget.TitleBar;
@@ -55,14 +56,9 @@ public class NoticeActivity extends BaseActivity {
         noticeAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-//                Intent it = new Intent(NoticeActivity.this, NoticeInfoActivity.class);
-//                it.putExtra("id",noticeAdapter.getData().get(position).getId());
-//                it.putExtra("time",noticeAdapter.getData().get(position).getPublishTime());
-//                it.putExtra("title",noticeAdapter.getData().get(position).getTitle());
-//                startActivity(it);
                 Intent it = new Intent(NoticeActivity.this, WebViewActivity.class);
                 it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "公告");
-                it.putExtra(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+noticeAdapter.getData().get(position).getId());
+                it.putExtra(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL +"/#/article?id="+noticeAdapter.getData().get(position).getId());
                 startActivity(it);
             }
         });

@@ -28,6 +28,7 @@ import com.temp.dattex.adapter.PagerAdapter;
 import com.temp.dattex.bean.FuncListBean;
 import com.temp.dattex.bean.NoticeBean;
 import com.temp.dattex.databinding.FragmentHomeBinding;
+import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.web.WebViewActivity;
 import com.temp.dattex.widget.view.HomeViewFlipper;
@@ -266,7 +267,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                             itemVp.setOnClickListener(view -> {
                                 Bundle bundle = new Bundle();
                                 bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
-                                bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://45.132.238.178/#/article?id="+id);
+                                bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL +"/#/article?id="+id);
                                 startActivity(WebViewActivity.class, bundle);
                             });
                             viewFlipper.addView(itemVp);
