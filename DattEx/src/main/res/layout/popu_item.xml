@@ -5,7 +5,7 @@
 
         <variable
             name="authViewModel"
-            type="com.temp.dattex.auth.AuthViewModel" />
+            type="com.temp.buda.auth.AuthViewModel" />
 
     </data>
 

@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.temp.dattex.net.ApiAddress" />
+        <import type="com.temp.buda.net.ApiAddress" />
 
         <variable
             name="homeViewModel"
-            type="com.temp.dattex.fragments.home.HomePageViewModel" />
+            type="com.temp.buda.fragments.home.HomePageViewModel" />
     </data>
 
     <com.icechao.klinelib.view.ScrollView

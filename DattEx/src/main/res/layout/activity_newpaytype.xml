@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:id="@+id/title_bar"
             app:titleText="@string/Collection_Card"
             android:layout_width="match_parent"

@@ -6,7 +6,7 @@
 
         <variable
             name="orderViewModel"
-            type="com.temp.dattex.order.OrderViewModel" />
+            type="com.temp.buda.order.OrderViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
 
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftClick="@{orderViewModel}"
@@ -40,7 +40,7 @@
             app:tabTextAppearance="@style/MyCustomTextAppearance"
             app:tabTextColor="@color/color_767B99" />
 
-        <com.temp.dattex.widget.ScrollViewPager
+        <com.temp.buda.widget.ScrollViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

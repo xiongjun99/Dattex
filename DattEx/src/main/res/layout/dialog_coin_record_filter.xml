@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.temp.dattex.util.CoinRecordFilerViewModel.Filters" />
+        <import type="com.temp.buda.util.CoinRecordFilerViewModel.Filters" />
 
         <variable
             name="filterViewModel"
-            type="com.temp.dattex.util.CoinRecordFilerViewModel" />
+            type="com.temp.buda.util.CoinRecordFilerViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

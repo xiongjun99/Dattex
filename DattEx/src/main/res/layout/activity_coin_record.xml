@@ -5,7 +5,7 @@
 
         <variable
             name="coinRecordViewModel"
-            type="com.temp.dattex.record.CoinRecordViewModel" />
+            type="com.temp.buda.record.CoinRecordViewModel" />
     </data>
 
 
@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
 
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

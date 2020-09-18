@@ -6,7 +6,7 @@
 
         <variable
             name="walletModel"
-            type="com.temp.dattex.wallet.WalletModel" />
+            type="com.temp.buda.wallet.WalletModel" />
     </data>
 
     <RelativeLayout

@@ -8,7 +8,7 @@
 
         <variable
             name="authViewModle"
-            type="com.temp.dattex.auth.AuthViewModel" />
+            type="com.temp.buda.auth.AuthViewModel" />
     </data>
 
     <LinearLayout
@@ -17,13 +17,13 @@
         android:background="@color/color_FF1A1C29"
         android:orientation="vertical">
 
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftIcon="@mipmap/icon_common_back"
             app:titleText="@string/text_title_auth"
             app:titleTextColor="@color/color_FFFFFFFF"
-            app:leftClick="@{authViewModle}"></com.temp.dattex.widget.TitleBar>
+            app:leftClick="@{authViewModle}"></com.temp.buda.widget.TitleBar>
 
         <RelativeLayout
             android:onClick="@{()->authViewModle.countrySelected()}"

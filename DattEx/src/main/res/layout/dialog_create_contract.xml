@@ -5,7 +5,7 @@
 
         <variable
             name="contractModel"
-            type="com.temp.dattex.util.PlaceAnOrderDialogModel" />
+            type="com.temp.buda.util.PlaceAnOrderDialogModel" />
     </data>
 
     <LinearLayout

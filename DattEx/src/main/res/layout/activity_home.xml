@@ -6,7 +6,7 @@
 
         <variable
             name="homeViewModel"
-            type="com.temp.dattex.home.HomeViewModel" />
+            type="com.temp.buda.home.HomeViewModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.temp.dattex.widget.ScrollViewPager
+        <com.temp.buda.widget.ScrollViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

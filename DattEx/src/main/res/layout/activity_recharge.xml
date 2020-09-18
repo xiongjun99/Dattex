@@ -5,7 +5,7 @@
 
         <variable
             name="rechargeViewModel"
-            type="com.temp.dattex.recharge.RechargeViewModel" />
+            type="com.temp.buda.recharge.RechargeViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:background="@color/color_FF282C42"
         android:orientation="vertical">
 
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"

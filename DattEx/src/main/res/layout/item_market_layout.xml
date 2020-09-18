@@ -5,7 +5,7 @@
 
         <variable
             name="symbol"
-            type="com.temp.dattex.bean.SymbolConfigBean" />
+            type="com.temp.buda.bean.SymbolConfigBean" />
     </data>
 
     <RelativeLayout

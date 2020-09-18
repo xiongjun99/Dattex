@@ -7,7 +7,7 @@
 
         <variable
             name="tradeViewModel"
-            type="com.temp.dattex.fragments.trade.TradeViewModel"/>
+            type="com.temp.buda.fragments.trade.TradeViewModel"/>
 
     </data>
 
@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
 
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
@@ -297,7 +297,7 @@
                                 app:isb_show_indicator="none"
                                 app:isb_thumb_size="16dp"
                                 />
-                            <com.temp.dattex.widget.view.CustomSeekBar
+                            <com.temp.buda.widget.view.CustomSeekBar
                                 android:visibility="gone"
                                 android:id="@+id/seekbar"
                                 android:layout_width="match_parent"

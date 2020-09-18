@@ -6,7 +6,7 @@
         <import type="android.view.View" />
         <variable
             name="walletModel"
-            type="com.temp.dattex.wallet.WalletModel" />
+            type="com.temp.buda.wallet.WalletModel" />
     </data>
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.temp.dattex.widget.TitleBar
+            <com.temp.buda.widget.TitleBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"

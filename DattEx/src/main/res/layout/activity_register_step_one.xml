@@ -6,7 +6,7 @@
 
         <variable
             name="registerStepOneViewModel"
-            type="com.temp.dattex.register.RegisterStepOneViewModel" />
+            type="com.temp.buda.register.RegisterStepOneViewModel" />
     </data>
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:background="@color/color_FF1A1C29"
         android:orientation="vertical">
 
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:leftClick="@{registerStepOneViewModel}"

@@ -5,7 +5,7 @@
 
         <variable
             name="marketViewModel"
-            type="com.temp.dattex.fragments.market.MarketViewModel" />
+            type="com.temp.buda.fragments.market.MarketViewModel" />
     </data>
 
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,7 +14,7 @@
         android:background="@color/color_282C42"
         android:orientation="vertical">
 
-        <com.temp.dattex.widget.TitleBar
+        <com.temp.buda.widget.TitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
@@ -28,7 +28,7 @@
             android:background="@drawable/shape_market_line" />
 
 
-        <com.temp.dattex.widget.sort.MarketSortView
+        <com.temp.buda.widget.sort.MarketSortView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
