@@ -112,6 +112,11 @@ public class Utils {
         bd = bd.setScale(8, RoundingMode.HALF_UP);
         return bd.toString();
     }
+    public static String formatPlainString(String value) {
+        BigDecimal bd = new BigDecimal(value);
+        return bd.toPlainString();
+    }
+
     public static String format4(String value) {
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(4, RoundingMode.HALF_UP);

@@ -99,6 +99,34 @@ public class WithDrawWalletViewModel extends BaseViewModel implements TitleBarCl
         protected void convert(BaseViewHolder viewHolder,AssetsRecordBean.RowsBean assetsItemBean) {
             ItemWithWalletBinding binding = viewHolder.getBinding();
             binding.setDataBean(assetsItemBean);
+
+            switch (assetsItemBean.getType()){
+                case 0:
+                    binding.tvTitle.setText("充币");
+                    break;
+                case 1:
+                    binding.tvTitle.setText("提币");
+                    break;
+                case 2:
+                    binding.tvTitle.setText("手续费");
+                    break;
+                case 3:
+                    binding.tvTitle.setText("交易返佣");
+                    break;
+                case 4:
+                    binding.tvTitle.setText("邀请返佣");
+                    break;
+                case 5:
+                    binding.tvTitle.setText("注册奖励");
+                    break;
+                case 6:
+                    binding.tvTitle.setText("充值赠送");
+                    break;
+                case 99:
+                    binding.tvTitle.setText("其它");
+                    break;
+            }
+
         }
 
         @Override

@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+        <import type="com.temp.buda.util.Utils" />
         <import type="com.temp.buda.util.DateFormatter" />
         <variable
             name="dataBean"
@@ -29,11 +30,11 @@
 
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:text="@{dataBean.bizname}"
             android:textColor="@color/color_FFEDEEF2"
             android:textSize="14dp" />
 
@@ -50,8 +51,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{ (dataBean.income == 0 ?"+":"-") + dataBean.amount}'
-                android:textColor="@{dataBean.income ==0 ? @color/color_FF20BC68 : @color/color_FFDC4D4D}"
+                android:text='@{ (dataBean.income == 0 ?"-":"+") + Utils.formatPlainString(dataBean.amount)}'
+                android:textColor="@{dataBean.income ==0 ? @color/color_FFDC4D4D : @color/color_FF20BC68}"
                 android:textSize="18dp" />
 
             <TextView
@@ -99,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0.0000"
+                android:text="0.00000000"
                 android:textColor="@color/color_FFA3A6BF"
                 android:textSize="12dp" />
 
