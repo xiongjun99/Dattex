@@ -256,6 +256,9 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                         View itemVp = View.inflate(getActivity(), R.layout.item_view_flipper, null);
                         TextView tv_title = itemVp.findViewById(R.id.tv_title);
                         tv_title.setText("暂无公告");
+
+
+                        
                     }else {
                         noticeList = b.getRows();
                         for (int i = 0; i < b.getRows().size(); i++) {
