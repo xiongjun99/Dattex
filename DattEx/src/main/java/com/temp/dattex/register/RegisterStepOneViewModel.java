@@ -136,6 +136,10 @@ public class RegisterStepOneViewModel extends BaseViewModel {
     @SuppressLint("CheckResult")
     @SingleClick
     public void sendPhoneCode() {
+        if (TextUtils.isEmpty(userName.get())||userName.get().length()!=11){
+            ToastUtil.show(getApplication(),"请填写正确的手机号");
+            return;
+        }
         try {
             final int i = Integer.parseInt(sendCodeText.get());
             if (i == 1) {
@@ -149,7 +153,7 @@ public class RegisterStepOneViewModel extends BaseViewModel {
             LooperUtil.getHandler().postDelayed(this::sendPhoneCode, 1000);
             DataService.getInstance().sendPhoneMessage(userName.get(),countryCode).compose(ResponseTransformer.<Object>handleResult()).subscribe(o -> {
             }, t -> {
-
+                ToastUtil.show(getApplication(), t.getMessage());
             });
         }
 
