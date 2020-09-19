@@ -173,7 +173,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
         ImageView iv_ip = getActivity().findViewById(R.id.iv_ip);
         iv_ip.setOnClickListener(view -> {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.dattex.cc/php/app.php?widget-mobile");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.KF_URL+"/php/app.php?widget-mobile");
         startActivity(WebViewActivity.class, bundle);
         });
         RollPagerView vp_roll = getActivity().findViewById(R.id.vp_roll);

@@ -22,6 +22,7 @@ import com.temp.dattex.database.LoginInfo;
 import com.temp.dattex.help.HelpActivity;
 import com.temp.dattex.invite.InviteActivity;
 import com.temp.dattex.login.LoginActivity;
+import com.temp.dattex.net.ApiAddress;
 import com.temp.dattex.net.DataService;
 import com.temp.dattex.order.OrderActivity;
 import com.temp.dattex.web.WebViewActivity;
@@ -191,7 +192,7 @@ public class MyViewModel extends BaseViewModel {
     @SingleClick
     public void customerService() {
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, "http://kf.dattex.cc/php/app.php?widget-mobile");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.KF_URL+"/php/app.php?widget-mobile");
         startActivity(WebViewActivity.class, bundle);
     }
 
