@@ -244,7 +244,7 @@ public class DataService {
     public Observable<BaseResponse<AssetsRecordBean>> assetsRecorde(String coinId, int page, String sort) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
-        params.put(Constants.REQUEST_KEY_DIR, "asc");
+        params.put(Constants.REQUEST_KEY_DIR, "desc");
         params.put(Constants.REQUEST_KEY_PAGE, page);
         params.put(Constants.REQUEST_KEY_SIZE, 100);
         params.put(Constants.REQUEST_KEY_SORT, sort);

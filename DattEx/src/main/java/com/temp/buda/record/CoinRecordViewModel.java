@@ -71,7 +71,7 @@ import java.util.List;
 public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickBindingAdapter.TitleRightClickListener, CommonViewBinding.SmartViewListener {
 
     private String coinName;
-    private int page;
+    private int page=0;
     private int inorout;
     private int id;
 
@@ -124,9 +124,7 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
                 bean -> {
                     List<CoinRecordBean.RowsBean> rows = bean.getRows();
                     if (null != rows) {
-                        page++;
-                        madapter.addData(rows);
-                        madapter.notifyDataSetChanged();
+                        madapter.setNewData(rows);
                     }
                 }, t -> {
 
@@ -155,6 +153,7 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
         DataService.getInstance().withdrawCancle(id).compose(ResponseTransformer.<Object>handleResult()).subscribe(
                 bean -> {
                     ToastUtil.show(getApplication(),"取消成功");
+                    getData();
                 }, t -> {
                     ToastUtil.show(getApplication(),t.getMessage());
                 }
@@ -210,7 +209,6 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
             withdrawCancle();
             dialog.dismiss();
         });
-
         TextView tvAmount = view.findViewById(R.id.tv_amount);
         TextView tvType = view.findViewById(R.id.tv_type);
         TextView tvStatus = view.findViewById(R.id.tv_status);
@@ -218,12 +216,10 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
         TextView tvTime = view.findViewById(R.id.tv_time);
         TextView tvAddr = view.findViewById(R.id.tv_addr);
         TextView tvFee = view.findViewById(R.id.tv_fee);
-
         RelativeLayout rlAddr = view.findViewById(R.id.rl_addr);
         RelativeLayout rlFee = view.findViewById(R.id.rl_fee);
         View viewAddr = view.findViewById(R.id.view_addr);
         View viewFee = view.findViewById(R.id.view_fee);
-
         tvAddr.setText(addr);
         tvFee.setText(fee);
         if (type.contains("提币")){
@@ -254,7 +250,13 @@ public class CoinRecordViewModel extends BaseViewModel implements TitleBarClickB
             rlFee.setVisibility(View.GONE);
             viewAddr.setVisibility(View.GONE);
             viewFee.setVisibility(View.GONE);
+            tvCancelWithdraw.setVisibility(View.GONE);
         }else {
+            if (status.equals("0")){
+                tvCancelWithdraw.setVisibility(View.VISIBLE);
+            }else {
+                tvCancelWithdraw.setVisibility(View.GONE);
+            }
             rlAddr.setVisibility(View.VISIBLE);
             rlFee.setVisibility(View.VISIBLE);
             viewAddr.setVisibility(View.VISIBLE);
