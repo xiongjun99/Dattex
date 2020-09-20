@@ -40,8 +40,8 @@ public class ApiAddress {
     public static final String BASE_URL = "http://app.buda.tc:8088"; //生产
     public static final String URL = "http://app.buda.tc"; //生产
     public static final String KF_URL = "http://kf.buda.tc"; //生产
-
-    //  public static final String BASE_URL = "http://45.132.238.178:8088";//测试
+//    public static final String BASE_URL = "http://app.dattex.cc:8088"; //
+//      public static final String BASE_URL = "http://45.132.238.178:8088";//测试
     public static final String WEB_SOCKET_URL = "ws://8.210.211.248:10088/imserver/10000";
     public static final String UPDATE_URL = "/app/common/version";
 //  public static final String WEB_SOCKET_URL = "ws://tanjj.zhangyueyouxi.com:10001/imserver/10000";
@@ -50,9 +50,11 @@ public class ApiAddress {
     public static final String SYMBOL_CONFIG = "/app/exchange/config/coin-list";
     public static final String LOGIN_URL = "/app/login";
     public static final String USER_PROTOCOL = "/app/member/updatePwd";
-    public static final String RESET_PASSWORD = "/app/member/updatePwd";
+    public static final String RESET_PASSWORD = "/app/member/resetPwd";
     public static final String USER_REGISTER = "/app/reg";
     public static final String USER_SEND_MESSAGE = "/app/send-code-reg";
+    public static final String SEND_CODE_RESET = "/app/sendCodeReset";
+
     public static final String SENDCODE = "/app/sendCode";
     public static final String FUNCLIST = "/app/common/getFuncList";
     public static final String USER_CHECK_WITHDRAW = "/app/common/withdraw/judge";

@@ -159,7 +159,7 @@ public class RegisterStepOneViewModel extends BaseViewModel {
     @SingleClick
     public void nextStep() {
         if (TextUtils.isEmpty(userName.get())) {
-            ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.text_input_phone_code));
+            ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.text_input_phone_number));
         } else if (TextUtils.isEmpty(phoneCode.get())) {
             ToastUtil.show(getApplication(), getApplication().getResources().getString(R.string.text_input_phone_code));
         } else if (TextUtils.isEmpty(inviteCode.get())) {

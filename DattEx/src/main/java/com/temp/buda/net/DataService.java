@@ -91,9 +91,11 @@ public class DataService {
 
     }
 
-    public Observable<BaseResponse<Object>> resetPassword(String orgPwd,String newPwd) {
+    public Observable<BaseResponse<Object>> resetPassword(String account,String code,String areaCode,String newPwd) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
-        params.put("orgPwd", orgPwd);
+        params.put("account", account);
+        params.put("code", code);
+        params.put("areaCode", areaCode);
         params.put("newPwd", newPwd);
         return RetrofitClient.getInstance().create(ApiService.class).resetPassword(LoginInfo.getUserToken(),params);
 
@@ -122,7 +124,14 @@ public class DataService {
         return RetrofitClient.getInstance().create(ApiService.class).sendMessage(params);
 
     }
+    public Observable<BaseResponse<Object>> sendCodeReset(String phone,String areaCode) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put(Constants.REQUEST_KEY_PHONE, phone);
+        params.put(Constants.REQUEST_KEY_AREACODE, areaCode);
+        params.put(Constants.SENDTYPE, "03");
+        return RetrofitClient.getInstance().create(ApiService.class).sendCodeReset(params);
 
+    }
     public Observable<BaseResponse<Object>> sendCodeMessage(String sendType) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.SENDTYPE, sendType);
