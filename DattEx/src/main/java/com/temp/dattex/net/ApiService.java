@@ -87,6 +87,10 @@ public interface ApiService {
     @POST(ApiAddress.USER_SEND_MESSAGE)
     Observable<BaseResponse<Object>> sendMessage(@Body Map<String, Object> params);
 
+
+    @POST(ApiAddress.SEND_CODE_RESET)
+    Observable<BaseResponse<Object>> sendCodeReset(@Body Map<String, Object> params);
+
     @POST(ApiAddress.SENDCODE)
     Observable<BaseResponse<Object>> sendCode(@Header("x-app-token") String token,@Body Map<String, Object> params);
 
