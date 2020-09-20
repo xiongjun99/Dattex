@@ -53,6 +53,8 @@ public class ApiAddress {
     public static final String USER_REGISTER = "/app/reg";
     public static final String USER_SEND_MESSAGE = "/app/send-code-reg";
     public static final String SENDCODE = "/app/sendCode";
+    public static final String SEND_CODE_RESET = "/app/sendCodeReset";
+
     public static final String FUNCLIST = "/app/common/getFuncList";
     public static final String USER_CHECK_WITHDRAW = "/app/common/withdraw/judge";
     public static final String PLACE_ORDER = "/app/exchange/addOrder";
