@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.click.SingleClick;
 import com.temp.buda.resetpwd.ResetPasswordActivity;
+import com.temp.buda.resetpwd.modifyPasswordActivity;
 
 /*************************************************************************
  * Description   :
@@ -45,6 +46,6 @@ public class SafeViewModel extends BaseViewModel {
 
     @SingleClick
     public void resetPassword() {
-        startActivity(ResetPasswordActivity.class);
+        startActivity(modifyPasswordActivity.class);
     }
 }

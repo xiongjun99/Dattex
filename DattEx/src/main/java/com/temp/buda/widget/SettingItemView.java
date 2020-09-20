@@ -13,7 +13,7 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 
 import com.temp.buda.R;
-import com.temp.buda.databinding.ViewSettingItemBinding;
+import com.temp.buda.databinding    .ViewSettingItemBinding;
 
 /*************************************************************************
  * Description   :

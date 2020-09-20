@@ -81,6 +81,9 @@ public interface ApiService {
     @POST(ApiAddress.RESET_PASSWORD)
     Observable<BaseResponse<Object>> resetPassword(@Header("x-app-token") String token,@Body Map<String, Object> params);
 
+    @POST(ApiAddress.USER_PROTOCOL)
+    Observable<BaseResponse<Object>> updatePwd(@Header("x-app-token") String token,@Body Map<String, Object> params);
+
     @POST(ApiAddress.USER_REGISTER)
     Observable<BaseResponse<Object>> register(@Body Map<String, Object> params);
 
