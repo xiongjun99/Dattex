@@ -98,9 +98,14 @@ public class DataService {
         params.put("areaCode", areaCode);
         params.put("newPwd", newPwd);
         return RetrofitClient.getInstance().create(ApiService.class).resetPassword(LoginInfo.getUserToken(),params);
+    }
+    public Observable<BaseResponse<Object>> updatePwd(String orgPwd,String newPwd) {
+        Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
+        params.put("orgPwd", orgPwd);
+        params.put("newPwd", newPwd);
+        return RetrofitClient.getInstance().create(ApiService.class).updatePwd(LoginInfo.getUserToken(),params);
 
     }
-
     public Observable<BaseResponse<Object>> register(String userName, String phoneCode, String inviteCode, String countryCode, String passWord, String passWordRepeat) {
 
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
