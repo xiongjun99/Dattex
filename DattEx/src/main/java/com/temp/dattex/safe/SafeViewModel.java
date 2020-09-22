@@ -6,12 +6,9 @@ import androidx.annotation.NonNull;
 
 import com.common.framework.basic.BaseViewModel;
 import com.common.framework.click.SingleClick;
-<<<<<<< HEAD:DattEx/src/main/java/com/temp/dattex/safe/SafeViewModel.java
 import com.temp.dattex.resetpwd.ResetPasswordActivity;
-=======
-import com.temp.buda.resetpwd.ResetPasswordActivity;
-import com.temp.buda.resetpwd.modifyPasswordActivity;
->>>>>>> master:DattEx/src/main/java/com/temp/buda/safe/SafeViewModel.java
+
+
 
 /*************************************************************************
  * Description   :

@@ -11,14 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
-
-<<<<<<< HEAD:DattEx/src/main/java/com/temp/dattex/widget/SettingItemView.java
 import com.temp.dattex.R;
 import com.temp.dattex.databinding.ViewSettingItemBinding;
-=======
-import com.temp.buda.R;
-import com.temp.buda.databinding    .ViewSettingItemBinding;
->>>>>>> master:DattEx/src/main/java/com/temp/buda/widget/SettingItemView.java
 
 /*************************************************************************
  * Description   :
