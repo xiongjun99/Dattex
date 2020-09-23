@@ -375,7 +375,7 @@ public class DataService {
 
         return RetrofitClient.getInstance().create(ApiService.class).addMemberPayType(LoginInfo.getUserToken(),params);
     }
-    public Observable<BaseResponse<RechargeBean>> getRecharge(String amount,String coinId,String currency,String money,int payType) {
+    public Observable<BaseResponse<RechargeBean>> getRecharge(String amount,String coinId,String currency,int money,int payType) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_AMOUNT, amount);
         params.put(Constants.REQUEST_KEY_COIN_ID, coinId);

@@ -8,10 +8,9 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.Observable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.common.framework.BR;
 import com.common.framework.basic.BaseActivity;
 import com.exchange.utilslib.LogUtil;
+import com.temp.buda.BR;
 import com.temp.buda.R;
 import com.temp.buda.adapter.WalletGridAdapter;
 import com.temp.buda.databinding.ActivityWalletBinding;

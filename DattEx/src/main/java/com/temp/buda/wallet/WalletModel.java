@@ -123,7 +123,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
         this.count = count;
     }
 
-    private ObservableField<String> count = new ObservableField<>("");
+    private ObservableField<String> count = new ObservableField<>("正在通知卖家");
 
     public ObservableField<String> getUnit() {
         return unit;
@@ -354,14 +354,14 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
 
     CountDownTimer timer = new CountDownTimer(6000, 1000) {
         public void onTick(long millisUntilFinished) {
-            count.set(""+millisUntilFinished / 2000);
+            count.set("卖家已接单 " + millisUntilFinished / 1000 + " s");
             if (count.get().contains("1")){
-                count.set("买家已接单");
                 isOk.set(true);
             }
-            if ( millisUntilFinished / 500 == 0 ) {
+            if (count.get().contains("0")) {
                 PayDialog.dismiss();
                 PayDialog = null;
+                getRecharge();
             }
         }
         public void onFinish() {
@@ -382,6 +382,10 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
             uc.pop.setValue(false);
             unit.set(otc.get().getOtcCfgs().get(i).getSymbol());
         } else {
+            balance.set("");
+            amount.set("");
+            OtcminAmount.set(Utils.format0(otc.get().getPayTypes().get(i).getMinIn()));
+            OtcMaxAmount.set(Utils.format0(otc.get().getPayTypes().get(i).getMaxIn()));
             pPosition.set(i);
             payForTypeID.set(otc.get().getPayTypes().get(i).getId());
             payForType.set(otc.get().getPayTypes().get(i).getName());
@@ -487,10 +491,10 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     }
 
     private void getRecharge() {
-        DataService.getInstance().getRecharge(amount.get(), "", exchangeType.get(), balance.get(), payForTypeID.get()).compose(ResponseTransformer.handleResult()).subscribe(
+        DataService.getInstance().getRecharge(amount.get(), "", exchangeType.get(), Integer.valueOf(balance.get()), payForTypeID.get()).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if (b != null) {
-                        name.set(b.getOtc().getName());
+                        name.set(b.getOtc().getLastName()+b.getOtc().getFirstName());
                         id.set(b.getRecord().getId());
                         Bundle bundle = new Bundle();
                         bundle.putString("payForType", payForType.get());

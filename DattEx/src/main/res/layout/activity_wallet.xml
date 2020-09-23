@@ -34,7 +34,6 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:visibility="gone"
                     android:checked="false"
                     android:id="@+id/rb_buy"
                     android:layout_width="wrap_content"
@@ -49,10 +48,9 @@
                     android:text="购买USDT"
                     android:textColor="@drawable/selector_wallet_title_text" />
 
-
-                <!--                android:background="@drawable/selector_wallet_title_right"-->
                 <RadioButton
                     android:checked="true"
+                    android:background="@drawable/selector_wallet_title_right"
                     android:id="@+id/rb_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
