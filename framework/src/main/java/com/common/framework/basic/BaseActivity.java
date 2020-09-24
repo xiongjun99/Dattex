@@ -3,7 +3,12 @@ package com.common.framework.basic;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.databinding.DataBindingUtil;
@@ -34,7 +39,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //私有的初始化Databinding和ViewModel方法
+        //私有的初始化Databinding和ViewMode方法
         initViewDataBinding(savedInstanceState);
         //页面接受的参数方法
         initParam();
@@ -152,7 +157,6 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
      */
     @Override
     public void initView() {
-
     }
 
     /**
@@ -215,4 +219,5 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     public boolean needLogin() {
         return false;
     }
+
 }

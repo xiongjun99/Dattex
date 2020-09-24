@@ -14,6 +14,8 @@ import com.temp.buda.login.LoginActivity;
 import com.temp.buda.net.ApiAddress;
 import com.temp.buda.net.DataService;
 import com.temp.buda.net.WebSocket;
+import com.temp.buda.util.Utils;
+
 import java.util.HashMap;
 
 /*************************************************************************
@@ -53,6 +55,7 @@ public class Application extends BaseApplication implements SPUtil.SpClearListen
         super.onCreate();
         SPUtil.initSp(this);
         SPUtil.setSpClearListener(this);
+
         RetrofitClient.getInstance().initRetrofit(ApiAddress.BASE_URL);
         SymbolConfigs.getInstance().init();
         DataService.getInstance().getUsdtRate().compose(ResponseTransformer.<Double>handleResult()).subscribe(

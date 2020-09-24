@@ -43,6 +43,7 @@ import com.temp.buda.net.DataService;
 import com.temp.buda.record.CoinRecordActivity;
 import com.temp.buda.util.DialogUtil;
 import com.temp.buda.util.Utils;
+import com.temp.buda.withdraworwallet.WithdrawOrWalletActivity;
 
 import java.util.Hashtable;
 
@@ -90,7 +91,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     private ObservableField<Integer> id = new ObservableField<>(0);
     public ObservableField<String> OtcminAmount = new ObservableField<>("");
     public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
-    private ObservableField<Boolean> showOtc = new ObservableField<>(false);
+    private ObservableField<Boolean> showOtc = new ObservableField<>(true);
     private ObservableField<Bitmap> qrBitmap = new ObservableField<>();
     private ObservableField<Drawable> buyDrawable = new ObservableField<>(getApplication().getResources().getDrawable(R.drawable.drawable_button_cancel));
     private ObservableField<String> rechargeCoin = new ObservableField<>("USDT");
@@ -107,6 +108,9 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public ObservableField<OTCcfgBean> otc = new ObservableField<>();
     private ObservableField<String> unit = new ObservableField<>("");
     private ObservableField<Boolean> isOk = new ObservableField<>(false);
+   private String ext,card;
+
+
 
     public ObservableField<Boolean> getIsOk() {
         return isOk;
@@ -234,10 +238,16 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     @SingleClick
     @Override
     public void rightClick() {
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.REQUEST_KEY_INOROUT, 0);
-        bundle.putString(Constants.KEY_COIN_NAME, rechargeCoin.get());
-        startActivity(CoinRecordActivity.class, bundle);
+        if (showOtc.get()==false){
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.KEY_COIN_NAME, "USDT");
+            startActivity(WithdrawOrWalletActivity.class, bundle);
+        }else {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.REQUEST_KEY_INOROUT, 0);
+            bundle.putString(Constants.KEY_COIN_NAME, rechargeCoin.get());
+            startActivity(CoinRecordActivity.class, bundle);
+        }
     }
 
 
@@ -343,25 +353,31 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     @SingleClick
     public void ensureOrder() {
         if (!TextUtils.isEmpty(amount.get()) && !TextUtils.isEmpty(exchangeType.get()) && !TextUtils.isEmpty(balance.get()) && payForTypeID.get() > 0) {
-//          getRecharge();
-            this.setCount(count);
-            DialogUtil.showWallPayDialog(AppManager.getActivityStack().peek(), this);
-            timer.start();
+            getRecharge();
         } else {
             ToastUtil.show(getApplication(), "请填写完整的买入信息");
         }
     }
 
-    CountDownTimer timer = new CountDownTimer(6000, 1000) {
+    CountDownTimer timer = new CountDownTimer(7000, 1000) {
         public void onTick(long millisUntilFinished) {
-            count.set("卖家已接单 " + millisUntilFinished / 1000 + " s");
-            if (count.get().contains("1")){
-                isOk.set(true);
-            }
-            if (count.get().contains("0")) {
+            count.set("卖家已接单 " + ((millisUntilFinished / 1000) - 1) + " s");
+            if (millisUntilFinished / 1000 == 1) {
                 PayDialog.dismiss();
                 PayDialog = null;
-                getRecharge();
+                Bundle bundle = new Bundle();
+                bundle.putString("payForType", payForType.get());
+                bundle.putInt("payType", pPosition.get());
+                bundle.putInt("id", id.get());
+                bundle.putString("price", price.get());
+                bundle.putString("num", amount.get());
+                bundle.putString("amount", balance.get());
+                bundle.putString("name", name.get());
+                bundle.putString("ext", ext);
+                bundle.putString("card", card);
+                bundle.putString("unit", unit.get());
+                startActivity(BuyActivity.class, bundle);
+            }else {
             }
         }
         public void onFinish() {
@@ -496,17 +512,10 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
                     if (b != null) {
                         name.set(b.getOtc().getLastName()+b.getOtc().getFirstName());
                         id.set(b.getRecord().getId());
-                        Bundle bundle = new Bundle();
-                        bundle.putString("payForType", payForType.get());
-                        bundle.putInt("payType", pPosition.get());
-                        bundle.putInt("id", id.get());
-                        bundle.putString("price", price.get());
-                        bundle.putString("num", amount.get());
-                        bundle.putString("amount", balance.get());
-                        bundle.putString("name", name.get());
-                        bundle.putString("ext", b.getOtc().getExt());
-                        bundle.putString("card", b.getOtc().getCard());
-                        startActivity(BuyActivity.class, bundle);
+                        ext = b.getOtc().getExt();
+                        card = b.getOtc().getCard();
+                        timer.start();
+                        DialogUtil.showWallPayDialog(AppManager.getActivityStack().peek(), this);
                     } else {
                         ToastUtil.show(getApplication(), "创建订单失败");
                     }

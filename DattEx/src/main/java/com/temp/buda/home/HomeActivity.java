@@ -104,6 +104,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         Bugly.init(getApplicationContext(), "177e35b69c", false);
         HomeFragmentPagerAdapter baseFragmentPagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager());
         viewModel.pagerAdapter.set(baseFragmentPagerAdapter);
+//        Utils.titlebar(this);
     }
-
 }

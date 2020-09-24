@@ -25,6 +25,10 @@ import com.temp.buda.R;
 import com.temp.buda.net.DataService;
 import com.temp.buda.util.Utils;
 import com.temp.buda.widget.TitleBar;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 @RequiresApi(api = Build.VERSION_CODES.M)
@@ -34,7 +38,7 @@ public class BuyActivity extends Activity {
     private RelativeLayout rlTransferAccounts;
     private LinearLayout llBankInfo,llOther;
     private TitleBar titleBar;
-    public   int count = 180;
+    public   int count = 900;
     private  Timer mTimer = null;
     private  TimerTask mTimerTask = null;
     private int dialogType = 0;
@@ -133,13 +137,13 @@ public class BuyActivity extends Activity {
             tvAccountName.setText(getIntent().getStringExtra("payForType") + "收款账号");
         }
         if (getIntent().getStringExtra("price") != null) {
-            tvPrice.setText("¥" + getIntent().getStringExtra("price") + "元");
+            tvPrice.setText( getIntent().getStringExtra("unit") + getIntent().getStringExtra("price") + "");
         }
         if (getIntent().getStringExtra("num") != null) {
             tvBuyBum.setText(getIntent().getStringExtra("num"));
         }
         if (getIntent().getStringExtra("amount") != null) {
-            tvAmount.setText("¥" + getIntent().getStringExtra("amount") + "元");
+            tvAmount.setText(getIntent().getStringExtra("unit") + Utils.format4(Utils.multiply(getIntent().getStringExtra("price"),getIntent().getStringExtra("num"))) + "");
         }
         if (getIntent().getStringExtra("name") != null) {
             tvPayee.setText(getIntent().getStringExtra("name"));
@@ -219,13 +223,26 @@ public class BuyActivity extends Activity {
     private Handler mhandler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1){
-                tvBuyTime.setText("倒计时:"+count+"s");
+                tvBuyTime.setText("倒计时:"+getTime(count));
                 if (count==0){
                     stopTimer();
                 }
             }
         }
     };
+    public static String getTime(int seconds) {
+        String standardTime;
+        if (seconds <= 0){
+            standardTime = "00:00";
+        } else if (seconds < 60) {
+            standardTime = String.format(Locale.getDefault(), "00:%02d", seconds % 60);
+        } else if (seconds < 3600) {
+            standardTime = String.format(Locale.getDefault(), "%02d:%02d", seconds / 60, seconds % 60);
+        } else {
+            standardTime = String.format(Locale.getDefault(), "%02d:%02d:%02d", seconds / 3600, seconds % 3600 / 60, seconds % 60);
+        }
+        return standardTime;
+    }
     public  void showBuyDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_buy,null,false);
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();

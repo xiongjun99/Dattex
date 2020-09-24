@@ -19,7 +19,7 @@ BuyDetailActivity extends Activity {
     private TextView tvPrice, tvBuyBum, tvAmount, tvStarTime, tvEndTime, tvOrderStatus;
     private int id;
     private static boolean flag = true;
-    private static final int TIMER = 999;
+    private static final int TIMER = 1000;
     private TitleBar titleBar;
 
     @Override
@@ -105,8 +105,8 @@ BuyDetailActivity extends Activity {
                                 tvOrderStatus.setText("已转账");
                                 break;
                         }
-                        tvStarTime.setText(Utils.dateTostring(b.getRecord().getCreated()));
-                        tvEndTime.setText(Utils.dateTostring(b.getRecord().getUpdated()));
+                        tvStarTime.setText(b.getRecord().getCreated());
+                        tvEndTime.setText(b.getRecord().getUpdated());
                     }
                 }, t -> {
                     ToastUtil.show(getApplication(),t.getMessage());

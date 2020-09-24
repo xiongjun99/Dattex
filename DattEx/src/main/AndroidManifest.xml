@@ -261,6 +261,9 @@
         <meta-data
             android:name="APK_IS_DEBUG"
             android:value="${APK_IS_DEBUG_VALUE}" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1"/>
     </application>
 
 </manifest>

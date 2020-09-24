@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.common.framework.basic.BaseApplication;
 import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
-import com.temp.buda.BaseActivity;
+import com.temp.buda.base.BaseActivity;
 import com.temp.buda.R;
 import com.temp.buda.adapter.WithdrawListAdapter;
 import com.temp.buda.bean.NewPayTypeBean;

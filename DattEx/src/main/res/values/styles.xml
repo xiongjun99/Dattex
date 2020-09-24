@@ -3,9 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:windowBackground">@color/color_282C42</item>
-
     </style>
-
 
     <style name="SplashTheme" parent="BaseAppTheme">
         <item name="android:background">@drawable/shape_splash</item>

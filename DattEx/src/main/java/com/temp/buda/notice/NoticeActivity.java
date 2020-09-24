@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
-import com.temp.buda.BaseActivity;
+import com.temp.buda.base.BaseActivity;
 import com.temp.buda.R;
 import com.temp.buda.adapter.NoticeAdapter;
 import com.temp.buda.bean.NoticeBean;

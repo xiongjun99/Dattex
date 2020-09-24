@@ -14,6 +14,7 @@ import com.temp.buda.BR;
 import com.temp.buda.R;
 import com.temp.buda.adapter.WalletGridAdapter;
 import com.temp.buda.databinding.ActivityWalletBinding;
+import com.temp.buda.util.Utils;
 import com.temp.buda.widget.EditPop;
 import com.temp.buda.widget.FleXoPopWindow;
 import java.util.ArrayList;
@@ -127,13 +128,15 @@ public class WalletActivity extends BaseActivity<ActivityWalletBinding, WalletMo
         walletGridAdapter = new WalletGridAdapter(null);
         recyclerView.setAdapter(walletGridAdapter);
         walletGridAdapter.setOnItemClickListener((adapter, view, position) ->
-                        viewModel.changeBalance(walletGridAdapter.getData().get(position))
+        viewModel.changeBalance(walletGridAdapter.getData().get(position))
                );
         rbBuy.setOnClickListener(view -> {
+               binding.tvRight.setText("购买记录");
             rbBuy.setChecked(true);
             rbWallet.setChecked(false);
         });
         rbWallet.setOnClickListener(view -> {
+            binding.tvRight.setText("充币记录");
             rbBuy.setChecked(false);
             rbWallet.setChecked(true);
         });

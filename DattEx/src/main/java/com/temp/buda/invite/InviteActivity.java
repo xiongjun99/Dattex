@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.exchange.utilslib.ToastUtil;
 import com.independ.framework.response.ResponseTransformer;
-import com.temp.buda.BaseActivity;
+import com.temp.buda.base.BaseActivity;
 import com.temp.buda.R;
 import com.temp.buda.adapter.InviteListAdapter;
 import com.temp.buda.database.LoginInfo;
