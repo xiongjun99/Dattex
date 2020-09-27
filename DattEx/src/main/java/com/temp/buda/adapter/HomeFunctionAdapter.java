@@ -19,7 +19,6 @@ public class HomeFunctionAdapter extends BaseQuickAdapter<HomeFunctionBean, Base
         super(R.layout.item_homefunction, data);
         mContext = context;
     }
-
     @Override
     protected void convert(BaseViewHolder helper, HomeFunctionBean item) {
         TextView tvFunName = helper.getView(R.id.tv_fun_name);

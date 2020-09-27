@@ -208,8 +208,9 @@ public class DialogUtil {
         attributes.height = DisplayUtil.getScreenContentHeight(context) - DisplayUtil.dp2px(context, 44);
         attributes.gravity = Gravity.CENTER;
         dialog.getWindow().setAttributes(attributes);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setOnDismissListener(dialog1 -> walletModel.setPayDialog(null));
         dialog.show();
     }
+
 }

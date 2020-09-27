@@ -183,7 +183,7 @@ public class RechargeBean {
         private int id;
         private int inOrOut;
         private int memberId;
-        private int money;
+        private float money;
         private String msg;
         private int otcId;
         private int payType;
@@ -263,11 +263,11 @@ public class RechargeBean {
             this.memberId = memberId;
         }
 
-        public int getMoney() {
+        public float getMoney() {
             return money;
         }
 
-        public void setMoney(int money) {
+        public void setMoney(float money) {
             this.money = money;
         }
 

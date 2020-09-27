@@ -1,5 +1,6 @@
 package com.temp.buda.withdraw;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -32,6 +33,7 @@ import com.temp.buda.R;
 import com.temp.buda.adapter.DialogPayAdapter;
 import com.temp.buda.bean.OTCcfgBean;
 import com.temp.buda.net.DataService;
+import com.temp.buda.util.Utils;
 import com.temp.buda.widget.EditPop;
 import com.temp.buda.widget.TitleBar;
 import org.json.JSONArray;
@@ -46,8 +48,6 @@ import java.util.List;
 public class AddPayTypeActivity extends BaseActivity implements AdapterView.OnItemClickListener, PopupWindow.OnDismissListener {
     private List<String> list = new ArrayList<>();
     private TextView tvPay;
-    private String exchangeType,price;
-    private List<OTCcfgBean> otc = new ArrayList<>();
     private LinearLayout llBankCardPay,llOther,llProvince,llCity;
     private TextView tvPayInfo,tvGetCode;
     private List<String> provinceList = new ArrayList<>();
@@ -146,7 +146,8 @@ public class AddPayTypeActivity extends BaseActivity implements AdapterView.OnIt
         popwindow.dismiss();
     }
     private void initData() {
-        getPayTypeData();
+//        getPayTypeData();
+        getOtcData();
     }
 
     private boolean isSubmit(){
@@ -232,11 +233,12 @@ public class AddPayTypeActivity extends BaseActivity implements AdapterView.OnIt
         });
         dialog.getWindow().setBackgroundDrawableResource(R.color.color_282C42);
         Window window = dialog.getWindow();
-        window.setGravity(Gravity.BOTTOM); // 此处可以设置dialog显示的位置
+        window.setGravity(Gravity.CENTER); // 此处可以设置dialog显示的位置
         window.setWindowAnimations(R.style.Animation_Design_BottomSheetDialog); // 添加动画
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout((Utils.getScreenWidth(this)/4*3), LinearLayout.LayoutParams.WRAP_CONTENT);
 //        WindowManager.LayoutParams params =
 //                dialog.getWindow().getAttributes();
 //        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -346,6 +348,8 @@ public class AddPayTypeActivity extends BaseActivity implements AdapterView.OnIt
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
         ImageView ivCancel = view .findViewById(R.id.iv_cancel);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        TextView tvTitle = view .findViewById(R.id.tv_title);
+        tvTitle.setText("请选择");
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.shape_country_list_item_line));
         recyclerView.addItemDecoration(dividerItemDecoration);
@@ -384,5 +388,23 @@ public class AddPayTypeActivity extends BaseActivity implements AdapterView.OnIt
     @Override
     public void onDismiss() {
 
+    }
+    @SuppressLint("CheckResult")
+    private void getOtcData() {
+        DataService.getInstance().getOtcCfg().compose(ResponseTransformer.handleResult()).subscribe(
+                b -> {
+                        if(b!=null){
+                            for (int i = 0; i < b.getPayTypes().size(); i++) {
+                                payType =1;
+                                list.add(b.getPayTypes().get(i).getName());
+                                tvPay.setText(list.get(0));
+                                tvPayInfo.setText("只能添加与该姓名一致的"+list.get(0));
+                            }
+                        }else {
+                            ToastUtil.show(getApplication(), "获取支付方式配置失败");
+                        }
+                }, t -> {
+                    ToastUtil.show(getApplication(),t.getMessage());
+                });
     }
 }

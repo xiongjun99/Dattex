@@ -34,7 +34,8 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:checked="true"
+                    android:visibility="gone"
+                    android:checked="false"
                     android:id="@+id/rb_buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,12 +49,13 @@
                     android:text="购买USDT"
                     android:textColor="@drawable/selector_wallet_title_text" />
 
+<!--                android:background="@drawable/selector_wallet_title_right"-->
                 <RadioButton
-                    android:checked="false"
-                    android:background="@drawable/selector_wallet_title_right"
+                    android:checked="true"
                     android:id="@+id/rb_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_button_ensure"
                     android:onClick="@{()->walletModel.recharge()}"
                     android:button="@null"
                     android:gravity="center"
@@ -66,17 +68,23 @@
 
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/tv_right"
+            <RelativeLayout
+               android:padding="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
                 android:onClick="@{()->walletModel.rightClick()}"
-                android:text="购买记录"
-                android:textColor="@color/color_FFEDEEF2"
-                android:textSize="12dp" />
+                >
+                <TextView
+                    android:id="@+id/tv_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="充币记录"
+                    android:textColor="@color/color_FFEDEEF2"
+                    android:textSize="12dp" />
+            </RelativeLayout>
         </RelativeLayout>
 
         <View
@@ -415,7 +423,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="24dp"
-                android:text="推荐使用 银行股卡转账，更快、更稳定、更大额！"
+                android:text="推荐使用 银行卡转账，更快、更稳定、更大额！"
                 android:textColor="@color/color_FFEDEEF2"
                 android:textSize="11sp" />
 

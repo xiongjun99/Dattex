@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/tv_title"
             android:textSize="@dimen/dp_14"
             android:layout_centerHorizontal="true"
             android:text="请选择交易对"
@@ -26,12 +27,6 @@
             android:layout_width="20dp"
             android:layout_height="20dp"></ImageView>
     </RelativeLayout>
-    <View
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
-        android:layout_width="match_parent"
-        android:layout_height="0.6dp"
-        android:background="@drawable/shape_input_buttom_line" />
     <androidx.recyclerview.widget.RecyclerView
         android:paddingTop="@dimen/dp_10"
         android:id="@+id/recycler_view"

@@ -180,7 +180,7 @@ public class RegisterStepOneViewModel extends BaseViewModel {
     public void openProtocol() {
         Bundle bundle = new Bundle();
         bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "协议");
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL+"/#/article?id=1");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.BASE_URL+"/#/article?id=1");
         startActivity(WebViewActivity.class, bundle);
     }
 

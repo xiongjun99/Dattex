@@ -27,7 +27,7 @@
     <string name="Recharge_Info">充值详情</string>
     <string name="Add_Address">添加提币地址</string>
     <string name="PayType">支付方式</string>
-    <string name="AddPayType">添加收款方</string>
+    <string name="AddPayType">添加收款方式</string>
     <string name="About_Symbol">≈</string>
     <string name="CNY">CNY</string>
 
@@ -137,7 +137,7 @@
     <string name="buy_becareful">转账时请务必在“转账附言”或备注里填写安全码</string>
     <string name="buy_tips">温馨提示：\n 1. 系统已为您自动匹配OTC商家，请在15分钟内完成转账。\n 2. 超过5笔取消订单，将冻结当天购买权限。 \n 3. 如遇到问题，请联系客服</string>
     <string name="buy_tips_continue">&#160;4. 注意：支付宝信息随时会变更，请您每次充值之前，核实入款 支付宝宝信息。如入款支付宝信息过期给您造成损失，恕不负责。 请见谅，谢谢配合！</string>
-    <string name="proposal">请使用 支付方 的银行卡完成转账，否则影响到账</string>
+    <string name="proposal">请使用银行卡完成转账，否则影响到账</string>
     <string name="transfer_accounts">我已转账</string>
     <string name="afresh_accounts">重新转账</string>
     <string name="account_amount">到账金额</string>
@@ -159,6 +159,7 @@
     <string name="please_input_Iden_num">请输入证件号码</string>
     <string name="please_input_order_name">请输入名字</string>
     <string name="please_select_idtype">请选择证件类型</string>
+    <string name="cancelOrder">取消订单</string>
 
     <string name="please_input_surname">请输入姓</string>
     <string name="title_order">订单</string>

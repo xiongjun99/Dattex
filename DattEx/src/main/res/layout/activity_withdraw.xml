@@ -8,14 +8,15 @@
             type="com.temp.buda.withdraw.WithdrawViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ll_withdraw"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rl_withdraw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_1A1C29"
-        android:orientation="vertical">
+        >
 
         <RelativeLayout
+            android:id="@+id/rl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -49,7 +50,9 @@
                     android:textColor="@drawable/selector_wallet_title_text" />
 
 <!--                android:background="@drawable/selector_wallet_title_right"-->
+
                 <RadioButton
+                    android:background="@drawable/drawable_button_ensure"
                     android:id="@+id/rb_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,37 +66,40 @@
                     android:text="钱包提币"
                     android:textColor="@drawable/selector_wallet_title_text" />
             </RadioGroup>
-            <TextView
+            <RelativeLayout
+                android:padding="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
                 android:onClick="@{()->withdrawViewModel.rightClick()}"
-                android:text="提币记录"
-                android:textColor="@color/color_FFEDEEF2"
-                android:textSize="12dp" />
+                >
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_right"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginRight="15dp"-->
+<!--                    android:text="出售记录"-->
+<!--                    android:textColor="@color/color_FFEDEEF2"-->
+<!--                    android:textSize="12dp" />-->
+                <TextView
+                    android:id="@+id/tv_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="提币记录"
+                    android:textColor="@color/color_FFEDEEF2"
+                    android:textSize="12dp" />
+            </RelativeLayout>
         </RelativeLayout>
-
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
                 <LinearLayout
+                    android:layout_below="@+id/rl_title"
                     android:id="@+id/ll_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/dp_10"
                     android:background="@color/color_FF282C42"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:background="@color/color_1A1C29"
@@ -438,19 +444,20 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_sell_usdt"
+                <RelativeLayout
+                    android:layout_below="@+id/rl_title"
+                    android:id="@+id/rl_sell_usdt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="2dp"
-                    android:layout_marginBottom="@dimen/dp_10"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/ll_sell_info"
                         android:background="@color/color_282C42"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -633,6 +640,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_below="@+id/ll_sell_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -720,25 +728,24 @@
                                 android:text="@string/obtain_code"></TextView>
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rl_confirm"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:background="@drawable/drawable_button_ensure"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10">
-
-                    <TextView
-                        android:id="@+id/tv_confirm"
-                        style="@style/White_TextView_Style"
-                        android:layout_centerInParent="true"
-                        android:text="@string/Confirm_Withdraw"></TextView>
                 </RelativeLayout>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/rl_confirm"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/drawable_button_ensure"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                style="@style/White_TextView_Style"
+                android:layout_centerInParent="true"
+                android:text="@string/Confirm_Sell"></TextView>
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

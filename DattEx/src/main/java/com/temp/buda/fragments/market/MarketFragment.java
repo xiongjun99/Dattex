@@ -64,9 +64,7 @@ public class MarketFragment extends BaseFragment<FragmentMarketLayoutBinding, Ma
 
     @Override
     public void initView() {
-        getUsdtcny();
-        getMarketList();
-        recycler_view = getActivity().findViewById(R.id.recycler_view);
+        recycler_view = getActivity().findViewById(R.id.market_recycler_view);
         marketRecyclerAdapter = new NewMarketRecyclerAdapter(R.layout.item_newmarket_layout,getActivity(),listBeans);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -76,6 +74,8 @@ public class MarketFragment extends BaseFragment<FragmentMarketLayoutBinding, Ma
             intent.putExtra(Constants.REQUEST_KEY_COIN_ID, marketRecyclerAdapter.getData().get(position).getCoinId());
             startActivity(intent);
         });
+        getUsdtcny();
+        getMarketList();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class MarketFragment extends BaseFragment<FragmentMarketLayoutBinding, Ma
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                getUsdtcny();
+        getUsdtcny();
                 getMarketList();
             }
         }, 1000, 1000);

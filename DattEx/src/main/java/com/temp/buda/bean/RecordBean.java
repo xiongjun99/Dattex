@@ -1,68 +1,79 @@
 package com.temp.buda.bean;
 
-public class OtcDetailBean {
+import java.util.List;
 
+public class RecordBean {
         /**
-         * record : {"id":10,"memberId":578,"otcId":1,"state":3,"payType":1,"inorout":0,"coinId":"","currency":"CNY","money":1,"amount":1000,"actualAmount":999,"fee":1,"ratio":1,"msg":null,"created":"2020-09-23 22:28:42","updated":null,"memberCardId":null}
-         * otc : null
-         * feeTotal : null
-         * reciveItem : null
+         * size : 100
+         * total : 4
+         * rows : [{"id":5,"memberId":578,"otcId":1,"state":1,"payType":1,"inorout":0,"coinId":"USDT","currency":"CNY","money":1,"amount":1000,"actualAmount":999,"fee":1,"ratio":6.9,"msg":null,"created":"2020-09-24 08:57:42","updated":null,"memberCardId":null},{"id":6,"memberId":578,"otcId":1,"state":1,"payType":1,"inorout":0,"coinId":"USDT","currency":"CNY","money":1,"amount":1000,"actualAmount":999,"fee":1,"ratio":6.9,"msg":null,"created":"2020-09-24 08:59:32","updated":null,"memberCardId":null},{"id":7,"memberId":578,"otcId":1,"state":1,"payType":1,"inorout":0,"coinId":"USDT","currency":"CNY","money":1,"amount":1000,"actualAmount":999,"fee":1,"ratio":6.9,"msg":null,"created":"2020-09-24 09:01:06","updated":null,"memberCardId":null},{"id":8,"memberId":578,"otcId":1,"state":1,"payType":1,"inorout":0,"coinId":"USDT","currency":"CNY","money":1,"amount":1000,"actualAmount":999,"fee":1,"ratio":6.9,"msg":null,"created":"2020-09-24 09:02:11","updated":null,"memberCardId":null}]
+         * start : 0
+         * summber : null
          */
 
-        private RecordBean record;
-        private Object otc;
-        private Object feeTotal;
-        private Object reciveItem;
+        private int size;
+        private int total;
+        private int start;
+        private Object summber;
+        private List<RowsBean> rows;
 
-        public RecordBean getRecord() {
-            return record;
+        public int getSize() {
+            return size;
         }
 
-        public void setRecord(RecordBean record) {
-            this.record = record;
+        public void setSize(int size) {
+            this.size = size;
         }
 
-        public Object getOtc() {
-            return otc;
+        public int getTotal() {
+            return total;
         }
 
-        public void setOtc(Object otc) {
-            this.otc = otc;
+        public void setTotal(int total) {
+            this.total = total;
         }
 
-        public Object getFeeTotal() {
-            return feeTotal;
+        public int getStart() {
+            return start;
         }
 
-        public void setFeeTotal(Object feeTotal) {
-            this.feeTotal = feeTotal;
+        public void setStart(int start) {
+            this.start = start;
         }
 
-        public Object getReciveItem() {
-            return reciveItem;
+        public Object getSummber() {
+            return summber;
         }
 
-        public void setReciveItem(Object reciveItem) {
-            this.reciveItem = reciveItem;
+        public void setSummber(Object summber) {
+            this.summber = summber;
         }
 
-        public static class RecordBean {
+        public List<RowsBean> getRows() {
+            return rows;
+        }
+
+        public void setRows(List<RowsBean> rows) {
+            this.rows = rows;
+        }
+
+        public static class RowsBean {
             /**
-             * id : 10
+             * id : 5
              * memberId : 578
              * otcId : 1
-             * state : 3
+             * state : 1
              * payType : 1
              * inorout : 0
-             * coinId :
+             * coinId : USDT
              * currency : CNY
              * money : 1.0
              * amount : 1000.0
              * actualAmount : 999.0
              * fee : 1
-             * ratio : 1.0
+             * ratio : 6.9
              * msg : null
-             * created : 2020-09-23 22:28:42
+             * created : 2020-09-24 08:57:42
              * updated : null
              * memberCardId : null
              */
@@ -77,22 +88,14 @@ public class OtcDetailBean {
             private String currency;
             private float money;
             private double amount;
-            private float actualAmount;
+            private double actualAmount;
             private int fee;
             private double ratio;
             private Object msg;
             private String created;
-            private String updated;
-            private String endTime;
+            private Object updated;
             private Object memberCardId;
 
-            public String getEndTime() {
-                return endTime;
-            }
-
-            public void setEndTime(String endTime) {
-                this.endTime = endTime;
-            }
             public int getId() {
                 return id;
             }
@@ -173,11 +176,11 @@ public class OtcDetailBean {
                 this.amount = amount;
             }
 
-            public float getActualAmount() {
+            public double getActualAmount() {
                 return actualAmount;
             }
 
-            public void setActualAmount(float actualAmount) {
+            public void setActualAmount(double actualAmount) {
                 this.actualAmount = actualAmount;
             }
 
@@ -213,11 +216,11 @@ public class OtcDetailBean {
                 this.created = created;
             }
 
-            public String getUpdated() {
+            public Object getUpdated() {
                 return updated;
             }
 
-            public void setUpdated(String updated) {
+            public void setUpdated(Object updated) {
                 this.updated = updated;
             }
 
@@ -229,4 +232,4 @@ public class OtcDetailBean {
                 this.memberCardId = memberCardId;
             }
         }
-}
+    }

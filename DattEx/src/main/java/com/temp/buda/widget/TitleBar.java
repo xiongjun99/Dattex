@@ -83,6 +83,9 @@ public class TitleBar extends RelativeLayout {
     public void setLeftTwoClick(Activity activity) {
         imageViewTitleLeftIcon.setOnClickListener(view -> activity.finish());
     }
+    public void setNewLeftTwoClick(OnClickListener onClickListener) {
+        imageViewTitleLeftIcon.setOnClickListener(onClickListener);
+    }
     public void setRightClick(TitleBarClickBindingAdapter.TitleRightClickListener rightClickListener) {
         imageViewTitleRightIcon.setOnClickListener(v -> rightClickListener.rightClick());
     }

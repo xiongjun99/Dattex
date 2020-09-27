@@ -26,6 +26,7 @@ import com.temp.buda.bean.OrdersBean;
 import com.temp.buda.bean.OtcDetailBean;
 import com.temp.buda.bean.PayTypeBean;
 import com.temp.buda.bean.RechargeBean;
+import com.temp.buda.bean.RecordBean;
 import com.temp.buda.bean.SymbolConfigBean;
 import com.temp.buda.bean.TradeDepthBean;
 import com.temp.buda.bean.UpdateBean;
@@ -255,13 +256,14 @@ public class DataService {
         return RetrofitClient.getInstance().create(ApiService.class).commitRealName(params, LoginInfo.getUserToken());
     }
 
-    public Observable<BaseResponse<AssetsRecordBean>> assetsRecorde(String coinId, int page, String sort) {
+    public Observable<BaseResponse<RecordBean>> assetsRecorde(int inorout, String coinId, int page, String sort) {
         Map<String, Object> params = ((Application) Application.getInstance()).createRequestParams();
         params.put(Constants.REQUEST_KEY_COIN_ID, coinId);
         params.put(Constants.REQUEST_KEY_DIR, "desc");
         params.put(Constants.REQUEST_KEY_PAGE, page);
         params.put(Constants.REQUEST_KEY_SIZE, 100);
         params.put(Constants.REQUEST_KEY_SORT, sort);
+        params.put(Constants.REQUEST_KEY_INOROUT, inorout);
         return RetrofitClient.getInstance().create(ApiService.class).assetsRecord(LoginInfo.getUserToken(), params);
     }
 

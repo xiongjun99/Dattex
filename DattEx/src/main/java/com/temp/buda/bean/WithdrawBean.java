@@ -1,24 +1,17 @@
 package com.temp.buda.bean;
 
 public class WithdrawBean {
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    /**
-         * record : {"id":6374,"memberId":10005,"otcId":8,"memberCardId":8,"state":0,"payType":1,"reciveItemId":8,"currency":"CNY","inOrOut":false,"coinId":"USDT","money":450,"amount":3235.5,"actualAmount":3235.5,"fee":"0E-8","ratio":"7.19000000","msg":null,"created":1599143444112,"updated":1599143444112}
+        /**
+         * record : {"id":11,"memberId":578,"otcId":1,"state":0,"payType":1,"inorout":1,"coinId":"USDT","currency":"CNY","money":99,"amount":100,"actualAmount":100,"fee":1,"ratio":1,"msg":null,"created":"2020-09-24 17:31:22","updated":null,"memberCardId":1}
          * otc : null
-         * memberPayTypeCard : {"id":8,"memberId":10005,"coinId":"CNY","isEnabled":"1","type":1,"firstName":"骏","lastName":"熊","bankName":"交通银行","province":"北京","city":"北京","receivingAccount":"twst1234567890","openingBank":"朝阳","createUser":"10005","createTime":"2020-08-31 10:52:55"}
+         * feeTotal : 1
+         * reciveItem : {"id":1,"memberId":578,"coinId":"CNY","isEnabled":"1","type":1,"firstName":"骏","lastName":"熊","bankName":"中国银行","province":"北京","city":"北京","receivingAccount":"1101011990030655858744","openingBank":"长阳","createUser":"578","createTime":"2020-09-24 17:24:20"}
          */
-        private boolean success;
+
         private RecordBean record;
         private Object otc;
-        private MemberPayTypeCardBean memberPayTypeCard;
+        private int feeTotal;
+        private ReciveItemBean reciveItem;
 
         public RecordBean getRecord() {
             return record;
@@ -36,54 +29,60 @@ public class WithdrawBean {
             this.otc = otc;
         }
 
-        public MemberPayTypeCardBean getMemberPayTypeCard() {
-            return memberPayTypeCard;
+        public int getFeeTotal() {
+            return feeTotal;
         }
 
-        public void setMemberPayTypeCard(MemberPayTypeCardBean memberPayTypeCard) {
-            this.memberPayTypeCard = memberPayTypeCard;
+        public void setFeeTotal(int feeTotal) {
+            this.feeTotal = feeTotal;
+        }
+
+        public ReciveItemBean getReciveItem() {
+            return reciveItem;
+        }
+
+        public void setReciveItem(ReciveItemBean reciveItem) {
+            this.reciveItem = reciveItem;
         }
 
         public static class RecordBean {
             /**
-             * id : 6374
-             * memberId : 10005
-             * otcId : 8
-             * memberCardId : 8
+             * id : 11
+             * memberId : 578
+             * otcId : 1
              * state : 0
              * payType : 1
-             * reciveItemId : 8
-             * currency : CNY
-             * inOrOut : false
+             * inorout : 1
              * coinId : USDT
-             * money : 450.0
-             * amount : 3235.5
-             * actualAmount : 3235.5
-             * fee : 0E-8
-             * ratio : 7.19000000
+             * currency : CNY
+             * money : 99.0
+             * amount : 100
+             * actualAmount : 100
+             * fee : 1
+             * ratio : 1.0
              * msg : null
-             * created : 1599143444112
-             * updated : 1599143444112
+             * created : 2020-09-24 17:31:22
+             * updated : null
+             * memberCardId : 1
              */
 
             private int id;
             private int memberId;
             private int otcId;
-            private int memberCardId;
             private int state;
             private int payType;
-            private int reciveItemId;
-            private String currency;
-            private int inOrOut;
+            private int inorout;
             private String coinId;
+            private String currency;
             private double money;
-            private double amount;
-            private double actualAmount;
-            private String fee;
-            private String ratio;
+            private int amount;
+            private int actualAmount;
+            private int fee;
+            private double ratio;
             private Object msg;
-            private long created;
-            private long updated;
+            private String created;
+            private Object updated;
+            private int memberCardId;
 
             public int getId() {
                 return id;
@@ -109,14 +108,6 @@ public class WithdrawBean {
                 this.otcId = otcId;
             }
 
-            public int getMemberCardId() {
-                return memberCardId;
-            }
-
-            public void setMemberCardId(int memberCardId) {
-                this.memberCardId = memberCardId;
-            }
-
             public int getState() {
                 return state;
             }
@@ -133,28 +124,12 @@ public class WithdrawBean {
                 this.payType = payType;
             }
 
-            public int getReciveItemId() {
-                return reciveItemId;
+            public int getInorout() {
+                return inorout;
             }
 
-            public void setReciveItemId(int reciveItemId) {
-                this.reciveItemId = reciveItemId;
-            }
-
-            public String getCurrency() {
-                return currency;
-            }
-
-            public void setCurrency(String currency) {
-                this.currency = currency;
-            }
-
-            public int isInOrOut() {
-                return inOrOut;
-            }
-
-            public void setInOrOut(int inOrOut) {
-                this.inOrOut = inOrOut;
+            public void setInorout(int inorout) {
+                this.inorout = inorout;
             }
 
             public String getCoinId() {
@@ -165,6 +140,14 @@ public class WithdrawBean {
                 this.coinId = coinId;
             }
 
+            public String getCurrency() {
+                return currency;
+            }
+
+            public void setCurrency(String currency) {
+                this.currency = currency;
+            }
+
             public double getMoney() {
                 return money;
             }
@@ -173,35 +156,35 @@ public class WithdrawBean {
                 this.money = money;
             }
 
-            public double getAmount() {
+            public int getAmount() {
                 return amount;
             }
 
-            public void setAmount(double amount) {
+            public void setAmount(int amount) {
                 this.amount = amount;
             }
 
-            public double getActualAmount() {
+            public int getActualAmount() {
                 return actualAmount;
             }
 
-            public void setActualAmount(double actualAmount) {
+            public void setActualAmount(int actualAmount) {
                 this.actualAmount = actualAmount;
             }
 
-            public String getFee() {
+            public int getFee() {
                 return fee;
             }
 
-            public void setFee(String fee) {
+            public void setFee(int fee) {
                 this.fee = fee;
             }
 
-            public String getRatio() {
+            public double getRatio() {
                 return ratio;
             }
 
-            public void setRatio(String ratio) {
+            public void setRatio(double ratio) {
                 this.ratio = ratio;
             }
 
@@ -213,39 +196,47 @@ public class WithdrawBean {
                 this.msg = msg;
             }
 
-            public long getCreated() {
+            public String getCreated() {
                 return created;
             }
 
-            public void setCreated(long created) {
+            public void setCreated(String created) {
                 this.created = created;
             }
 
-            public long getUpdated() {
+            public Object getUpdated() {
                 return updated;
             }
 
-            public void setUpdated(long updated) {
+            public void setUpdated(Object updated) {
                 this.updated = updated;
+            }
+
+            public int getMemberCardId() {
+                return memberCardId;
+            }
+
+            public void setMemberCardId(int memberCardId) {
+                this.memberCardId = memberCardId;
             }
         }
 
-        public static class MemberPayTypeCardBean {
+        public static class ReciveItemBean {
             /**
-             * id : 8
-             * memberId : 10005
+             * id : 1
+             * memberId : 578
              * coinId : CNY
              * isEnabled : 1
              * type : 1
              * firstName : 骏
              * lastName : 熊
-             * bankName : 交通银行
+             * bankName : 中国银行
              * province : 北京
              * city : 北京
-             * receivingAccount : twst1234567890
-             * openingBank : 朝阳
-             * createUser : 10005
-             * createTime : 2020-08-31 10:52:55
+             * receivingAccount : 1101011990030655858744
+             * openingBank : 长阳
+             * createUser : 578
+             * createTime : 2020-09-24 17:24:20
              */
 
             private int id;

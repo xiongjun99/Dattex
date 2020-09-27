@@ -75,6 +75,14 @@ public class ApplyActivity extends BaseActivity{
         recyclerView.setLayoutManager(layoutManager);
         applyAdapter = new ApplyAdapter(list);
         recyclerView.setAdapter(applyAdapter);
+        View emptyView = LayoutInflater
+                .from(this)
+                .inflate(R.layout.order_empty_layout, null);
+        TextView tvEmptyName = (TextView)emptyView.findViewById(R.id.tv_empty_name);
+        tvEmptyName.setText("暂无记录");
+        applyAdapter.setUseEmpty(true);
+        applyAdapter.setEmptyView(emptyView);
+        recyclerView.setAdapter(applyAdapter);
         applyAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (LoginInfo.isSign()){
                 if (!"未中签".startsWith(list.get(position).getApplyTypeName())&&!"可申购".startsWith(list.get(position).getApplyTypeName())){

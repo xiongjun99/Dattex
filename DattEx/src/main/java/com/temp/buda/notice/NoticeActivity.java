@@ -63,7 +63,7 @@ public class NoticeActivity extends BaseActivity {
 //                startActivity(it);
                 Intent it = new Intent(NoticeActivity.this, WebViewActivity.class);
                 it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "公告");
-                it.putExtra(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL+"/#/article?id="+noticeAdapter.getData().get(position).getId());
+                it.putExtra(WebViewActivity.KEY_PARAM_URL, ApiAddress.BASE_URL+"/#/article?id="+noticeAdapter.getData().get(position).getId());
                 startActivity(it);
             }
         });

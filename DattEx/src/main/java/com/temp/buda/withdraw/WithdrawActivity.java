@@ -2,14 +2,24 @@ package com.temp.buda.withdraw;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,10 +27,14 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModel;
 
+import com.common.framework.basic.AppManager;
 import com.common.framework.basic.BaseActivity;
 import com.common.framework.basic.BaseApplication;
 import com.common.framework.click.SingleClick;
+import com.exchange.utilslib.DisplayUtil;
 import com.exchange.utilslib.LogUtil;
 import com.exchange.utilslib.LooperUtil;
 import com.exchange.utilslib.ToastUtil;
@@ -28,9 +42,12 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.buda.BR;
 import com.temp.buda.R;
 import com.temp.buda.bean.WithdrawBean;
+import com.temp.buda.buy.BuyActivity;
 import com.temp.buda.config.AssetsConfigs;
 import com.temp.buda.databinding.ActivityWithdrawBinding;
+import com.temp.buda.databinding.DialogLoadpayBinding;
 import com.temp.buda.net.DataService;
+import com.temp.buda.util.DialogUtil;
 import com.temp.buda.util.Utils;
 import com.temp.buda.widget.EditPop;
 import com.yzq.zxinglibrary.android.CaptureActivity;
@@ -71,13 +88,17 @@ import java.util.List;
 public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, WithdrawViewModel> {
     private EditText et_address,etAdressCode;
     private RadioButton rbUsdt,rbAdress;
-    private LinearLayout ll_address,ll_sell_usdt,ll_select_address,ll_exchangeType,ll_withdraw;
-    private RelativeLayout rlCollectionCard,rlConfirm;
+    private LinearLayout ll_address,ll_select_address,ll_exchangeType;
+    private RelativeLayout rlCollectionCard,rlConfirm,rl_sell_usdt,rl_withdraw;
     private TextView tvAdressCode,tvVerificationCode,tvConfirm,cnySymbol;
     private EditText etVerificationCode,etWithdrawAmount;
     private int reciveItemId,payType;
-    private int type = 1;
     private EditPop editPop;
+    private AlertDialog dialog;
+    private ProgressBar progressBar;
+    private ImageView ivOk;
+    private TextView tvOrderInfo ;
+
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_withdraw;
@@ -103,6 +124,9 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
     public void createPop() {
         if (editPop == null) {
             List<String> listData = new ArrayList<>();
+            for (int i = 0; i < viewModel.otc.get().getOtcCfgs().size(); i++) {
+                listData.add(viewModel.otc.get().getOtcCfgs().get(i).getCurrency());
+            }
             editPop = new EditPop(this,viewModel.pPosition.get());
             editPop.setAdapterData(listData, binding.line);
             editPop.setOnItemClickListener(viewModel);
@@ -143,10 +167,10 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         Bundle bundle = getIntent().getExtras();
         String balance  = bundle.getString("balance");
         viewModel.getBalance().set(balance);
-        System.out.println("----------"+balance);
         viewModel.getSellnumber().set(balance +" USDT");
         tvConfirm = (TextView)findViewById(R.id.tv_confirm);
         cnySymbol = (TextView)findViewById(R.id.cny_symbol);
@@ -155,10 +179,10 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
         etAdressCode = (EditText)findViewById(R.id.et_adresscode);
         etVerificationCode = (EditText)findViewById(R.id.et_verificationcode);
         ll_address = (LinearLayout)findViewById(R.id.ll_address);
-        ll_sell_usdt = (LinearLayout)findViewById(R.id.ll_sell_usdt);
+        rl_sell_usdt = (RelativeLayout) findViewById(R.id.rl_sell_usdt);
         ll_select_address = (LinearLayout)findViewById(R.id.ll_select_address);
         ll_exchangeType = (LinearLayout)findViewById(R.id.ll_exchangeType);
-        ll_withdraw = (LinearLayout)findViewById(R.id.ll_withdraw);
+        rl_withdraw = (RelativeLayout) findViewById(R.id.rl_withdraw);
         rlConfirm = (RelativeLayout) findViewById(R.id.rl_confirm);
         tvVerificationCode = (TextView)findViewById(R.id.tv_verificationcode);
         tvAdressCode = (TextView)findViewById(R.id.tv_adresscode);
@@ -167,7 +191,7 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
             AdresssendPhoneCode();
         });
         rlConfirm.setOnClickListener(view -> {
-            if (type ==0){
+            if (viewModel.type.get() == 0){
                 Confirm_Sell();
             } else {
                 doWithdraw();
@@ -182,18 +206,17 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
         rbAdress = (RadioButton) findViewById(R.id.rb_address);
         rbUsdt.setOnClickListener(view -> {
             ll_address.setVisibility(View.GONE);
-            ll_sell_usdt.setVisibility(View.VISIBLE);
+//            rl_sell_usdt.setVisibility(View.VISIBLE);
+            binding.tvRight.setText("出售记录");
             tvConfirm.setText(getResources().getString(R.string.Confirm_Sell));
-            type= 0;
-            ll_withdraw.setBackgroundColor(getResources().getColor(R.color.color_1A1C29));
+            viewModel.type.set(0);
         });
         rbAdress.setOnClickListener(view -> {
-
-            ll_withdraw.setBackgroundColor(getResources().getColor(R.color.color_282C42));
-            type = 1;
+            viewModel.type.set(1);
             ll_address.setVisibility(View.VISIBLE);
-            ll_sell_usdt.setVisibility(View.GONE);
+//            rl_sell_usdt.setVisibility(View.GONE);
             tvConfirm.setText(getResources().getString(R.string.Confirm_Withdraw));
+            binding.tvRight.setText("提币记录");
         });
         rlCollectionCard = (RelativeLayout)findViewById(R.id.rl_collection_card);
         rlCollectionCard.setOnClickListener(view -> {
@@ -243,8 +266,8 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
          DataService.getInstance().inoutWithdraw(etVerificationCode.getText().toString(),viewModel.getWithdrawCoin().get(),viewModel.number.get(),"CNY","",viewModel.accountPrice.get(),payType,reciveItemId).compose(ResponseTransformer.<WithdrawBean>handleResult()).subscribe(
          b -> {
              if (b.getRecord()!=null){
-              ToastUtil.show(BaseApplication.getInstance(),"操作成功");
-              finish();
+                 showDialog();
+                 timer.start();
              }
         }, t -> {
              ToastUtil.show(BaseApplication.getInstance(),"操作失败,"+ t.getMessage());
@@ -311,4 +334,41 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
                 break;
         }
     }
+    private void showDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_withdraw_load,null,false);
+        dialog = new AlertDialog.Builder(this).setView(view).create();
+         progressBar = view.findViewById(R.id.progress);
+         ivOk = view.findViewById(R.id.iv_ok);
+         tvOrderInfo = view.findViewById(R.id.tv_order_info);
+        WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
+        attributes.width = DisplayUtil.getScreenContentWidth(this)/2 + DisplayUtil.dp2px(this, 80);
+        attributes.height = DisplayUtil.getScreenContentHeight(this) - DisplayUtil.dp2px(this, 44);
+        attributes.gravity = Gravity.CENTER;
+        dialog.getWindow().setAttributes(attributes);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    CountDownTimer timer = new CountDownTimer(7000, 1000) {
+        public void onTick(long millisUntilFinished) {
+            tvOrderInfo.setText("买家已接单 " + ((millisUntilFinished / 1000) - 1) + " s");
+            if (millisUntilFinished / 1000 == 2){
+                ivOk.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+            } else {
+                ivOk.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            if (millisUntilFinished / 1000 == 1) {
+                dialog.dismiss();
+                dialog = null;
+                ToastUtil.show(WithdrawActivity.this,"操作成功");
+                finish();
+            } else {
+
+            }
+        }
+        public void onFinish() {
+        }
+    };
 }

@@ -41,6 +41,7 @@ import com.temp.buda.config.AssetsConfigs;
 import com.temp.buda.databinding.DialogLoadpayBinding;
 import com.temp.buda.net.DataService;
 import com.temp.buda.record.CoinRecordActivity;
+import com.temp.buda.record.RecordActivity;
 import com.temp.buda.util.DialogUtil;
 import com.temp.buda.util.Utils;
 import com.temp.buda.withdraworwallet.WithdrawOrWalletActivity;
@@ -91,7 +92,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     private ObservableField<Integer> id = new ObservableField<>(0);
     public ObservableField<String> OtcminAmount = new ObservableField<>("");
     public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
-    private ObservableField<Boolean> showOtc = new ObservableField<>(true);
+    private ObservableField<Boolean> showOtc = new ObservableField<>(false);
     private ObservableField<Bitmap> qrBitmap = new ObservableField<>();
     private ObservableField<Drawable> buyDrawable = new ObservableField<>(getApplication().getResources().getDrawable(R.drawable.drawable_button_cancel));
     private ObservableField<String> rechargeCoin = new ObservableField<>("USDT");
@@ -108,7 +109,8 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public ObservableField<OTCcfgBean> otc = new ObservableField<>();
     private ObservableField<String> unit = new ObservableField<>("");
     private ObservableField<Boolean> isOk = new ObservableField<>(false);
-   private String ext,card;
+   private  String ext,card;
+   private  float money;
 
 
 
@@ -238,10 +240,11 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     @SingleClick
     @Override
     public void rightClick() {
-        if (showOtc.get()==false){
+        if (showOtc.get()==true){
             Bundle bundle = new Bundle();
             bundle.putString(Constants.KEY_COIN_NAME, "USDT");
-            startActivity(WithdrawOrWalletActivity.class, bundle);
+            bundle.putInt(Constants.REQUEST_KEY_TYPE, 0);
+            startActivity(RecordActivity.class, bundle);
         }else {
             Bundle bundle = new Bundle();
             bundle.putInt(Constants.REQUEST_KEY_INOROUT, 0);
@@ -362,6 +365,11 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     CountDownTimer timer = new CountDownTimer(7000, 1000) {
         public void onTick(long millisUntilFinished) {
             count.set("卖家已接单 " + ((millisUntilFinished / 1000) - 1) + " s");
+            if (millisUntilFinished / 1000 == 2){
+                isOk.set(true);
+            } else {
+                isOk.set(false);
+            }
             if (millisUntilFinished / 1000 == 1) {
                 PayDialog.dismiss();
                 PayDialog = null;
@@ -371,7 +379,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
                 bundle.putInt("id", id.get());
                 bundle.putString("price", price.get());
                 bundle.putString("num", amount.get());
-                bundle.putString("amount", balance.get());
+                bundle.putString("amount", Utils.format8(money));
                 bundle.putString("name", name.get());
                 bundle.putString("ext", ext);
                 bundle.putString("card", card);
@@ -491,7 +499,6 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
                     if (b != null) {
                         exchangeType.set(b.getOtcCfgs().get(0).getCurrency());
                         price.set(String.valueOf(b.getOtcCfgs().get(0).getBuyRatio()));
-                        otc.set(b);
                         OtcminAmount.set(Utils.format0(b.getPayTypes().get(0).getMinIn()));
                         OtcMaxAmount.set(Utils.format0(b.getPayTypes().get(0).getMaxIn()));
                         unit.set(b.getOtcCfgs().get(0).getSymbol());
@@ -514,6 +521,7 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
                         id.set(b.getRecord().getId());
                         ext = b.getOtc().getExt();
                         card = b.getOtc().getCard();
+                        money = b.getRecord().getMoney();
                         timer.start();
                         DialogUtil.showWallPayDialog(AppManager.getActivityStack().peek(), this);
                     } else {

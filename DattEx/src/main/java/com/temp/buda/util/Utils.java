@@ -116,6 +116,11 @@ public class Utils {
         bd = bd.setScale(8, RoundingMode.HALF_UP);
         return bd.toString();
     }
+    public static String format8(float value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(8, RoundingMode.HALF_UP);
+        return bd.toString();
+    }
     public static String formatPlainString(String value) {
         BigDecimal bd = new BigDecimal(value);
         return bd.toPlainString();

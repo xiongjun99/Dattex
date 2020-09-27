@@ -50,7 +50,7 @@ public class CurrentRecyclerAdapter extends BaseQuickAdapter<OrdersBean.OrderIte
         TextView TextCurrentPrice = helper.getView(R.id.text_current_price);
         TextView tvTime = helper.getView(R.id.tv_time);
         TextView tvPlace = helper.getView(R.id.tv_place);
-        if ( mOrdertype ==0  ){
+        if ( mOrdertype ==0){
             tvMarketprice.setText(""+currentOrderBean.getMarketPrice());
             if (currentOrderBean.getProfitType()==0){
                 inCreaseValues.setSelected(true);

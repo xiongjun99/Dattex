@@ -56,13 +56,13 @@ public class CoverDialogViewModel extends BaseViewModel {
         DataService.getInstance().placePosition(orderId).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     ToastUtil.show(BaseApplication.getInstance(), "平仓成功");
-                    closeDialog();
                     tradeViewModel.onResume();
                 }, t -> {
                     ToastUtil.show(BaseApplication.getInstance(), t.getMessage());
                 }
 
         );
+        closeDialog();
     }
 
     public void setOrderId(long orderId) {

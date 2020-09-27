@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
@@ -30,10 +29,11 @@ import com.temp.buda.binding.adapter.TitleBarClickBindingAdapter;
 import com.temp.buda.config.AssetsConfigs;
 import com.temp.buda.net.DataService;
 import com.temp.buda.record.CoinRecordActivity;
+import com.temp.buda.record.RecordActivity;
 import com.temp.buda.util.Utils;
-import com.temp.buda.wallet.WalletModel;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*************************************************************************
@@ -92,12 +92,23 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
             "• 最小充值金额： " + minWithdraw.get() + " " + withdrawCoin + "，小于最小金额的充值将不会上账。");
     private ObservableField<String> price = new ObservableField<>("");
     public ObservableField<String> accountPrice = new ObservableField<>("0.000");
-    public ObservableField<List<OTCcfgBean>> otc = new ObservableField<>();
+    public ObservableField<OTCcfgBean> otc = new ObservableField<>();
     private ObservableField<String> payType = new ObservableField<>("请选择");
     private ObservableField<String> VerificationCode = new ObservableField<>("");
     public ObservableField<String> OtcminAmount = new ObservableField<>("");
     public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
     public ObservableField<Integer> pPosition = new ObservableField<>(0);
+    public ObservableField<Integer> type = new ObservableField<>(1);
+
+    public ObservableField<List<String>> getListData() {
+        return listData;
+    }
+
+    public void setListData(ObservableField<List<String>> listData) {
+        this.listData = listData;
+    }
+
+    public ObservableField<List<String>> listData = new ObservableField<>();
 
     public ObservableField<String> getVerificationCode() {
         return VerificationCode;
@@ -113,7 +124,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
         this.unit = unit;
     }
 
-    public WalletModel.UIChangeObservable uc = new WalletModel.UIChangeObservable();
+    public UIChangeObservable uc = new UIChangeObservable();
 
     public ObservableField<String> getMaxAmount() {
         return MaxAmount;
@@ -141,16 +152,12 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     }
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        if (getExchangeType().get().equals(otc.get().get(0).getData().getOtcCfgs().get(i).getCurrency())){
-//            getAccountPrice().set("");
-//            getNumber().set("");
-//            getUnit().set("");
-//        } else {
-//            getExchangeType().set(String.valueOf(otc.get().get(0).getData().getOtcCfgs().get(i).getCurrency()));
-//            getPrice().set(String.valueOf(otc.get().get(0).getData().getOtcCfgs().get(i).getSellRatio()));
-//            getUnit().set(otc.get().get(0).getData().getOtcCfgs().get(i).getSymbol());
-//        }
         uc.pop.setValue(false);
+        pPosition.set(i);
+        exchangeType.set(String.valueOf(otc.get().getOtcCfgs().get(i).getCurrency()));
+        price.set(String.valueOf(otc.get().getOtcCfgs().get(i).getBuyRatio()));
+        uc.pop.setValue(false);
+        unit.set(otc.get().getOtcCfgs().get(i).getSymbol());
     }
 
     @Override
@@ -184,11 +191,11 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
         this.payType = payType;
     }
 
-    public ObservableField<List<OTCcfgBean>> getOtc() {
+    public ObservableField<OTCcfgBean> getOtc() {
         return otc;
     }
 
-    public void setOtc(ObservableField<List<OTCcfgBean>> otc) {
+    public void setOtc(ObservableField<OTCcfgBean> otc) {
         this.otc = otc;
     }
     public ObservableField<String> getSellnumber() {
@@ -383,10 +390,17 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     @SingleClick
     @Override
     public void rightClick() {
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.REQUEST_KEY_INOROUT, 1);
-        bundle.putString(Constants.KEY_COIN_NAME, withdrawCoin.get());
-        startActivity(CoinRecordActivity.class, bundle);
+        if (type.get() == 0){
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.KEY_COIN_NAME, "USDT");
+            bundle.putInt(Constants.REQUEST_KEY_TYPE, 1);
+            startActivity(RecordActivity.class, bundle);
+        }else {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.REQUEST_KEY_INOROUT, 1);
+            bundle.putString(Constants.KEY_COIN_NAME, withdrawCoin.get());
+            startActivity(CoinRecordActivity.class, bundle);
+        }
     }
 
     @Override
@@ -417,7 +431,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     @Override
     public void onCreate() {
         super.onCreate();
-//        getOtcData();
+        getOtcData();
         withdrawCoin.set("USDT");
         NewAssetsBean coinInfo = AssetsConfigs.getInstance().getCoinInfo("USDT");
         DataService.getInstance().withdrawLimit(withdrawCoin.get()).compose(ResponseTransformer.<WithdrawLimitBean>handleResult()).subscribe(
@@ -437,12 +451,12 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
         DataService.getInstance().getOtcCfg().compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
                     if(b!=null){
-//                        exchangeType.set(otc.get().get(0).getData().getOtcCfgs().get(0).getCurrency());
-//                        price.set(""+otc.get().get(0).getData().getOtcCfgs().get(0).getSellRatio());
-//                        otc.set(b);
-//                        OtcminAmount.set(Utils.format0(otc.get().get(0).getData().getPayTypes().get(0).getMinOut()));
-//                        OtcMaxAmount.set(Utils.format0(otc.get().get(0).getData().getPayTypes().get(0).getMaxOut()));
-//                        unit.set(otc.get().get(0).getData().getOtcCfgs().get(0).getSymbol());
+                        exchangeType.set(b.getOtcCfgs().get(0).getCurrency());
+                        price.set(""+b.getOtcCfgs().get(0).getSellRatio());
+                        OtcminAmount.set(Utils.format0(b.getPayTypes().get(0).getMinOut()));
+                        OtcMaxAmount.set(Utils.format0(b.getPayTypes().get(0).getMaxOut()));
+                        unit.set(b.getOtcCfgs().get(0).getSymbol());
+                        otc.set(b);
                     }else {
                         ToastUtil.show(getApplication(),"获取配置失败");
                     }

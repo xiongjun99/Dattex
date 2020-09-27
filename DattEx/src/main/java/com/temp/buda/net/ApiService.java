@@ -23,6 +23,7 @@ import com.temp.buda.bean.OrdersBean;
 import com.temp.buda.bean.OtcDetailBean;
 import com.temp.buda.bean.PayTypeBean;
 import com.temp.buda.bean.RechargeBean;
+import com.temp.buda.bean.RecordBean;
 import com.temp.buda.bean.SymbolConfigBean;
 import com.temp.buda.bean.TradeDepthBean;
 import com.temp.buda.bean.UpdateBean;
@@ -128,7 +129,7 @@ public interface ApiService {
     Observable<BaseResponse<Object>> commitRealName(@Body Map<String, Object> param, @Header("x-app-token") String userToken);
 
     @POST(ApiAddress.ASSETS_RECORD)
-    Observable<BaseResponse<AssetsRecordBean>> assetsRecord(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
+    Observable<BaseResponse<RecordBean>> assetsRecord(@Header("x-app-token") String userToken, @Body Map<String, Object> param);
 
     @POST(ApiAddress.WITHDRAW_FINDWITHDRAWRECORD)
     Observable<BaseResponse<CoinRecordBean>> findWithdrawRecord(@Header("x-app-token") String userToken, @Body Map<String, Object> param);

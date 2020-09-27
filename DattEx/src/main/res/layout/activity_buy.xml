@@ -86,7 +86,7 @@
                 android:text="@string/amount" />
             <TextView
                 android:id="@+id/tv_amount"
-                android:text="加载中..."
+                android:text=""
                 android:layout_below="@+id/amount"
                 android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
@@ -121,7 +121,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/tv_bankaccount_copy"
             style="@style/White_TextView_Style"
-            android:text="加载中..." />
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_bankaccount_copy"
@@ -205,7 +205,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/tv_payeecopy"
             style="@style/White_TextView_Style"
-            android:text="加载中..." />
+            android:text="" />
         <TextView
             android:id="@+id/tv_payeecopy"
             android:layout_alignParentRight="true"
@@ -230,7 +230,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/tv_safety_copy"
             style="@style/White_TextView_Style"
-            android:text="加载中..." />
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_safety_copy"
@@ -262,7 +262,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
         style="@style/Orange_TextView_Style"
-        android:text="@string/proposal"
         />
 
     <RelativeLayout
@@ -304,7 +303,7 @@
                 android:paddingBottom="12dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:text="加载中..."
+                android:text=""
                 style="@style/White_TextView_Style"></TextView>
         </RelativeLayout>
 

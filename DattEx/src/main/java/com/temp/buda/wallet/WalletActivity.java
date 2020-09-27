@@ -2,7 +2,6 @@ package com.temp.buda.wallet;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.Observable;
@@ -14,9 +13,7 @@ import com.temp.buda.BR;
 import com.temp.buda.R;
 import com.temp.buda.adapter.WalletGridAdapter;
 import com.temp.buda.databinding.ActivityWalletBinding;
-import com.temp.buda.util.Utils;
 import com.temp.buda.widget.EditPop;
-import com.temp.buda.widget.FleXoPopWindow;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,10 +48,8 @@ import java.util.List;
  *************************************************************************/
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class WalletActivity extends BaseActivity<ActivityWalletBinding, WalletModel> {
-    private FleXoPopWindow fleXoPopWindow;
     private EditPop editPop,pay_Pop;
     private RadioButton rbBuy,rbWallet;
-    private EditText tvWithdrawAddress;
     private RecyclerView recyclerView;
     private WalletGridAdapter walletGridAdapter;
     @Override
@@ -87,6 +82,16 @@ public class WalletActivity extends BaseActivity<ActivityWalletBinding, WalletMo
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 walletGridAdapter.setNewData(viewModel.otc.get().getPayTypes().get(0).getInDefault());
+            }
+        });
+        viewModel.getShowOtc().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (viewModel.getShowOtc().get()==true){
+                    binding.tvRight.setText("购买记录");
+                }else {
+                    binding.tvRight.setText("充币记录");
+                }
             }
         });
     }
@@ -131,12 +136,10 @@ public class WalletActivity extends BaseActivity<ActivityWalletBinding, WalletMo
         viewModel.changeBalance(walletGridAdapter.getData().get(position))
                );
         rbBuy.setOnClickListener(view -> {
-               binding.tvRight.setText("购买记录");
             rbBuy.setChecked(true);
             rbWallet.setChecked(false);
         });
         rbWallet.setOnClickListener(view -> {
-            binding.tvRight.setText("充币记录");
             rbBuy.setChecked(false);
             rbWallet.setChecked(true);
         });

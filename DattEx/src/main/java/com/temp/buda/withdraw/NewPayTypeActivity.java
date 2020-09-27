@@ -15,6 +15,7 @@ import com.temp.buda.base.BaseActivity;
 import com.temp.buda.R;
 import com.temp.buda.adapter.WithdrawListAdapter;
 import com.temp.buda.bean.NewPayTypeBean;
+import com.temp.buda.bean.OTCcfgBean;
 import com.temp.buda.net.DataService;
 import com.temp.buda.widget.TitleBar;
 
@@ -74,13 +75,5 @@ public class NewPayTypeActivity extends BaseActivity {
                     withdrawListAdapter.setNewData(bean);
                 }, t -> ToastUtil.show(BaseApplication.getInstance(), t.getMessage())
         );
-//        String [] strings1 = {"建设银行","支付宝"};
-//        String [] strings2 = {"*********4342","*********3289"};
-//        for (int i = 0; i < strings1.length; i++) {
-//            WithDrawListBean data = new WithDrawListBean();
-//            data.setString1(strings1[i]);
-//            data.setString2(strings2[i]);
-//            list.add(data);
-//        }
     }
 }

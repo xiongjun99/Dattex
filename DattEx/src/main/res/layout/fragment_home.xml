@@ -175,7 +175,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
                 <androidx.viewpager.widget.ViewPager
+                    android:visibility="visible"
                     android:layout_marginTop="5dp"
                     android:id="@+id/function_view_pager"
                     android:layout_width="match_parent"
@@ -183,6 +189,7 @@
                     >
                 </androidx.viewpager.widget.ViewPager>
                 <me.relex.circleindicator.CircleIndicator
+                    android:visibility="gone"
                     android:layout_alignParentBottom="true"
                     android:id="@+id/function_indicator"
                     app:ci_drawable="@drawable/white_radius"

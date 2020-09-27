@@ -11,6 +11,7 @@ import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -124,15 +125,17 @@ public class BuyActivity extends Activity {
             ToastUtil.show(this,"已复制");
         });
         titleBar = (TitleBar) findViewById(R.id.title_bar);
-        titleBar.setLeftTwoClick(this);
+        titleBar.setNewLeftTwoClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             dialogType = 2;
+             showBuyDialog();
+            }
+        });
     }
 
     private void initData() {
-        int fstart = tvProposal.getText().toString().indexOf("支付方");
-        int fend = fstart + "支付方".length();
-        SpannableStringBuilder style = new SpannableStringBuilder(tvProposal.getText().toString());
-        style.setSpan(new ForegroundColorSpan(Color.WHITE), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        tvProposal.setText(style);
+
         if (getIntent().getStringExtra("payForType") != null) {
             tvAccountName.setText(getIntent().getStringExtra("payForType") + "收款账号");
         }
@@ -143,7 +146,7 @@ public class BuyActivity extends Activity {
             tvBuyBum.setText(getIntent().getStringExtra("num"));
         }
         if (getIntent().getStringExtra("amount") != null) {
-            tvAmount.setText(getIntent().getStringExtra("unit") + Utils.format4(Utils.multiply(getIntent().getStringExtra("price"),getIntent().getStringExtra("num"))) + "");
+            tvAmount.setText(getIntent().getStringExtra("unit") + getIntent().getStringExtra("amount")  + "");
         }
         if (getIntent().getStringExtra("name") != null) {
             tvPayee.setText(getIntent().getStringExtra("name"));
@@ -158,16 +161,24 @@ public class BuyActivity extends Activity {
         if (id > 0) {
             tvSafety.setText(id + "");
         }
+        tvProposal.setText("请使用"+getIntent().getStringExtra("payForType")+"完成转账，否则影响到账");
+        int fstart = tvProposal.getText().toString().indexOf(getIntent().getStringExtra("payForType"));
+        int fend = fstart + getIntent().getStringExtra("payForType").length();
+        SpannableStringBuilder style = new SpannableStringBuilder(tvProposal.getText().toString());
+        style.setSpan(new ForegroundColorSpan(Color.WHITE), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        tvProposal.setText(style);
     }
+    
     private void getTransferred() {
         DataService.getInstance().getTransferred(id).compose(ResponseTransformer.handleResult()).subscribe(
                 b -> {
-                    if(b!=null){
+                    if(b!=null) {
                         Intent it = new Intent(this,BuyDetailActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("price",tvPrice.getText().toString());
                         bundle.putString("num",tvBuyBum.getText().toString());
                         bundle.putString("amount",tvAmount.getText().toString());
+                        bundle.putInt("otcType",0);
                         bundle.putInt("id",id);
                         it.putExtras(bundle);//将bundle传入intent中。
                         startActivity(it);
@@ -220,6 +231,7 @@ public class BuyActivity extends Activity {
         }
         count = 0;
     }
+
     private Handler mhandler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1){
@@ -230,6 +242,7 @@ public class BuyActivity extends Activity {
             }
         }
     };
+
     public static String getTime(int seconds) {
         String standardTime;
         if (seconds <= 0){
@@ -243,6 +256,7 @@ public class BuyActivity extends Activity {
         }
         return standardTime;
     }
+
     public  void showBuyDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_buy,null,false);
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
@@ -254,15 +268,19 @@ public class BuyActivity extends Activity {
             tvDialogTitle.setText("您是否已完成转账？");
             tvConfirm.setText("我已转账");
             tvCancel.setText("重新转账");
-        } else {
-            tvDialogTitle.setText("您是否取消转账？");
+        } else if (dialogType == 1){
+            tvDialogTitle.setText("您是否取消订单？");
+            tvConfirm.setText("确定");
+            tvCancel.setText("取消");
+        }else if (dialogType == 2){
+            tvDialogTitle.setText("您是否取消订单？");
             tvConfirm.setText("确定");
             tvCancel.setText("取消");
         }
         tv_pricr.setText(tvAmount.getText().toString());
         tvCancel.setOnClickListener(v -> {
             //... To-do
-            dialog.dismiss();
+        dialog.dismiss();
         });
 
         tvConfirm.setOnClickListener(new View.OnClickListener() {
@@ -282,5 +300,15 @@ public class BuyActivity extends Activity {
         dialog.show();
         //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
         dialog.getWindow().setLayout((Utils.getScreenWidth(this)/4*3), LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK ) { //禁用返回键
+            //do something.
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
     }
 }

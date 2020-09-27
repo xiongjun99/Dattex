@@ -37,11 +37,10 @@ public class ApiAddress {
     public static final String NOTICE_DETAIL_URL = "http://www.baidu.com";
     public static final String USER_PROTOCOL_URL = "http://www.baidu.com";
     public static final String USER_INVITED_URL = "http://www.baidu.com";
-//    public static final String BASE_URL = "http://app.buda.tc:8088"; //生产
-    public static final String URL = "http://app.buda.tc"; //生产
+    public static final String BASE_URL = "http://app.buda.tc:8088"; //生产
     public static final String KF_URL = "http://kf.buda.tc"; //生产
-//    public static final String BASE_URL = "http://app.dattex.cc:8088"; //
-      public static final String BASE_URL = "http://45.132.238.178:8088";//测试
+//  public static final String BASE_URL = "http://app.dattex.cc:8088"; //
+//    public static final String BASE_URL = "http://45.132.238.178:8088";//测试
     public static final String WEB_SOCKET_URL = "ws://8.210.211.248:10088/imserver/10000";
     public static final String UPDATE_URL = "/app/common/version";
 //  public static final String WEB_SOCKET_URL = "ws://tanjj.zhangyueyouxi.com:10001/imserver/10000";
@@ -71,7 +70,7 @@ public class ApiAddress {
     public static final String APPLYCOIN = "/app/subscribe/applyCoin";
     public static final String INFOBYSYMBOL = "/app/exchange-coin/getInfoBySymbol";
     public static final String CREATE_REAL_NAME = "/app/member/create-real-name";
-    public static final String ASSETS_RECORD = "/app/wallet/assets-rec";
+    public static final String ASSETS_RECORD = "/app/otc/inout/list";
     public static final String KLINE_HISTORY = "/app/market/history/kline";
     public static final String WITHDRAW_CHECK = "/app/wallet/withdraw-conf/{coinId}";
     public static final String WITHDRAW_FINDWITHDRAWRECORD = "/app/wallet/findWithdrawRecord";

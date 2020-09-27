@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.common.framework.basic.BaseFragment;
@@ -25,14 +26,18 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.temp.buda.BR;
 import com.temp.buda.R;
+import com.temp.buda.adapter.HomeFunctionAdapter;
 import com.temp.buda.adapter.ImageNormalAdapter;
 import com.temp.buda.adapter.PagerAdapter;
 import com.temp.buda.bean.FuncListBean;
+import com.temp.buda.bean.HomeFunctionBean;
 import com.temp.buda.bean.NoticeBean;
 import com.temp.buda.databinding.FragmentHomeBinding;
 import com.temp.buda.net.ApiAddress;
 import com.temp.buda.net.DataService;
 import com.temp.buda.web.WebViewActivity;
+import com.temp.buda.widget.HorizontalPageLayoutManager;
+import com.temp.buda.widget.PagingScrollHelper;
 import com.temp.buda.widget.view.HomeViewFlipper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,7 +75,7 @@ import me.relex.circleindicator.CircleIndicator;
  * ```` ':.          ':::::::::'                  ::::..
  *                    '.:::::'                    ':'````..
  *************************************************************************/
-public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageViewModel> {
+public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageViewModel> implements PagingScrollHelper.onPageChangeListener {
     private ViewPager view_pager,functionViewPager;
     private PagerAdapter mAdapter,functionAdapter;
     private List<FuncListBean.AndroidBean> listBeans = new ArrayList<>();
@@ -78,6 +83,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     private RelativeLayout rlMarketTitle;
     private List<NoticeBean.RowsBean> noticeList = new ArrayList<>();
     private HomeViewFlipper viewFlipper;
+    private HomeFunctionAdapter homeFunctionAdapter;
+    private ArrayList<HomeFunctionBean> homeFunctionList = new ArrayList<>();;
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -129,17 +136,20 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                 b -> {
                     dismissLoading();
                     listBeans = b.getAndroid();
-                    for (int i = 0; i < listBeans.size(); i++) {
-                             int j =0;
-                            if(i%2==0){
-                                j++;
-                                functionList.add(new HomeFunctionFragment(j-1,listBeans));
+
+//                    for (int i = 0; i < listBeans.size(); i++) {
+//                        HomeFunctionBean data = new HomeFunctionBean(listBeans.get(i).getTitle(),listBeans.get(i).getContent(),listBeans.get(i).getIcon(),"",true);
+//                        homeFunctionList.add(data);
+//                        int j =0;
+//                            if(i%2==0){
+//                                j++;
+                                functionList.add(new HomeFunctionFragment(0,listBeans));
                                 functionViewPager.setAdapter(functionAdapter);
                                 functionAdapter.notifyDataSetChanged();
                                 indicator2.setViewPager(functionViewPager);
                                 indicator2.setVisibility(View.GONE);
-                            }
-                    }
+//                            }
+//                    }
                 }, t -> {
                     dismissLoading();
                     ToastUtil.show(getActivity(),t.getMessage());
@@ -151,6 +161,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
          notice.setOnClickListener(view -> {
 //             startActivity(NoticeActivity.class);
         });
+//        RecyclerView recyclerView = getActivity().findViewById(R.id.recycler_view);
+//        PagingScrollHelper scrollHelper = new PagingScrollHelper();//初始化横向管理器
+//        HorizontalPageLayoutManager horizontalPageLayoutManager = new HorizontalPageLayoutManager(1, 3);//这里两个参数是行列，这里实现的是一行三列
+//        homeFunctionAdapter = new HomeFunctionAdapter(homeFunctionList,getActivity());//设置适配器
+//        recyclerView.setAdapter(homeFunctionAdapter);
+//        scrollHelper.setUpRecycleView(recyclerView);//将横向布局管理器和recycler view绑定到一起
+//        scrollHelper.setOnPageChangeListener(this);//设置滑动监听
+//        recyclerView.setLayoutManager(horizontalPageLayoutManager);//设置为横向
+//        scrollHelper.updateLayoutManger();
+//        scrollHelper.scrollToPosition(0);//默认滑动到第一页
+//        recyclerView.setHorizontalScrollBarEnabled(true);
 
         list = new ArrayList<>();
         list.add(new HomeViewPagerFragment(0));
@@ -271,7 +292,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
                             itemVp.setOnClickListener(view -> {
                                 Bundle bundle = new Bundle();
                                 bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "公告");
-                                bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.URL+"/#/article?id="+id);
+                                bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.BASE_URL+"/#/article?id="+id);
                                 startActivity(WebViewActivity.class, bundle);
                             });
                             viewFlipper.addView(itemVp);
@@ -287,5 +308,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomePageView
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onPageChange(int index) {
+        //这里是配合圆点指示器实现的，可以忽略
+
     }
 }

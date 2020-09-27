@@ -52,24 +52,13 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         homeFunctionAdapter = new HomeFunctionAdapter(homeFunctionList,getActivity());
         recyclerView.setAdapter(homeFunctionAdapter);
         homeFunctionAdapter.setOnItemClickListener((adapter, view1, position) -> {
-               if (homeFunctionList.get(position).isWeb()==true && "帮助中心".equals(homeFunctionList.get(position).getmFunName())){
-//                   ToastUtil.show(getActivity(),"暂未开通");
-//                   Bundle bundle = new Bundle();
-//                   bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.HELP_CENTER_URL);
+            if (homeFunctionList.get(position).isWeb()==true && "帮助中心".equals(homeFunctionList.get(position).getmFunName())){
                    Intent it = new Intent(getActivity(), HelpActivity.class);
-//                   it.putExtras(bundle);
                    startActivity(it);
                } else if (homeFunctionList.get(position).isWeb()==true && "新闻公告".equals(homeFunctionList.get(position).getmFunName())){
-//                   ToastUtil.show(getActivity(),"暂未开通");
-                   //                    Bundle bundle = new Bundle();
-//                    bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.NEWS_NOTICE_URL);
-//                    Intent it = new Intent(getActivity(),WebViewActivity.class);
-//                    it.putExtras(bundle);
-//                    startActivity(it);
                    Intent it = new Intent(getActivity(), NoticeActivity.class);
-//                   it.putExtras(bundle);
                    startActivity(it);
-                }else if (homeFunctionList.get(position).isWeb()==false && "新币申购".equals(homeFunctionList.get(position).getmFunName())){
+                }else if (homeFunctionList.get(position).isWeb()==true && "新币申购增发".equals(homeFunctionList.get(position).getmFunName())){
                    Intent it = new Intent(getActivity(), ApplyActivity.class);
                    startActivity(it);
                }
