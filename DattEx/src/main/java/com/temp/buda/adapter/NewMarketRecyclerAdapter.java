@@ -22,7 +22,6 @@ public class NewMarketRecyclerAdapter extends BaseQuickAdapter<MarketListBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, MarketListBean marketBean) {
-        System.out.println("---------cccccccc"+marketBean.getCoinId());
         TextView tvCoinId = helper.getView(R.id.tv_coinid);
         tvCoinId.setText(marketBean.getCoinId());
         TextView tvChanges = helper.getView(R.id.tv_changes);

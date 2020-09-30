@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
     <string-array name="country_name">
-
         <item>安哥拉</item>
         <item>阿富汗</item>
         <item>阿尔巴尼亚</item>
@@ -192,8 +189,6 @@
         <item>基里巴斯</item>
         <item>瓦努阿图</item>
         <item>不丹</item>
-
-
     </string-array>
 
     <string-array name="country_code">

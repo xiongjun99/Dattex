@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.databinding.Observable;
@@ -143,6 +144,14 @@ public class KlineActivity extends BaseActivity<ActivityKlineBinding, KlineViewM
         });
         kLineChartView = (KLineChartView)findViewById(R.id.kline_chart_view);
         kLineChartView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        //      kLineChartView.setKlineState(Status.KlineStatus.TIME_LINE);
+      //kLineChartView.setKlineState(Status.KlineStatus.TIME_LINE);
+
+    }
+
+    @Override
+    public void initParam() {
+        super.initParam();
+        TextView tvCoinSymbol = (TextView)findViewById(R.id.tv_coinsymbol);
+        tvCoinSymbol.setText(viewModel.getCoinSymbol().get());
     }
 }

@@ -62,7 +62,7 @@ public class HelpActivity extends BaseActivity {
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent it = new Intent(HelpActivity.this, WebViewActivity.class);
                 it.putExtra(WebViewActivity.KEY_PARAM_TITLE, "帮助");
-                it.putExtra(WebViewActivity.KEY_PARAM_URL, ApiAddress.BASE_URL+"/#/article?id="+noticeAdapter.getData().get(position).getId());
+                it.putExtra(WebViewActivity.KEY_PARAM_URL, ApiAddress.WEB_URL+"/#/article?id="+noticeAdapter.getData().get(position).getId());
                 startActivity(it);
             }
         });

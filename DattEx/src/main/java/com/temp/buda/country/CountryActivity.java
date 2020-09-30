@@ -1,20 +1,35 @@
 package com.temp.buda.country;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.common.framework.basic.BaseActivity;
 import com.exchange.utilslib.LogUtil;
 import com.temp.buda.BR;
 import com.temp.buda.R;
+import com.temp.buda.adapter.ApplyAdapter;
+import com.temp.buda.adapter.CountryAdapter;
+import com.temp.buda.bean.CountryBean;
 import com.temp.buda.databinding.ActivityCountryBinding;
 import com.temp.buda.databinding.ItemCountryInfoBinding;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /*************************************************************************
  * Description   :
@@ -49,7 +64,10 @@ public class CountryActivity extends BaseActivity<ActivityCountryBinding, Countr
 
     private String[] countryNameList;
     private String[] countryCodeList;
-
+    private EditText et_Search;
+    private List<CountryBean> list = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private CountryAdapter adapter;
     @Override
     public int initContentView(Bundle savedInstanceState) {
         return R.layout.activity_country;
@@ -64,50 +82,65 @@ public class CountryActivity extends BaseActivity<ActivityCountryBinding, Countr
     public void initViewObservable() {
 
     }
-
-    @Override
-    public void initView() {
-
+    public void initData(){
+        if (list!=null&&list.size()>0){
+            list.clear();
+        }
         countryNameList = getResources().getStringArray(R.array.country_name);
         countryCodeList = getResources().getStringArray(R.array.country_code);
+        for (int i = 0; i < countryNameList.length; i++) {
+            CountryBean  data = new CountryBean();
+            data.setCountryCode(countryCodeList[i]);
+            data.setCountryName(countryNameList[i]);
+            list.add(data);
+        }
+        adapter.setNewData(list);
+   }
 
-        binding.recyclerViewCountryList.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerViewCountryList.setAdapter(new RecyclerView.Adapter<ViewHolder>() {
-            @NonNull
+    @SuppressLint("NewApi")
+    @Override
+    public void initView() {
+        et_Search = (EditText)findViewById(R.id.et_search);
+        et_Search.addTextChangedListener(new TextWatcher() {
             @Override
-            public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                ItemCountryInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_country_info, null, false);
-                binding.setCountryViewModel(viewModel);
-                return new ViewHolder(binding);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
-            public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-                holder.binding.setCountryName(countryNameList[position]);
-                holder.binding.setCountryCode(countryCodeList[position]);
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
-            public int getItemCount() {
-                if (null != countryNameList && countryNameList.length == countryCodeList.length) {
-                    return countryNameList.length;
-                } else {
-                    LogUtil.e("国家名称和国家编码不匹配");
-                    return 0;
-                }
+            public void afterTextChanged(Editable s) {
+               if (TextUtils.isEmpty(s)){
+                   initData();
+               }
             }
         });
-
-    }
-
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        ItemCountryInfoBinding binding;
-
-        ViewHolder(ItemCountryInfoBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
+        recyclerView = findViewById(R.id.recyclerViewCountryList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new CountryAdapter(list);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener((adapter1, view, position) -> {
+            viewModel.chooseCountryItem(adapter.getData().get(position).getCountryName(),adapter.getData().get(position).getCountryCode());
+        });
+        et_Search.setOnClickListener(view -> {
+            if (!TextUtils.isEmpty(et_Search.getText().toString())){
+                 List<CountryBean> newlist = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    String str = list.get(i).getCountryName();
+                    int result = str.indexOf(et_Search.getText().toString());
+                    if(result != -1){
+                        newlist.add(list.get(i));
+                    }
+                }
+                adapter.setNewData(newlist);
+            }
+        });
+        initData();
     }
 }

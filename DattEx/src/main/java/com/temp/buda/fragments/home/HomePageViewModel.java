@@ -16,8 +16,10 @@ import com.independ.framework.response.ResponseTransformer;
 import com.temp.buda.Constants;
 import com.temp.buda.R;
 import com.temp.buda.adapter.NewMarketRecyclerAdapter;
+import com.temp.buda.bean.BannerItemBean;
 import com.temp.buda.bean.MarketListBean;
 import com.temp.buda.kline.KlineActivity;
+import com.temp.buda.net.ApiAddress;
 import com.temp.buda.net.DataService;
 import com.temp.buda.notice.NoticeActivity;
 
@@ -81,7 +83,7 @@ public class HomePageViewModel extends BaseViewModel {
         this.list = list;
     }
 
-    public ObservableField<List<String>> urls = new ObservableField<>(new ArrayList<String>());
+    public ObservableField<List<BannerItemBean.RowsBean>> urls = new ObservableField<>();
     public ObservableField<String> bannerText = new ObservableField<>("");
     public ObservableField<String> bannerTextcN = new ObservableField<>("");
 
@@ -208,20 +210,15 @@ public class HomePageViewModel extends BaseViewModel {
 //            getAdapter().get().addData(symbols);
 //        }
         getMarketList(checkRank.get());
-//        DataService.getInstance().appBanner().compose(ResponseTransformer.handleResult()).subscribe(
-//                b -> {
-//                    if(null != b && b.size() != 0){
+        DataService.getInstance().appBanner().compose(ResponseTransformer.handleResult()).subscribe(
+                b -> {
+                    if(null != b && b.getRows().size() != 0){
 //                        urls.get().clear();
-//                        for (BannerItemBean bannerItemBean : b) {
-//                            if (bannerItemBean.isEnable()) {
-//                                urls.get().add(bannerItemBean.getUrl());
-//                            }
-//                        }
-//                    }
-//                    urls.notifyChange();
-//                }, t -> {
-//                    ToastUtil.show(getApplication(),t.getMessage());
-//                });
+                    urls.set(b.getRows());
+                    }
+                }, t -> {
+                    ToastUtil.show(getApplication(),t.getMessage());
+                });
     }
     @Override
     public void onResume() {

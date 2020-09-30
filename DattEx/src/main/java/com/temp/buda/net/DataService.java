@@ -340,7 +340,7 @@ public class DataService {
         return RetrofitClient.getInstance().create(ApiService.class).placePosition(LoginInfo.getUserToken(), orderId);
     }
 
-    public Observable<BaseResponse<List<BannerItemBean>>> appBanner() {
+    public Observable<BaseResponse<BannerItemBean>> appBanner() {
         return RetrofitClient.getInstance().create(ApiService.class).appBanner(LoginInfo.getUserToken());
     }
 

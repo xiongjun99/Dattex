@@ -46,7 +46,6 @@ public class CountryViewModel extends BaseViewModel {
         super(application);
     }
 
-
     @SingleClick
     public void chooseCountryItem(String countryName, String countryCode) {
         HashMap<String, String> params = new HashMap<>();

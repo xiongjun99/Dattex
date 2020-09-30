@@ -131,6 +131,7 @@ public class SymbolConfigBean extends BaseObservable implements Serializable {
     private String symbol;
     private int baseCoinScale;
     private String baseSymbol;
+    private String des;
     private int coinScale;
     private String coinSymbol;
     private int enable;
@@ -142,6 +143,77 @@ public class SymbolConfigBean extends BaseObservable implements Serializable {
     private int maxTradingOrder;
     private int maxTradingTime;
     private int zone;
+    private String blockQuery;
+    private String website;
+    private float circulateAmount;
+    private float crowdPrice;
+    private float totalAmount;
+    private String issueDate;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBlockQuery() {
+        return blockQuery;
+    }
+
+    public void setBlockQuery(String blockQuery) {
+        this.blockQuery = blockQuery;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public float getCirculateAmount() {
+        return circulateAmount;
+    }
+
+    public void setCirculateAmount(float circulateAmount) {
+        this.circulateAmount = circulateAmount;
+    }
+
+    public float getCrowdPrice() {
+        return crowdPrice;
+    }
+
+    public void setCrowdPrice(float crowdPrice) {
+        this.crowdPrice = crowdPrice;
+    }
+
+    public float getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(String issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
 
     public String getSymbol() {
         return symbol;

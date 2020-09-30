@@ -497,9 +497,9 @@
                             rcvAdapter="@{klineViewModel.Dealadapter}"
                             android:visibility="@{klineViewModel.bottomNav == BottomNav.DEAL? View.VISIBLE : View.GONE}"
                             />
-<!--                        <include-->
-<!--                            layout="@layout/view_kline_coin_intro"-->
-<!--                            android:visibility="@{klineViewModel.bottomNav == BottomNav.INTRO? View.VISIBLE : View.GONE}" />-->
+                        <include
+                            layout="@layout/view_kline_coin_intro"
+                            android:visibility="@{klineViewModel.bottomNav == BottomNav.INTRO? View.VISIBLE : View.GONE}" />
                     </LinearLayout>
             </LinearLayout>
         </com.icechao.klinelib.view.ScrollView>

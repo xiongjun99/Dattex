@@ -205,16 +205,14 @@ public class WithdrawActivity extends BaseActivity<ActivityWithdrawBinding, With
         rbUsdt = (RadioButton) findViewById(R.id.rb_usdt);
         rbAdress = (RadioButton) findViewById(R.id.rb_address);
         rbUsdt.setOnClickListener(view -> {
-            ll_address.setVisibility(View.GONE);
-//            rl_sell_usdt.setVisibility(View.VISIBLE);
+            viewModel.getIsCheck().set(false);
             binding.tvRight.setText("出售记录");
             tvConfirm.setText(getResources().getString(R.string.Confirm_Sell));
             viewModel.type.set(0);
         });
         rbAdress.setOnClickListener(view -> {
+            viewModel.getIsCheck().set(true);
             viewModel.type.set(1);
-            ll_address.setVisibility(View.VISIBLE);
-//            rl_sell_usdt.setVisibility(View.GONE);
             tvConfirm.setText(getResources().getString(R.string.Confirm_Withdraw));
             binding.tvRight.setText("提币记录");
         });

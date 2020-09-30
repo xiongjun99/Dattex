@@ -98,7 +98,27 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     public ObservableField<String> OtcminAmount = new ObservableField<>("");
     public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
     public ObservableField<Integer> pPosition = new ObservableField<>(0);
-    public ObservableField<Integer> type = new ObservableField<>(1);
+    public ObservableField<Integer> type = new ObservableField<>(0);
+    private ObservableField<Boolean> showOtc = new ObservableField<>(true);
+    private ObservableField<Boolean> isCheck = new ObservableField<>(true);
+
+    public ObservableField<Boolean> getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(ObservableField<Boolean> isCheck) {
+        this.isCheck = isCheck;
+    }
+
+
+    public ObservableField<Boolean> getShowOtc() {
+        return showOtc;
+    }
+
+    public void setShowOtc(ObservableField<Boolean> showOtc) {
+        this.showOtc = showOtc;
+    }
+
 
     public ObservableField<List<String>> getListData() {
         return listData;
@@ -390,7 +410,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
     @SingleClick
     @Override
     public void rightClick() {
-        if (type.get() == 0){
+        if (isCheck.get() == false){
             Bundle bundle = new Bundle();
             bundle.putString(Constants.KEY_COIN_NAME, "USDT");
             bundle.putInt(Constants.REQUEST_KEY_TYPE, 1);
@@ -444,6 +464,7 @@ public class WithdrawViewModel extends BaseViewModel implements TitleBarClickBin
                     ToastUtil.show(getApplication(),t.getMessage());
                 }
         );
+        System.out.println("----------"+isCheck.get());
     }
 
     @SuppressLint("CheckResult")

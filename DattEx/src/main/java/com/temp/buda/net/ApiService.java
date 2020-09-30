@@ -153,7 +153,7 @@ public interface ApiService {
     Observable<BaseResponse<Object>> removeMemberPayType(@Header("x-app-token") String userToken,@Body Map<String, Object> param);
 
     @POST(ApiAddress.APP_BANNER)
-    Observable<BaseResponse<List<BannerItemBean>>> appBanner(@Header("x-app-token") String userToken);
+    Observable<BaseResponse<BannerItemBean>> appBanner(@Header("x-app-token") String userToken);
 
 
     @POST(ApiAddress.DEAL_LIST)

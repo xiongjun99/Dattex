@@ -92,7 +92,9 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     private ObservableField<Integer> id = new ObservableField<>(0);
     public ObservableField<String> OtcminAmount = new ObservableField<>("");
     public ObservableField<String> OtcMaxAmount = new ObservableField<>("");
-    private ObservableField<Boolean> showOtc = new ObservableField<>(false);
+    private ObservableField<Boolean> showOtc = new ObservableField<>(true);
+    private ObservableField<Boolean> isCheck = new ObservableField<>(true);
+
     private ObservableField<Bitmap> qrBitmap = new ObservableField<>();
     private ObservableField<Drawable> buyDrawable = new ObservableField<>(getApplication().getResources().getDrawable(R.drawable.drawable_button_cancel));
     private ObservableField<String> rechargeCoin = new ObservableField<>("USDT");
@@ -109,6 +111,14 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     public ObservableField<OTCcfgBean> otc = new ObservableField<>();
     private ObservableField<String> unit = new ObservableField<>("");
     private ObservableField<Boolean> isOk = new ObservableField<>(false);
+
+    public ObservableField<Boolean> getIsCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(ObservableField<Boolean> isCheck) {
+        this.isCheck = isCheck;
+    }
    private  String ext,card;
    private  float money;
 
@@ -240,16 +250,16 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
     @SingleClick
     @Override
     public void rightClick() {
-        if (showOtc.get()==true){
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.KEY_COIN_NAME, "USDT");
-            bundle.putInt(Constants.REQUEST_KEY_TYPE, 0);
-            startActivity(RecordActivity.class, bundle);
-        }else {
+        if (isCheck.get()==true){
             Bundle bundle = new Bundle();
             bundle.putInt(Constants.REQUEST_KEY_INOROUT, 0);
             bundle.putString(Constants.KEY_COIN_NAME, rechargeCoin.get());
             startActivity(CoinRecordActivity.class, bundle);
+        }else {
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.KEY_COIN_NAME, "USDT");
+            bundle.putInt(Constants.REQUEST_KEY_TYPE, 0);
+            startActivity(RecordActivity.class, bundle);
         }
     }
 
@@ -310,12 +320,12 @@ public class WalletModel extends BaseViewModel implements TitleBarClickBindingAd
 
     @SingleClick
     public void recharge() {
-        showOtc.set(false);
+        isCheck.set(true);
     }
 
     @SingleClick
     public void buy() {
-        showOtc.set(true);
+       isCheck.set(false);
     }
 
     @SingleClick

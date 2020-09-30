@@ -114,7 +114,7 @@ public class ResetPasswordViewModel extends BaseViewModel {
     @SuppressLint("CheckResult")
     @SingleClick
     public void sendPhoneCode() {
-        if (TextUtils.isEmpty(mobile.get())||mobile.get().length()!=11){
+        if (TextUtils.isEmpty(mobile.get())||mobile.get().length()!=20){
             ToastUtil.show(getApplication(),"请填写正确的手机号");
             return;
         }

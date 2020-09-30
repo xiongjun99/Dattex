@@ -199,6 +199,10 @@
     <string name="input">请输入提币数量</string>
     <string name="input_sell">请输入出售数量</string>
     <string name="input_in">请输入购买数量</string>
+    <string name="in_record">购买记录</string>
+    <string name="recharge_record">充币记录</string>
+    <string name="extract_record">提币记录</string>
+    <string name="out_record">出售记录</string>
 
     <string name="comma">，</string>
     <string name="minnumber">最低卖出数量</string>

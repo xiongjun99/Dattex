@@ -27,8 +27,8 @@
             app:titleText="@string/text_register"
             app:titleTextColor="@color/color_FFFFFFFF" />
 
-
         <EditText
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -37,7 +37,8 @@
             android:drawableRight="@mipmap/icon_search"
             android:paddingTop="15dp"
             android:paddingBottom="17dp"
-            android:textColorHint="@color/color_FF4D5273" />
+            android:textColorHint="@color/color_FF4D5273"
+            android:textColor="@color/encode_view"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

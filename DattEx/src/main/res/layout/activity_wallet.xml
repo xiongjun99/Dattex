@@ -34,8 +34,8 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:visibility="gone"
-                    android:checked="false"
+                    android:visibility="@{walletModel.showOtc? View.GONE : View.VISIBLE}"
+                    android:checked="@{walletModel.showOtc ? false : true}"
                     android:id="@+id/rb_buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,14 +48,13 @@
                     android:paddingBottom="5dp"
                     android:text="购买USDT"
                     android:textColor="@drawable/selector_wallet_title_text" />
-
 <!--                android:background="@drawable/selector_wallet_title_right"-->
                 <RadioButton
-                    android:checked="true"
+                    android:checked="@{walletModel.showOtc ? true : false}"
                     android:id="@+id/rb_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/drawable_button_ensure"
+                    android:background="@{walletModel.showOtc? @drawable/drawable_button_ensure : @drawable/selector_wallet_title_right}"
                     android:onClick="@{()->walletModel.recharge()}"
                     android:button="@null"
                     android:gravity="center"
@@ -65,7 +64,6 @@
                     android:paddingBottom="5dp"
                     android:text="钱包充币"
                     android:textColor="@drawable/selector_wallet_title_text" />
-
             </RadioGroup>
 
             <RelativeLayout
@@ -81,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="充币记录"
+                    android:text="@{walletModel.isCheck ? @string/recharge_record : @string/in_record}"
                     android:textColor="@color/color_FFEDEEF2"
                     android:textSize="12dp" />
             </RelativeLayout>
@@ -92,14 +90,14 @@
             android:layout_height="1dp"
             android:background="@color/color_99000000" />
 
-        <LinearLayout
+         <LinearLayout
             android:background="@color/color_282C42"
-            android:visibility="@{walletModel.showOtc? View.VISIBLE : View.GONE}"
+            android:visibility="@{walletModel.isCheck ? View.GONE : View.VISIBLE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-        >
-       <LinearLayout
+            >
+            <LinearLayout
                 android:id="@+id/line"
                 android:onClick="@{()->walletModel.popDown()}"
                 android:layout_width="match_parent"
@@ -483,7 +481,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="@{walletModel.showOtc? View.GONE : View.VISIBLE}">
+            android:visibility="@{walletModel.isCheck ? View.VISIBLE : View.GONE}">
           <LinearLayout
            android:background="@color/color_282C42"
            android:layout_width="match_parent"

@@ -133,7 +133,7 @@ public class RegisterStepOneViewModel extends BaseViewModel {
     @SuppressLint("CheckResult")
     @SingleClick
     public void sendPhoneCode() {
-        if (TextUtils.isEmpty(userName.get())||userName.get().length()!=11){
+        if (TextUtils.isEmpty(userName.get())||userName.get().length()!=20){
             ToastUtil.show(getApplication(),"请填写正确的手机号");
             return;
         }
@@ -180,7 +180,7 @@ public class RegisterStepOneViewModel extends BaseViewModel {
     public void openProtocol() {
         Bundle bundle = new Bundle();
         bundle.putString(WebViewActivity.KEY_PARAM_TITLE, "协议");
-        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.BASE_URL+"/#/article?id=1");
+        bundle.putString(WebViewActivity.KEY_PARAM_URL, ApiAddress.WEB_URL+"/#/article?id=1");
         startActivity(WebViewActivity.class, bundle);
     }
 

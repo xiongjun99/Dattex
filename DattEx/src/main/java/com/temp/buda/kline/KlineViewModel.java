@@ -19,6 +19,7 @@ import com.common.framework.bus.SingleLiveEvent;
 import com.common.framework.click.SingleClick;
 import com.exchange.utilslib.ToastUtil;
 import com.google.gson.Gson;
+import com.google.zxing.datamatrix.encoder.SymbolInfo;
 import com.icechao.klinelib.adapter.KLineChartAdapter;
 import com.icechao.klinelib.formatter.IDateTimeFormatter;
 import com.icechao.klinelib.formatter.IValueFormatter;
@@ -96,7 +97,78 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
     public KlineViewModel.UIChangeObservable uc = new KlineViewModel.UIChangeObservable();
     private ObservableField<String> timeName = new ObservableField<>("");
     private ObservableField<List<String>> listData = new ObservableField<List<String>>();
+    private ObservableField<String> des = new ObservableField<>("");
+    private ObservableField<String> blockQuery = new ObservableField<>("");
+    private ObservableField<String> website = new ObservableField<>("");
+    private ObservableField<String> circulateAmount = new ObservableField<>("");
+    private ObservableField<String> crowdPrice = new ObservableField<>("");
+    private ObservableField<String> totalAmount = new ObservableField<>("");
+    private ObservableField<String> issueDate = new ObservableField<>("");
+    private ObservableField<String> coinSymbol = new ObservableField<>("");
 
+    public ObservableField<String> getCoinSymbol() {
+        return coinSymbol;
+    }
+
+    public void setCoinSymbol(ObservableField<String> coinSymbol) {
+        this.coinSymbol = coinSymbol;
+    }
+
+    public ObservableField<String> getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(ObservableField<String> issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public ObservableField<String> getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(ObservableField<String> totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public ObservableField<String> getCrowdPrice() {
+        return crowdPrice;
+    }
+
+    public void setCrowdPrice(ObservableField<String> crowdPrice) {
+        this.crowdPrice = crowdPrice;
+    }
+
+    public ObservableField<String> getCirculateAmount() {
+        return circulateAmount;
+    }
+
+    public void setCirculateAmount(ObservableField<String> circulateAmount) {
+        this.circulateAmount = circulateAmount;
+    }
+
+
+    public ObservableField<String> getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(ObservableField<String> website) {
+        this.website = website;
+    }
+
+    public ObservableField<String> getBlockQuery() {
+        return blockQuery;
+    }
+
+    public void setBlockQuery(ObservableField<String> blockQuery) {
+        this.blockQuery = blockQuery;
+    }
+    public ObservableField<String> getDes() {
+        return des;
+    }
+
+    public void setDes(ObservableField<String> des) {
+        this.des = des;
+    }
     public ObservableField<List<String>> getListData() {
         return listData;
     }
@@ -374,16 +446,16 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
             case DEAL://成交
                 break;
             case DEPTH://深度
-//                DataService.getInstance().getDepth(5).compose(ResponseTransformer.<List<TradeDepthBean>>handleResult()).subscribe(
-//                        list -> {
-//
-//                        }, t -> {
-//                            ToastUtil.show(BaseApplication.getInstance(), t.getMessage());
-//                        }
-//                );
                 break;
             case INTRO://简介
-      ToastUtil.show(getApplication(),"暂未开通");
+                des.set(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getDes());
+                blockQuery.set(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getBlockQuery());
+                website.set(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getWebsite());
+                circulateAmount.set(String.valueOf(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getCirculateAmount()));
+                crowdPrice.set(String.valueOf(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getCrowdPrice()));
+                totalAmount.set(String.valueOf(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getTotalAmount()));
+                issueDate.set(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getIssueDate());
+                coinSymbol.set(SymbolConfigs.getInstance().getSymbol(leftCoin.get() + "/" +rightCoin.get()).getCoinSymbol());
                 break;
         }
     }
@@ -446,7 +518,6 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
     public enum BottomNav {
         DEPTH(0), DEAL(1), INTRO(2);
         private int value;
-
         BottomNav(int value) {
             this.value = value;
         }
@@ -458,7 +529,7 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
             if(msg.what == 1){
                 // 将读取的内容追加显示在文本框中
                 Bundle b = msg.getData();
-                KlineDataBean.DataBean data= (KlineDataBean.DataBean) b.getSerializable("data");
+                KlineDataBean.DataBean data = (KlineDataBean.DataBean) b.getSerializable("data");
 //                showHeaderData1(data);
 //                updateKline1(data);
             }
@@ -474,7 +545,7 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
 
     @SuppressLint("CheckResult")
     private void loadKlineData() {
-        String symbol = leftCoin.get() + rightCoin.get();
+        String symbol = titleText.get();
         timer = new Timer();
         initKlineData(symbol);
         getMarketList();
@@ -492,7 +563,7 @@ public class KlineViewModel extends BaseViewModel implements WebSocket.SocketLis
                 }else if (bottomNav.get().value == 1){
                     getDealList();
                 }
-                DataService.getInstance().klineHistory(symbol.toLowerCase(), 1, period.get()).compose(ResponseTransformer.<KlineDataBean>handleResult()).subscribe(
+                DataService.getInstance().klineHistory(symbol, 1, period.get()).compose(ResponseTransformer.<KlineDataBean>handleResult()).subscribe(
                         k ->
                         {
                             updateKline(k);
